@@ -1,0 +1,59 @@
+Type: Package
+Package: bdpa4R
+Title: Big Data Preprocessing Architecture for R
+Version: 1.0.0
+Authors@R: 
+    c(person(given = "Miguel", 
+            family = "Ferreiro-Díaz", 
+            role = c("aut","cre"),
+            email = "miguel.ferreiro.diaz@gmail.com"),
+     person(given = "David", 
+            family = "Ruano-Ordás",
+            role = c("aut","ctr"),
+            email = "drordas@uvigo.es"),
+     person(given = "Tomás R.",
+            family= "Cotos-Yañez",
+            role = c("aut","ctr"),
+            email = "cotos@uvigo.es"),
+     person(given = "University of Vigo", 
+            role = c("cph")))
+Description: 
+        Provide a tool to easily build customized data flows to pre-process large volumes 
+    of information from different sources. To this end, bdpa4R allows to (i) easily use and 
+    create new functionalities and (ii) develop new data source extractors according to the 
+    user needs. Additionally, the package provides by default a predefined data flow 
+    to extract and preprocess the most relevant information (tokens, dates, ... ) from some textual 
+    sources (SMS, email, tweets, YouTube comments).
+Date: 2019-07-08
+License: GPL-3 + file LICENSE
+URL: https://github.com/miferreiro/bdpa4R
+BugReports: https://github.com/miferreiro/bdpa4R/issues
+Depends: 
+    R (>= 3.5.0)
+Imports: 
+    ini, 
+    magrittr, 
+    pipeR, 
+    purrr, 
+    R6, 
+    rlist,
+    svMisc,
+    tools, 
+    utils
+Suggests: 
+    cld2,
+    knitr,
+    readr, 
+    rex,
+    rjson, 
+    rmarkdown,
+    rtweet,
+    stringi, 
+    stringr,
+    textutils, 
+    tuber
+VignetteBuilder: knitr
+RoxygenNote: 6.1.1
+SystemRequirements: Python (>= 2.7)
+Encoding: UTF-8
+NeedsCompilation: no

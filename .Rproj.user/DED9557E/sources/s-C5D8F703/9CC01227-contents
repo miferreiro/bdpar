@@ -1,0 +1,9 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.httr-oauth$
+^cran-comments\.md$
+^CONTRIBUTING\.md$
+^README\.Rmd$
+^README\.md$
+^additional-material$
+^.travis.yml$
