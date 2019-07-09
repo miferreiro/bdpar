@@ -18,7 +18,7 @@
 
 ## 1. Starting
 
-The bdpa4R project is developed in an architecture for an R package.
+The bdpar project is developed in an architecture for an R package.
 
 In this document you will find a description of this environment and the instructions to know how to contribute correctly to this project.
 
@@ -50,7 +50,7 @@ Start working on the project is as simple as following the following steps:
 
 1. Install Git. If you are on Ubuntu enviroment is easily like execute `sudo apt-get install git`. It is also recommended that you install some Git viewer such as *gitk* or *qgit*.
 2. Clone the Git repository using the command:
-    *git clone https://github.com/miferreiro/bdpa4R.git*
+    *git clone https://github.com/miferreiro/bdpar.git*
 3. Install RStudio for R (optional but recommended):
      1. Download the IDE from https://www.rstudio.com/products/rstudio/download/
      2. Open the project in RStudio using *File...-->Open Project* and select the RProject file.
@@ -67,7 +67,7 @@ In the case that the documentation in the code has been added or modified, it wi
 
 To install the package using Github, it is necessary to have installed the *devtools* package and use the following command:
 ```R
-devtools::install_github(repo = "miferreiro/bdpa4R", ref = "master")
+devtools::install_github(repo = "miferreiro/bdpar", ref = "master")
 ```
 
 ## 5. Version control (Git)

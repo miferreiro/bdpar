@@ -1,6 +1,6 @@
 #
-# Bdpa4r provide a tool to easily build customized data flows to pre-process
-# large volumes of information from different sources. To this end, bdpa4R allows
+# Bdpar provide a tool to easily build customized data flows to pre-process
+# large volumes of information from different sources. To this end, bdpar allows
 # to (i) easily use and create new functionalities and (ii) develop new data
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title bdpa4r customized forward-pipe operator
+#' @title bdpar customized forward-pipe operator
 #'
 #' @description Defines a customized fordward pipe operator extending the
 #' features of classical \%>\%. Concretely \%>I\% is able to stop the pipelining
@@ -43,7 +43,7 @@
 #' is invalid.
 #'
 #' @param lhs an \code{\link{Instance}} object.
-#' @param rhs a function call using the bdpa4R semantics.
+#' @param rhs a function call using the bdpar semantics.
 #'
 #' @usage lhs \%>I\% rhs
 #'

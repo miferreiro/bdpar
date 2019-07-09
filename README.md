@@ -1,13 +1,14 @@
 
 [![Build
-Status](https://travis-ci.org/miferreiro/bdpa4R.svg?branch=master)](https://travis-ci.org/miferreiro/bdpa4R)
+Status](https://travis-ci.org/miferreiro/bdpar.svg?branch=master)](https://travis-ci.org/miferreiro/bdpar)
+[![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
-# bdpa4R
+# bdpar
 
 <div style="text-align: justify">
 
-Bdpa4R is a a tool to easily build customized data flows to pre-process
-large volumes of information from different sources. To this end, bdpa4R
+bdpar is a a tool to easily build customized data flows to pre-process
+large volumes of information from different sources. To this end, bdpar
 allows to (i) easily use and create new functionalities and (ii) develop
 new data source extractors according to the user needs. Additionally,
 the package provides by default a predefined data flow to extract and
@@ -65,11 +66,11 @@ that the user needs to realize their own preprocessing.
 </div>
 
 ``` r
-bdp4aR_object <- Bdp4aR$new(configurationFilePath = NULL,
-                            editConfigurationFile = FALSE) 
-bdp4aR_object$proccess_files(filesPath,
-                             pipe = SerialPipes$new(), 
-                             instanceFactory = InstanceFactory$new())
+bdpar_object <- Bdpar$new(configurationFilePath = NULL,
+                          editConfigurationFile = FALSE) 
+bdpar_object$proccess_files(filesPath,
+                            pipe = SerialPipes$new(), 
+                            instanceFactory = InstanceFactory$new())
 ```
 
 <div style="text-align: justify">
@@ -144,7 +145,7 @@ well as define *Pipes* that implement new functionalities. For this, it
 is necessary to create a class that inherits from *PipeGeneric* and
 implements the new functionality within the *pipe* method. In the case
 of using *Pipes* by default, you can consult more information in the
-package documentation through the command ?Bdpa4R.
+package documentation through the command ?bdpar.
 
 </div>
 
@@ -227,7 +228,7 @@ locale value.
 #### Install the development version from GitHub:
 
 ``` r
-devtools::install_github('miferreiro/bdpa4R')
+devtools::install_github('miferreiro/bdpar')
 ```
 
 ## Build with 🛠️
@@ -243,7 +244,7 @@ devtools::install_github('miferreiro/bdpa4R')
 <div style="text-align: justify">
 
 Please, read the
-<a href = https://github.com/miferreiro/bdpa4R/blob/master/CONTRIBUTING.md>CONTRIBUTING.md</a>
+<a href = https://github.com/miferreiro/bdpar/blob/master/CONTRIBUTING.md>CONTRIBUTING.md</a>
 for details of our code of conduct, and the process to send us pull
 requests.
 
@@ -252,13 +253,13 @@ requests.
 ## Wiki 📖
 
 You can find much more about how to use this project in our
-[Wiki](https://github.com/miferreiro/bdpa4R/wiki).
+[Wiki](https://github.com/miferreiro/bdpar/wiki).
 
 ## Version 📌
 
 We use [SemVer](http://semver.org/) for versioning. For all available
 versions, look at the [tags in this
-repository](https://github.com/miferreiro/bdpa4R/tags).
+repository](https://github.com/miferreiro/bdpar/tags).
 
 ## Authors ✒️
 
@@ -270,10 +271,8 @@ repository](https://github.com/miferreiro/bdpa4R/tags).
     [tomas-cotos](https://github.com/tomas-cotos)
 
 You can see the list of all contributors on
-<https://github.com/miferreiro/bdpa4R/contributors>.
+<https://github.com/miferreiro/bdpar/contributors>.
 
 ## Licence ⚖
 
-This project is under the License GPL-3 - look at the file
-[LICENSE.md](https://github.com/miferreiro/bdpa4R/blob/master/LICENSE)
-for more details.
+This project is under the License GPL-3.

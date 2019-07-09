@@ -2,7 +2,7 @@
 
 export("%>I%")
 export(AbbreviationPipe)
-export(Bdpa4R)
+export(Bdpar)
 export(Connections)
 export(ContractionPipe)
 export(ExtractorEml)

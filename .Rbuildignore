@@ -7,3 +7,4 @@
 ^README\.md$
 ^additional-material$
 ^.travis.yml$
+^CRAN-RELEASE$

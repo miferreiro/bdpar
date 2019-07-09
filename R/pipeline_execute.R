@@ -1,6 +1,6 @@
 #
-# Bdpa4r provide a tool to easily build customized data flows to pre-process
-# large volumes of information from different sources. To this end, bdpa4R allows
+# Bdpar provide a tool to easily build customized data flows to pre-process
+# large volumes of information from different sources. To this end, bdpar allows
 # to (i) easily use and create new functionalities and (ii) develop new data
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
@@ -110,7 +110,7 @@
 #' #Path where the configuration file are located
 #' configurationFilePath <- system.file("configurations",
 #'                                      "configurationsTemplate.ini",
-#'                                      package ="bdpa4R")
+#'                                      package ="bdpar")
 #'
 #' #Folder with the files to preprocess
 #' filesPath <- "testFiles"
@@ -168,7 +168,7 @@ pipeline_execute = function(configurationFilePath = NULL,
     } else {
       file_edit(file = system.file("configurations",
                                    "configurationsTemplate.ini",
-                                   package = "bdpa4R"),
+                                   package = "bdpar"),
                 wait = TRUE)
     }
   } else {
@@ -177,7 +177,7 @@ pipeline_execute = function(configurationFilePath = NULL,
 
       configurationFilePath <- system.file("configurations",
                                            "configurationsTemplate.ini",
-                                           package = "bdpa4R")
+                                           package = "bdpar")
     }
   }
 
@@ -199,6 +199,6 @@ pipeline_execute = function(configurationFilePath = NULL,
               class(instanceFactory))
   }
 
-  bdpa4R_object <- Bdpa4R$new(configurationFilePath)
-  bdpa4R_object$proccess_files(filesPath, pipe, instanceFactory)
+  bdpar_object <- Bdpar$new(configurationFilePath)
+  bdpar_object$proccess_files(filesPath, pipe, instanceFactory)
 }

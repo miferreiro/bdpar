@@ -3,14 +3,14 @@
 \docType{methods}
 \name{\%>I\%}
 \alias{\%>I\%}
-\title{bdpa4r customized forward-pipe operator}
+\title{bdpar customized forward-pipe operator}
 \usage{
 lhs \%>I\% rhs
 }
 \arguments{
 \item{lhs}{an \code{\link{Instance}} object.}
 
-\item{rhs}{a function call using the bdpa4R semantics.}
+\item{rhs}{a function call using the bdpar semantics.}
 }
 \value{
 the \code{\link{Instance}} modified by the methods it has traversed.

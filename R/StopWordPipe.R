@@ -1,6 +1,6 @@
 #
-# Bdpa4r provide a tool to easily build customized data flows to pre-process
-# large volumes of information from different sources. To this end, bdpa4R allows
+# Bdpar provide a tool to easily build customized data flows to pre-process
+# large volumes of information from different sources. To this end, bdpar allows
 # to (i) easily use and create new functionalities and (ii) develop new data
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
@@ -256,7 +256,7 @@ StopWordPipe <- R6Class(
 
       private$propertyLanguageName <- propertyLanguageName
 
-      private$resourcesStopWordsPath <- read.ini(Bdp4R[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesStopWordsPath
+      private$resourcesStopWordsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesStopWordsPath
 
     },
 
@@ -311,7 +311,7 @@ StopWordPipe <- R6Class(
                         ".json",
                         sep = "")
 
-      jsonData <- Bdp4R[["private_fields"]][["resourceHandler"]]$isLoadResource(JsonFile)
+      jsonData <- Bdpar[["private_fields"]][["resourceHandler"]]$isLoadResource(JsonFile)
 
       if (!is.null(jsonData)) {
 

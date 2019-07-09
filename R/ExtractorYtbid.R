@@ -1,6 +1,6 @@
 #
-# Bdpa4r provide a tool to easily build customized data flows to pre-process
-# large volumes of information from different sources. To this end, bdpa4R allows
+# Bdpar provide a tool to easily build customized data flows to pre-process
+# large volumes of information from different sources. To this end, bdpar allows
 # to (i) easily use and create new functionalities and (ii) develop new data
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
@@ -155,7 +155,7 @@ ExtractorYtbid <- R6Class(
 
       self$obtainId()
       #Singleton
-      Bdp4R[["private_fields"]][["connections"]]$startConnectionWithYoutube()
+      Bdpar[["private_fields"]][["connections"]]$startConnectionWithYoutube()
 
       return()
     },
@@ -174,7 +174,7 @@ ExtractorYtbid <- R6Class(
 
     obtainDate = function() {
 
-      cachePath <- read.ini(Bdp4R[["private_fields"]][["configurationFilePath"]])$cache$cachePathYtbid
+      cachePath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$cache$cachePathYtbid
 
       if (file.exists(
         paste(
@@ -216,7 +216,7 @@ ExtractorYtbid <- R6Class(
         dateYtbid <- ""
         sourceYtbid <- ""
 
-        Bdp4R[["private_fields"]][["connections"]]$checkRequestToYoutube()
+        Bdpar[["private_fields"]][["connections"]]$checkRequestToYoutube()
 
         comment <- tryCatch(
 
@@ -237,7 +237,7 @@ ExtractorYtbid <- R6Class(
         )
       }
 
-      Bdp4R[["private_fields"]][["connections"]]$addNumRequestToYoutube()
+      Bdpar[["private_fields"]][["connections"]]$addNumRequestToYoutube()
 
       if (!is.null(comment) && is.data.frame(comment)) {
 
@@ -332,7 +332,7 @@ ExtractorYtbid <- R6Class(
 
     obtainSource = function() {
 
-      cachePath <- read.ini(Bdp4R[["private_fields"]][["configurationFilePath"]])$cache$cachePathYtbid
+      cachePath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$cache$cachePathYtbid
 
       if (file.exists(
         paste(
@@ -379,7 +379,7 @@ ExtractorYtbid <- R6Class(
         dateYtbid <- ""
         sourceYtbid <- ""
 
-        Bdp4R[["private_fields"]][["connections"]]$checkRequestToYoutube()
+        Bdpar[["private_fields"]][["connections"]]$checkRequestToYoutube()
 
         comment <- tryCatch(
 
@@ -400,7 +400,7 @@ ExtractorYtbid <- R6Class(
         )
       }
 
-      Bdp4R[["private_fields"]][["connections"]]$addNumRequestToYoutube()
+      Bdpar[["private_fields"]][["connections"]]$addNumRequestToYoutube()
 
       if (!is.null(comment) && is.data.frame(comment)) {
 

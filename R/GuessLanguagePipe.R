@@ -1,6 +1,6 @@
 #
-# Bdpa4r provide a tool to easily build customized data flows to pre-process
-# large volumes of information from different sources. To this end, bdpa4R allows
+# Bdpar provide a tool to easily build customized data flows to pre-process
+# large volumes of information from different sources. To this end, bdpar allows
 # to (i) easily use and create new functionalities and (ii) develop new data
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
@@ -180,7 +180,7 @@ GuessLanguagePipe <- R6Class(
       if (languageTwitter
             && instance$getSpecificProperty("extension") %in% "twtid") {
 
-        cachePath <- read.ini(Bdp4R[["private_fields"]][["configurationFilePath"]])$cache$pathCacheTwtid
+        cachePath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$cache$pathCacheTwtid
 
         if (file.exists(paste(cachePath, "/_",
                                   instance$getSpecificProperty("target"),
