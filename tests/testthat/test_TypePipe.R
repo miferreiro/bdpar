@@ -25,11 +25,27 @@ test_that("pipeAll instance type error",{
   instanceInitial <- ExtractorSms$new(path)
 
   instance$setDate("")
-  instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+
+  if (Sys.info()[['sysname']] %in% "Windows") {
+    instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+  } else {
+    if (Sys.info()[['sysname']] %in% "Linux") {
+      instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\n")
+    }
+  }
+
   instance$setData("wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   instance$setSpecificProperty("target","ham")
   instance$setSpecificProperty("extension","tsms")
-  instance$setSpecificProperty("length_before_cleaning_text",132)
+
+  if (Sys.info()[['sysname']] %in% "Windows") {
+    instance$setSpecificProperty("length_before_cleaning_text",132)
+  } else {
+    if (Sys.info()[['sysname']] %in% "Linux") {
+      instance$setSpecificProperty("length_before_cleaning_text",131)
+    }
+  }
+
   instance$setSpecificProperty("userName",as.character(c()))
   instance$setSpecificProperty("hashtag",as.character(c()))
   instance$setSpecificProperty("URLs",as.character(c()))
