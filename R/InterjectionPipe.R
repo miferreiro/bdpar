@@ -176,6 +176,22 @@
 #' }
 #' }
 #' }
+#'
+#' \item{\bold{setResourcesInterjectionsPath:}}{
+#' sets the path of interjections resources.
+#' \itemize{
+#' \item{\emph{Usage:}}{
+#' \code{setResourcesInterjectionsPath(path)}
+#' }
+#' \item{\emph{Arguments:}}{
+#' \itemize{
+#' \item{\strong{path:}}{
+#' (\emph{character}) the new value of the path of interjections resources.
+#' }
+#' }
+#' }
+#' }
+#' }
 #' }
 #'
 #' @section Private fields:
@@ -201,7 +217,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import ini pipeR R6 rlist
 #' @export InterjectionPipe
 
 InterjectionPipe <- R6Class(
@@ -258,7 +274,7 @@ InterjectionPipe <- R6Class(
 
       private$propertyLanguageName <- propertyLanguageName
 
-      private$resourcesInterjectionsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesInterjectionsPath
+      private$resourcesInterjectionsPath <- ini::read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesInterjectionsPath
 
     },
 
@@ -271,7 +287,7 @@ InterjectionPipe <- R6Class(
       }
 
       if (!"logical" %in% class(removeInterjections)) {
-        stop("[FindUrlInStringBufferPipe][pipe][Error]
+        stop("[InterjectionPipe][pipe][Error]
                 Checking the type of the variable: removeInterjections ",
                   class(removeInterjections))
       }
@@ -364,13 +380,13 @@ InterjectionPipe <- R6Class(
     findInterjection = function(data, interjection) {
 
       if (!"character" %in% class(data)) {
-        stop("[InterjectionPipe][findInterjections][Error]
+        stop("[InterjectionPipe][findInterjection][Error]
                 Checking the type of the variable: data ",
                   class(data))
       }
 
       if (!"character" %in% class(interjection)) {
-        stop("[InterjectionPipe][findInterjections][Error]
+        stop("[InterjectionPipe][findInterjection][Error]
                 Checking the type of the variable: interjection ",
                   class(interjection))
       }
@@ -419,6 +435,19 @@ InterjectionPipe <- R6Class(
     getResourcesInterjectionsPath = function() {
 
       return(private$resourcesInterjectionsPath)
+    },
+
+    setResourcesInterjectionsPath = function(path) {
+
+      if (!"character" %in% class(path)) {
+        stop("[InterjectionPipe][setResourcesInterjectionsPath][Error]
+                Checking the type of the variable: path ",
+                  class(path))
+      }
+
+      private$resourcesInterjectionsPath <- path
+
+      return()
     }
   ),
 

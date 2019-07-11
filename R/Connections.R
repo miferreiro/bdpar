@@ -164,7 +164,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import ini R6
+#' @import ini R6 tools
 #' @export Connections
 
 Connections <- R6Class(

@@ -166,6 +166,22 @@ value of path of interjections resources.
 }
 }
 }
+
+\item{\bold{setResourcesInterjectionsPath:}}{
+sets the path of interjections resources.
+\itemize{
+\item{\emph{Usage:}}{
+\code{setResourcesInterjectionsPath(path)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{path:}}{
+(\emph{character}) the new value of the path of interjections resources.
+}
+}
+}
+}
+}
 }
 }
 

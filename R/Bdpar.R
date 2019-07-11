@@ -117,6 +117,9 @@
 #' (\emph{character}) path where the configuration file is located. The file
 #' must have the .ini extension. In the case that the argument is null, the
 #' default configuration file (configurationsTemplate.ini) will be used.
+#' },
+#' \item{\bold{resourceHandler}:}{
+#' (\emph{ResourceHandler}) object that handles the json resources files.
 #' }
 #' }
 #'
@@ -164,7 +167,8 @@
 #'                                      package ="bdpar")
 #'
 #' #Folder with the files to preprocess
-#' filesPath <- "testFiles"
+#' filesPath <- system.file("testFiles",
+#'                           package = "bdpar")
 #'
 #' #Object which indicates the pipes' flow
 #' pipe <- SerialPipe$new()
@@ -179,7 +183,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import R6 tools
+#' @import ini R6 tools
 #' @importFrom svMisc file_edit
 #' @importFrom utils write.table
 #' @export Bdpar
@@ -238,6 +242,7 @@ Bdpar <- R6Class(
 
       Bdpar[["private_fields"]][["configurationFilePath"]] <- configurationFilePath
       Bdpar[["private_fields"]][["connections"]] <- Connections$new(configurationFilePath)
+      Bdpar[["private_fields"]][["resourceHandler"]] <- ResourceHandler$new()
 
     },
 
@@ -279,6 +284,8 @@ Bdpar <- R6Class(
     #Initialize the object that handles the different types of connections with youtube and twitter
     connections = NULL,
     #Path where the file with keys are located.
-    configurationFilePath = NULL
+    configurationFilePath = NULL,
+    #Object that handles the json resources files.
+    resourceHandler = NULL
   )
 )

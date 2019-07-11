@@ -180,6 +180,22 @@ value of name of URLs.
 }
 }
 }
+
+\item{\bold{setNamesURLPatterns:}}{
+sets the name of URLs.
+\itemize{
+\item{\emph{Usage:}}{
+\code{setNamesURLPatterns(namesURLPatterns)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{namesURLPatterns:}}{
+(\emph{character}) the new value of the name of URLs.
+}
+}
+}
+}
+}
 }
 }
 

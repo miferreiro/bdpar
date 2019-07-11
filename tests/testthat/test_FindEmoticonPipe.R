@@ -1,0 +1,207 @@
+context("FindEmoticonPipe")
+
+test_that("initialize",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+
+  expect_silent(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps))
+})
+
+test_that("initialize propertyName type error",{
+
+  propertyName <- NULL
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+
+  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: propertyName NULL")
+})
+
+test_that("initialize alwaysBeforeDeps type error",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- NULL
+  notAfterDeps <- list()
+
+  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: alwaysBeforeDeps NULL")
+})
+
+test_that("initialize notAfterDeps type error",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- NULL
+
+  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: notAfterDeps NULL")
+
+})
+
+test_that("pipe removeEmoticon <- TRUE",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  path <- system.file(file.path("testFiles","_ham_",
+                                "30.tsms"),
+                      package = "bdpar")
+
+  instance <- ExtractorSms$new(path)
+  instance$setData("Hey I am :)")
+  removeEmoticon <- TRUE
+  instance <- pipe$pipe(instance, removeEmoticon)
+  expect_equal(instance$getSpecificProperty("emoticon"),":)")
+  expect_equal(instance$getData(),"Hey I am")
+
+})
+
+test_that("pipe removeEmoticon <- FALSE",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  path <- system.file(file.path("testFiles","_ham_",
+                                "30.tsms"),
+                      package = "bdpar")
+
+  instance <- ExtractorSms$new(path)
+  instance$setData("Hey I am :)")
+  removeEmoticon <- FALSE
+  instance <- pipe$pipe(instance, removeEmoticon)
+  expect_equal(instance$getSpecificProperty("emoticon"),":)")
+  expect_equal(instance$getData(),"Hey I am :)")
+
+})
+
+test_that("pipe Bad compatibility between Pipes.",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list("pipeExample")
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  path <- system.file(file.path("testFiles","_ham_",
+                                "30.tsms"),
+                      package = "bdpar")
+
+  instance <- ExtractorSms$new(path)
+  instance$addBanPipes("pipeExample")
+  instance$setData("Hey I am :)")
+  removeEmoticon <- TRUE
+  expect_error(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+
+})
+
+test_that("pipe instance type error",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  instance <- NULL
+  removeEmoticon <- TRUE
+  expect_error(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\]
+                Checking the type of the variable: instance NULL")
+
+})
+
+test_that("pipe removeEmoticon type error",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  path <- system.file(file.path("testFiles","_ham_",
+                                "30.tsms"),
+                      package = "bdpar")
+
+  instance <- ExtractorSms$new(path)
+  instance$setData("Hey I am :)")
+  removeEmoticon <- NULL
+  expect_error(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\]
+                Checking the type of the variable: removeEmoticon NULL")
+
+})
+
+test_that("pipe empty data",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  path <- system.file(file.path("testFiles","_ham_",
+                                "30.tsms"),
+                      package = "bdpar")
+
+  instance <- ExtractorSms$new(path)
+  instance$setData(":)")
+  removeEmoticon <- TRUE
+  expect_output(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Emoticon ")
+  expect_equal(instance$getSpecificProperty("emoticon"),":)")
+  expect_equal(instance$getData(),"")
+
+})
+
+test_that("findEmoticon",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  data <- ":)"
+
+  expect_equal(pipe$findEmoticon(data),":)")
+
+})
+
+test_that("findEmoticon data type error",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  data <- NULL
+
+  expect_error(pipe$findEmoticon(data),"\\[FindEmoticonPipe\\]\\[findEmoticon\\]\\[Error\\]
+                Checking the type of the variable: data NULL")
+
+})
+
+test_that("removeEmoticon",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  data <- ":)"
+
+  expect_equal(pipe$removeEmoticon(data)," ")
+
+})
+
+test_that("removeEmoticon data type error",{
+
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  data <- NULL
+
+  expect_error(pipe$removeEmoticon(data),"\\[FindEmoticonPipe\\]\\[removeEmoticon\\]\\[Error\\]
+                Checking the type of the variable: data NULL")
+
+})

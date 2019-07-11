@@ -147,8 +147,13 @@ ExtractorEml <- R6Class(
       path %>>%
         super$initialize()
 
-      read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$eml$PartSelectedOnMPAlternative %>>%
-        self$setPartSelectedOnMPAlternative()
+      if (!is.null(Bdpar[["private_fields"]][["configurationFilePath"]])) {
+        read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$eml$PartSelectedOnMPAlternative %>>%
+          self$setPartSelectedOnMPAlternative()
+      } else {
+        "text/plain" %>>%
+          self$setPartSelectedOnMPAlternative()
+      }
     },
 
     obtainDate = function() {
@@ -215,6 +220,12 @@ ExtractorEml <- R6Class(
     },
 
     setPartSelectedOnMPAlternative = function(PartSelectedOnMPAlternative) {
+
+      if (!"character" %in% class(PartSelectedOnMPAlternative)) {
+        stop("[ExtractorEml][setPartSelectedOnMPAlternative][Error]
+                Checking the type of the variable: PartSelectedOnMPAlternative ",
+                  class(PartSelectedOnMPAlternative))
+      }
 
       private$PartSelectedOnMPAlternative <- PartSelectedOnMPAlternative
 

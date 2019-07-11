@@ -93,7 +93,7 @@ ExtractorSms <- R6Class(
         stop("[ExtractorSms][initialize][Error]
                 Package \"readr\" needed for this class to work.
                   Please install it.",
-             call. = FALSE)
+                    call. = FALSE)
       }
 
       if (!"character" %in% class(path)) {
@@ -117,7 +117,7 @@ ExtractorSms <- R6Class(
     obtainSource = function() {
 
       super$getPath() %>>%
-        read_file() %>>%
+        readr::read_file() %>>%
           super$setSource()
 
       super$getSource() %>>%

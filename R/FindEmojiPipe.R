@@ -254,20 +254,6 @@ FindEmojiPipe <- R6Class(
 
       instance$addProperties(paste(emojisLocated),super$getPropertyName())
 
-      if (is.na(instance$getData()) ||
-          all(instance$getData() == "") ||
-          is.null(instance$getData())) {
-
-        message <- c( "The file: " , instance$getPath() , " has data empty on pipe Emoji")
-
-        instance$addProperties(message, "reasonToInvalidate")
-
-        cat("[FindEmojiPipe][pipe][Warning] ", message, " \n")
-
-        instance$invalidate()
-
-        return(instance)
-      }
       return(instance)
     },
 

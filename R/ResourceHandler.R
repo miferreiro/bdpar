@@ -152,7 +152,6 @@ ResourceHandler <- R6Class(
           return(NULL)
         }
       }
-      return(listResource)
     },
 
     getResources = function() {

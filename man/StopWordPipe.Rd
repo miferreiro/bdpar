@@ -164,6 +164,22 @@ value of path of stop words resources.
 }
 }
 }
+
+\item{\bold{setPathResourcesStopWords:}}{
+sets the path of stop words resources.
+\itemize{
+\item{\emph{Usage:}}{
+\code{setPathResourcesStopWords(path)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{path:}}{
+(\emph{character}) the new value of the path of stop words resources.
+}
+}
+}
+}
+}
 }
 }
 

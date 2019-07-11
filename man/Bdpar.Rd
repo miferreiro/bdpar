@@ -105,6 +105,9 @@ Twitter.
 (\emph{character}) path where the configuration file is located. The file
 must have the .ini extension. In the case that the argument is null, the
 default configuration file (configurationsTemplate.ini) will be used.
+},
+\item{\bold{resourceHandler}:}{
+(\emph{ResourceHandler}) object that handles the json resources files.
 }
 }
 }
@@ -152,7 +155,8 @@ configurationFilePath <- system.file("configurations",
                                      package ="bdpar")
 
 #Folder with the files to preprocess
-filesPath <- "testFiles"
+filesPath <- system.file("testFiles",
+                          package = "bdpar")
 
 #Object which indicates the pipes' flow
 pipe <- SerialPipe$new()

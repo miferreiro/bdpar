@@ -190,6 +190,22 @@
 #' }
 #' }
 #' }
+#'
+#' \item{\bold{setNamesURLPatterns:}}{
+#' sets the name of URLs.
+#' \itemize{
+#' \item{\emph{Usage:}}{
+#' \code{setNamesURLPatterns(namesURLPatterns)}
+#' }
+#' \item{\emph{Arguments:}}{
+#' \itemize{
+#' \item{\strong{namesURLPatterns:}}{
+#' (\emph{character}) the new value of the name of URLs.
+#' }
+#' }
+#' }
+#' }
+#' }
 #' }
 #'
 #' @section Public fields:
@@ -402,7 +418,7 @@ FindUrlPipe <- R6Class(
     putNamesURLPattern = function(resultOfURLPatterns) {
 
       if (!"list" %in% class(resultOfURLPatterns)) {
-        stop("[FindUrlPipe][putNamesPattern][Error]
+        stop("[FindUrlPipe][putNamesURLPattern][Error]
                 Checking the type of the variable: resultOfURLPatterns ",
                   class(resultOfURLPatterns))
       }
@@ -417,9 +433,35 @@ FindUrlPipe <- R6Class(
       return(private$URLPatterns)
     },
 
+    setURLPatterns = function(URLPatterns) {
+
+      if (!"list" %in% class(URLPatterns)) {
+        stop("[FindUrlPipe][setURLPatterns][Error]
+                Checking the type of the variable: URLPatterns ",
+                  class(URLPatterns))
+      }
+
+      private$URLPatterns <- URLPatterns
+
+      return()
+    },
+
     getNamesURLPatterns = function() {
 
       return(private$namesURLPatterns)
+    },
+
+    setNamesURLPatterns = function(namesURLPatterns) {
+
+      if (!"list" %in% class(namesURLPatterns)) {
+        stop("[FindUrlPipe][setNamesURLPatterns][Error]
+                Checking the type of the variable: namesURLPatterns ",
+                  class(namesURLPatterns))
+      }
+
+      private$namesURLPatterns <- namesURLPatterns
+
+      return()
     }
   ),
 

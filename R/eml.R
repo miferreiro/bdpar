@@ -37,8 +37,6 @@ read_emails <- function(email_file, PartSelectedOnMPAlternative){
   return(email)
 }
 
-
-
 getElement = function(filename, PartSelectedOnMPAlternative) {
 
   path <- paste("exec", "parse.py", sep = "/")

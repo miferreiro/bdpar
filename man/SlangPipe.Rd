@@ -172,6 +172,22 @@ value of path of slangs resources.
 }
 }
 }
+
+\item{\bold{setResourcesSlangsPath:}}{
+sets the path of slangs resources.
+\itemize{
+\item{\emph{Usage:}}{
+\code{setResourcesSlangsPath(path)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{path:}}{
+(\emph{character}) the new value of the path of slangs resources.
+}
+}
+}
+}
+}
 }
 }
 
