@@ -120,7 +120,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesStopWordsPath(path)
 
-  expect_output(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe StopWord  ")
+  expect_output(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe StopWord  ")
 
 })
 
@@ -146,7 +146,7 @@ test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
   removeStopWords <- TRUE
 
-  expect_output(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\]  The file: [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms has not an StopWordsJsonFile to apply to the language-> en  ")
+  expect_output(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\]  The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not an StopWordsJsonFile to apply to the language-> en  ")
 
 })
 
@@ -171,7 +171,7 @@ test_that("pipe wihtout language property",{
   instance$setData("you want an apple")
   removeStopWords <- TRUE
 
-  expect_output(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\]  The file: [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms has not language property  ")
+  expect_output(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\]  The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not language property  ")
 
 })
 

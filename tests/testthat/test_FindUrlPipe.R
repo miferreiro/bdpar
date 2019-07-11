@@ -214,7 +214,7 @@ test_that("pipe empty data",{
   URLPattern <- "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:(?:[[:alnum:]]+:(?:\\/{1,2}))|\\/{0,2}www\\.)(?:[\\w-]+(?:(?:\\.[\\w-]+)*))(?:(?:[\\w~?=-][.;,@?^=%&:\\/~+#-]?)*)[\\w@?^=%&\\/~+#,;!:<\\\\\"?-]?(?=(?:[<\\\\,;!\"?\\)]|\\s|$)))"
   URLPatterns <- list(URLPattern)
   namesURLPatterns <- list("UrlPattern")
-  expect_output(pipe$pipe(instance, removeUrl, URLPatterns, namesURLPatterns),"\\[FindUrlPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Url ")
+  expect_output(pipe$pipe(instance, removeUrl, URLPatterns, namesURLPatterns),"\\[FindUrlPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Url ")
   expect_equal(instance$getSpecificProperty("URLs"),c(UrlPattern = c("www.google.com")))
   expect_equal(instance$getData(),"")
 

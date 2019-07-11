@@ -120,7 +120,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesAbbreviationsPath(path)
 
-  expect_output(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Abbreviation  ")
+  expect_output(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Abbreviation  ")
 
 })
 
@@ -146,7 +146,7 @@ test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
   replaceAbbreviations <- TRUE
 
-  expect_output(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has not an abbreviationsJsonFile  to apply to the language -> en  ")
+  expect_output(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not an abbreviationsJsonFile  to apply to the language -> en  ")
 
 })
 
@@ -171,7 +171,7 @@ test_that("pipe wihtout language property",{
   instance$setData("D. something")
   replaceAbbreviations <- TRUE
 
-  expect_output(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has not language property")
+  expect_output(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not language property")
 
 })
 

@@ -120,7 +120,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesContractionsPath(path)
 
-  expect_output(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Contractions  ")
+  expect_output(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Contractions  ")
 
 })
 
@@ -146,7 +146,7 @@ test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
   replaceContractions <- TRUE
 
-  expect_output(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has not an contractionsJsonFile  to apply to the language -> en  ")
+  expect_output(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not an contractionsJsonFile  to apply to the language -> en  ")
 
 })
 
@@ -171,7 +171,7 @@ test_that("pipe wihtout language property",{
   instance$setData("I'm tall")
   replaceContractions <- TRUE
 
-  expect_output(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\:[:alnum:]\\/_-]*testFiles\\/_ham_\\/30\\.tsms  has not language property")
+  expect_output(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not language property")
 
 })
 
