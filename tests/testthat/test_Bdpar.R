@@ -146,11 +146,27 @@ test_that("Bdpar default flow of pipes with the examples files tsms",{
   file1 <- output[[1]]
 
   expect_equal(file1$getDate(),"")
-  expect_equal(file1$getSource(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+
+  if (Sys.info()[['sysname']] %in% "Windows") {
+    expect_equal(file1$getSource(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+  } else {
+    if (Sys.info()[['sysname']] %in% "Linux") {
+      expect_equal(file1$getSource(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\n")
+    }
+  }
+
   expect_equal(file1$getData(),"wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   expect_equal(file1$getSpecificProperty("target"),"ham")
   expect_equal(file1$getSpecificProperty("extension"),"tsms")
-  expect_equal(file1$getSpecificProperty("length_before_cleaning_text"),132)
+
+  if (Sys.info()[['sysname']] %in% "Windows") {
+    expect_equal(file1$getSpecificProperty("length_before_cleaning_text"),132)
+  } else {
+    if (Sys.info()[['sysname']] %in% "Linux") {
+      expect_equal(file1$getSpecificProperty("length_before_cleaning_text"),131)
+    }
+  }
+
   expect_equal(file1$getSpecificProperty("userName"),as.character(c()))
   expect_equal(file1$getSpecificProperty("hashtag"),as.character(c()))
   expect_equal(file1$getSpecificProperty("URLs"),as.character(c()))
@@ -190,11 +206,27 @@ test_that("Bdpar default flow of pipes with the examples files tsms",{
   file2 <- output[[2]]
 
   expect_equal(file2$getDate(),"")
-  expect_equal(file2$getSource(),"Guess what! Somebody you know secretly fancies you! Wanna find out who it is? Give us a call on 09065394514 From Landline DATEBox1282EssexCM61XN 150p/min 18\r\n")
+
+  if (Sys.info()[['sysname']] %in% "Windows") {
+    expect_equal(file2$getSource(),"Guess what! Somebody you know secretly fancies you! Wanna find out who it is? Give us a call on 09065394514 From Landline DATEBox1282EssexCM61XN 150p/min 18\r\n")
+  } else {
+    if (Sys.info()[['sysname']] %in% "Linux") {
+      expect_equal(file2$getSource(),"Guess what! Somebody you know secretly fancies you! Wanna find out who it is? Give us a call on 09065394514 From Landline DATEBox1282EssexCM61XN 150p/min 18\n")
+    }
+  }
+
   expect_equal(file2$getData(),"guess what! somebody you know secretly fancies you! wanna find out who it is? give us a call on 09065394514 from landline datebox1282essexcm61xn 150p/min 18")
   expect_equal(file2$getSpecificProperty("target"),"spam")
   expect_equal(file2$getSpecificProperty("extension"),"tsms")
-  expect_equal(file2$getSpecificProperty("length_before_cleaning_text"),158)
+
+  if (Sys.info()[['sysname']] %in% "Windows") {
+    expect_equal(file2$getSpecificProperty("length_before_cleaning_text"),158)
+  } else {
+    if (Sys.info()[['sysname']] %in% "Linux") {
+      expect_equal(file2$getSpecificProperty("length_before_cleaning_text"),157)
+    }
+  }
+
   expect_equal(file2$getSpecificProperty("userName"),as.character(c()))
   expect_equal(file2$getSpecificProperty("hashtag"),as.character(c()))
   expect_equal(file2$getSpecificProperty("URLs"),as.character(c()))

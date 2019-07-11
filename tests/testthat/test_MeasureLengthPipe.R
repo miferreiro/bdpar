@@ -56,7 +56,15 @@ test_that("pipe",{
   propertyName <- "length"
   nchar_conf <- TRUE
   instance <- pipe$pipe(instance, propertyName, nchar_conf)
-  expect_equal(instance$getSpecificProperty("length"),132)
+
+
+  if (Sys.info()[['sysname']] %in% "Windows") {
+    expect_equal(instance$getSpecificProperty("length"),132)
+  } else {
+    if (Sys.info()[['sysname']] %in% "Linux") {
+      expect_equal(instance$getSpecificProperty("length"),131)
+    }
+  }
 
 })
 
