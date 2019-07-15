@@ -217,10 +217,10 @@ test_that("pipeline_execute default flow of pipes with the examples files tsms",
   instanceFactory <- InstanceFactory$new()
 
   #Starting file preprocessing...
-  output <- pipeline_execute(configurationFilePath = configurationFilePath,
+  output <- suppressWarnings(pipeline_execute(configurationFilePath = configurationFilePath,
                              filesPath = filesPath,
                              pipe = pipe,
-                             instanceFactory = instanceFactory)
+                             instanceFactory = instanceFactory))
   file1 <- output[[1]]
 
   expect_equal(file1$getDate(),"")

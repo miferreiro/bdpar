@@ -230,16 +230,15 @@ Connections <- R6Class(
           ,
 
           error = function(e) {
-            print(e)
-            cat("[Connections][startConnectionWithTwitter][Error] Error on create_token",
-                  paste(e), "\n")
+            message("[Connections][startConnectionWithTwitter][Error] Error on create_token",
+                      paste(e), "\n")
           }
         )
 
         private$connectionWithTwitter <- TRUE
 
-        cat("[Connections][startConectionWithTwitter][Info] Twitter: established ",
-            "connection\n")
+        message("[Connections][startConectionWithTwitter][Info] Twitter: established ",
+                "connection\n")
       }
       return()
     },
@@ -256,29 +255,29 @@ Connections <- R6Class(
       tryCatch(
       {
         if (rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]] == 0) {
-          cat("[Connections][checkRequestToTwitter][Info] ",
-                paste(Sys.time()),"\n")
+          message("[Connections][checkRequestToTwitter][Info] ",
+                    paste(Sys.time()),"\n")
 
-          cat("[Connections][checkRequestToTwitter][Info] ",
-              "Waiting 15 min to be able to make new requests from twitter...\n")
+          message("[Connections][checkRequestToTwitter][Info] ",
+                  "Waiting 15 min to be able to make new requests from twitter...\n")
 
           Sys.sleep(900)
         } else{
-          cat("[Connections][checkRequestToTwitter][Info] ",
-                "There are ", rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]],
-                  " twitter requests to be consumed\n")
+          message("[Connections][checkRequestToTwitter][Info] ",
+                    "There are ", rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]],
+                      " twitter requests to be consumed\n")
         }
       }
       ,
         warning = function(w) {
-          cat("[Connections][checkRequestToTwitter][Warning]
-                    ", paste(w), " \n")
 
-          cat("[Connections][checkRequestToTwitter][Info] ",
-              paste(Sys.time()),"\n")
+          warning("[Connections][checkRequestToTwitter][Warning]", paste(w), " \n")
 
-          cat("[Connections][checkRequestToTwitter][Info] ",
-              "Waiting 15 min to be able to make new requests from twitter...\n")
+          message("[Connections][checkRequestToTwitter][Info] ",
+                  paste(Sys.time()),"\n")
+
+          message("[Connections][checkRequestToTwitter][Info] ",
+                  "Waiting 15 min to be able to make new requests from twitter...\n")
 
           Sys.sleep(900)
         }
@@ -304,8 +303,8 @@ Connections <- R6Class(
         private$connectionWithYoutube <- TRUE
 
 
-        cat("[Connections][startConnectionWithYoutube][Info] Youtube: established",
-            "connection\n")
+        message("[Connections][startConnectionWithYoutube][Info] Youtube: established",
+                "connection\n")
       }
 
       return()
@@ -321,8 +320,8 @@ Connections <- R6Class(
     checkRequestToYoutube = function() {
 
       if (private$numRequestToYoutube >= self$getNumRequestMaxToYoutube()) {
-        cat("[Connections][checkRequestToYoutube][Info] ",
-            "Waiting 15 min to be able to make new requests from youtube...\n")
+        message("[Connections][checkRequestToYoutube][Info] ",
+                "Waiting 15 min to be able to make new requests from youtube...\n")
         Sys.sleep(900)
         private$numRequestToYoutube <- 0
       }

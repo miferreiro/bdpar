@@ -94,13 +94,13 @@ SerialPipe <- R6Class(
                   class(instance));
       }
 
-      cat("[SerialPipe][pipeAll][Info] ", instance$getPath(), "\n")
+      message("[SerialPipe][pipeAll][Info] ", instance$getPath(), "\n")
 
       tryCatch(
         instance <- super$pipeAll(instance)
       ,
         error = function(e) {
-          cat("[SerialPipe][pipeAll][Error]", instance$getPath()," :", paste(e), "\n")
+          message("[SerialPipe][pipeAll][Error]", instance$getPath()," :", paste(e), "\n")
           instance$invalidate()
         }
       )

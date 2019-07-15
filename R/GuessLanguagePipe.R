@@ -226,7 +226,7 @@ GuessLanguagePipe <- R6Class(
 
               instance$addProperties(message, "reasonToInvalidate")
 
-              cat("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
+              warning("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
 
               instance$invalidate()
 
@@ -247,7 +247,7 @@ GuessLanguagePipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
+        warning("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

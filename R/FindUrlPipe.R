@@ -364,7 +364,7 @@ FindUrlPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[FindUrlPipe][pipe][Warning] ", message, " \n")
+        warning("[FindUrlPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

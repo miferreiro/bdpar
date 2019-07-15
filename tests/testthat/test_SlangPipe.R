@@ -120,7 +120,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesSlangsPath(path)
 
-  expect_output(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Slang  ")
+  expect_warning(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Slang ")
 
 })
 
@@ -146,7 +146,7 @@ test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
   replaceSlangs <- TRUE
 
-  expect_output(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not an SlangsJsonFile to apply to the language->  en  ")
+  expect_warning(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not an SlangsJsonFile to apply to the language-> en ")
 
 })
 
@@ -171,7 +171,7 @@ test_that("pipe wihtout language property",{
   instance$setData("yur name")
   replaceSlangs <- TRUE
 
-  expect_output(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not language property")
+  expect_warning(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not language property")
 
 })
 

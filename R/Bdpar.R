@@ -273,7 +273,7 @@ Bdpar <- R6Class(
       #Create the list of instances, which will contain the date, source, path, data
       #and a list of properties of the file that is in the indicated path
       InstancesList <- sapply(Files, instanceFactory$createInstance)
-      cat("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.\n")
+      message("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.\n")
       listInstances <- sapply(InstancesList, pipe$pipeAll)
 
       return(listInstances)

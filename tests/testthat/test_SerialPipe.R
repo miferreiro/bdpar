@@ -81,7 +81,7 @@ test_that("pipeAll instance type error",{
   instance$addFlowPipes("TeeCSVPipe")
 
   instance$addBanPipes(c("FindUrlPipe","FindHashtagPipe","AbbreviationPipe"))
-  SerialPipe$new()$pipeAll(instanceInitial)
+  suppressWarnings(SerialPipe$new()$pipeAll(instanceInitial))
   expect_equal(instanceInitial, instance)
 
   file.remove("output_tsms.csv")

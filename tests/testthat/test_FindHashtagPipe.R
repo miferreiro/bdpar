@@ -146,7 +146,7 @@ test_that("pipe empty data",{
   instance <- ExtractorSms$new(path)
   instance$setData("#example")
   removeHashtag <- TRUE
-  expect_output(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Hashtag ")
+  expect_warning(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Hashtag ")
   expect_equal(instance$getSpecificProperty("hashtag"),"#example")
   expect_equal(instance$getData(),"")
 

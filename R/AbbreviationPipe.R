@@ -315,8 +315,8 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        cat("[AbbreviationPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() ," has not language property\n")
+        warning("[AbbreviationPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() ," has not language property\n")
 
         return(instance)
       }
@@ -359,9 +359,9 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        cat("[AbbreviationPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() , " has not an abbreviationsJsonFile ",
-            "to apply to the language ->", languageInstance, " \n")
+        warning("[AbbreviationPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() , " has not an abbreviationsJsonFile ",
+                "to apply to the language ->", languageInstance, " \n")
 
         return(instance)
       }
@@ -374,9 +374,10 @@ AbbreviationPipe <- R6Class(
                       " has data empty on pipe Abbreviation")
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[AbbreviationPipe][pipe][Warning] ", message, " \n")
+        warning("[AbbreviationPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
+
         return(instance)
       }
 

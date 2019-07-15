@@ -99,7 +99,7 @@ test_that("pipe",{
 
   instance <- ExtractorSms$new(path)
 
-  expect_output(pipe$pipe(instance),"\\[StoreFileExtPipe\\]\\[pipe\\]\\[Warning\\]  The file:  example/exam  has not an extension")
+  expect_warning(pipe$pipe(instance),"\\[StoreFileExtPipe\\]\\[pipe\\]\\[Warning\\] The file: example/exam has not an extension")
 
 
 })

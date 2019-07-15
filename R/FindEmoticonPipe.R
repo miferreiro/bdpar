@@ -253,7 +253,7 @@ FindEmoticonPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[FindEmoticonPipe][pipe][Warning] ", message, " \n")
+        warning("[FindEmoticonPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

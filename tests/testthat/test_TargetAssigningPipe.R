@@ -126,7 +126,7 @@ test_that("pipe unrecognizable target",{
 
   instance <- ExtractorSms$new(path)
 
-  expect_output(pipe$pipe(instance),"\\[TargetAssigningPipe\\]\\[pipe\\]\\[Warning\\]  The file:  testFiles/_pan_/30.tsms  has a target unrecognizable  ")
+  expect_warning(pipe$pipe(instance),"\\[TargetAssigningPipe\\]\\[pipe\\]\\[Warning\\] The file: testFiles/_pan_/30.tsms has a target unrecognizable ")
 })
 
 

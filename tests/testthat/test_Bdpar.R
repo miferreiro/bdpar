@@ -140,9 +140,9 @@ test_that("Bdpar default flow of pipes with the examples files tsms",{
   instanceFactory <- InstanceFactory$new()
 
   #Starting file preprocessing...
-  output <- object$proccess_files(filesPath,
-                                  pipe = pipe,
-                                  instanceFactory = instanceFactory)
+  output <- suppressWarnings(object$proccess_files(filesPath,
+                             pipe = pipe,
+                             instanceFactory = instanceFactory))
   file1 <- output[[1]]
 
   expect_equal(file1$getDate(),"")

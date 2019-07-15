@@ -120,7 +120,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesInterjectionsPath(path)
 
-  expect_output(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe Interjection  ")
+  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Interjection ")
 
 })
 
@@ -146,7 +146,7 @@ test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
   removeInterjections <- TRUE
 
-  expect_output(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not an interjectionsJsonFile  to apply to the language -> en  ")
+  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not an interjectionsJsonFile to apply to the language ->en ")
 
 })
 
@@ -171,7 +171,7 @@ test_that("pipe wihtout language property",{
   instance$setData("yeah I like it")
   removeInterjections <- TRUE
 
-  expect_output(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has not language property")
+  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not language property")
 
 })
 

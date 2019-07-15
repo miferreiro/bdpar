@@ -320,7 +320,7 @@ SlangPipe <- R6Class(
 
         message <- c( "The file: ", instance$getPath(), " has not language property")
 
-        cat("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message, " \n")
 
         return(instance)
       }
@@ -360,7 +360,7 @@ SlangPipe <- R6Class(
 
         message <- c( "The file: ", instance$getPath(), " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
 
-        cat("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message, " \n")
 
 
         return(instance)
@@ -373,7 +373,7 @@ SlangPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

@@ -313,7 +313,7 @@ InterjectionPipe <- R6Class(
 
         message <- c( "The file: " , instance$getPath() , " has not language property")
 
-        cat("[InterjectionPipe][pipe][Warning] ", message, " \n")
+        warning("[InterjectionPipe][pipe][Warning] ", message, " \n")
 
         return(instance)
       }
@@ -352,7 +352,7 @@ InterjectionPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        cat("[InterjectionPipe][pipe][Warning] ",
+        warning("[InterjectionPipe][pipe][Warning] ",
             "The file: " , instance$getPath() , " has not an interjectionsJsonFile ",
             "to apply to the language ->", languageInstance, " \n")
 
@@ -367,7 +367,7 @@ InterjectionPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[InterjectionPipe][pipe][Warning] ", message, " \n")
+        warning("[InterjectionPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

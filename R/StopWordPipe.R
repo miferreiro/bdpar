@@ -315,7 +315,7 @@ StopWordPipe <- R6Class(
                 " has not language property",
                 sep = "")
 
-        cat("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
 
 
         return(instance)
@@ -365,7 +365,7 @@ StopWordPipe <- R6Class(
             sep = ""
           )
 
-        cat("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
 
         return(instance)
       }
@@ -378,7 +378,7 @@ StopWordPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

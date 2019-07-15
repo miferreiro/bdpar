@@ -125,7 +125,7 @@ freduce = function(value, function_list)
     for (i in 1:(k - 1L)) {
       value <- function_list[[i]](value)
       if (!value$isInstanceValid()) {
-        cat("[pipeOperator][freduce][Info] The instance ", value$getPath(),
+        message("[pipeOperator][freduce][Info] The instance ", value$getPath(),
             " is invalid and will not continue through the flow of pipes\n")
         break
       }

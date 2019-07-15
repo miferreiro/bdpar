@@ -251,7 +251,7 @@ FindHashtagPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[FindHashtagPipe][pipe][Warning] ", message, " \n")
+        warning("[FindHashtagPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

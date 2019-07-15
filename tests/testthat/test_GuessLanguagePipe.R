@@ -76,7 +76,7 @@ test_that("pipe no detect language",{
   instance$setData("try")
   languageTwitter <- TRUE
 
-  expect_output(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has a null language")
+  expect_warning(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has a null language")
 
 })
 

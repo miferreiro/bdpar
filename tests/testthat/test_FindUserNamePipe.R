@@ -146,7 +146,7 @@ test_that("pipe empty data",{
   instance <- ExtractorSms$new(path)
   instance$setData("@example")
   removeUser <- TRUE
-  expect_output(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms  has data empty on pipe UserName ")
+  expect_warning(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe UserName ")
   expect_equal(instance$getSpecificProperty("userName"),"@example")
   expect_equal(instance$getData(),"")
 

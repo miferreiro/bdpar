@@ -251,7 +251,7 @@ FindUserNamePipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[FindUserNamePipe][pipe][Warning] ", message, " \n")
+        warning("[FindUserNamePipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

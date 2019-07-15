@@ -313,8 +313,8 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        cat("[ContractionPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() ," has not language property\n")
+        warning("[ContractionPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() ," has not language property\n")
 
         return(instance)
 
@@ -359,9 +359,9 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        cat("[ContractionPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() , " has not an contractionsJsonFile ",
-            "to apply to the language ->", languageInstance, " \n")
+        warning("[ContractionPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() , " has not an contractionsJsonFile ",
+                "to apply to the language ->", languageInstance, " \n")
 
         return(instance)
       }
@@ -374,7 +374,7 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[ContractionPipe][pipe][Warning] ", message, " \n")
+        warning("[ContractionPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

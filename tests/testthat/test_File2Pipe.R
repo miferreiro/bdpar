@@ -72,7 +72,7 @@ test_that("pipe empty source",{
                       package = "bdpar")
 
   instance <- ExtractorSms$new(path)
-  expect_output(pipe$pipe(instance),"\\[File2Pipe\\]\\[pipe\\]\\[Warning\\]  The file:  [\\\\\\:[:alnum:]\\/_.-]*testFiles_ExtractorSms\\/example_File2Pipe_empty\\.tsms  has source empty")
+  expect_warning(pipe$pipe(instance),"\\[File2Pipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles_ExtractorSms\\/example_File2Pipe_empty\\.tsms has source empty")
 
 })
 
