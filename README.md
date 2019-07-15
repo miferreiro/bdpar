@@ -4,7 +4,7 @@ Status](https://travis-ci.org/miferreiro/bdpar.svg?branch=develop)](https://trav
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![codecov](https://codecov.io/gh/miferreiro/bdpar/branch/develop/graph/badge.svg)](https://codecov.io/gh/miferreiro/bdpar)
 
-# bdpar
+# Big Data Preprocessing Architecture
 
 <div style="text-align: justify">
 
