@@ -147,8 +147,13 @@ ExtractorEml <- R6Class(
       path %>>%
         super$initialize()
 
-      read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$eml$PartSelectedOnMPAlternative %>>%
-        self$setPartSelectedOnMPAlternative()
+      if (!is.null(Bdpar[["private_fields"]][["configurationFilePath"]])) {
+        read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$eml$PartSelectedOnMPAlternative %>>%
+          self$setPartSelectedOnMPAlternative()
+      } else {
+        "text/plain" %>>%
+          self$setPartSelectedOnMPAlternative()
+      }
     },
 
     obtainDate = function() {
@@ -158,13 +163,15 @@ ExtractorEml <- R6Class(
         read_emails(super$getPath(),self$getPartSelectedOnMPAlternative())["date"],
 
         warning = function(w) {
-          cat(paste("[ExtractorEml][obtainDate][Warning] Date eml warning ",
-                         super$getPath()," ", paste(w), "\n"))
+
+          warning("[ExtractorEml][obtainDate][Warning] Date eml warning ",
+                   super$getPath(), " ", paste(w), "\n")
+
         },
 
         error = function(e) {
-          cat(paste("[ExtractorEml][obtainDate][Error] Date eml error ",
-                         super$getPath()," ", paste(e), "\n"))
+          message("[ExtractorEml][obtainDate][Error] Date eml error ",
+                   super$getPath()," ", paste(e), "\n")
         }
       )
 
@@ -176,8 +183,8 @@ ExtractorEml <- R6Class(
           super$setDate()
         },
         error = function(e) {
-          cat(paste("[ExtractorEml][obtainDate][Error] Date eml error in
-                      standardized proccess", super$getPath(), " ", paste(e), "\n"))
+          message("[ExtractorEml][obtainDate][Error] Date eml error in
+                   standardized proccess", super$getPath(), " ", paste(e), "\n")
         }
       )
 
@@ -193,13 +200,13 @@ ExtractorEml <- R6Class(
               collapse = " "),
 
         warning = function(w) {
-          cat(paste("[ExtractorEml][obtainSource][Warning] Source eml warning ",
-                    super$getPath()," ", paste(w), "\n"))
+          warning("[ExtractorEml][obtainSource][Warning] Source eml warning ",
+                   super$getPath()," ", paste(w), "\n")
         },
 
         error = function(e) {
-          cat(paste("[ExtractorEml][obtainSource][Error] Source eml error ",
-                    super$getPath()," ", paste(e), "\n"))
+          message("[ExtractorEml][obtainSource][Error] Source eml error ",
+                   super$getPath()," ", paste(e), "\n")
         }
       )
 
@@ -215,6 +222,12 @@ ExtractorEml <- R6Class(
     },
 
     setPartSelectedOnMPAlternative = function(PartSelectedOnMPAlternative) {
+
+      if (!"character" %in% class(PartSelectedOnMPAlternative)) {
+        stop("[ExtractorEml][setPartSelectedOnMPAlternative][Error]
+                Checking the type of the variable: PartSelectedOnMPAlternative ",
+                  class(PartSelectedOnMPAlternative))
+      }
 
       private$PartSelectedOnMPAlternative <- PartSelectedOnMPAlternative
 

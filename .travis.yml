@@ -1,1 +1,17 @@
 language: r
+
+cache: packages
+
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'library(covr); codecov()'
+
+
+notifications:
+  email:
+    recipients:
+      - miguel.ferreiro.diaz@gmail.com
+    on_success: change
+    on_failure: always

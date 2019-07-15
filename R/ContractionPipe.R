@@ -178,6 +178,22 @@
 #' }
 #' }
 #' }
+#'
+#' \item{\bold{setResourcesContractionsPath:}}{
+#' sets the path of contractions resources.
+#' \itemize{
+#' \item{\emph{Usage:}}{
+#' \code{setResourcesContractionsPath(path)}
+#' }
+#' \item{\emph{Arguments:}}{
+#' \itemize{
+#' \item{\strong{path:}}{
+#' (\emph{character}) the new value of the path of contractions resources.
+#' }
+#' }
+#' }
+#' }
+#' }
 #' }
 #'
 #' @section Private fields:
@@ -203,7 +219,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import ini pipeR R6 rlist
 #' @export ContractionPipe
 
 ContractionPipe <- R6Class(
@@ -232,7 +248,6 @@ ContractionPipe <- R6Class(
                   Please install it.",
                     call. = FALSE)
       }
-
 
       if (!"character" %in% class(propertyName)) {
         stop("[ContractionPipe][initialize][Error]
@@ -298,8 +313,8 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        cat("[ContractionPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() ," has not language property\n")
+        warning("[ContractionPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() ," has not language property\n")
 
         return(instance)
 
@@ -312,7 +327,6 @@ ContractionPipe <- R6Class(
                         sep = "")
 
       jsonData <- Bdpar[["private_fields"]][["resourceHandler"]]$isLoadResource(JsonFile)
-
       #It is verified that there is a resource associated to the language of the instance
       if (!is.null(jsonData)) {
 
@@ -345,9 +359,9 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        cat("[ContractionPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() , " has not an contactionsJsonFile ",
-            "to apply to the language ->", languageInstance, " \n")
+        warning("[ContractionPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() , " has not an contractionsJsonFile ",
+                "to apply to the language ->", languageInstance, " \n")
 
         return(instance)
       }
@@ -360,7 +374,7 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[ContractionPipe][pipe][Warning] ", message, " \n")
+        warning("[ContractionPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 
@@ -433,6 +447,19 @@ ContractionPipe <- R6Class(
     getResourcesContractionsPath = function() {
 
       return(private$resourcesContractionsPath)
+    },
+
+    setResourcesContractionsPath = function(path) {
+
+      if (!"character" %in% class(path)) {
+        stop("[ContractionPipe][setResourcesContractionsPath][Error]
+                Checking the type of the variable: path ",
+                  class(path))
+      }
+
+      private$resourcesContractionsPath <- path
+
+      return()
     }
   ),
 

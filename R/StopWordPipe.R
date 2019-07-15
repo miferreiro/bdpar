@@ -174,6 +174,22 @@
 #' }
 #' }
 #' }
+#'
+#' \item{\bold{setPathResourcesStopWords:}}{
+#' sets the path of stop words resources.
+#' \itemize{
+#' \item{\emph{Usage:}}{
+#' \code{setPathResourcesStopWords(path)}
+#' }
+#' \item{\emph{Arguments:}}{
+#' \itemize{
+#' \item{\strong{path:}}{
+#' (\emph{character}) the new value of the path of stop words resources.
+#' }
+#' }
+#' }
+#' }
+#' }
 #' }
 #'
 #' @section Private fields:
@@ -199,7 +215,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import ini pipeR R6 rlist
 #' @export StopWordPipe
 
 StopWordPipe <- R6Class(
@@ -299,7 +315,7 @@ StopWordPipe <- R6Class(
                 " has not language property",
                 sep = "")
 
-        cat("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
 
 
         return(instance)
@@ -349,7 +365,7 @@ StopWordPipe <- R6Class(
             sep = ""
           )
 
-        cat("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
 
         return(instance)
       }
@@ -362,7 +378,7 @@ StopWordPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 
@@ -376,7 +392,7 @@ StopWordPipe <- R6Class(
 
       if (!"character" %in% class(data)) {
         stop("[StopWordPipe][findStopWord][Error]
-                Checking the StopWordPipe of the variable: data ",
+                Checking the type of the variable: data ",
                   class(data))
       }
 
@@ -429,6 +445,19 @@ StopWordPipe <- R6Class(
     getResourcesStopWordsPath = function() {
 
       return(private$resourcesStopWordsPath)
+    },
+
+    setResourcesStopWordsPath = function(path) {
+
+      if (!"character" %in% class(path)) {
+        stop("[StopWordPipe][setResourcesStopWordsPath][Error]
+                Checking the type of the variable: path ",
+                  class(path))
+      }
+
+      private$resourcesStopWordsPath <- path
+
+      return()
     }
   ),
 

@@ -226,12 +226,12 @@ ExtractorYtbid <- R6Class(
           ),
 
           warning = function(w) {
-            cat("[ExtractorYtbid][obtainDate][Warning] Date ytbid warning: ",
+            warning("[ExtractorYtbid][obtainDate][Warning] Date ytbid warning: ",
                       self$getId(), " ", paste(w),"\n")
           },
 
           error = function(e) {
-            cat("[ExtractorYtbid][obtainDate][Error] Date ytbid error: ",
+            message("[ExtractorYtbid][obtainDate][Error] Date ytbid error: ",
                       self$getId(), " ", paste(e),"\n")
           }
         )
@@ -260,12 +260,12 @@ ExtractorYtbid <- R6Class(
           as.POSIXct(dateYtbid),
 
           warning = function(w) {
-            cat("[ExtractorYtbid][obtainDate][Warning] Date ytbid warning as.POSIXct: ",
+            warning("[ExtractorYtbid][obtainDate][Warning] Date ytbid warning as.POSIXct: ",
                       self$getId(), " ", paste(w),"\n")
           },
 
           error = function(e) {
-            cat("[ExtractorYtbid][obtainDate][Error] Date ytbid error as.POSIXct: ",
+            message("[ExtractorYtbid][obtainDate][Error] Date ytbid error as.POSIXct: ",
                       self$getId(), " ", paste(e),"\n")
           }
         )
@@ -304,8 +304,8 @@ ExtractorYtbid <- R6Class(
 
       error = function(e) {
 
-        cat(paste("[ExtractorYtbid][obtainDate][Error] exportJSON: ",
-                  self$getId(), " " , paste(e), "\n"))
+        message("[ExtractorYtbid][obtainDate][Error] exportJSON: ",
+                  self$getId(), " " , paste(e), "\n")
 
         lista <- list(source = "",
                       date = super$getDate())
@@ -389,12 +389,12 @@ ExtractorYtbid <- R6Class(
           ),
 
           warning = function(w) {
-            cat("[ExtractorYtbid][obtainSource][Warning] Source ytbid warning: ",
+            warning("[ExtractorYtbid][obtainSource][Warning] Source ytbid warning: ",
                       self$getId(), " ", paste(w),"\n")
           },
 
           error = function(e) {
-            cat("[ExtractorYtbid][obtainSource][Error] Source ytbid error: ",
+            message("[ExtractorYtbid][obtainSource][Error] Source ytbid error: ",
                       self$getId(), " ", paste(e),"\n")
           }
         )
@@ -423,12 +423,12 @@ ExtractorYtbid <- R6Class(
           as.POSIXct(dateYtbid),
 
           warning = function(w) {
-            cat("[ExtractorYtbid][obtainSource][Warning] Date ytbid warning as.POSIXct: ",
+            warning("[ExtractorYtbid][obtainSource][Warning] Date ytbid warning as.POSIXct: ",
                       self$getId(), " " , paste(w), "\n")
           },
 
           error = function(e) {
-            cat("[ExtractorYtbid][obtainSource][Error] Date ytbid error as.POSIXct: ",
+            message("[ExtractorYtbid][obtainSource][Error] Date ytbid error as.POSIXct: ",
                       self$getId(), " " , paste(e), "\n")
           }
         )
@@ -469,7 +469,7 @@ ExtractorYtbid <- R6Class(
 
       error = function(e) {
 
-        cat("[ExtractorYtbid][obtainSource][Error] exportJSON: ",
+        message("[ExtractorYtbid][obtainSource][Error] exportJSON: ",
                   self$getId(), " " , paste(e), "\n")
 
         lista <- list(source = "", date = dateYtbid)

@@ -249,11 +249,11 @@ FindEmoticonPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c( "The file: " , instance$getPath() , " hsas data empty on pipe Emoticon")
+        message <- c( "The file: " , instance$getPath() , " has data empty on pipe Emoticon")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[FindEmoticonPipe][pipe][Warning] ", message, " \n")
+        warning("[FindEmoticonPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

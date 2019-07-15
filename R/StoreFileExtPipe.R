@@ -178,7 +178,7 @@ StoreFileExtPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[StoreFileExtPipe][pipe][Warning] ", message, " \n")
+        warning("[StoreFileExtPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

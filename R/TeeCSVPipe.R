@@ -106,7 +106,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import R6 utils
+#' @import ini R6 tools utils
 #' @export TeeCSVPipe
 
 TeeCSVPipe <- R6Class(

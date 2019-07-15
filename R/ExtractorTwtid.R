@@ -226,13 +226,13 @@ ExtractorTwtid <- R6Class(
               rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
 
           warning = function(w) {
-            cat(paste("[ExtractorTwtid][obtainDate][Warning] Date twtid warning: ",
-                      self$getId(), " ", paste(w)),"\n")
+            warning("[ExtractorTwtid][obtainDate][Warning] Date twtid warning: ",
+                      self$getId(), " ", paste(w),"\n")
           },
 
           error = function(e) {
-            cat(paste("[ExtractorTwtid][obtainDate][Error] Date twtid error: ",
-                      self$getId(), " ", paste(e)),"\n")
+            message("[ExtractorTwtid][obtainDate][Error] Date twtid error: ",
+                     self$getId(), " ", paste(e),"\n")
           }
         )
 
@@ -284,8 +284,8 @@ ExtractorTwtid <- R6Class(
         },
 
         error = function(e) {
-          cat(paste("[ExtractorTwtid][obtainDate][Error] exportJSON: ",
-                      self$getId(), " " , paste(e), "\n"))
+          message("[ExtractorTwtid][obtainDate][Error] exportJSON: ",
+                   self$getId(), " " , paste(e), "\n")
 
           lista <- list(source = "",
                         date = super$getDate(),
@@ -367,12 +367,12 @@ ExtractorTwtid <- R6Class(
               rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
 
           warning = function(w) {
-            cat(paste("[ExtractorTwtid][obtainSource][Warning] Source twtid warning: ",
-                      self$getId(), " ", paste(w)),"\n")
+            warning("[ExtractorTwtid][obtainSource][Warning] Source twtid warning: ",
+                      self$getId(), " ", paste(w),"\n")
           },
 
           error = function(e) {
-            cat(paste("[ExtractorTwtid][obtainSource][Error] Source twtid error: ",
+            message(paste("[ExtractorTwtid][obtainSource][Error] Source twtid error: ",
                       self$getId(), " ", paste(e)),"\n")
           }
         )
@@ -412,7 +412,7 @@ ExtractorTwtid <- R6Class(
         tryCatch({
 
           exportJSON <- rjson::toJSON(lista)
-          cat(
+          message(
             exportJSON,
             file = paste(
               cachePath,
@@ -428,8 +428,8 @@ ExtractorTwtid <- R6Class(
         },
         error = function(e) {
 
-          cat(paste("[ExtractorTwtid][obtainSource][Error] exportJSON: ",
-                    self$getId(), " " , paste(e), "\n"))
+          message("[ExtractorTwtid][obtainSource][Error] exportJSON: ",
+                   self$getId(), " " , paste(e), "\n")
 
           lista <- list(
             source = "",

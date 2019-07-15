@@ -343,7 +343,7 @@ TestPipe <- R6Class(
              Checking the type of the variable: instance ",
              class(instance));
       }
-      cat("[TestPipe][pipeAll][Info] ", instance$getPath(), "\n")
+      message("[TestPipe][pipeAll][Info] ", instance$getPath(), "\n")
       tryCatch(
         instance %>I%
           TargetAssigningPipe$new()$pipe() %>I%
@@ -353,7 +353,7 @@ TestPipe <- R6Class(
           TeeCSVPipe$new()$pipe()
         ,
         error = function(e) {
-          cat("[TestPipe][pipeAll][Error]", 
+          message("[TestPipe][pipeAll][Error]", 
               instance$getPath(),
               " :", 
               paste(e), 

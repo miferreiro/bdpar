@@ -506,7 +506,7 @@ Instance <- R6Class(
                   class(propertyName))
       }
 
-      private$properties[[nombrePropiedad]] <- propertyValue
+      private$properties[[propertyName]] <- propertyValue
 
       return()
     },

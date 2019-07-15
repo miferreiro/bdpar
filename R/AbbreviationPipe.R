@@ -179,6 +179,22 @@
 #' }
 #' }
 #' }
+#'
+#' \item{\bold{setResourcesAbbreviationsPath:}}{
+#' sets the path of abbreviations resources.
+#' \itemize{
+#' \item{\emph{Usage:}}{
+#' \code{setResourcesAbbreviationsPath(path)}
+#' }
+#' \item{\emph{Arguments:}}{
+#' \itemize{
+#' \item{\strong{path:}}{
+#' (\emph{character}) the new value of the path of abbreviations resources.
+#' }
+#' }
+#' }
+#' }
+#' }
 #' }
 #'
 #' @section Private fields:
@@ -204,7 +220,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import ini pipeR R6 rlist
 #' @export AbbreviationPipe
 
 AbbreviationPipe <- R6Class(
@@ -255,7 +271,7 @@ AbbreviationPipe <- R6Class(
       if (!"list" %in% class(notAfterDeps)) {
         stop("[AbbreviationPipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
-                  Wclass(notAfterDeps))
+                  class(notAfterDeps))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -299,8 +315,8 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        cat("[AbbreviationPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() ," has not language property\n")
+        warning("[AbbreviationPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() ," has not language property\n")
 
         return(instance)
       }
@@ -343,9 +359,9 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        cat("[AbbreviationPipe][pipe][Warning] ",
-            "The file: " , instance$getPath() , " has not an abbreviationsJsonFile ",
-            "to apply to the language ->", languageInstance, " \n")
+        warning("[AbbreviationPipe][pipe][Warning] ",
+                "The file: " , instance$getPath() , " has not an abbreviationsJsonFile ",
+                "to apply to the language ->", languageInstance, " \n")
 
         return(instance)
       }
@@ -358,9 +374,10 @@ AbbreviationPipe <- R6Class(
                       " has data empty on pipe Abbreviation")
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[AbbreviationPipe][pipe][Warning] ", message, " \n")
+        warning("[AbbreviationPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
+
         return(instance)
       }
 
@@ -432,6 +449,19 @@ AbbreviationPipe <- R6Class(
     getResourcesAbbreviationsPath = function() {
 
       return(private$resourcesAbbreviationsPath)
+    },
+
+    setResourcesAbbreviationsPath = function(path) {
+
+      if (!"character" %in% class(path)) {
+        stop("[AbbreviationPipe][setResourcesAbbreviationsPath][Error]
+                Checking the type of the variable: path ",
+                  class(path))
+      }
+
+      private$resourcesAbbreviationsPath <- path
+
+      return()
     }
   ),
 

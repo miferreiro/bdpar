@@ -82,11 +82,11 @@ InstanceFactory <- R6Class(
                   class(path))
       }
 
-      switch(file_ext(path),
+      switch(tools::file_ext(path),
        `eml` =  return(ExtractorEml$new(path)),
        `tsms` = return(ExtractorSms$new(path)),
        `twtid` = return(ExtractorTwtid$new(path)),
-       `ytbid` = return(ExtractorTytb$new(path))
+       `ytbid` = return(ExtractorYtbid$new(path))
       )
 
       return()

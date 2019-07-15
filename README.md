@@ -1,7 +1,8 @@
 
 [![Build
-Status](https://travis-ci.org/miferreiro/bdpar.svg?branch=master)](https://travis-ci.org/miferreiro/bdpar)
+Status](https://travis-ci.org/miferreiro/bdpar.svg?branch=develop)](https://travis-ci.org/miferreiro/bdpar)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![codecov](https://codecov.io/gh/miferreiro/bdpar/branch/develop/graph/badge.svg)](https://codecov.io/gh/miferreiro/bdpar)
 
 # bdpar
 

@@ -109,11 +109,12 @@
 #'
 #' #Path where the configuration file are located
 #' configurationFilePath <- system.file("configurations",
-#'                                      "configurationsTemplate.ini",
+#'                                      "configurationsExample.ini",
 #'                                      package ="bdpar")
 #'
 #' #Folder with the files to preprocess
-#' filesPath <- "testFiles"
+#' filesPath <- system.file("testFiles",
+#'                           package = "bdpar")
 #'
 #' #Object which indicates the pipes' flow
 #' pipe <- SerialPipe$new()

@@ -253,7 +253,7 @@ TargetAssigningPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[TargetAssigningPipe][pipe][Warning] ", message, " \n")
+        warning("[TargetAssigningPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

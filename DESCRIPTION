@@ -19,11 +19,11 @@ Authors@R:
             role = c("cph")))
 Description: 
         Provide a tool to easily build customized data flows to pre-process large volumes 
-    of information from different sources. To this end, bdpar allows to (i) easily use and 
+    of information from different sources. To this end, 'bdpar' allows to (i) easily use and 
     create new functionalities and (ii) develop new data source extractors according to the 
     user needs. Additionally, the package provides by default a predefined data flow 
     to extract and preprocess the most relevant information (tokens, dates, ... ) from some textual 
-    sources (SMS, email, tweets, YouTube comments).
+    sources (SMS, Email, tweets, YouTube comments).
 Date: 2019-07-09
 License: GPL-3
 URL: https://github.com/miferreiro/bdpar
@@ -50,6 +50,7 @@ Suggests:
     rtweet,
     stringi, 
     stringr,
+    testthat (>= 2.1.1), 
     textutils, 
     tuber
 VignetteBuilder: knitr

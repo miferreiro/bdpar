@@ -169,6 +169,22 @@ value of path of abbreviations resources.
 }
 }
 }
+
+\item{\bold{setResourcesAbbreviationsPath:}}{
+sets the path of abbreviations resources.
+\itemize{
+\item{\emph{Usage:}}{
+\code{setResourcesAbbreviationsPath(path)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{path:}}{
+(\emph{character}) the new value of the path of abbreviations resources.
+}
+}
+}
+}
+}
 }
 }
 

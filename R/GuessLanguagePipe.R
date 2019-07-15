@@ -125,7 +125,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import ini pipeR R6
 #' @export GuessLanguagePipe
 
 GuessLanguagePipe <- R6Class(
@@ -167,6 +167,12 @@ GuessLanguagePipe <- R6Class(
         stop("[GuessLanguagePipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
+      }
+
+      if (!"logical" %in% class(languageTwitter)) {
+        stop("[GuessLanguagePipe][pipe][Error]
+                Checking the type of the variable: languageTwitter ",
+                  class(languageTwitter))
       }
 
       instance$addFlowPipes("GuessLanguagePipe")
@@ -220,7 +226,7 @@ GuessLanguagePipe <- R6Class(
 
               instance$addProperties(message, "reasonToInvalidate")
 
-              cat("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
+              warning("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
 
               instance$invalidate()
 
@@ -241,7 +247,7 @@ GuessLanguagePipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
+        warning("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

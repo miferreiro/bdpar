@@ -168,6 +168,22 @@ value of path of contractions resources.
 }
 }
 }
+
+\item{\bold{setResourcesContractionsPath:}}{
+sets the path of contractions resources.
+\itemize{
+\item{\emph{Usage:}}{
+\code{setResourcesContractionsPath(path)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{path:}}{
+(\emph{character}) the new value of the path of contractions resources.
+}
+}
+}
+}
+}
 }
 }
 

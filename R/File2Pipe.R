@@ -155,7 +155,7 @@ File2Pipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[File2Pipe][pipe][Warning] ", message, " \n")
+        warning("[File2Pipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 
@@ -167,7 +167,7 @@ File2Pipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[File2Pipe][pipe][Warning] ", message, " \n")
+        warning("[File2Pipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 

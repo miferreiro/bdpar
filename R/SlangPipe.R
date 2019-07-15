@@ -183,6 +183,22 @@
 #' }
 #' }
 #' }
+#'
+#' \item{\bold{setResourcesSlangsPath:}}{
+#' sets the path of slangs resources.
+#' \itemize{
+#' \item{\emph{Usage:}}{
+#' \code{setResourcesSlangsPath(path)}
+#' }
+#' \item{\emph{Arguments:}}{
+#' \itemize{
+#' \item{\strong{path:}}{
+#' (\emph{character}) the new value of the path of slangs resources.
+#' }
+#' }
+#' }
+#' }
+#' }
 #' }
 #'
 #' @section Private fields:
@@ -208,7 +224,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import ini pipeR R6 rlist
 #' @export SlangPipe
 
 SlangPipe <- R6Class(
@@ -304,7 +320,7 @@ SlangPipe <- R6Class(
 
         message <- c( "The file: ", instance$getPath(), " has not language property")
 
-        cat("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message, " \n")
 
         return(instance)
       }
@@ -344,7 +360,7 @@ SlangPipe <- R6Class(
 
         message <- c( "The file: ", instance$getPath(), " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
 
-        cat("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message, " \n")
 
 
         return(instance)
@@ -357,7 +373,7 @@ SlangPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        cat("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message, " \n")
 
         instance$invalidate()
 
@@ -396,7 +412,7 @@ SlangPipe <- R6Class(
       if (!"character" %in% class(slang)) {
         stop("[SlangPipe][replaceSlang][Error]
                 Checking the type of the variable: slang ",
-                  class(abbreviation))
+                  class(slang))
       }
 
       if (!"character" %in% class(extendedSlang)) {
@@ -431,6 +447,19 @@ SlangPipe <- R6Class(
     getResourcesSlangsPath = function() {
 
       return(private$resourcesSlangsPath)
+    },
+
+    setResourcesSlangsPath = function(path) {
+
+      if (!"character" %in% class(path)) {
+        stop("[SlangPipe][setResourcesSlangsPath][Error]
+                Checking the type of the variable: path ",
+                  class(path))
+      }
+
+      private$resourcesSlangsPath <- path
+
+      return()
     }
   ),
 
