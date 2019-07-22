@@ -160,7 +160,7 @@
 #' \code{\link{TypePipe}}, \code{\link{SerialPipe}}
 #'
 #' @examples
-#'
+#' \dontrun{
 #' #Path where the configuration file are located
 #' configurationFilePath <- system.file("configurations",
 #'                                      "configurationsExample.ini",
@@ -180,7 +180,7 @@
 #'
 #' #Starting file preprocessing...
 #' objectBdpar$proccess_files(filesPath, pipe, instanceFactory)
-#'
+#' }
 #' @keywords NULL
 #'
 #' @import ini R6 tools

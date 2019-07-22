@@ -12,7 +12,8 @@ test_that("pipeAll instance type error",{
                 Checking the type of the variable: instance NULL")
 })
 
-test_that("pipeAll instance type error",{
+if (Sys.info()[['sysname']] %in% "Windows") {
+test_that("pipeAll",{
 
   path <- system.file(file.path("testFiles","_ham_",
                       "30.tsms"),
@@ -26,25 +27,13 @@ test_that("pipeAll instance type error",{
 
   instance$setDate("")
 
-  if (Sys.info()[['sysname']] %in% "Windows") {
-    instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
-  } else {
-    if (Sys.info()[['sysname']] %in% "Linux") {
-      instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\n")
-    }
-  }
+  instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
 
   instance$setData("wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   instance$setSpecificProperty("target","ham")
   instance$setSpecificProperty("extension","tsms")
 
-  if (Sys.info()[['sysname']] %in% "Windows") {
-    instance$setSpecificProperty("length_before_cleaning_text",132)
-  } else {
-    if (Sys.info()[['sysname']] %in% "Linux") {
-      instance$setSpecificProperty("length_before_cleaning_text",131)
-    }
-  }
+  instance$setSpecificProperty("length_before_cleaning_text",132)
 
   instance$setSpecificProperty("userName",as.character(c()))
   instance$setSpecificProperty("hashtag",as.character(c()))
@@ -85,3 +74,4 @@ test_that("pipeAll instance type error",{
   file.remove("output_tsms.csv")
 
 })
+}

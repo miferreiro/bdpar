@@ -95,7 +95,7 @@ will be opened.
 }
 
 \examples{
-
+\dontrun{
 #Path where the configuration file are located
 configurationFilePath <- system.file("configurations",
                                      "configurationsExample.ini",
@@ -116,5 +116,5 @@ pipeline_execute(configurationFilePath = configurationFilePath,
                  filesPath = filesPath,
                  pipe = pipe,
                  instanceFactory = instanceFactory)
-
+}
 }

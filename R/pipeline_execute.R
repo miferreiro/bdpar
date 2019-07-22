@@ -106,7 +106,7 @@
 #' @return List of \code{\link{Instance}} that have been preprocessed.
 #'
 #' @examples
-#'
+#' \dontrun{
 #' #Path where the configuration file are located
 #' configurationFilePath <- system.file("configurations",
 #'                                      "configurationsExample.ini",
@@ -127,7 +127,7 @@
 #'                  filesPath = filesPath,
 #'                  pipe = pipe,
 #'                  instanceFactory = instanceFactory)
-#'
+#' }
 #' @keywords NULL
 #' @importFrom svMisc file_edit
 #' @importFrom tools file_ext

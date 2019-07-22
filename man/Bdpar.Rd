@@ -148,7 +148,7 @@ to choose which type of \code{\link{Instance}} is created.
 }
 
 \examples{
-
+\dontrun{
 #Path where the configuration file are located
 configurationFilePath <- system.file("configurations",
                                      "configurationsExample.ini",
@@ -168,7 +168,7 @@ objectBdpar <- Bdpar$new(configurationFilePath)
 
 #Starting file preprocessing...
 objectBdpar$proccess_files(filesPath, pipe, instanceFactory)
-
+}
 }
 \seealso{
 \code{\link{Connections}}, \code{\link{Instance}},

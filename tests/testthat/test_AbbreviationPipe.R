@@ -245,9 +245,6 @@ test_that("pipe replaceAbbreviations type error",{
 
 })
 
-
-
-
 test_that("findAbbreviation",{
 
   propertyName <- "abbreviation"

@@ -245,9 +245,6 @@ test_that("pipe replaceSlangs type error",{
 
 })
 
-
-
-
 test_that("findSlang",{
 
   propertyName <- "langpropname"
