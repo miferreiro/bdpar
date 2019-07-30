@@ -39,7 +39,7 @@ read_emails <- function(email_file, PartSelectedOnMPAlternative){
 
 getElement = function(filename, PartSelectedOnMPAlternative) {
 
-  path <- paste("exec", "parse.py", sep = "/")
+  path <- system.file(file.path("exec", "parse.py"), package = "bdpar")
 
   command <- paste("python", path, filename, "date", PartSelectedOnMPAlternative, sep = " ")
   try(suppressWarnings(response <- system(command,
@@ -65,7 +65,7 @@ getElement = function(filename, PartSelectedOnMPAlternative) {
           response <- ""
       }
   }
-  object["message"] <- response
+  object["message"] <- paste(response,collapse = " ")
 
   return(object)
 }
