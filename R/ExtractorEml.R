@@ -162,13 +162,6 @@ ExtractorEml <- R6Class(
 
         read_emails(super$getPath(),self$getPartSelectedOnMPAlternative())["date"],
 
-        warning = function(w) {
-
-          warning("[ExtractorEml][obtainDate][Warning] Date eml warning ",
-                   super$getPath(), " ", paste(w), "\n")
-
-        },
-
         error = function(e) {
           message("[ExtractorEml][obtainDate][Error] Date eml error ",
                    super$getPath()," ", paste(e), "\n")
@@ -198,11 +191,6 @@ ExtractorEml <- R6Class(
         paste(read_emails(super$getPath(),
                           self$getPartSelectedOnMPAlternative())["message"],
               collapse = " "),
-
-        warning = function(w) {
-          warning("[ExtractorEml][obtainSource][Warning] Source eml warning ",
-                   super$getPath()," ", paste(w), "\n")
-        },
 
         error = function(e) {
           message("[ExtractorEml][obtainSource][Error] Source eml error ",
