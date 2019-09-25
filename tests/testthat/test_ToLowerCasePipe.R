@@ -47,9 +47,9 @@ test_that("pipe",{
   notAfterDeps <- list()
   pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testToLowerCasePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("eXaMpLe")
@@ -65,9 +65,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testToLowerCasePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")

@@ -47,9 +47,9 @@ test_that("pipe removeUser <- TRUE",{
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am @example")
@@ -67,9 +67,9 @@ test_that("pipe removeUser <- FALSE",{
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am @example")
@@ -87,9 +87,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -120,9 +120,9 @@ test_that("pipe removeUser type error",{
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am @example")
@@ -139,14 +139,14 @@ test_that("pipe empty data",{
   notAfterDeps <- list()
   pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUserNamePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("@example")
   removeUser <- TRUE
-  expect_warning(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe UserName ")
+  expect_warning(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUserNamePipe\\/testFile\\.tsms has data empty on pipe UserName ")
   expect_equal(instance$getSpecificProperty("userName"),"@example")
   expect_equal(instance$getData(),"")
 

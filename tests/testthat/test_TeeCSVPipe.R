@@ -47,13 +47,13 @@ test_that("pipe",{
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -71,13 +71,13 @@ test_that("pipe instance invalid",{
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -97,13 +97,13 @@ test_that("pipe Bad compatibility between Pipes.",{
 
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   withData <- TRUE
@@ -120,9 +120,10 @@ test_that("pipe instance type error",{
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
+
   instance <- NULL
   withData <- TRUE
   withSource <- TRUE
@@ -138,13 +139,13 @@ test_that("pipe withData type error",{
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -162,13 +163,13 @@ test_that("pipe withSource type error",{
   notAfterDeps <- list()
   pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testTeeCSVPipe",
+                                              "configurations.ini"))
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 

@@ -3,9 +3,9 @@ context("Connections")
 test_that("initialize",{
 
   #Path where the configuration file are located
-  configurationFilePath <-  system.file("configurations",
-                                        "test_Connections.ini",
-                                        package = "bdpar")
+  configurationFilePath <-  file.path("testFiles",
+                                      "testConnections",
+                                      "configurations.ini")
 
   connection <- Connections$new(configurationFilePath)
   expect_type(connection$.__enclos_env__$private$keys, "list")
@@ -14,9 +14,9 @@ test_that("initialize",{
 test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
 
   #Path where the configuration file are located
-  configurationFilePath <-  system.file("configurations",
-                                        "test_Connections.ini",
-                                        package = "bdpar")
+  configurationFilePath <-  file.path("testFiles",
+                                      "testConnections",
+                                      "configurations.ini")
 
   connection <- Connections$new(configurationFilePath)
 
@@ -28,9 +28,9 @@ test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
 test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
 
   #Path where the configuration file are located
-  configurationFilePath <-  system.file("configurations",
-                                        "test_Connections.ini",
-                                        package = "bdpar")
+  configurationFilePath <-  file.path("testFiles",
+                                      "testConnections",
+                                      "configurations.ini")
 
   connection <- Connections$new(configurationFilePath)
 
@@ -43,9 +43,9 @@ test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
 test_that("addNumRequestToYoutube",{
 
   #Path where the configuration file are located
-  configurationFilePath <-  system.file("configurations",
-                                        "test_Connections.ini",
-                                        package = "bdpar")
+  configurationFilePath <-  file.path("testFiles",
+                                      "testConnections",
+                                      "configurations.ini")
 
   connection <- Connections$new(configurationFilePath)
 
@@ -58,9 +58,9 @@ test_that("addNumRequestToYoutube",{
 test_that("checkRequestToYoutube numRequest < numRequestMax",{
 
   #Path where the configuration file are located
-  configurationFilePath <-  system.file("configurations",
-                                        "test_Connections.ini",
-                                        package = "bdpar")
+  configurationFilePath <-  file.path("testFiles",
+                                      "testConnections",
+                                      "configurations.ini")
 
   connection <- Connections$new(configurationFilePath)
 
@@ -90,9 +90,9 @@ test_that("checkRequestToYoutube numRequest < numRequestMax",{
 test_that("getNumRequestMaxToYoutube",{
 
   #Path where the configuration file are located
-  configurationFilePath <-  system.file("configurations",
-                                        "test_Connections.ini",
-                                        package = "bdpar")
+  configurationFilePath <-  file.path("testFiles",
+                                      "testConnections",
+                                      "configurations.ini")
 
   connection <- Connections$new(configurationFilePath)
 

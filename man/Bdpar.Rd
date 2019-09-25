@@ -150,13 +150,14 @@ to choose which type of \code{\link{Instance}} is created.
 \examples{
 \dontrun{
 #Path where the configuration file are located
-configurationFilePath <- system.file("configurations",
-                                     "configurationsExample.ini",
+configurationFilePath <- system.file(file.path("examples",
+                                               "configurationsExample.ini"),
                                      package ="bdpar")
 
 #Folder with the files to preprocess
-filesPath <- system.file("testFiles",
-                          package = "bdpar")
+filesPath <- system.file(file.path("examples",
+                                   "testFiles"),
+                         package = "bdpar")
 
 #Object which indicates the pipes' flow
 pipe <- SerialPipe$new()

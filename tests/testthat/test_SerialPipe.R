@@ -14,39 +14,40 @@ test_that("pipeAll instance type error",{
 if (Sys.info()[['sysname']] %in% "Windows") {
 test_that("pipeAll instance type error",{
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testSerialPipe",
+                    "files",
+                    "_ham_",
+                    "testFile.tsms")
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testSerialPipe",
+                                              "configurations.ini"))
   instance <- ExtractorSms$new(path)
   instanceInitial <- ExtractorSms$new(path)
 
   instance$setDate("")
 
-
   instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
 
   instance$setData("wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
-  instance$setSpecificProperty("target","ham")
-  instance$setSpecificProperty("extension","tsms")
+  instance$setSpecificProperty("target", "ham")
+  instance$setSpecificProperty("extension", "tsms")
 
-  instance$setSpecificProperty("length_before_cleaning_text",132)
+  instance$setSpecificProperty("length_before_cleaning_text", 132)
 
-  instance$setSpecificProperty("userName",as.character(c()))
-  instance$setSpecificProperty("hashtag",as.character(c()))
-  instance$setSpecificProperty("URLs",as.character(c()))
-  instance$setSpecificProperty("emoticon",as.character(c()))
-  instance$setSpecificProperty("Emojis",as.character(c()))
-  instance$setSpecificProperty("language","en")
-  instance$setSpecificProperty("contractions",list())
-  instance$setSpecificProperty("abbreviation",list())
-  instance$setSpecificProperty("langpropname",list())
-  instance$setSpecificProperty("interjection",list())
-  instance$setSpecificProperty("stopWord",list())
-  instance$setSpecificProperty("length_after_cleaning_text",130)
+  instance$setSpecificProperty("userName", as.character(c()))
+  instance$setSpecificProperty("hashtag", as.character(c()))
+  instance$setSpecificProperty("URLs", as.character(c()))
+  instance$setSpecificProperty("emoticon", as.character(c()))
+  instance$setSpecificProperty("Emojis", as.character(c()))
+  instance$setSpecificProperty("language", "en")
+  instance$setSpecificProperty("contractions", list())
+  instance$setSpecificProperty("abbreviation", list())
+  instance$setSpecificProperty("langpropname", list())
+  instance$setSpecificProperty("interjection", list())
+  instance$setSpecificProperty("stopWord", list())
+  instance$setSpecificProperty("length_after_cleaning_text", 130)
   instance$addFlowPipes("TargetAssigningPipe")
   instance$addFlowPipes("StoreFileExtPipe")
   instance$addFlowPipes("GuessDatePipe")
@@ -67,7 +68,7 @@ test_that("pipeAll instance type error",{
   instance$addFlowPipes("MeasureLengthPipe")
   instance$addFlowPipes("TeeCSVPipe")
 
-  instance$addBanPipes(c("FindUrlPipe","FindHashtagPipe","AbbreviationPipe"))
+  instance$addBanPipes(c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
   suppressWarnings(SerialPipe$new()$pipeAll(instanceInitial))
   expect_equal(instanceInitial, instance)
 

@@ -47,9 +47,9 @@ test_that("pipe removeUrl <- FALSE",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("example www.google.com")
@@ -69,9 +69,9 @@ test_that("pipe removeUrl <- FALSE",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -92,9 +92,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -114,9 +114,9 @@ test_that("pipe instance type error",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- NULL
 
@@ -136,9 +136,9 @@ test_that("pipe removeUrl type error",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -158,9 +158,9 @@ test_that("pipe URLPatterns type error",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -180,9 +180,9 @@ test_that("pipe namesURLPatterns type error",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -202,9 +202,9 @@ test_that("pipe empty data",{
   notAfterDeps <- list()
   pipe <- FindUrlPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindUrlPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
@@ -212,7 +212,7 @@ test_that("pipe empty data",{
   URLPattern <- "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:(?:[[:alnum:]]+:(?:\\/{1,2}))|\\/{0,2}www\\.)(?:[\\w-]+(?:(?:\\.[\\w-]+)*))(?:(?:[\\w~?=-][.;,@?^=%&:\\/~+#-]?)*)[\\w@?^=%&\\/~+#,;!:<\\\\\"?-]?(?=(?:[<\\\\,;!\"?\\)]|\\s|$)))"
   URLPatterns <- list(URLPattern)
   namesURLPatterns <- list("UrlPattern")
-  expect_warning(pipe$pipe(instance, removeUrl, URLPatterns, namesURLPatterns),"\\[FindUrlPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Url ")
+  expect_warning(pipe$pipe(instance, removeUrl, URLPatterns, namesURLPatterns),"\\[FindUrlPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUrlPipe\\/testFile\\.tsms has data empty on pipe Url ")
   expect_equal(instance$getSpecificProperty("URLs"),c(UrlPattern = c("www.google.com")))
   expect_equal(instance$getData(),"")
 

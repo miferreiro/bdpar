@@ -47,9 +47,9 @@ test_that("pipe removeEmoticon <- TRUE",{
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
@@ -67,9 +67,9 @@ test_that("pipe removeEmoticon <- FALSE",{
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
@@ -87,9 +87,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -120,9 +120,9 @@ test_that("pipe removeEmoticon type error",{
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
@@ -139,14 +139,14 @@ test_that("pipe empty data",{
   notAfterDeps <- list()
   pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindEmoticonPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData(":)")
   removeEmoticon <- TRUE
-  expect_warning(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Emoticon ")
+  expect_warning(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindEmoticonPipe\\/testFile\\.tsms has data empty on pipe Emoticon ")
   expect_equal(instance$getSpecificProperty("emoticon"),":)")
   expect_equal(instance$getData(),"")
 

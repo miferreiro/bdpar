@@ -26,12 +26,12 @@ test_that("isLoadResource file exists",{
 
   resourceHandler <- ResourceHandler$new()
 
-  pathResource <- system.file(file.path("testResources",
-                                        "abbreviations-json",
-                                        "abbrev.en.json"),
-                                       package = "bdpar")
+  pathResource <- file.path("resourcesFiles",
+                            "testResources",
+                            "abbreviations-json",
+                            "abbrev.en.json")
 
-  expect_length(resourceHandler$isLoadResource(pathResource), 1235)
+  expect_length(resourceHandler$isLoadResource(pathResource), 6)
 
 })
 

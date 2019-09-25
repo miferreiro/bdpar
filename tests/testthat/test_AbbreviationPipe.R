@@ -7,9 +7,9 @@ test_that("initialize",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   expect_silent(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
 })
@@ -21,7 +21,7 @@ test_that("initialize propertyName type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps), "\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyName NULL")
 })
 
@@ -32,7 +32,7 @@ test_that("initialize propertyLanguageName type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps), "\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyLanguageName NULL")
 })
 
@@ -43,7 +43,7 @@ test_that("initialize alwaysBeforeDeps type error",{
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
 
-  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps), "\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
@@ -54,9 +54,8 @@ test_that("initialize notAfterDeps type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
 
-  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps), "\\[AbbreviationPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: notAfterDeps NULL")
-
 })
 
 test_that("pipe",{
@@ -66,29 +65,29 @@ test_that("pipe",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testAbbreviationPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Admin. something")
   instance$addProperties("en","language")
   replaceAbbreviations <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "abbreviations-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "abbreviations-json")
 
   pipe$setResourcesAbbreviationsPath(path)
   instance <- pipe$pipe(instance, replaceAbbreviations)
 
-  expect_equal(instance$getSpecificProperty("abbreviation"),"Admin.")
+  expect_equal(instance$getSpecificProperty("abbreviation"), "Admin.")
 
 })
 
@@ -99,28 +98,28 @@ test_that("pipe data empty",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testAbbreviationPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
   replaceAbbreviations <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "abbreviations-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "abbreviations-json")
 
   pipe$setResourcesAbbreviationsPath(path)
 
-  expect_warning(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Abbreviation ")
+  expect_warning(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has data empty on pipe Abbreviation ")
 
 })
 
@@ -131,22 +130,22 @@ test_that("pipe wihtout json file",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testAbbreviationPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("D. something")
   instance$addProperties("en","language")
   replaceAbbreviations <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not an abbreviationsJsonFile to apply to the language ->en ")
+  expect_warning(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has not an abbreviationsJsonFile to apply to the language ->en ")
 
 })
 
@@ -157,21 +156,21 @@ test_that("pipe wihtout language property",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testAbbreviationPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("D. something")
   replaceAbbreviations <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not language property")
+  expect_warning(pipe$pipe(instance, replaceAbbreviations),"\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has not language property")
 
 })
 
@@ -182,15 +181,15 @@ test_that("pipe Bad compatibility between Pipes.",{
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testAbbreviationPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -207,9 +206,9 @@ test_that("pipe instance type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
@@ -228,14 +227,15 @@ test_that("pipe replaceAbbreviations type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
+
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testAbbreviationPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("D. something")
@@ -273,6 +273,7 @@ test_that("findAbbreviation abbreviation type error",{
 
   expect_error(pipe$findAbbreviation(data, abbreviation),"\\[AbbreviationPipe\\]\\[findAbbreviation\\]\\[Error\\]
                 Checking the type of the variable: abbreviation NULL")
+
 })
 
 test_that("findAbbreviation data type error",{
@@ -364,10 +365,9 @@ test_that("getPropertyLanguageName",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
-
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
   expect_equal(pipe$getPropertyLanguageName(), "language")
@@ -381,16 +381,16 @@ test_that("getResourcesAbbreviationsPath",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                        "abbreviations-json",
-                                        "abbrev.en.json"),
-                              package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "abbreviations-json",
+                    "abbrev.en.json")
 
   pipe$setResourcesAbbreviationsPath(path)
 
@@ -405,16 +405,16 @@ test_that("setResourcesAbbreviationsPath",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                "abbreviations-json",
-                                "abbrev.en.json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "abbreviations-json",
+                    "abbrev.en.json")
 
   pipe$setResourcesAbbreviationsPath(path)
 
@@ -429,9 +429,9 @@ test_that("setResourcesAbbreviationsPath path type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
 
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
