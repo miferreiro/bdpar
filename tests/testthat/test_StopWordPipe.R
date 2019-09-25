@@ -7,9 +7,9 @@ test_that("initialize",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   expect_silent(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
 })
@@ -66,24 +66,24 @@ test_that("pipe",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   instance$addProperties("en","language")
   removeStopWords <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json")
 
   pipe$setResourcesStopWordsPath(path)
   instance <- pipe$pipe(instance, removeStopWords)
@@ -99,28 +99,28 @@ test_that("pipe data empty",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
   removeStopWords <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json")
 
   pipe$setResourcesStopWordsPath(path)
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe StopWord ")
+  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has data empty on pipe StopWord ")
 
 })
 
@@ -131,22 +131,22 @@ test_that("pipe wihtout json file",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   instance$addProperties("en","language")
   removeStopWords <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not an StopWordsJsonFile to apply to the language-> en ")
+  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not an StopWordsJsonFile to apply to the language-> en ")
 
 })
 
@@ -157,21 +157,21 @@ test_that("pipe wihtout language property",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   removeStopWords <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not language property ")
+  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not language property ")
 
 })
 
@@ -182,15 +182,15 @@ test_that("pipe Bad compatibility between Pipes.",{
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -207,9 +207,9 @@ test_that("pipe instance type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
@@ -228,15 +228,15 @@ test_that("pipe removeStopWords type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testStopWordPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
@@ -345,9 +345,9 @@ test_that("getPropertyLanguageName",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
@@ -362,16 +362,16 @@ test_that("getResourcesStopWordsPath",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json",
-                                "en.json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json",
+                    "en.json")
 
   pipe$setResourcesStopWordsPath(path)
 
@@ -386,16 +386,17 @@ test_that("setResourcesStopWordsPath",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                "stopwords-json",
-                                "en.json"),
-                      package = "bdpar")
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "stopwords-json",
+                    "en.json")
 
   pipe$setResourcesStopWordsPath(path)
 
@@ -410,9 +411,9 @@ test_that("setResourcesStopWordsPath path type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testStopWordPipe",
+                                              "configurations.ini"))
 
   pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 

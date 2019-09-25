@@ -47,10 +47,9 @@ test_that("pipe removeHashtag <- TRUE",{
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
-
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
   removeHashtag <- TRUE
@@ -67,9 +66,9 @@ test_that("pipe removeHashtag <- FALSE",{
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
@@ -87,9 +86,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -120,9 +119,9 @@ test_that("pipe removeHashtag type error",{
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
@@ -139,14 +138,14 @@ test_that("pipe empty data",{
   notAfterDeps <- list()
   pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testFindHashtagPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("#example")
   removeHashtag <- TRUE
-  expect_warning(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Hashtag ")
+  expect_warning(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindHashtagPipe\\/testFile\\.tsms has data empty on pipe Hashtag ")
   expect_equal(instance$getSpecificProperty("hashtag"),"#example")
   expect_equal(instance$getData(),"")
 

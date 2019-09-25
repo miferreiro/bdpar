@@ -1,6 +1,6 @@
 context("ExtractorEml")
 
-test_that("initialize with Bdpar[[private_fields]][[configurationFilePath]] null",{
+test_that("initialize",{
 
   path <- "example.eml"
   expect_silent(ExtractorEml$new(path))

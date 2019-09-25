@@ -7,9 +7,9 @@ test_that("initialize",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   expect_silent(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
 })
@@ -66,24 +66,24 @@ test_that("pipe",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testInterjectionPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
   instance$addProperties("en","language")
   removeInterjections <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "interjections-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
   pipe$setResourcesInterjectionsPath(path)
   instance <- pipe$pipe(instance, removeInterjections)
@@ -99,28 +99,28 @@ test_that("pipe data empty",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testInterjectionPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
   removeInterjections <- TRUE
 
-  path <- system.file(file.path("testResources",
-                                "interjections-json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
   pipe$setResourcesInterjectionsPath(path)
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has data empty on pipe Interjection ")
+  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has data empty on pipe Interjection ")
 
 })
 
@@ -131,22 +131,22 @@ test_that("pipe wihtout json file",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testInterjectionPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
   instance$addProperties("en","language")
   removeInterjections <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not an interjectionsJsonFile to apply to the language ->en ")
+  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en ")
 
 })
 
@@ -157,21 +157,21 @@ test_that("pipe wihtout language property",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testInterjectionPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
   removeInterjections <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has not language property")
+  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not language property")
 
 })
 
@@ -182,15 +182,15 @@ test_that("pipe Bad compatibility between Pipes.",{
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testInterjectionPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -207,9 +207,9 @@ test_that("pipe instance type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
@@ -228,15 +228,15 @@ test_that("pipe removeInterjections type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testInterjectionPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
@@ -345,9 +345,9 @@ test_that("getPropertyLanguageName",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
@@ -362,16 +362,16 @@ test_that("getResourcesInterjectionsPath",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                "interjections-json",
-                                "interj.en.json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json",
+                    "interj.en.json")
 
   pipe$setResourcesInterjectionsPath(path)
 
@@ -386,16 +386,17 @@ test_that("setResourcesInterjectionsPath",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 
-  path <- system.file(file.path("testResources",
-                                "interjections-json",
-                                "interj.en.json"),
-                      package = "bdpar")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json",
+                    "interj.en.json")
+
 
   pipe$setResourcesInterjectionsPath(path)
 
@@ -410,9 +411,9 @@ test_that("setResourcesInterjectionsPath path type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  Bdpar$new(configurationFilePath = system.file("configurations",
-                                                "test_pipeline_execute_tsms_configurations.ini",
-                                                package = "bdpar"))
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testInterjectionPipe",
+                                              "configurations.ini"))
 
   pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
 

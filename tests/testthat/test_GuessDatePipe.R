@@ -47,9 +47,9 @@ test_that("pipe",{
   notAfterDeps <- list()
   pipe <- GuessDatePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessDatePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instanceExpected <- ExtractorSms$new(path)
@@ -66,9 +66,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- GuessDatePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package <- "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessDatePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")

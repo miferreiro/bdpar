@@ -84,9 +84,11 @@ test_that("pipe",{
 
   pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTargetAssigningPipe",
+                    "files",
+                    "_ham_",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
 
@@ -102,9 +104,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testTargetAssigningPipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
@@ -207,8 +209,8 @@ test_that("checkTarget",{
 
 test_that("checkTarget target type error",{
 
-  targets <- list("ham","spam")
-  targetsName <- list("_ham_","_spam_")
+  targets <- list("ham", "spam")
+  targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -241,13 +243,13 @@ test_that("checkTarget path type error",{
 
 test_that("getTargets",{
 
-  targets <- list("ham","spam")
-  targetsName <- list("_ham_","_spam_")
+  targets <- list("ham", "spam")
+  targetsName <- list("_ham_", "_spam_")
   propertyName <- "target"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
   pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  expect_equal(pipe$getTargets(), list("_ham_" = "ham","_spam_" = "spam"))
+  expect_equal(pipe$getTargets(), list("_ham_" = "ham", "_spam_" = "spam"))
 
 })

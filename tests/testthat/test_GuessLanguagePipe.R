@@ -51,6 +51,10 @@ test_that("pipe",{
                                 "30.tsms"),
                       package = "bdpar")
 
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
+
   instance <- ExtractorSms$new(path)
   instance$setSpecificProperty("extension","tsms")
   instance$obtainSource()
@@ -67,16 +71,16 @@ test_that("pipe no detect language",{
   notAfterDeps <- list()
   pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
   instance$setSpecificProperty("extension","tsms")
   instance$setData("try")
   languageTwitter <- TRUE
 
-  expect_warning(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/_ham_\\/30\\.tsms has a null language")
+  expect_warning(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testGuessLanguagePipe\\/testFile\\.tsms has a null language")
 
 })
 
@@ -87,9 +91,10 @@ test_that("pipe Bad compatibility between Pipes.",{
   notAfterDeps <- list()
   pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
+
   instance <- ExtractorSms$new(path)
   languageTwitter <- TRUE
 
@@ -119,9 +124,10 @@ test_that("pipe languageTwitter type error",{
   notAfterDeps <- list()
   pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
-  path <- system.file(file.path("testFiles","_ham_",
-                                "30.tsms"),
-                      package = "bdpar")
+  path <- file.path("testFiles",
+                    "testGuessLanguagePipe",
+                    "testFile.tsms")
+
   instance <- ExtractorSms$new(path)
   languageTwitter <- NULL
   expect_error(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Error\\]
