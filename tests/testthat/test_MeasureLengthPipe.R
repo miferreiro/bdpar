@@ -42,7 +42,7 @@ test_that("initialize notAfterDeps type error",{
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -63,7 +63,7 @@ test_that("pipe",{
 })
 }
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
@@ -97,7 +97,7 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe propertyName type error",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -116,7 +116,7 @@ test_that("pipe propertyName type error",{
 })
 
 test_that("pipe nchar_conf type error",{
-
+  skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

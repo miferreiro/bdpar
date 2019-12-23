@@ -41,7 +41,7 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- "extension"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -59,7 +59,7 @@ test_that("pipe",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- "extension"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
@@ -89,7 +89,7 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- "extension"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

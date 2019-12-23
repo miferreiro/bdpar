@@ -131,13 +131,6 @@ ExtractorTwtid <- R6Class(
 
     initialize = function(path) {
 
-      if (!requireNamespace("rtweet", quietly = TRUE)) {
-        stop("[ExtractorTwtid][initialize][Error]
-                Package \"rtweet\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!requireNamespace("rjson", quietly = TRUE)) {
         stop("[ExtractorTwtid][initialize][Error]
                 Package \"rjson\" needed for this class to work.

@@ -181,11 +181,11 @@ FindEmojiPipe <- R6Class(
                     call. = FALSE)
       }
 
-      if (!requireNamespace("rtweet", quietly = TRUE)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Package \"rtweet\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
+      if(!requireNamespace("textutils", quietly = TRUE)) {
+        message("[FindEmojiPipe][initialize][Warning] ",
+                "Package \"rtweet\" needed for this class to work. ",
+                "Pipe function will return an empty list to emoji property. ",
+                "Please install it.")
       }
 
       if (!"character" %in% class(propertyName)) {
@@ -232,6 +232,11 @@ FindEmojiPipe <- R6Class(
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       emojisLocated <- list()
+
+      if (!requireNamespace("rtweet", quietly = TRUE)) {
+        instance$addProperties(paste(emojisLocated),super$getPropertyName())
+        return(instance)
+      }
 
       emojisList <- as.list(rtweet::emojis[2][[1]])
       names(emojisList) <- as.list(rtweet::emojis[[1]][])

@@ -41,7 +41,7 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- "date"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -60,7 +60,7 @@ test_that("pipe",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- "date"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()

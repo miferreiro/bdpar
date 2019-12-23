@@ -201,12 +201,12 @@ Connections <- R6Class(
 
     startConnectionWithTwitter = function() {
 
-      if (!requireNamespace("rtweet", quietly = TRUE)) {
-        stop("[Connections][startConnectionWithTwitter][Error]
-                Package \"rtweet\" needed for this function to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+      # if (!requireNamespace("rtweet", quietly = TRUE)) {
+      #   stop("[Connections][startConnectionWithTwitter][Error]
+      #           Package \"rtweet\" needed for this function to work.
+      #             Please install it.",
+      #               call. = FALSE)
+      # }
 
       if (!private$connectionWithTwitter) {
 
@@ -244,13 +244,6 @@ Connections <- R6Class(
     },
 
     checkRequestToTwitter = function() {
-
-      if (!requireNamespace("rtweet", quietly = TRUE)) {
-        stop("[Connections][checkRequestToTwitter][Error]
-                Package \"rtweet\" needed for this function to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
 
       tryCatch(
       {

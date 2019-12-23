@@ -1,7 +1,6 @@
 context("Connections")
 
 test_that("initialize",{
-
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testConnections",
@@ -12,7 +11,7 @@ test_that("initialize",{
 })
 
 test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
-
+  skip_if_not_installed("tuber")
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testConnections",
@@ -26,7 +25,7 @@ test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
 })
 
 test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
-
+  skip_if_not_installed("tuber")
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testConnections",
@@ -41,7 +40,6 @@ test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
 })
 
 test_that("addNumRequestToYoutube",{
-
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testConnections",
@@ -56,7 +54,7 @@ test_that("addNumRequestToYoutube",{
 })
 
 test_that("checkRequestToYoutube numRequest < numRequestMax",{
-
+  skip_if_not_installed("tuber")
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testConnections",
@@ -88,7 +86,7 @@ test_that("checkRequestToYoutube numRequest < numRequestMax",{
 # })
 
 test_that("getNumRequestMaxToYoutube",{
-
+  skip_if_not_installed("tuber")
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testConnections",

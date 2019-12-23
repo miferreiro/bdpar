@@ -1,7 +1,8 @@
 context("ContractionPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -15,7 +16,8 @@ test_that("initialize",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -26,7 +28,8 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize propertyLanguageName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
@@ -37,7 +40,8 @@ test_that("initialize propertyLanguageName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
@@ -48,7 +52,8 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -60,7 +65,8 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -93,7 +99,8 @@ test_that("pipe",{
 })
 
 test_that("pipe data empty",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -125,7 +132,8 @@ test_that("pipe data empty",{
 })
 
 test_that("pipe wihtout json file",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -151,7 +159,8 @@ test_that("pipe wihtout json file",{
 })
 
 test_that("pipe wihtout language property",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -175,7 +184,8 @@ test_that("pipe wihtout language property",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
@@ -200,7 +210,8 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -221,7 +232,8 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe replaceContractions type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -249,7 +261,8 @@ test_that("pipe replaceContractions type error",{
 
 
 test_that("findContraction",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -264,7 +277,8 @@ test_that("findContraction",{
 })
 
 test_that("findContraction abbreviation type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -279,7 +293,8 @@ test_that("findContraction abbreviation type error",{
 })
 
 test_that("findContraction data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -294,7 +309,8 @@ test_that("findContraction data type error",{
 })
 
 test_that("replaceContraction ",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -310,7 +326,8 @@ test_that("replaceContraction ",{
 })
 
 test_that("replaceContraction abbreviation type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -327,7 +344,8 @@ test_that("replaceContraction abbreviation type error",{
 })
 
 test_that("replaceContraction extendedContraction type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -344,7 +362,8 @@ test_that("replaceContraction extendedContraction type error",{
 })
 
 test_that("replaceContraction data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -361,7 +380,8 @@ test_that("replaceContraction data type error",{
 })
 
 test_that("getPropertyLanguageName",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -378,7 +398,8 @@ test_that("getPropertyLanguageName",{
 })
 
 test_that("getResourcesContractionsPath",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -402,7 +423,8 @@ test_that("getResourcesContractionsPath",{
 })
 
 test_that("setResourcesContractionsPath",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -426,7 +448,8 @@ test_that("setResourcesContractionsPath",{
 })
 
 test_that("setResourcesContractionsPath path type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()

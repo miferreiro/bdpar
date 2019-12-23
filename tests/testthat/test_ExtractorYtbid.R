@@ -1,7 +1,7 @@
 context("ExtractorYtbid")
 
 test_that("initialize path type error",{
-
+  skip_if_not_installed("tuber")
   path <- NULL
 
   expect_error(ExtractorYtbid$new(path),"\\[ExtractorYtbid\\]\\[initialize\\]\\[Error\\]

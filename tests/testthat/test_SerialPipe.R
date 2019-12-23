@@ -13,7 +13,14 @@ test_that("pipeAll instance type error",{
 })
 if (Sys.info()[['sysname']] %in% "Windows") {
 test_that("pipeAll instance type error",{
-
+  skip_if_not_installed("cld2")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rtweet")
+  skip_if_not_installed("stringi")
+  skip_if_not_installed("stringr")
+  skip_if_not_installed("textutils")
   path <- file.path("testFiles",
                     "testSerialPipe",
                     "files",
@@ -73,6 +80,5 @@ test_that("pipeAll instance type error",{
   expect_equal(instanceInitial, instance)
 
   file.remove("output_tsms.csv")
-
 })
 }

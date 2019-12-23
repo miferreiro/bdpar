@@ -30,7 +30,7 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -41,7 +41,7 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -61,7 +61,7 @@ test_that("pipe",{
 })
 
 test_that("pipe empty source",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -77,7 +77,7 @@ test_that("pipe empty source",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()

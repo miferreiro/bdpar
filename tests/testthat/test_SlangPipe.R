@@ -1,7 +1,8 @@
 context("SlangPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -15,7 +16,8 @@ test_that("initialize",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -26,7 +28,8 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize propertyLanguageName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
@@ -37,7 +40,8 @@ test_that("initialize propertyLanguageName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
@@ -48,7 +52,8 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -60,7 +65,8 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -94,7 +100,9 @@ test_that("pipe",{
 })
 
 test_that("pipe data empty",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -127,7 +135,9 @@ test_that("pipe data empty",{
 })
 
 test_that("pipe wihtout json file",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -153,7 +163,9 @@ test_that("pipe wihtout json file",{
 })
 
 test_that("pipe wihtout language property",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -178,7 +190,9 @@ test_that("pipe wihtout language property",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
@@ -204,7 +218,9 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -225,7 +241,9 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe replaceSlangs type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("readr")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -250,7 +268,8 @@ test_that("pipe replaceSlangs type error",{
 })
 
 test_that("findSlang",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -265,7 +284,8 @@ test_that("findSlang",{
 })
 
 test_that("findSlang slang type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -280,7 +300,8 @@ test_that("findSlang slang type error",{
 })
 
 test_that("findSlang data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -295,7 +316,8 @@ test_that("findSlang data type error",{
 })
 
 test_that("replaceSlang ",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -311,7 +333,8 @@ test_that("replaceSlang ",{
 })
 
 test_that("replaceSlang slang type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -328,7 +351,8 @@ test_that("replaceSlang slang type error",{
 })
 
 test_that("replaceSlang extendedSlang type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -345,7 +369,8 @@ test_that("replaceSlang extendedSlang type error",{
 })
 
 test_that("replaceSlang data type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -362,7 +387,8 @@ test_that("replaceSlang data type error",{
 })
 
 test_that("getPropertyLanguageName",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -379,7 +405,8 @@ test_that("getPropertyLanguageName",{
 })
 
 test_that("getResourcesSlangsPath",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -403,7 +430,8 @@ test_that("getResourcesSlangsPath",{
 })
 
 test_that("setResourcesSlangsPath",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -427,7 +455,8 @@ test_that("setResourcesSlangsPath",{
 })
 
 test_that("setResourcesSlangsPath path type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()

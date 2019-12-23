@@ -1,7 +1,7 @@
 context("Bdpar")
 
 test_that("Bdpar editConfigurationFile <- FALSE",{
-
+  skip_if_not_installed("rjson")
   configurationFilePath <-  file.path("testFiles",
                                       "testBdpar",
                                       "configurations.ini")
@@ -47,7 +47,7 @@ test_that("Bdpar editConfigurationFile type error",{
 })
 
 test_that("Bdpar filesPath type error",{
-
+  skip_if_not_installed("rjson")
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testBdpar",
@@ -70,7 +70,7 @@ test_that("Bdpar filesPath type error",{
 })
 
 test_that("Bdpar pipe type error",{
-
+  skip_if_not_installed("rjson")
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testBdpar",
@@ -95,7 +95,7 @@ test_that("Bdpar pipe type error",{
 })
 
 test_that("Bdpar instanceFactory type error",{
-
+  skip_if_not_installed("rjson")
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
                                       "testBdpar",
@@ -121,7 +121,14 @@ test_that("Bdpar instanceFactory type error",{
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 test_that("Bdpar default flow of pipes with the examples files tsms",{
-
+  skip_if_not_installed("cld2")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rtweet")
+  skip_if_not_installed("stringi")
+  skip_if_not_installed("stringr")
+  skip_if_not_installed("textutils")
 
   #Path where the configuration file are located
   configurationFilePath <-  file.path("testFiles",
@@ -241,6 +248,5 @@ test_that("Bdpar default flow of pipes with the examples files tsms",{
   expect_equal(file2$getBanPipes(),c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
 
   file.remove("output_tsms.csv")
-
 })
 }
