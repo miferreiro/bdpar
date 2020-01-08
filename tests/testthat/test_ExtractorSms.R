@@ -35,13 +35,6 @@ test_that("obtainSource",{
 
   instance <- ExtractorSms$new(path)
   instance$obtainSource()
-  if (Sys.info()[['sysname']] %in% "Windows") {
-    expect_equal(instance$getSource(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
-    expect_equal(instance$getData(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
-  } else {
-    if (Sys.info()[['sysname']] %in% "Linux") {
-      expect_equal(instance$getSource(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\n")
-      expect_equal(instance$getData(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\n")
-    }
-  }
+  expect_equal(instance$.__enclos_env__$private$source,"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
+  expect_equal(instance$.__enclos_env__$private$data,"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
 })

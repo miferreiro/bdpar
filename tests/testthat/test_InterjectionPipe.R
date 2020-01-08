@@ -3,6 +3,7 @@ context("InterjectionPipe")
 test_that("initialize",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -18,6 +19,7 @@ test_that("initialize",{
 test_that("initialize propertyName type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -30,6 +32,7 @@ test_that("initialize propertyName type error",{
 test_that("initialize propertyLanguageName type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
@@ -42,6 +45,7 @@ test_that("initialize propertyLanguageName type error",{
 test_that("initialize alwaysBeforeDeps type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
@@ -54,6 +58,7 @@ test_that("initialize alwaysBeforeDeps type error",{
 test_that("initialize notAfterDeps type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -67,6 +72,7 @@ test_that("initialize notAfterDeps type error",{
 test_that("pipe",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -101,6 +107,7 @@ test_that("pipe",{
 test_that("pipe data empty",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -134,6 +141,7 @@ test_that("pipe data empty",{
 test_that("pipe wihtout json file",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -161,6 +169,7 @@ test_that("pipe wihtout json file",{
 test_that("pipe wihtout language property",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -187,6 +196,7 @@ test_that("pipe wihtout language property",{
 test_that("pipe Bad compatibility between Pipes.",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
@@ -213,6 +223,7 @@ test_that("pipe Bad compatibility between Pipes.",{
 test_that("pipe instance type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -235,6 +246,7 @@ test_that("pipe instance type error",{
 test_that("pipe removeInterjections type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -261,6 +273,7 @@ test_that("pipe removeInterjections type error",{
 test_that("findInterjection",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -277,6 +290,7 @@ test_that("findInterjection",{
 test_that("findInterjection interjection type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -293,6 +307,7 @@ test_that("findInterjection interjection type error",{
 test_that("findInterjection data type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -309,6 +324,7 @@ test_that("findInterjection data type error",{
 test_that("removeInterjection ",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -325,6 +341,7 @@ test_that("removeInterjection ",{
 test_that("removeInterjection abbreviation type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -342,6 +359,7 @@ test_that("removeInterjection abbreviation type error",{
 test_that("removeInterjection data type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -359,6 +377,7 @@ test_that("removeInterjection data type error",{
 test_that("getPropertyLanguageName",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -377,6 +396,7 @@ test_that("getPropertyLanguageName",{
 test_that("getResourcesInterjectionsPath",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -402,6 +422,7 @@ test_that("getResourcesInterjectionsPath",{
 test_that("setResourcesInterjectionsPath",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -428,6 +449,7 @@ test_that("setResourcesInterjectionsPath",{
 test_that("setResourcesInterjectionsPath path type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()

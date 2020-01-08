@@ -3,6 +3,7 @@ context("StopWordPipe")
 test_that("initialize",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -18,6 +19,7 @@ test_that("initialize",{
 test_that("initialize propertyName type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -30,6 +32,7 @@ test_that("initialize propertyName type error",{
 test_that("initialize propertyLanguageName type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
@@ -42,6 +45,7 @@ test_that("initialize propertyLanguageName type error",{
 test_that("initialize alwaysBeforeDeps type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
@@ -54,6 +58,7 @@ test_that("initialize alwaysBeforeDeps type error",{
 test_that("initialize notAfterDeps type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -68,6 +73,7 @@ test_that("pipe",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -103,6 +109,7 @@ test_that("pipe data empty",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -137,6 +144,7 @@ test_that("pipe wihtout json file",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -165,6 +173,7 @@ test_that("pipe wihtout language property",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -192,6 +201,7 @@ test_that("pipe Bad compatibility between Pipes.",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
@@ -219,6 +229,7 @@ test_that("pipe instance type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -242,6 +253,7 @@ test_that("pipe removeStopWords type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("readr")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -268,6 +280,7 @@ test_that("pipe removeStopWords type error",{
 test_that("findStopWord",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -284,6 +297,7 @@ test_that("findStopWord",{
 test_that("findStopWord stopWord type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -300,6 +314,7 @@ test_that("findStopWord stopWord type error",{
 test_that("findStopWord data type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -316,6 +331,7 @@ test_that("findStopWord data type error",{
 test_that("removeStopWord ",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -332,6 +348,7 @@ test_that("removeStopWord ",{
 test_that("removeStopWord stopWord type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -349,6 +366,7 @@ test_that("removeStopWord stopWord type error",{
 test_that("removeStopWord data type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -366,6 +384,7 @@ test_that("removeStopWord data type error",{
 test_that("getPropertyLanguageName",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -384,6 +403,7 @@ test_that("getPropertyLanguageName",{
 test_that("getResourcesStopWordsPath",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -409,6 +429,7 @@ test_that("getResourcesStopWordsPath",{
 test_that("setResourcesStopWordsPath",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -435,6 +456,7 @@ test_that("setResourcesStopWordsPath",{
 test_that("setResourcesStopWordsPath path type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
