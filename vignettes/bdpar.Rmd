@@ -20,7 +20,7 @@ vignette: >
 
 The package has been develop using R6 class for implement, for example,  the extraction of input data and the 18 Pipes that there are in the application by default. Next, the different tools that make up the application are explained and how the features it offers can be extended.
 
-In case of any more specific doubt, use the package help through *?bdpar*.
+In case of any more specific doubt, use the package help through *help(package = "bdpar")*.
 
 ## Instance
 
