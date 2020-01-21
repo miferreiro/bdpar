@@ -30,7 +30,7 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -41,7 +41,7 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -53,15 +53,17 @@ test_that("pipe",{
 
   instance <- ExtractorSms$new(path)
   instanceExpected <- ExtractorSms$new(path)
-  instanceExpected$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
-  instanceExpected$setData("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+  instanceExpected$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
+  instanceExpected$setData("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   instanceExpected$addFlowPipes("File2Pipe")
-  expect_equal(pipe$pipe(instance),instanceExpected)
-
+  instanceFinal <- pipe$pipe(instance)
+  expect_equal(instanceFinal$getSource(),instanceExpected$getSource())
+  expect_equal(instanceFinal$getData(),instanceExpected$getData())
+  expect_equal(instanceFinal$getFlowPipes(),instanceExpected$getFlowPipes())
 })
 
 test_that("pipe empty source",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -77,7 +79,7 @@ test_that("pipe empty source",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()

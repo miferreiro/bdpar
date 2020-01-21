@@ -1,7 +1,9 @@
 context("AbbreviationPipe")
 
 test_that("initialize",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -15,7 +17,8 @@ test_that("initialize",{
 })
 
 test_that("initialize propertyName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -26,7 +29,8 @@ test_that("initialize propertyName type error",{
 })
 
 test_that("initialize propertyLanguageName type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
@@ -37,7 +41,8 @@ test_that("initialize propertyLanguageName type error",{
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
@@ -48,7 +53,8 @@ test_that("initialize alwaysBeforeDeps type error",{
 })
 
 test_that("initialize notAfterDeps type error",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -59,7 +65,9 @@ test_that("initialize notAfterDeps type error",{
 })
 
 test_that("pipe",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -92,7 +100,9 @@ test_that("pipe",{
 })
 
 test_that("pipe data empty",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -124,7 +134,9 @@ test_that("pipe data empty",{
 })
 
 test_that("pipe wihtout json file",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -150,7 +162,9 @@ test_that("pipe wihtout json file",{
 })
 
 test_that("pipe wihtout language property",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -175,7 +189,9 @@ test_that("pipe wihtout language property",{
 })
 
 test_that("pipe Bad compatibility between Pipes.",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
@@ -200,7 +216,9 @@ test_that("pipe Bad compatibility between Pipes.",{
 })
 
 test_that("pipe instance type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -221,7 +239,9 @@ test_that("pipe instance type error",{
 })
 
 test_that("pipe replaceAbbreviations type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -246,11 +266,18 @@ test_that("pipe replaceAbbreviations type error",{
 })
 
 test_that("findAbbreviation",{
-
+  skip_if_not_installed("rex")
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
+
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
 
   abbreviation <- "D."
@@ -261,11 +288,16 @@ test_that("findAbbreviation",{
 })
 
 test_that("findAbbreviation abbreviation type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
 
   abbreviation <- NULL
@@ -277,11 +309,16 @@ test_that("findAbbreviation abbreviation type error",{
 })
 
 test_that("findAbbreviation data type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
 
   abbreviation <- "D."
@@ -292,11 +329,16 @@ test_that("findAbbreviation data type error",{
 })
 
 test_that("replaceAbbreviation ",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
 
   abbreviation <- "D."
@@ -308,11 +350,16 @@ test_that("replaceAbbreviation ",{
 })
 
 test_that("replaceAbbreviation abbreviation type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
 
   abbreviation <- NULL
@@ -325,11 +372,16 @@ test_that("replaceAbbreviation abbreviation type error",{
 })
 
 test_that("replaceAbbreviation extendedAbbreviation type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
 
   abbreviation <- "D."
@@ -342,11 +394,16 @@ test_that("replaceAbbreviation extendedAbbreviation type error",{
 })
 
 test_that("replaceAbbreviation data type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  Bdpar$new(configurationFilePath = file.path("testFiles",
+                                              "testAbbreviationPipe",
+                                              "configurations.ini"))
   pipe <- AbbreviationPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
 
   abbreviation <- "D."
@@ -359,7 +416,9 @@ test_that("replaceAbbreviation data type error",{
 })
 
 test_that("getPropertyLanguageName",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -375,7 +434,9 @@ test_that("getPropertyLanguageName",{
 })
 
 test_that("getResourcesAbbreviationsPath",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -399,7 +460,9 @@ test_that("getResourcesAbbreviationsPath",{
 })
 
 test_that("setResourcesAbbreviationsPath",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -423,7 +486,9 @@ test_that("setResourcesAbbreviationsPath",{
 })
 
 test_that("setResourcesAbbreviationsPath path type error",{
-
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()

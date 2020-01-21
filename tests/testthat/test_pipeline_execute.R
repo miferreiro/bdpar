@@ -204,7 +204,14 @@ test_that("pipeline_execute instanceFactory type error",{
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 test_that("pipeline_execute default flow of pipes with the examples files tsms",{
-
+  skip_if_not_installed("cld2")
+  skip_if_not_installed("readr")
+  skip_if_not_installed("rex")
+  skip_if_not_installed("rjson")
+  skip_if_not_installed("rtweet")
+  skip_if_not_installed("stringi")
+  skip_if_not_installed("stringr")
+  skip_if_not_installed("textutils")
 
   #Path where the configuration file are located
   configurationFilePath <- file.path("testFiles",
@@ -221,7 +228,6 @@ test_that("pipeline_execute default flow of pipes with the examples files tsms",
 
   #Object which decides how creates the instances
   instanceFactory <- InstanceFactory$new()
-
   #Starting file preprocessing...
   output <- suppressWarnings(pipeline_execute(configurationFilePath = configurationFilePath,
                              filesPath = filesPath,
@@ -321,7 +327,6 @@ test_that("pipeline_execute default flow of pipes with the examples files tsms",
   expect_equal(file2$getBanPipes(),c("FindUrlPipe","FindHashtagPipe","AbbreviationPipe"))
 
   file.remove("output_tsms.csv")
-
 })
 }
 #

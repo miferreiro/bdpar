@@ -20,7 +20,7 @@ test_that("createInstance path type error",{
 })
 
 test_that("createInstance tsms",{
-
+  skip_if_not_installed("readr")
   factory <- InstanceFactory$new()
 
   expect_equal(class(factory$createInstance("example.tsms")), c("ExtractorSms","Instance","R6"))
