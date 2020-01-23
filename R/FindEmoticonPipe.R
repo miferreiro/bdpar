@@ -36,7 +36,8 @@
 #' \preformatted{
 #' FindEmoticonPipe$new(propertyName = "emoticon",
 #'                      alwaysBeforeDeps = list(),
-#'                      notAfterDeps = list("FindHashtagPipe"))
+#'                      notAfterDeps = list("FindHashtagPipe"),
+#'                      removeEmoticons = TRUE)
 #' }
 #'
 #' \itemize{
@@ -51,6 +52,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{removeEmoticons:}}{
+#' (\emph{logical}) indicates if the emoticons are replaced.
 #' }
 #' }
 #' }
@@ -74,7 +78,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain/remove the emoticons.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, removeEmoticon = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -83,9 +87,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeEmoticon:}}{
-#' (\emph{logical}) indicates if the emoticons are replaced.
 #' }
 #' }
 #' }
@@ -138,6 +139,13 @@
 #' }
 #' }
 #'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{removeEmoticons:}}{
+#'  (\emph{logical}) indicates if the emoticons are replaced.
+#' }
+#' }
+#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
 #'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
@@ -164,7 +172,8 @@ FindEmoticonPipe <- R6Class(
 
     initialize = function(propertyName = "emoticon",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list("FindHashtagPipe")) {
+                          notAfterDeps = list("FindHashtagPipe"),
+                          removeEmoticons = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[FindEmoticonPipe][initialize][Error]
@@ -198,30 +207,31 @@ FindEmoticonPipe <- R6Class(
                 Checking the type of the variable: alwaysBeforeDeps ",
                   class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
         stop("[FindEmoticonPipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
                   class(notAfterDeps))
       }
 
-      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      if (!"logical" %in% class(removeEmoticons)) {
+        stop("[FindEmoticonPipe][initialize][Error]
+                Checking the type of the variable: removeEmoticons ",
+                  class(removeEmoticons))
+      }
 
+      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$removeEmoticons <- removeEmoticons
     },
 
     emoticonPattern = '(\\:\\w+\\:|\\<[\\/\\\\]?3|[\\(\\)\\\\\\D|\\*\\$][\\-\\^]?[\\:\\;\\=]|[\\:\\;\\=B8][\\-\\^]?[3DOPp\\@\\$\\*\\\\\\)\\(\\/\\|])(?=\\s|[\\!\\.\\?\\:\\w<>]|$)',
 
-    pipe = function(instance, removeEmoticon = TRUE){
+    pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
         stop("[FindEmoticonPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(removeEmoticon)) {
-        stop("[FindEmoticonPipe][pipe][Error]
-                Checking the type of the variable: removeEmoticon ",
-                  class(removeEmoticon))
       }
 
       instance$addFlowPipes("FindEmoticonPipe")
@@ -238,7 +248,7 @@ FindEmoticonPipe <- R6Class(
             unlist() %>>%
               {instance$addProperties(.,super$getPropertyName())}
 
-      if (removeEmoticon) {
+      if (private$removeEmoticons) {
           instance$getData()  %>>%
             self$removeEmoticon() %>>%
               textutils::trim() %>>%
@@ -290,5 +300,9 @@ FindEmoticonPipe <- R6Class(
                                    ignore_case = TRUE,
                                    multiline = TRUE), " "))
     }
+  ),
+
+  private = list(
+    removeEmoticons = TRUE
   )
 )

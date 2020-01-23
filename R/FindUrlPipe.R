@@ -36,7 +36,10 @@
 #' \preformatted{
 #' FindUrlPipe$new(propertyName = "URLs",
 #'                 alwaysBeforeDeps = list(),
-#'                 notAfterDeps = list())
+#'                 notAfterDeps = list(),
+#'                 removeUrls = TRUE,
+#'                 URLPatterns = list(self$URLPattern, self$EmailPattern),
+#'                 namesURLPatterns = list("UrlPattern","EmailPattern"))
 #' }
 #'
 #' \itemize{
@@ -51,6 +54,15 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{removeUrls:}}{
+#' (\emph{logical}) indicates if the URLs are removed.
+#' }
+#' \item{\strong{URLPatterns:}}{
+#' (\emph{list}) the regex to find URLs.
+#' }
+#' \item{\strong{namesURLPatterns:}}{
+#' (\emph{list}) the names of regex.
 #' }
 #' }
 #' }
@@ -76,10 +88,7 @@
 #' \item{\emph{Usage:}}{
 #'
 #' \preformatted{
-#' pipe(instance,
-#'      removeUrl = TRUE,
-#'      URLPatterns = list(self$URLPattern, self$EmailPattern),
-#'      namesURLPatterns = list("UrlPattern","EmailPattern"))}
+#' pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #'
@@ -89,15 +98,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeUrl:}}{
-#' (\emph{logical}) indicates if the URLs are removed.
-#' }
-#' \item{\strong{URLPatterns:}}{
-#' (\emph{list}) the regex to find URLs.
-#' }
-#' \item{\strong{namesURLPatterns:}}{
-#' (\emph{list}) the names of regex.
 #' }
 #' }
 #' }
@@ -226,6 +226,9 @@
 #' \item{\bold{namesURLPatterns:}}{
 #'  (\emph{list}) names of regular expressions that are used to identify URLs.
 #' }
+#' \item{\bold{removeUrls:}}{
+#'  (\emph{logical}) indicates if the URLs are removed.
+#' }
 #' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
@@ -254,7 +257,10 @@ FindUrlPipe <- R6Class(
 
     initialize = function(propertyName = "URLs",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list("FindUrlPipe")) {
+                          notAfterDeps = list("FindUrlPipe"),
+                          removeUrls = TRUE,
+                          URLPatterns = list(self$URLPattern, self$EmailPattern),
+                          namesURLPatterns = list("UrlPattern","EmailPattern")) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[FindUrlPipe][initialize][Error]
@@ -288,46 +294,48 @@ FindUrlPipe <- R6Class(
                 Checking the type of the variable: alwaysBeforeDeps ",
                   class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
         stop("[FindUrlPipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(removeUrls)) {
+        stop("[FindUrlPipe][initialize][Error]
+                Checking the type of the variable: removeUrls ",
+                  class(removeUrls))
+      }
+
+      if (!"list" %in% class(URLPatterns)) {
+        stop("[FindUrlPipe][initialize][Error]
+                Checking the type of the variable: URLPatterns ",
+                  class(URLPatterns))
+      }
+
+      if (!"list" %in% class(namesURLPatterns)) {
+        stop("[FindUrlPipe][initialize][Error]
+                 Checking the type of the variable: namesURLPatterns ",
+                  class(namesURLPatterns))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+      private$removeUrls <- removeUrls
+      private$URLPatterns <- URLPatterns
+      private$namesURLPatterns <- namesURLPatterns
     },
 
     URLPattern = "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:(?:[[:alnum:]]+:(?:\\/{1,2}))|\\/{0,2}www\\.)(?:[\\w-]+(?:(?:\\.[\\w-]+)*))(?:(?:[\\w~?=-][.;,@?^=%&:\\/~+#-]?)*)[\\w@?^=%&\\/~+#,;!:<\\\\\"?-]?(?=(?:[<\\\\,;!\"?\\)]|\\s|$)))",
 
     EmailPattern = "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:[\\w_.\u00E7\u00F1+-]+)(?:@|\\(at\\)|<at>)(?:(?:\\w[\\\\.:\u00F1-]?)*)[[:alnum:]\u00F1](?:\\.[a-zA-Z]{2,4}))[;:?\"!,.'>\\)]?(?=(?:\\s|$|>|\\.|,))",
 
-    pipe = function(instance,
-                    removeUrl = TRUE,
-                    URLPatterns = list(self$URLPattern, self$EmailPattern),
-                    namesURLPatterns = list("UrlPattern","EmailPattern")) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
         stop("[FindUrlPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(removeUrl)) {
-        stop("[FindUrlPipe][pipe][Error]
-                Checking the type of the variable: removeUrl ",
-                  class(removeUrl))
-      }
-
-      if (!"list" %in% class(URLPatterns)) {
-        stop("[FindUrlPipe][pipe][Error]
-                Checking the type of the variable: URLPatterns ",
-                  class(URLPatterns))
-      }
-
-      if (!"list" %in% class(namesURLPatterns)) {
-        stop("[FindUrlPipe][pipe][Error]
-                 Checking the type of the variable: namesURLPatterns ",
-                   class(namesURLPatterns))
       }
 
       instance$addFlowPipes("FindUrlPipe")
@@ -338,16 +346,13 @@ FindUrlPipe <- R6Class(
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
-      private$URLPatterns <- URLPatterns
-      private$namesURLPatterns <- namesURLPatterns
-
       instance$getData() %>>%
         {lapply(private$URLPatterns, self$findUrl,.)} %>>%
           self$putNamesURLPattern() %>>%
             unlist() %>>%
               {instance$addProperties(.,super$getPropertyName())}
 
-      if (removeUrl) {
+      if (private$removeUrls) {
         for (pattern in self$getURLPatterns()) {
           instance$getData() %>>%
             {self$removeUrl(pattern,.)} %>>%
@@ -467,6 +472,7 @@ FindUrlPipe <- R6Class(
 
   private = list(
     URLPatterns = list(),
-    namesURLPatterns = list()
+    namesURLPatterns = list(),
+    removeUrls = TRUE
   )
 )

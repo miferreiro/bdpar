@@ -38,7 +38,8 @@
 #' InterjectionPipe$new(propertyName = "interjection",
 #'                      propertyLanguageName = "language",
 #'                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                      notAfterDeps = list())
+#'                      notAfterDeps = list(),
+#'                      removeInterjections = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -55,6 +56,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{removeInterjections:}}{
+#' (\emph{logical}) indicates if the interjections are removed or not.
 #' }
 #' }
 #' }
@@ -85,12 +89,11 @@
 #' \item{\bold{pipe}}{
 #' Preprocesses the \code{\link{Instance}} to obtain/remove the interjections.
 #' The interjections found in the Pipe are added to the list of properties of
-#' the \code{\link{Instance}}. If the \code{removeInterjections} parameter is TRUE,
-#' the interjections in the data will be removed.
+#' the \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
 #'
-#' \code{pipe(instance, removeInterjections = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -99,9 +102,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeInterjections:}}{
-#' (\emph{logical}) indicates if the interjections are removed or not.
 #' }
 #' }
 #' }
@@ -202,6 +202,9 @@
 #' \item{\bold{resourcesInterjectionsPath:}}{
 #'  (\emph{character}) the path where are the resources.
 #' }
+#' \item{\bold{removeInterjections:}}{
+#'  (\emph{logical}) indicates if the interjections are removed or not.
+#' }
 #' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
@@ -231,7 +234,8 @@ InterjectionPipe <- R6Class(
     initialize = function(propertyName = "interjection",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          removeInterjections = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[InterjectionPipe][initialize][Error]
@@ -264,10 +268,17 @@ InterjectionPipe <- R6Class(
                 Checking the type of the variable: alwaysBeforeDeps ",
                   class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
         stop("[InterjectionPipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
                   class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(removeInterjections)) {
+        stop("[InterjectionPipe][initialize][Error]
+                Checking the type of the variable: removeInterjections ",
+             class(removeInterjections))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -276,20 +287,15 @@ InterjectionPipe <- R6Class(
 
       private$resourcesInterjectionsPath <- ini::read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesInterjectionsPath
 
+      private$removeInterjections <- removeInterjections
     },
 
-    pipe = function(instance, removeInterjections = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
         stop("[InterjectionPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(removeInterjections)) {
-        stop("[InterjectionPipe][pipe][Error]
-                Checking the type of the variable: removeInterjections ",
-                  class(removeInterjections))
       }
 
       instance$addFlowPipes("InterjectionPipe")
@@ -337,7 +343,8 @@ InterjectionPipe <- R6Class(
             interjectionsLocated <- list.append(interjectionsLocated, interjection)
           }
 
-          if (removeInterjections && interjection %in% interjectionsLocated) {
+          if (private$removeInterjections &&
+              interjection %in% interjectionsLocated) {
 
             instance$getData() %>>%
               {self$removeInterjection(interjection, .)} %>>%
@@ -453,6 +460,7 @@ InterjectionPipe <- R6Class(
 
   private = list(
     propertyLanguageName = "",
-    resourcesInterjectionsPath = ""
+    resourcesInterjectionsPath = "",
+    removeInterjections = TRUE
   )
 )

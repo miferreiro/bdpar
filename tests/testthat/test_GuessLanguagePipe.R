@@ -5,8 +5,9 @@ test_that("initialize",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  languageTwitter <- FALSE
 
-  expect_silent(GuessLanguagePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps))
+  expect_silent(GuessLanguagePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps, languageTwitter))
 })
 
 test_that("initialize propertyName type error",{
@@ -14,8 +15,9 @@ test_that("initialize propertyName type error",{
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  languageTwitter <- FALSE
 
-  expect_error(GuessLanguagePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[GuessLanguagePipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(GuessLanguagePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps, languageTwitter),"\\[GuessLanguagePipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyName NULL")
 })
 
@@ -24,8 +26,9 @@ test_that("initialize alwaysBeforeDeps type error",{
   propertyName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  languageTwitter <- FALSE
 
-  expect_error(GuessLanguagePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[GuessLanguagePipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(GuessLanguagePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps, languageTwitter),"\\[GuessLanguagePipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
@@ -34,9 +37,23 @@ test_that("initialize notAfterDeps type error",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  languageTwitter <- FALSE
 
-  expect_error(GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[GuessLanguagePipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter),"\\[GuessLanguagePipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: notAfterDeps NULL")
+
+})
+
+test_that("initialize languageTwitter type error",{
+
+  propertyName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  languageTwitter <- NULL
+
+  expect_error(GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter),
+  "[GuessLanguagePipe][initialize][Error]
+                Checking the type of the variable: languageTwitter NULL", fixed = TRUE)
 
 })
 
@@ -46,7 +63,9 @@ test_that("pipe",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  languageTwitter <- TRUE
+
+  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter)
 
   path <- system.file(file.path("testFiles","_ham_",
                                 "30.tsms"),
@@ -59,8 +78,7 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setSpecificProperty("extension","tsms")
   instance$obtainSource()
-  languageTwitter <- TRUE
-  instance <- pipe$pipe(instance, languageTwitter)
+  instance <- pipe$pipe(instance)
   expect_equal(instance$getSpecificProperty("language"),"en")
 
 })
@@ -71,7 +89,9 @@ test_that("pipe no detect language",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  languageTwitter <- TRUE
+
+  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter)
 
   path <- file.path("testFiles",
                     "testGuessLanguagePipe",
@@ -80,9 +100,8 @@ test_that("pipe no detect language",{
   instance <- ExtractorSms$new(path)
   instance$setSpecificProperty("extension","tsms")
   instance$setData("try")
-  languageTwitter <- TRUE
 
-  expect_warning(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testGuessLanguagePipe\\/testFile\\.tsms has a null language")
+  expect_warning(pipe$pipe(instance),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testGuessLanguagePipe\\/testFile\\.tsms has a null language")
 
 })
 
@@ -91,17 +110,18 @@ test_that("pipe Bad compatibility between Pipes.",{
   propertyName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
-  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  languageTwitter <- TRUE
+
+  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter)
 
   path <- file.path("testFiles",
                     "testGuessLanguagePipe",
                     "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
-  languageTwitter <- TRUE
 
   instance$addBanPipes("pipeExample")
-  expect_error(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+  expect_error(pipe$pipe(instance),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
 
 })
 
@@ -110,30 +130,12 @@ test_that("pipe instance type error",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  languageTwitter <- TRUE
+  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter)
 
   instance <- NULL
-  languageTwitter <- TRUE
-  expect_error(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Error\\]
+  expect_error(pipe$pipe(instance),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Error\\]
                 Checking the type of the variable: instance NULL")
-
-})
-
-test_that("pipe languageTwitter type error",{
-  skip_if_not_installed("readr")
-  propertyName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testGuessLanguagePipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  languageTwitter <- NULL
-  expect_error(pipe$pipe(instance, languageTwitter),"\\[GuessLanguagePipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: languageTwitter NULL")
 
 })
 
@@ -143,8 +145,9 @@ test_that("getLanguage",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  languageTwitter <- TRUE
 
-  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter)
 
   data <- "This text is an English example to detecte the language"
 
@@ -158,8 +161,9 @@ test_that("getLanguage data input error",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  languageTwitter <- TRUE
 
-  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- GuessLanguagePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, languageTwitter)
 
   data <- NULL
 

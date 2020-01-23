@@ -7,7 +7,9 @@ test_that("initialize",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  expect_silent(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps))
+  replaceEmojis <- TRUE
+
+  expect_silent(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis))
 })
 
 test_that("initialize propertyName type error",{
@@ -17,7 +19,9 @@ test_that("initialize propertyName type error",{
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  expect_error(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmojiPipe\\]\\[initialize\\]\\[Error\\]\\n                Checking the type of the variable: propertyName NULL")
+  replaceEmojis <- TRUE
+
+  expect_error(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis),"\\[FindEmojiPipe\\]\\[initialize\\]\\[Error\\]\\n                Checking the type of the variable: propertyName NULL")
 })
 
 test_that("initialize alwaysBeforeDeps type error",{
@@ -27,7 +31,7 @@ test_that("initialize alwaysBeforeDeps type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
-  expect_error(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmojiPipe\\]\\[initialize\\]\\[Error\\]\\n                Checking the type of the variable: alwaysBeforeDeps NULL")
+  expect_error(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis),"\\[FindEmojiPipe\\]\\[initialize\\]\\[Error\\]\\n                Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
 test_that("initialize notAfterDeps type error",{
@@ -37,18 +41,31 @@ test_that("initialize notAfterDeps type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
-  expect_error(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmojiPipe\\]\\[initialize\\]\\[Error\\]\\n                Checking the type of the variable: notAfterDeps NULL")
+  replaceEmojis <- TRUE
+  expect_error(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis),"\\[FindEmojiPipe\\]\\[initialize\\]\\[Error\\]\\n                Checking the type of the variable: notAfterDeps NULL")
 })
 
-test_that("pipe removeEmoji <- TRUE",{
+test_that("initialize replaceEmojis type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceEmojis <- NULL
+  expect_error(FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis),"\\[FindEmojiPipe\\]\\[initialize\\]\\[Error\\]\\n                Checking the type of the variable: replaceEmojis NULL")
+})
 
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+test_that("pipe replaceEmojis <- TRUE",{
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rtweet")
+  propertyName <- "Emojis"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  replaceEmojis <- TRUE
+
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   path <- file.path("testFiles",
                     "testFindEmojiPipe",
@@ -56,20 +73,21 @@ test_that("pipe removeEmoji <- TRUE",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am \U0001f600")
-  removeEmoji <- TRUE
-  instance <- pipe$pipe(instance, removeEmoji)
+
+  instance <- pipe$pipe(instance)
   expect_equal(instance$getSpecificProperty("Emojis"),"\U0001f600")
   expect_equal(instance$getData(),"Hey I am  grinning face")
 })
 
-test_that("pipe removeEmoji <- FALSE",{
+test_that("pipe replaceEmojis <- FALSE",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- FALSE
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   path <- file.path("testFiles",
                     "testFindEmojiPipe",
@@ -77,8 +95,7 @@ test_that("pipe removeEmoji <- FALSE",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am \U0001f600")
-  removeEmoji <- FALSE
-  instance <- pipe$pipe(instance, removeEmoji)
+  instance <- pipe$pipe(instance)
   expect_equal(instance$getSpecificProperty("Emojis"),"\U0001f600")
   expect_equal(instance$getData(),"Hey I am \U0001f600")
 })
@@ -90,7 +107,8 @@ test_that("pipe Bad compatibility between Pipes.",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   path <- file.path("testFiles",
                     "testFindEmojiPipe",
@@ -99,8 +117,7 @@ test_that("pipe Bad compatibility between Pipes.",{
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
   instance$setData("Hey I am \U0001f600")
-  removeEmoji <- TRUE
-  expect_error(pipe$pipe(instance, removeEmoji),"\\[FindEmojiPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+  expect_error(pipe$pipe(instance),"\\[FindEmojiPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
 })
 
 test_that("pipe instance type error",{
@@ -110,33 +127,13 @@ test_that("pipe instance type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   instance <- NULL
-  removeEmoji <- TRUE
-  expect_error(pipe$pipe(instance, removeEmoji),"\\[FindEmojiPipe\\]\\[pipe\\]\\[Error\\]
+  expect_error(pipe$pipe(instance),"\\[FindEmojiPipe\\]\\[pipe\\]\\[Error\\]
                 Checking the type of the variable: instance NULL")
 
-})
-
-test_that("pipe removeEmoji type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rtweet")
-  propertyName <- "Emojis"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testFindEmojiPipe",
-                    "testFile.tsms")
-
-    instance <- ExtractorSms$new(path)
-    instance$setData("Hey I am \U0001f600")
-    removeEmoji <- NULL
-    expect_error(pipe$pipe(instance, removeEmoji),"\\[FindEmojiPipe\\]\\[pipe]\\[Error\\]\\n                Checking the type of the variable: replaceEmoji NULL")
 })
 
 test_that("findEmoji",{
@@ -146,7 +143,9 @@ test_that("findEmoji",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   data <- "\U0001f600"
   emoji <- "\U0001f600"
@@ -160,8 +159,9 @@ test_that("findEmoji data type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceEmojis <- TRUE
 
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   data <- NULL
   emoji <- "\U0001f600"
@@ -177,7 +177,9 @@ test_that("findEmoji emoji type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   data <- "\U0001f600"
   emoji <- NULL
@@ -192,7 +194,9 @@ test_that("replaceEmoji",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   emoji <- "\U0001f600"
   extendedEmoji <- "grinning face"
@@ -208,7 +212,9 @@ test_that("replaceEmoji emoji type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
 
   emoji <- NULL
   extendedEmoji <- "grinning face"
@@ -226,7 +232,9 @@ test_that("replaceEmoji extendedEmoji type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
   emoji <- "\U0001f600"
   extendedEmoji <- NULL
   data <- "\U0001f600"
@@ -242,7 +250,9 @@ test_that("replaceEmoji data type error",{
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  replaceEmojis <- TRUE
+
+  pipe <- FindEmojiPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, replaceEmojis)
   emoji <- "\U0001f600"
   extendedEmoji <-  "grinning face"
   data <- NULL

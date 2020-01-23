@@ -63,10 +63,14 @@
   env <- new.env(parent = parent)
   chain_parts <- split_chain(match.call(), env = env)
 
-
   pipes <- chain_parts[["pipes"]]
   rhss <- chain_parts[["rhss"]]
   lhs <- chain_parts[["lhs"]]
+
+  rhss <- lapply(rhss, function(call) {
+    call <- call[-2]
+    parse(text = paste0(deparse(call), "$pipe(instance)"))
+  })
 
   env[["_function_list"]] <- lapply(1:length(rhss), function(i) wrap_function(rhss[[i]],
                                                                                pipes[[i]], parent))
@@ -117,31 +121,31 @@
 # @export freduce
 #
 
-freduce = function(value, function_list)
+freduce = function(instance, function_list)
 {
   k <- length(function_list)
 
   if (k > 1) {
     for (i in 1:(k - 1L)) {
-      value <- function_list[[i]](value)
-      if (!value$isInstanceValid()) {
-        message("[pipeOperator][freduce][Info] The instance ", value$getPath(),
+      instance <- eval(function_list[[i]](instance))
+      if (!instance$isInstanceValid()) {
+        message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
             " is invalid and will not continue through the flow of pipes\n")
         break
       }
     }
   }
 
-  if (value$isInstanceValid()) {
-    value <- withVisible(function_list[[k]](value))
+  if (instance$isInstanceValid()) {
+    instance <- withVisible(eval(function_list[[k]](instance)))
   } else {
-    value <- withVisible(value)
+    instance <- withVisible(instance)
   }
 
 
-  if (value[["visible"]])
-    value[["value"]]
-  else invisible(value[["value"]])
+  if (instance[["visible"]])
+    instance[["value"]]
+  else invisible(instance[["value"]])
 }
 
 split_chain = function(expr, env)
@@ -175,7 +179,7 @@ split_chain = function(expr, env)
 
     if (is.call(rhss[[i]]) && identical(rhss[[i]][[1L]],
                                         quote(`function`)))
-      stop("Anonymous functions myst be parenthesized",
+      stop("Anonymous functions must be parenthesized",
            call. = FALSE)
     expr <- expr[[2L]]
     i <- i + 1L

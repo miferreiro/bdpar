@@ -8,12 +8,13 @@ test_that("initialize",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  expect_silent(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
+  expect_silent(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords))
 })
 
 test_that("initialize propertyName type error",{
@@ -24,8 +25,9 @@ test_that("initialize propertyName type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
-  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyName NULL")
 })
 
@@ -37,8 +39,9 @@ test_that("initialize propertyLanguageName type error",{
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
-  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyLanguageName NULL")
 })
 
@@ -50,8 +53,9 @@ test_that("initialize alwaysBeforeDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
-  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
@@ -63,9 +67,25 @@ test_that("initialize notAfterDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  removeStopWords <- TRUE
 
-  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
                  Checking the type of the variable: notAfterDeps NULL")
+
+})
+
+test_that("initialize removeStopWords type error",{
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
+  propertyName <- "stopWord"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeStopWords <- NULL
+
+  expect_error(StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords),"\\[StopWordPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: removeStopWords NULL")
 
 })
 
@@ -78,12 +98,13 @@ test_that("pipe",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   path <- file.path("testFiles",
                     "testStopWordPipe",
@@ -92,14 +113,13 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   instance$addProperties("en","language")
-  removeStopWords <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
                     "stopwords-json")
 
   pipe$setResourcesStopWordsPath(path)
-  instance <- pipe$pipe(instance, removeStopWords)
+  instance <- pipe$pipe(instance)
 
   expect_equal(instance$getSpecificProperty("stopWord"),c("an","want","you"))
 
@@ -114,12 +134,13 @@ test_that("pipe data empty",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   path <- file.path("testFiles",
                     "testStopWordPipe",
@@ -128,7 +149,6 @@ test_that("pipe data empty",{
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
-  removeStopWords <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -136,7 +156,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesStopWordsPath(path)
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has data empty on pipe StopWord ")
+  expect_warning(pipe$pipe(instance),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has data empty on pipe StopWord ")
 
 })
 
@@ -149,12 +169,13 @@ test_that("pipe wihtout json file",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   path <- file.path("testFiles",
                     "testStopWordPipe",
@@ -163,9 +184,8 @@ test_that("pipe wihtout json file",{
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
   instance$addProperties("en","language")
-  removeStopWords <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not an StopWordsJsonFile to apply to the language-> en ")
+  expect_warning(pipe$pipe(instance),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not an StopWordsJsonFile to apply to the language-> en ")
 
 })
 
@@ -178,12 +198,13 @@ test_that("pipe wihtout language property",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   path <- file.path("testFiles",
                     "testStopWordPipe",
@@ -191,9 +212,8 @@ test_that("pipe wihtout language property",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("you want an apple")
-  removeStopWords <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not language property ")
+  expect_warning(pipe$pipe(instance),"\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not language property ")
 
 })
 
@@ -206,12 +226,13 @@ test_that("pipe Bad compatibility between Pipes.",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   path <- file.path("testFiles",
                     "testStopWordPipe",
@@ -220,8 +241,7 @@ test_that("pipe Bad compatibility between Pipes.",{
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
   instance$setData("you want an apple")
-  removeStopWords <- TRUE
-  expect_error(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+  expect_error(pipe$pipe(instance),"\\[StopWordPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
 
 })
 
@@ -234,46 +254,18 @@ test_that("pipe instance type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testStopWordPipe",
-                                              "configurations.ini"))
-
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  instance <- NULL
   removeStopWords <- TRUE
 
-  expect_error(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
-})
-
-test_that("pipe removeStopWords type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rjson")
-  propertyName <- "stopWord"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
-  path <- file.path("testFiles",
-                    "testStopWordPipe",
-                    "testFile.tsms")
+  instance <- NULL
 
-  instance <- ExtractorSms$new(path)
-  instance$setData("you want an apple")
-  removeStopWords <- NULL
-  expect_error(pipe$pipe(instance, removeStopWords),"\\[StopWordPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: removeStopWords NULL")
+  expect_error(pipe$pipe(instance),"\\[StopWordPipe\\]\\[pipe\\]\\[Error\\]
+                Checking the type of the variable: instance NULL")
 
 })
 
@@ -285,7 +277,9 @@ test_that("findStopWord",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeStopWords <- TRUE
+
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords)
 
   stopWord <- "you"
   data <- "you want an apple"
@@ -302,7 +296,9 @@ test_that("findStopWord stopWord type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeStopWords <- TRUE
+
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords)
 
   stopWord <- NULL
   data <- "you want an apple"
@@ -319,7 +315,9 @@ test_that("findStopWord data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeStopWords <- TRUE
+
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords)
 
   stopWord <- "you"
   data <- NULL
@@ -336,7 +334,9 @@ test_that("removeStopWord ",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeStopWords <- TRUE
+
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords)
 
   stopWord <- "you"
   data <- "you want an apple"
@@ -353,7 +353,9 @@ test_that("removeStopWord stopWord type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeStopWords <- TRUE
+
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords)
 
   stopWord <- NULL
   data <- "you want an apple"
@@ -371,7 +373,9 @@ test_that("removeStopWord data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeStopWords <- TRUE
+
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeStopWords)
 
   stopWord <- "you"
   data <- NULL
@@ -389,12 +393,13 @@ test_that("getPropertyLanguageName",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   expect_equal(pipe$getPropertyLanguageName(), "language")
 
@@ -408,12 +413,13 @@ test_that("getResourcesStopWordsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -434,12 +440,13 @@ test_that("setResourcesStopWordsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
 
   path <- file.path("resourcesFiles",
@@ -461,12 +468,13 @@ test_that("setResourcesStopWordsPath path type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeStopWords <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testStopWordPipe",
                                               "configurations.ini"))
 
-  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- StopWordPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeStopWords)
 
   path <- NULL
 

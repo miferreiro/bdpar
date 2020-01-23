@@ -33,7 +33,9 @@
 #' \preformatted{
 #' TeeCSVPipe$new(propertyName = "",
 #'                alwaysBeforeDeps = list(),
-#'                notAfterDeps = list())
+#'                notAfterDeps = list(),
+#'                withData = TRUE,
+#'                withSource = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments}}{
@@ -47,6 +49,12 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{withData:}}{
+#' (\emph{logical}) indicates if the data is added to CSV.
+#' }
+#' \item{\strong{withSource:}}{
+#' (\emph{logical}) indicates if the source is added to CSV.
 #' }
 #' }
 #' }
@@ -71,7 +79,7 @@
 #' completes the CSV with the preprocessed \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, withData = TRUE, withSource = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -81,15 +89,19 @@
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
 #' }
-#' \item{\strong{withData:}}{
-#' (\emph{logical}) indicate if the data is added to CSV.
-#' }
-#' \item{\strong{withSource:}}{
-#' (\emph{logical}) indicate if the source is added to CSV.
 #' }
 #' }
 #' }
 #' }
+#' }
+#'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{withSource:}}{
+#'  (\emph{logical}) indicates if the source is added to CSV.
+#' }
+#' \item{\bold{withData:}}{
+#'  (\emph{logical}) indicates if the data is added to CSV.
 #' }
 #' }
 #'
@@ -119,7 +131,9 @@ TeeCSVPipe <- R6Class(
 
     initialize = function(propertyName = "",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          withData = TRUE,
+                          withSource = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
         stop("[TeeCSVPipe][initialize][Error]
@@ -139,10 +153,25 @@ TeeCSVPipe <- R6Class(
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(withSource)) {
+        stop("[TeeCSVPipe][initialize][Error]
+                Checking the type of the variable: withSource ",
+                  class(withSource))
+      }
+
+      if (!"logical" %in% class(withData)) {
+        stop("[TeeCSVPipe][initialize][Error]
+                Checking the type of the variable: withData ",
+                  class(withData))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+      private$withSource <- withSource
+      private$withData <- withData
     },
 
-    pipe = function(instance, withData = TRUE, withSource = TRUE) {
+    pipe = function(instance) {
 
       outPutPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$CSVPath$outPutTeeCSVPipePath
 
@@ -150,18 +179,6 @@ TeeCSVPipe <- R6Class(
         stop("[TeeCSVPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(withSource)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: withSource ",
-                  class(withSource))
-      }
-
-      if (!"logical" %in% class(withData)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: withData ",
-                  class(withData))
       }
 
       if (!"character" %in% class(outPutPath)) {
@@ -199,11 +216,11 @@ TeeCSVPipe <- R6Class(
 
       dataFrameAll[pos, "path"] <- instance$getPath()
 
-      if (withData) {
+      if (private$withData) {
         dataFrameAll[pos, "data"] <- instance$getData()
       }
 
-      if (withSource) {
+      if (private$withSource) {
         dataFrameAll[pos, "source"] <-
           as.character(paste0(unlist(instance$getSource())))
       }
@@ -230,5 +247,10 @@ TeeCSVPipe <- R6Class(
 
       return(instance)
     }
+  ),
+
+  private = list(
+    withSource = TRUE,
+    withData = TRUE
   )
 )

@@ -8,12 +8,13 @@ test_that("initialize",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  expect_silent(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
+  expect_silent(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections))
 })
 
 test_that("initialize propertyName type error",{
@@ -24,8 +25,9 @@ test_that("initialize propertyName type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyName NULL")
 })
 
@@ -37,8 +39,9 @@ test_that("initialize propertyLanguageName type error",{
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyLanguageName NULL")
 })
 
@@ -50,8 +53,9 @@ test_that("initialize alwaysBeforeDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
@@ -63,9 +67,25 @@ test_that("initialize notAfterDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  removeInterjections <- TRUE
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: notAfterDeps NULL")
+
+})
+
+test_that("initialize removeInterjections type error",{
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
+  propertyName <- "interjection"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeInterjections <- NULL
+
+  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: removeInterjections NULL")
 
 })
 
@@ -77,12 +97,13 @@ test_that("pipe",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -91,14 +112,13 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
   instance$addProperties("en","language")
-  removeInterjections <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
                     "interjections-json")
 
   pipe$setResourcesInterjectionsPath(path)
-  instance <- pipe$pipe(instance, removeInterjections)
+  instance <- pipe$pipe(instance)
 
   expect_equal(instance$getSpecificProperty("interjection"),c("yeah","like"))
 
@@ -112,12 +132,13 @@ test_that("pipe data empty",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -126,7 +147,6 @@ test_that("pipe data empty",{
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
-  removeInterjections <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -134,7 +154,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesInterjectionsPath(path)
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has data empty on pipe Interjection ")
+  expect_warning(pipe$pipe(instance),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has data empty on pipe Interjection ")
 
 })
 
@@ -146,12 +166,13 @@ test_that("pipe wihtout json file",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -160,9 +181,8 @@ test_that("pipe wihtout json file",{
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
   instance$addProperties("en","language")
-  removeInterjections <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en ")
+  expect_warning(pipe$pipe(instance),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en ")
 
 })
 
@@ -174,12 +194,13 @@ test_that("pipe wihtout language property",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -187,9 +208,8 @@ test_that("pipe wihtout language property",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
-  removeInterjections <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not language property")
+  expect_warning(pipe$pipe(instance),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not language property")
 
 })
 
@@ -201,12 +221,13 @@ test_that("pipe Bad compatibility between Pipes.",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -215,8 +236,7 @@ test_that("pipe Bad compatibility between Pipes.",{
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
   instance$setData("yeah I like it")
-  removeInterjections <- TRUE
-  expect_error(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+  expect_error(pipe$pipe(instance),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
 
 })
 
@@ -228,45 +248,18 @@ test_that("pipe instance type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
-
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  instance <- NULL
   removeInterjections <- TRUE
 
-  expect_error(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
-})
-
-test_that("pipe removeInterjections type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "interjection"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
-  path <- file.path("testFiles",
-                    "testInterjectionPipe",
-                    "testFile.tsms")
+  instance <- NULL
 
-  instance <- ExtractorSms$new(path)
-  instance$setData("yeah I like it")
-  removeInterjections <- NULL
-  expect_error(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: removeInterjections NULL")
+  expect_error(pipe$pipe(instance),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\]
+                Checking the type of the variable: instance NULL")
 
 })
 
@@ -278,7 +271,9 @@ test_that("findInterjection",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections)
 
   interjection <- "yeah"
   data <- "yeah I like it"
@@ -295,7 +290,9 @@ test_that("findInterjection interjection type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections)
 
   interjection <- NULL
   data <- "yeah I like it"
@@ -312,7 +309,9 @@ test_that("findInterjection data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections)
 
   interjection <- "yeah"
   data <- NULL
@@ -329,7 +328,9 @@ test_that("removeInterjection ",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections)
 
   interjection <- "yeah"
   data <- "yeah I like it"
@@ -346,7 +347,9 @@ test_that("removeInterjection abbreviation type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections)
 
   interjection <- NULL
   data <- "yeah I like it"
@@ -364,7 +367,9 @@ test_that("removeInterjection data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, removeInterjections)
 
   interjection <- "yeah"
   data <- NULL
@@ -382,12 +387,13 @@ test_that("getPropertyLanguageName",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   expect_equal(pipe$getPropertyLanguageName(), "language")
 
@@ -401,12 +407,13 @@ test_that("getResourcesInterjectionsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -427,12 +434,13 @@ test_that("setResourcesInterjectionsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -454,12 +462,13 @@ test_that("setResourcesInterjectionsPath path type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testInterjectionPipe",
                                               "configurations.ini"))
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, removeInterjections)
 
   path <- NULL
 

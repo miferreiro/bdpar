@@ -38,7 +38,8 @@
 #' AbbreviationPipe$new(propertyName = "abbreviation",
 #'                      propertyLanguageName = "language",
 #'                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                      notAfterDeps = list())
+#'                      notAfterDeps = list(),
+#'                      replaceAbbreviations = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -55,6 +56,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{replaceAbbreviations:}}{
+#' (\emph{logical}) indicates if the abbreviations are replaced or not.
 #' }
 #' }
 #' }
@@ -86,12 +90,10 @@
 #' \item{\bold{pipe:}}{
 #' preprocesses the \code{\link{Instance}} to obtain/replace the abbreviations.
 #' The abbreviations found in the Pipe are added to the list of properties of
-#' the \code{\link{Instance}}. If the \emph{replaceAbbreviations} parameter is
-#' TRUE, the \code{\link{Instance}} data will be modified by replacing the
-#' abbreviations found.
+#' the \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, replaceAbbreviations = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the pipe.
@@ -100,9 +102,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{replaceAbbreviations:}}{
-#' (\emph{logical}) indicates if the abbreviations are replaced or not.
 #' }
 #' }
 #' }
@@ -205,6 +204,9 @@
 #' \item{\bold{resourcesAbbreviationsPath:}}{
 #'  (\emph{character}) the path where are the resources.
 #' }
+#' \item{\bold{replaceAbbreviations:}}{
+#'  (\emph{logical}) indicates if the abbreviations are replaced or not.
+#' }
 #' }
 #'
 #' @seealso \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
@@ -234,7 +236,8 @@ AbbreviationPipe <- R6Class(
     initialize = function(propertyName = "abbreviation",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          replaceAbbreviations = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[AbbreviationPipe][initialize][Error]
@@ -274,26 +277,27 @@ AbbreviationPipe <- R6Class(
                   class(notAfterDeps))
       }
 
+
+      if (!"logical" %in% class(replaceAbbreviations)) {
+        stop("[AbbreviationPipe][initialize][Error]
+                Checking the type of the variable: replaceAbbreviations ",
+                  class(replaceAbbreviations))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
 
       private$propertyLanguageName <- propertyLanguageName
 
       private$resourcesAbbreviationsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesAbbreviationsPath
-
+      private$replaceAbbreviations <- replaceAbbreviations
     },
 
-    pipe = function(instance, replaceAbbreviations = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
         stop("[AbbreviationPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(replaceAbbreviations)) {
-        stop("[AbbreviationPipe][pipe][Error]
-                Checking the type of the variable: replaceAbbreviations ",
-                  class(replaceAbbreviations))
       }
 
       instance$addFlowPipes("AbbreviationPipe")
@@ -342,7 +346,8 @@ AbbreviationPipe <- R6Class(
                                                   abbreviation)
           }
 
-          if (replaceAbbreviations && abbreviation %in% abbreviationsLocated) {
+          if (private$replaceAbbreviations &&
+              abbreviation %in% abbreviationsLocated) {
 
               instance$getData() %>>%
                 {self$replaceAbbreviation(abbreviation,
@@ -467,6 +472,7 @@ AbbreviationPipe <- R6Class(
 
   private = list(
     propertyLanguageName = "",
-    resourcesAbbreviationsPath = ""
+    resourcesAbbreviationsPath = "",
+    replaceAbbreviations = TRUE
   )
 )

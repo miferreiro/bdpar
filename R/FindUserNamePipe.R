@@ -36,7 +36,8 @@
 #' \preformatted{
 #' FindUserNamePipe$new(propertyName = "userName",
 #'                      alwaysBeforeDeps = list(),
-#'                      notAfterDeps = list())
+#'                      notAfterDeps = list(),
+#'                      removeUser = TRUE)
 #' }
 #'
 #' \itemize{
@@ -51,6 +52,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{removeUser:}}{
+#' (\emph{logical}) indicates if the users are removed.
 #' }
 #' }
 #' }
@@ -74,7 +78,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain/remove the name users.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, removeUser = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -83,9 +87,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeUser:}}{
-#' (\emph{logical}) indicates if the users are removed.
 #' }
 #' }
 #' }
@@ -138,6 +139,13 @@
 #' }
 #' }
 #'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{removeUser:}}{
+#'  (\emph{logical}) indicates if the users are removed.
+#' }
+#' }
+#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
 #'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
@@ -164,7 +172,8 @@ FindUserNamePipe <- R6Class(
 
     initialize = function(propertyName = "userName",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          removeUser = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[FindUserNamePipe][initialize][Error]
@@ -198,29 +207,31 @@ FindUserNamePipe <- R6Class(
                 Checking the type of the variable: alwaysBeforeDeps ",
                   class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
         stop("[FindUserNamePipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(removeUser)) {
+        stop("[FindUserNamePipe][initialize][Error]
+                  Checking the type of the variable: removeUser ",
+                    class(removeUser))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$removeUser <- removeUser
     },
 
     userPattern = "(?:\\s|^|[\"><\u00A1\u00BF?!;:,.'-])(@[^[:cntrl:][:space:]!\"#$%&'()*+\\\\,\\/:;<=>?@\\[\\]^`{|}~]+)[;:?\"!,.'>-]?(?=(?:\\s|$|>))",
 
-    pipe = function(instance, removeUser = TRUE){
+    pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
         stop("[FindUserNamePipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(removeUser)) {
-          stop("[FindUserNamePipe][pipe][Error]
-                  Checking the type of the variable: removeUser ",
-                    class(removeUser))
       }
 
       instance$addFlowPipes("FindUserNamePipe")
@@ -237,7 +248,7 @@ FindUserNamePipe <- R6Class(
             unlist() %>>%
               {instance$addProperties(.,super$getPropertyName())}
 
-      if (removeUser) {
+      if (private$removeUser) {
         instance$getData()  %>>%
           self$removeUserName() %>>%
             textutils::trim() %>>%
@@ -288,5 +299,9 @@ FindUserNamePipe <- R6Class(
                                    ignore_case = TRUE,
                                    multiline = TRUE), " "))
     }
+  ),
+
+  private = list(
+    removeUser = TRUE
   )
 )

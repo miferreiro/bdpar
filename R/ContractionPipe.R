@@ -38,7 +38,8 @@
 #' ContractionsPipe$new(propertyName = "contractions",
 #'                      propertyLanguageName = "language",
 #'                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                      notAfterDeps = list())
+#'                      notAfterDeps = list(),
+#'                      replaceContractions = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -55,6 +56,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{replaceContractions:}}{
+#' (\emph{logical}) indicates if the contractions are replace or not.
 #' }
 #' }
 #' }
@@ -86,11 +90,10 @@
 #' \item{\bold{pipe:}}{
 #' preprocesses the \code{\link{Instance}} to obtain/replace the contractions.
 #' The contractions found in the Pipe are added to the list of properties of
-#' the \code{\link{Instance}} If the \code{replaceContractions} parameter is TRUE,
-#' the \code{\link{Instance}} data will be modified by replacing the contractions found.
+#' the \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, replaceContractions = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -99,9 +102,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{replaceContractions:}}{
-#' (\emph{logical}) indicates if the contractions are replace or not.
 #' }
 #' }
 #' }
@@ -204,6 +204,9 @@
 #' \item{\bold{resourcesContractionsPath:}}{
 #'  (\emph{character}) the path where are the resources.
 #' }
+#' \item{\bold{replaceContractions:}}{
+#'  (\emph{logical}) indicates if the contractions are replace or not.
+#' }
 #' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{File2Pipe}},
@@ -233,7 +236,8 @@ ContractionPipe <- R6Class(
     initialize = function(propertyName = "contractions",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          replaceContractions = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[ContractionPipe][initialize][Error]
@@ -272,26 +276,27 @@ ContractionPipe <- R6Class(
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(replaceContractions)) {
+        stop("[ContractionPipe][initialize][Error]
+                Checking the type of the variable: replaceContractions ",
+                  class(replaceContractions))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
 
       private$propertyLanguageName <- propertyLanguageName
 
       private$resourcesContractionsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesContractionsPath
 
+      private$replaceContractions <- replaceContractions
     },
 
-    pipe = function(instance, replaceContractions = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
         stop("[ContractionPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(replaceContractions)) {
-        stop("[ContractionPipe][pipe][Error]
-                Checking the type of the variable: replaceContractions ",
-                  class(replaceContractions))
       }
 
       instance$addFlowPipes("ContractionPipe")
@@ -341,7 +346,8 @@ ContractionPipe <- R6Class(
                                                contraction)
           }
 
-          if (replaceContractions && contraction %in% contractionsLocated) {
+          if (private$replaceContractions &&
+              contraction %in% contractionsLocated) {
 
             instance$getData() %>>%
               {self$replaceContraction(contraction,
@@ -465,6 +471,7 @@ ContractionPipe <- R6Class(
 
   private = list(
     propertyLanguageName = "",
-    resourcesContractionsPath = ""
+    resourcesContractionsPath = "",
+    replaceContractions = TRUE
   )
 )

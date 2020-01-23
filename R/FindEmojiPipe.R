@@ -36,7 +36,8 @@
 #' \preformatted{
 #' FindEmojiPipe$new(propertyName = "emoji",
 #'                   alwaysBeforeDeps = list(),
-#'                   notAfterDeps = list())
+#'                   notAfterDeps = list(),
+#'                   replaceEmojis = TRUE)
 #' }
 #'
 #' \itemize{
@@ -51,6 +52,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{replaceEmojis:}}{
+#' (\emph{logical}) indicates if the emojis are replaced.
 #' }
 #' }
 #' }
@@ -73,7 +77,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain/replace the emojis.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, replaceEmoji = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -82,9 +86,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{replaceEmoji:}}{
-#' (\emph{logical}) indicates if the emojis are replaced.
 #' }
 #' }
 #' }
@@ -139,6 +140,13 @@
 #' }
 #' }
 #'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{replaceEmojis:}}{
+#'  (\emph{logical}) indicates if the emojis are replaced.
+#' }
+#' }
+#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmoticonPipe}},
 #'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
@@ -165,7 +173,8 @@ FindEmojiPipe <- R6Class(
 
     initialize = function(propertyName = "Emojis",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          replaceEmojis = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[FindEmojiPipe][initialize][Error]
@@ -205,22 +214,23 @@ FindEmojiPipe <- R6Class(
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(replaceEmojis)) {
+        stop("[FindEmojiPipe][initialize][Error]
+                Checking the type of the variable: replaceEmojis ",
+                  class(replaceEmojis))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$replaceEmojis <- replaceEmojis
 
     },
 
-    pipe = function(instance, replaceEmoji = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
         stop("[FindEmojiPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(replaceEmoji)) {
-        stop("[FindEmojiPipe][pipe][Error]
-                Checking the type of the variable: replaceEmoji ",
-                  class(replaceEmoji))
       }
 
       instance$addFlowPipes("FindEmojiPipe")
@@ -248,7 +258,7 @@ FindEmojiPipe <- R6Class(
           emojisLocated <- list.append(emojisLocated, emoji)
         }
 
-        if (replaceEmoji && emoji %in% emojisLocated) {
+        if (private$replaceEmojis && emoji %in% emojisLocated) {
 
           instance$getData() %>>%
             {self$replaceEmoji(emoji, emojisList[[emoji]], .)} %>>%
@@ -303,5 +313,9 @@ FindEmojiPipe <- R6Class(
       return(gsub(rex::escape(emoji),
                   paste(" ", extendedEmoji, " ", sep = ""), data, perl = TRUE))
     }
+  ),
+
+  private = list(
+    replaceEmojis = TRUE
   )
 )

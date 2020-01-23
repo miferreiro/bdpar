@@ -36,43 +36,43 @@
 #' \preformatted{
 #' instance \%>I\%
 #'
-#'   TargetAssigningPipe$new()$pipe() \%>I\%
+#'   TargetAssigningPipe$new() \%>I\%
 #'
-#'   StoreFileExtPipe$new()$pipe() \%>I\%
+#'   StoreFileExtPipe$new() \%>I\%
 #'
-#'   GuessDatePipe$new()$pipe() \%>I\%
+#'   GuessDatePipe$new() \%>I\%
 #'
-#'   File2Pipe$new()$pipe() \%>I\%
+#'   File2Pipe$new() \%>I\%
 #'
-#'   MeasureLengthPipe$new()$pipe("length_before_cleaning_text") \%>I\%
+#'   MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") \%>I\%
 #'
-#'   FindUserNamePipe$new()$pipe() \%>I\%
+#'   FindUserNamePipe$new() \%>I\%
 #'
-#'   FindHashtagPipe$new()$pipe() \%>I\%
+#'   FindHashtagPipe$new() \%>I\%
 #'
-#'   FindUrlPipe$new()$pipe() \%>I\%
+#'   FindUrlPipe$new() \%>I\%
 #'
-#'   FindEmoticonPipe$new()$pipe() \%>I\%
+#'   FindEmoticonPipe$new() \%>I\%
 #'
-#'   FindEmojiPipe$new()$pipe() \%>I\%
+#'   FindEmojiPipe$new() \%>I\%
 #'
-#'   GuessLanguagePipe$new()$pipe() \%>I\%
+#'   GuessLanguagePipe$new() \%>I\%
 #'
-#'   ContractionPipe$new()$pipe() \%>I\%
+#'   ContractionPipe$new() \%>I\%
 #'
-#'   AbbreviationPipe$new()$pipe() \%>I\%
+#'   AbbreviationPipe$new() \%>I\%
 #'
-#'   SlangPipe$new()$pipe() \%>I\%
+#'   SlangPipe$new() \%>I\%
 #'
-#'   ToLowerCasePipe$new()$pipe() \%>I\%
+#'   ToLowerCasePipe$new() \%>I\%
 #'
-#'   InterjectionPipe$new()$pipe() \%>I\%
+#'   InterjectionPipe$new() \%>I\%
 #'
-#'   StopWordPipe$new()$pipe() \%>I\%
+#'   StopWordPipe$new() \%>I\%
 #'
-#'   MeasureLengthPipe$new()$pipe("length_after_cleaning_text") \%>I\%
+#'   MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") \%>I\%
 #'
-#'   TeeCSVPipe$new()$pipe()
+#'   TeeCSVPipe$new()
 #' }
 #'
 #' @section Methods:
@@ -123,25 +123,25 @@ TypePipe <- R6Class(
       }
 
       instance %>I%
-        TargetAssigningPipe$new()$pipe() %>I%
-        StoreFileExtPipe$new()$pipe() %>I%
-        GuessDatePipe$new()$pipe() %>I%
-        File2Pipe$new()$pipe() %>I%
-        MeasureLengthPipe$new()$pipe("length_before_cleaning_text") %>I%
-        FindUserNamePipe$new()$pipe() %>I%
-        FindHashtagPipe$new()$pipe() %>I%
-        FindUrlPipe$new()$pipe() %>I%
-        FindEmoticonPipe$new()$pipe() %>I%
-        FindEmojiPipe$new()$pipe() %>I%
-        GuessLanguagePipe$new()$pipe() %>I%
-        ContractionPipe$new()$pipe() %>I%
-        AbbreviationPipe$new()$pipe() %>I%
-        SlangPipe$new()$pipe() %>I%
-        ToLowerCasePipe$new()$pipe() %>I%
-        InterjectionPipe$new()$pipe() %>I%
-        StopWordPipe$new()$pipe() %>I%
-        MeasureLengthPipe$new()$pipe("length_after_cleaning_text") %>I%
-        TeeCSVPipe$new()$pipe()
+        TargetAssigningPipe$new() %>I%
+        StoreFileExtPipe$new() %>I%
+        GuessDatePipe$new() %>I%
+        File2Pipe$new() %>I%
+        MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") %>I%
+        FindUserNamePipe$new() %>I%
+        FindHashtagPipe$new() %>I%
+        FindUrlPipe$new() %>I%
+        FindEmoticonPipe$new() %>I%
+        FindEmojiPipe$new() %>I%
+        GuessLanguagePipe$new() %>I%
+        ContractionPipe$new() %>I%
+        AbbreviationPipe$new() %>I%
+        SlangPipe$new() %>I%
+        ToLowerCasePipe$new() %>I%
+        InterjectionPipe$new() %>I%
+        StopWordPipe$new() %>I%
+        MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") %>I%
+        TeeCSVPipe$new()
 
       return(instance)
     }

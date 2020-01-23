@@ -8,12 +8,13 @@ test_that("initialize",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  expect_silent(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
+  expect_silent(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions))
 })
 
 test_that("initialize propertyName type error",{
@@ -24,8 +25,9 @@ test_that("initialize propertyName type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyName NULL")
 })
 
@@ -37,8 +39,9 @@ test_that("initialize propertyLanguageName type error",{
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyLanguageName NULL")
 })
 
@@ -50,8 +53,9 @@ test_that("initialize alwaysBeforeDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
@@ -63,9 +67,25 @@ test_that("initialize notAfterDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  replaceContractions <- TRUE
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: notAfterDeps NULL")
+
+})
+
+test_that("initialize replaceContractions type error",{
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
+  propertyName <- "contractions"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  replaceContractions <- NULL
+
+  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: replaceContractions NULL")
 
 })
 
@@ -77,12 +97,13 @@ test_that("pipe",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps , notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps , notAfterDeps, replaceContractions)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -91,14 +112,13 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setData("I'm tall")
   instance$addProperties("en","language")
-  replaceContractions <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
                     "contractions-json")
 
   pipe$setResourcesContractionsPath(path)
-  instance <- pipe$pipe(instance, replaceContractions)
+  instance <- pipe$pipe(instance)
 
   expect_equal(instance$getSpecificProperty("contractions"),"I'm")
 
@@ -112,12 +132,13 @@ test_that("pipe data empty",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -126,7 +147,6 @@ test_that("pipe data empty",{
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
-  replaceContractions <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -134,7 +154,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesContractionsPath(path)
 
-  expect_warning(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has data empty on pipe Contractions ")
+  expect_warning(pipe$pipe(instance),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has data empty on pipe Contractions ")
 
 })
 
@@ -146,12 +166,13 @@ test_that("pipe wihtout json file",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -160,9 +181,8 @@ test_that("pipe wihtout json file",{
   instance <- ExtractorSms$new(path)
   instance$setData("I'm tall")
   instance$addProperties("en","language")
-  replaceContractions <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not an contractionsJsonFile to apply to the language ->en ")
+  expect_warning(pipe$pipe(instance),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not an contractionsJsonFile to apply to the language ->en ")
 
 })
 
@@ -174,11 +194,13 @@ test_that("pipe wihtout language property",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -186,9 +208,8 @@ test_that("pipe wihtout language property",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("I'm tall")
-  replaceContractions <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not language property")
+  expect_warning(pipe$pipe(instance),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not language property")
 
 })
 
@@ -200,12 +221,13 @@ test_that("pipe Bad compatibility between Pipes.",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -214,8 +236,8 @@ test_that("pipe Bad compatibility between Pipes.",{
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
   instance$setData("I'm tall")
-  replaceContractions <- TRUE
-  expect_error(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+
+  expect_error(pipe$pipe(instance),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
 
 })
 
@@ -227,45 +249,18 @@ test_that("pipe instance type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
-
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  instance <- NULL
   replaceContractions <- TRUE
 
-  expect_error(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
-})
-
-test_that("pipe replaceContractions type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "contractions"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
-  path <- file.path("testFiles",
-                    "testContractionPipe",
-                    "testFile.tsms")
+  instance <- NULL
 
-  instance <- ExtractorSms$new(path)
-  instance$setData("I'm tall")
-  replaceContractions <- NULL
-  expect_error(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: replaceContractions NULL")
+  expect_error(pipe$pipe(instance),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\]
+                Checking the type of the variable: instance NULL")
 
 })
 
@@ -277,7 +272,8 @@ test_that("findContraction",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions)
 
   contraction <- "I'm"
   data <- "I'm tall"
@@ -294,7 +290,8 @@ test_that("findContraction abbreviation type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions)
 
   contraction <- NULL
   data <- "I'm tall"
@@ -311,7 +308,9 @@ test_that("findContraction data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions)
 
   contraction <- "I'm"
   data <- NULL
@@ -328,7 +327,9 @@ test_that("replaceContraction ",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions)
 
   contraction <- "I'm"
   extendedContraction <- "I am"
@@ -346,7 +347,9 @@ test_that("replaceContraction abbreviation type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions)
 
   contraction <- NULL
   extendedContraction <- "I am"
@@ -365,7 +368,9 @@ test_that("replaceContraction extendedContraction type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions)
 
   contraction <- "I'm"
   extendedContraction <- NULL
@@ -384,7 +389,9 @@ test_that("replaceContraction data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceContractions)
 
   contraction <- "I'm"
   extendedContraction <- "I am"
@@ -403,12 +410,13 @@ test_that("getPropertyLanguageName",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   expect_equal(pipe$getPropertyLanguageName(), "language")
 
@@ -422,12 +430,13 @@ test_that("getResourcesContractionsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -448,12 +457,13 @@ test_that("setResourcesContractionsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -474,12 +484,13 @@ test_that("setResourcesContractionsPath path type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testContractionPipe",
                                               "configurations.ini"))
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceContractions)
 
   path <- NULL
 

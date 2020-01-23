@@ -36,7 +36,8 @@
 #' GuessLanguagePipe$new(propertyName = "language",
 #'                       alwaysBeforeDeps = list("StoreFileExtPipe",
 #'                                               "TargetAssigningPipe"),
-#'                       notAfterDeps = list())
+#'                       notAfterDeps = list(),
+#'                       languageTwitter = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -50,6 +51,10 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{languageTwitter:}}{
+#' (\emph{logical}) indicates whether for the Instances of type twtid the language that
+#' returns the api is obtained or the detector is applied.
 #' }
 #' }
 #' }
@@ -73,7 +78,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain the language of the data.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, languageTwitter = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -82,10 +87,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{languageTwitter:}}{
-#' (\emph{logical}) indicates whether for the Instances of type twtid the language that
-#' returns the api is obtained or the detector is applied.
 #' }
 #' }
 #' }
@@ -109,6 +110,14 @@
 #' }
 #' }
 #' }
+#' }
+#' }
+#'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{languageTwitter:}}{
+#'  (\emph{logical}) indicates whether for the Instances of type twtid the language that
+#' returns the api is obtained or the detector is applied.
 #' }
 #' }
 #'
@@ -139,7 +148,8 @@ GuessLanguagePipe <- R6Class(
     initialize = function(propertyName = "language",
                           alwaysBeforeDeps = list("StoreFileExtPipe",
                                                   "TargetAssigningPipe"),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          languageTwitter = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
         stop("[GuessLanguagePipe][initialize][Error]
@@ -152,27 +162,29 @@ GuessLanguagePipe <- R6Class(
                 Checking the type of the variable: alwaysBeforeDeps ",
                   class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
         stop("[GuessLanguagePipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(languageTwitter)) {
+        stop("[GuessLanguagePipe][initialize][Error]
+                Checking the type of the variable: languageTwitter ",
+                  class(languageTwitter))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$languageTwitter <- languageTwitter
     },
 
-    pipe = function(instance, languageTwitter = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
         stop("[GuessLanguagePipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(languageTwitter)) {
-        stop("[GuessLanguagePipe][pipe][Error]
-                Checking the type of the variable: languageTwitter ",
-                  class(languageTwitter))
       }
 
       instance$addFlowPipes("GuessLanguagePipe")
@@ -183,8 +195,8 @@ GuessLanguagePipe <- R6Class(
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
-      if (languageTwitter
-            && instance$getSpecificProperty("extension") %in% "twtid") {
+      if (private$languageTwitter &&
+          instance$getSpecificProperty("extension") %in% "twtid") {
 
         cachePath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$cache$pathCacheTwtid
 
@@ -276,5 +288,9 @@ GuessLanguagePipe <- R6Class(
 
       return(langStandardize)
     }
+  ),
+
+  private = list(
+    languageTwitter = FALSE
   )
 )

@@ -38,7 +38,8 @@
 #' StopWordPipe$new(propertyName = "stopWord",
 #'                  propertyLanguageName = "language",
 #'                  alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                  notAfterDeps = list("AbbreviationPipe"))
+#'                  notAfterDeps = list("AbbreviationPipe"),
+#'                  removeStopWords = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -55,6 +56,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{removeStopWords:}}{
+#' (\emph{logical}) indicates if the stop words are removed or not.
 #' }
 #' }
 #' }
@@ -85,11 +89,10 @@
 #' \item{\bold{pipe:}}{
 #' preprocesses the \code{\link{Instance}} to obtain/remove the stop words.
 #' The stop words found in the pipe are added to the list of properties of
-#' the \code{\link{Instance}} If the \emph{removeStopWords}  parameter is TRUE,
-#' the \code{\link{Instance}} data will be removed.
+#' the \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, removeStopWords = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -98,9 +101,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeStopWords:}}{
-#' (\emph{logical}) indicates if the stop words are removed or not.
 #' }
 #' }
 #' }
@@ -200,6 +200,9 @@
 #' \item{\bold{pathResourcesStopWords:}}{
 #'  (\emph{character}) the path where are the resources.
 #' }
+#' \item{\bold{removeStopWords:}}{
+#' (\emph{logical}) indicates if the stop words are removed or not.
+#' }
 #' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
@@ -229,7 +232,8 @@ StopWordPipe <- R6Class(
     initialize = function(propertyName = "stopWord",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
-                          notAfterDeps = list("AbbreviationPipe")) {
+                          notAfterDeps = list("AbbreviationPipe"),
+                          removeStopWords = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[StopWordPipe][initialize][Error]
@@ -268,26 +272,27 @@ StopWordPipe <- R6Class(
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(removeStopWords)) {
+        stop("[StopWordPipe][initialize][Error]
+                Checking the type of the variable: removeStopWords ",
+                  class(removeStopWords))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
 
       private$propertyLanguageName <- propertyLanguageName
 
       private$resourcesStopWordsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesStopWordsPath
 
+      private$removeStopWords <- removeStopWords
     },
 
-    pipe = function(instance, removeStopWords = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
         stop("[StopWordPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(removeStopWords)) {
-        stop("[StopWordPipe][pipe][Error]
-                Checking the type of the variable: removeStopWords ",
-                  class(removeStopWords))
       }
 
       instance$addFlowPipes("StopWordPipe")
@@ -340,7 +345,7 @@ StopWordPipe <- R6Class(
             stopWordLocated <- list.append(stopWordLocated, stopWord)
           }
 
-          if (removeStopWords && stopWord %in% stopWordLocated) {
+          if (private$removeStopWords && stopWord %in% stopWordLocated) {
 
             instance$getData() %>>%
               {self$removeStopWord(stopWord, .)} %>>%
@@ -463,6 +468,7 @@ StopWordPipe <- R6Class(
 
   private = list(
     propertyLanguageName = "",
-    resourcesStopWordsPath = ""
+    resourcesStopWordsPath = "",
+    removeStopWords = TRUE
   )
 )

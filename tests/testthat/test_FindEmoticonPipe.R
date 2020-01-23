@@ -7,8 +7,9 @@ test_that("initialize",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeEmoticons <- TRUE
 
-  expect_silent(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps))
+  expect_silent(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons))
 })
 
 test_that("initialize propertyName type error",{
@@ -18,8 +19,9 @@ test_that("initialize propertyName type error",{
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeEmoticons <- TRUE
 
-  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyName NULL")
 })
 
@@ -30,8 +32,9 @@ test_that("initialize alwaysBeforeDeps type error",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  removeEmoticons <- TRUE
 
-  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
@@ -42,20 +45,37 @@ test_that("initialize notAfterDeps type error",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  removeEmoticons <- TRUE
 
-  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: notAfterDeps NULL")
 
 })
 
-test_that("pipe removeEmoticon <- TRUE",{
+test_that("initialize removeEmoticons type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- NULL
+
+  expect_error(FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons),"\\[FindEmoticonPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: removeEmoticons NULL")
+
+})
+
+test_that("pipe removeEmoticons <- TRUE",{
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("stringr")
+  propertyName <- "emoticon"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   path <- file.path("testFiles",
                     "testFindEmoticonPipe",
@@ -63,21 +83,21 @@ test_that("pipe removeEmoticon <- TRUE",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
-  removeEmoticon <- TRUE
-  instance <- pipe$pipe(instance, removeEmoticon)
+  instance <- pipe$pipe(instance)
   expect_equal(instance$getSpecificProperty("emoticon"),":)")
   expect_equal(instance$getData(),"Hey I am")
 
 })
 
-test_that("pipe removeEmoticon <- FALSE",{
+test_that("pipe removeEmoticons <- FALSE",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- FALSE
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   path <- file.path("testFiles",
                     "testFindEmoticonPipe",
@@ -85,8 +105,7 @@ test_that("pipe removeEmoticon <- FALSE",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am :)")
-  removeEmoticon <- FALSE
-  instance <- pipe$pipe(instance, removeEmoticon)
+  instance <- pipe$pipe(instance)
   expect_equal(instance$getSpecificProperty("emoticon"),":)")
   expect_equal(instance$getData(),"Hey I am :)")
 
@@ -99,7 +118,9 @@ test_that("pipe Bad compatibility between Pipes.",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   path <- file.path("testFiles",
                     "testFindEmoticonPipe",
@@ -108,8 +129,7 @@ test_that("pipe Bad compatibility between Pipes.",{
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
   instance$setData("Hey I am :)")
-  removeEmoticon <- TRUE
-  expect_error(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+  expect_error(pipe$pipe(instance),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
 
 })
 
@@ -120,33 +140,13 @@ test_that("pipe instance type error",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   instance <- NULL
-  removeEmoticon <- TRUE
-  expect_error(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\]
+  expect_error(pipe$pipe(instance),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\]
                 Checking the type of the variable: instance NULL")
-
-})
-
-test_that("pipe removeEmoticon type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "emoticon"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testFindEmoticonPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$setData("Hey I am :)")
-  removeEmoticon <- NULL
-  expect_error(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: removeEmoticon NULL")
 
 })
 
@@ -157,16 +157,17 @@ test_that("pipe empty data",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   path <- file.path("testFiles",
                     "testFindEmoticonPipe",
                     "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
-  instance$setData(":)")
-  removeEmoticon <- TRUE
-  expect_warning(pipe$pipe(instance, removeEmoticon),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindEmoticonPipe\\/testFile\\.tsms has data empty on pipe Emoticon ")
+  instance$obtainSource()
+  expect_warning(pipe$pipe(instance),"\\[FindEmoticonPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindEmoticonPipe\\/testFile\\.tsms has data empty on pipe Emoticon ")
   expect_equal(instance$getSpecificProperty("emoticon"),":)")
   expect_equal(instance$getData(),"")
 
@@ -179,7 +180,9 @@ test_that("findEmoticon",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   data <- ":)"
 
@@ -194,7 +197,9 @@ test_that("findEmoticon data type error",{
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   data <- NULL
 
@@ -203,14 +208,16 @@ test_that("findEmoticon data type error",{
 
 })
 
-test_that("removeEmoticon",{
+test_that("removeEmoticons",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   data <- ":)"
 
@@ -218,14 +225,16 @@ test_that("removeEmoticon",{
 
 })
 
-test_that("removeEmoticon data type error",{
+test_that("removeEmoticons data type error",{
   skip_if_not_installed("rex")
   skip_if_not_installed("textutils")
   skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeEmoticons <- TRUE
+
+  pipe <- FindEmoticonPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps, removeEmoticons)
 
   data <- NULL
 

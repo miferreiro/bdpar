@@ -36,7 +36,8 @@
 #' \preformatted{
 #' MeasureLengthPipe$new(propertyName = "length",
 #'                       alwaysBeforeDeps = list(),
-#'                       notAfterDeps = list())
+#'                       notAfterDeps = list(),
+#'                       nchar_conf = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -50,6 +51,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{nchar_conf}}{
+#' (\emph{logical}) indicates if the Pipe uses nchar or object.size.
 #' }
 #' }
 #' }
@@ -65,7 +69,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain the length of data.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, propertyName = super$getPropertyName(), nchar_conf = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -74,12 +78,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{propertyName}}{
-#' (\emph{character}) the name of the property that will be obtained in the Pipe.
-#' }
-#' \item{\strong{nchar_conf}}{
-#' (\emph{logical}) indicates if the Pipe uses nchar or object.size.
 #' }
 #' }
 #' }
@@ -106,6 +104,13 @@
 #' }
 #' }
 #' }
+#' }
+#' }
+#'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{nchar_conf:}}{
+#'  (\emph{logical}) indicates if the Pipe uses nchar or object.size.
 #' }
 #' }
 #'
@@ -136,7 +141,8 @@ MeasureLengthPipe <- R6Class(
 
     initialize = function(propertyName = "length",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          nchar_conf = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
         stop("[MeasureLengthPipe][initialize][Error]
@@ -149,35 +155,35 @@ MeasureLengthPipe <- R6Class(
                 Checking the type of the variable: alwaysBeforeDeps ",
                   class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
         stop("[MeasureLengthPipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
                   class(notAfterDeps))
       }
 
+      if (!"character" %in% class(propertyName)) {
+        stop("[MeasureLengthPipe][initialize][Error]
+                Checking the type of the variable: propertyName ",
+                  class(propertyName))
+      }
+
+      if (!"logical" %in% class(nchar_conf)) {
+        stop("[MeasureLengthPipe][initialize][Error]
+                Checking the type of the variable: nchar_conf ",
+                  class(nchar_conf))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$nchar_conf <- nchar_conf
     },
 
-    pipe = function(instance,
-                    propertyName = super$getPropertyName(),
-                    nchar_conf = TRUE) {
+    pipe = function(instance) {
 
         if (!"Instance" %in% class(instance)) {
             stop("[MeasureLengthPipe][pipe][Error]
                     Checking the type of the variable: instance ",
                       class(instance))
-        }
-
-        if (!"character" %in% class(propertyName)) {
-            stop("[MeasureLengthPipe][pipe][Error]
-                    Checking the type of the variable: propertyName ",
-                      class(propertyName))
-        }
-
-        if (!"logical" %in% class(nchar_conf)) {
-            stop("[MeasureLengthPipe][pipe][Error]
-                    Checking the type of the variable: nchar_conf ",
-                      class(nchar_conf))
         }
 
         instance$addFlowPipes("MeasureLengthPipe")
@@ -189,8 +195,8 @@ MeasureLengthPipe <- R6Class(
         instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
         instance$getData() %>>%
-          {self$getLength(.,nchar_conf)} %>>%
-            {instance$addProperties(.,propertyName)}
+          {self$getLength(.,private$nchar_conf)} %>>%
+            {instance$addProperties(.,private$propertyName)}
 
         return(instance);
     },
@@ -209,7 +215,11 @@ MeasureLengthPipe <- R6Class(
                   class(nchar_conf))
       }
 
-      return(ifelse(nchar_conf, nchar(data), object.size(data)))
+      return(ifelse(private$nchar_conf, nchar(data), object.size(data)))
     }
+  ),
+
+  private = list(
+    nchar_conf = TRUE
   )
 )

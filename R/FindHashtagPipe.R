@@ -36,7 +36,8 @@
 #' \preformatted{
 #' FindHashtagPipe$new(propertyName = "hashtag",
 #'                     alwaysBeforeDeps = list(),
-#'                     notAfterDeps = list())
+#'                     notAfterDeps = list(),
+#'                     removeHashtags = TRUE)
 #' }
 #'
 #' \itemize{
@@ -51,6 +52,9 @@
 #' }
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+#' }
+#' \item{\strong{removeHashtag:}}{
+#' (\emph{logical}) indicates if the hashstags are removed.
 #' }
 #' }
 #' }
@@ -74,7 +78,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain/remove the hashtags.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, removeHashtag = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -83,9 +87,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeHashtag:}}{
-#' (\emph{logical}) indicates if the hashstags are removed
 #' }
 #' }
 #' }
@@ -138,6 +139,13 @@
 #' }
 #' }
 #'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{removeHashtags:}}{
+#'  (\emph{logical}) indicates if the hashstags are removed.
+#' }
+#' }
+#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
 #'          \code{\link{FindEmoticonPipe}}, \code{\link{FindUrlPipe}},
@@ -164,7 +172,8 @@ FindHashtagPipe <- R6Class(
 
     initialize = function(propertyName = "hashtag",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          removeHashtags = TRUE) {
 
       if (!requireNamespace("rex", quietly = TRUE)) {
         stop("[FindHashtagPipe][initialize][Error]
@@ -198,29 +207,31 @@ FindHashtagPipe <- R6Class(
                 Checking the type of the variable: alwaysBeforeDeps ",
                   class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
         stop("[FindHashtagPipe][initialize][Error]
                 Checking the type of the variable: notAfterDeps ",
                   class(notAfterDeps))
       }
 
+      if (!"logical" %in% class(removeHashtags)) {
+        stop("[FindHashtagPipe][initialize][Error]
+                Checking the type of the variable: removeHashtags ",
+                  class(removeHashtags))
+      }
+
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$removeHashtags <- removeHashtags
     },
 
     hashtagPattern = "(?:\\s|^|[\"><\u00A1\u00BF?!;:,.'-])(#[^[:cntrl:][:space:]!\"#$%&'()*+\\\\,\\/:;<=>?@\\[\\]^`{|}~.-]+)[;:?\"!,.'>-]?(?=(?:\\s|$|>))",
 
-    pipe = function(instance, removeHashtag = TRUE){
+    pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
         stop("[FindHashtagPipe][pipe][Error]
                 Checking the type of the variable: instance ",
                   class(instance))
-      }
-
-      if (!"logical" %in% class(removeHashtag)) {
-        stop("[FindHashtagPipe][pipe][Error]
-                Checking the type of the variable: removeHashtag ",
-                  class(removeHashtag))
       }
 
       instance$addFlowPipes("FindHashtagPipe")
@@ -237,7 +248,7 @@ FindHashtagPipe <- R6Class(
             unlist() %>>%
               {instance$addProperties(.,super$getPropertyName())}
 
-      if (removeHashtag) {
+      if (private$removeHashtags) {
           instance$getData()  %>>%
             self$removeHashtag() %>>%
               textutils::trim() %>>%
@@ -288,5 +299,9 @@ FindHashtagPipe <- R6Class(
                                    ignore_case = TRUE,
                                    multiline = TRUE), " "))
     }
+  ),
+
+  private = list(
+    removeHashtags = TRUE
   )
 )

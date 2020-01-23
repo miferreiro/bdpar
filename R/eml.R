@@ -56,6 +56,7 @@ getElement = function(filename, PartSelectedOnMPAlternative) {
 
 
   command <- paste("python", path, filename, "message", PartSelectedOnMPAlternative, sep = " ")
+
   try(suppressWarnings(response <- system(command,
                                           intern = TRUE,
                                           ignore.stderr = TRUE)), silent = TRUE)

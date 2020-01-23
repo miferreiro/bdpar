@@ -8,12 +8,13 @@ test_that("initialize",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  expect_silent(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
+  expect_silent(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs))
 })
 
 test_that("initialize propertyName type error",{
@@ -24,8 +25,9 @@ test_that("initialize propertyName type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
-  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyName NULL")
 })
 
@@ -37,8 +39,9 @@ test_that("initialize propertyLanguageName type error",{
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
-  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: propertyLanguageName NULL")
 })
 
@@ -50,8 +53,9 @@ test_that("initialize alwaysBeforeDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
-  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceSlangs),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: alwaysBeforeDeps NULL")
 })
 
@@ -63,9 +67,25 @@ test_that("initialize notAfterDeps type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  replaceSlangs <- TRUE
 
-  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
+  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceSlangs),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
                 Checking the type of the variable: notAfterDeps NULL")
+
+})
+
+test_that("initialize replaceSlangs type error",{
+  skip_if_not_installed("rex")
+  skip_if_not_installed("textutils")
+  skip_if_not_installed("rjson")
+  propertyName <- "langpropname"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  replaceSlangs <- NULL
+
+  expect_error(SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceSlangs),"\\[SlangPipe\\]\\[initialize\\]\\[Error\\]
+                Checking the type of the variable: replaceSlangs NULL")
 
 })
 
@@ -77,13 +97,14 @@ test_that("pipe",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceSlangs)
 
   path <- file.path("testFiles",
                     "testSlangPipe",
@@ -92,14 +113,13 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setData("yur name")
   instance$addProperties("en","language")
-  replaceSlangs <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
                     "slangs-json")
 
   pipe$setResourcesSlangsPath(path)
-  instance <- pipe$pipe(instance, replaceSlangs)
+  instance <- pipe$pipe(instance)
 
   expect_equal(instance$getSpecificProperty("langpropname"),"yur")
 
@@ -114,13 +134,14 @@ test_that("pipe data empty",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceSlangs)
 
   path <- file.path("testFiles",
                     "testSlangPipe",
@@ -129,7 +150,6 @@ test_that("pipe data empty",{
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
-  replaceSlangs <- TRUE
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -137,7 +157,7 @@ test_that("pipe data empty",{
 
   pipe$setResourcesSlangsPath(path)
 
-  expect_warning(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has data empty on pipe Slang ")
+  expect_warning(pipe$pipe(instance),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has data empty on pipe Slang ")
 
 })
 
@@ -150,12 +170,13 @@ test_that("pipe wihtout json file",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceSlangs)
 
   path <- file.path("testFiles",
                     "testSlangPipe",
@@ -164,9 +185,8 @@ test_that("pipe wihtout json file",{
   instance <- ExtractorSms$new(path)
   instance$setData("yur name")
   instance$addProperties("en","language")
-  replaceSlangs <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not an SlangsJsonFile to apply to the language-> en ")
+  expect_warning(pipe$pipe(instance),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not an SlangsJsonFile to apply to the language-> en ")
 
 })
 
@@ -179,12 +199,13 @@ test_that("pipe wihtout language property",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps, replaceSlangs)
 
   path <- file.path("testFiles",
                     "testSlangPipe",
@@ -192,9 +213,8 @@ test_that("pipe wihtout language property",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("yur name")
-  replaceSlangs <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not language property")
+  expect_warning(pipe$pipe(instance),"\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not language property")
 
 })
 
@@ -207,13 +227,14 @@ test_that("pipe Bad compatibility between Pipes.",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   path <- file.path("testFiles",
                     "testSlangPipe",
@@ -222,8 +243,7 @@ test_that("pipe Bad compatibility between Pipes.",{
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
   instance$setData("yur name")
-  replaceSlangs <- TRUE
-  expect_error(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+  expect_error(pipe$pipe(instance),"\\[SlangPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
 
 })
 
@@ -236,46 +256,18 @@ test_that("pipe instance type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testSlangPipe",
-                                              "configurations.ini"))
-
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
-
-  instance <- NULL
   replaceSlangs <- TRUE
 
-  expect_error(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Error\\]
-               Checking the type of the variable: instance NULL")
-
-})
-
-test_that("pipe replaceSlangs type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rjson")
-  propertyName <- "langpropname"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
-  path <- file.path("testFiles",
-                    "testSlangPipe",
-                    "testFile.tsms")
+  instance <- NULL
 
-  instance <- ExtractorSms$new(path)
-  instance$setData("yur name")
-  replaceSlangs <- NULL
-  expect_error(pipe$pipe(instance, replaceSlangs),"\\[SlangPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: replaceSlangs NULL")
+  expect_error(pipe$pipe(instance),"\\[SlangPipe\\]\\[pipe\\]\\[Error\\]
+               Checking the type of the variable: instance NULL")
 
 })
 
@@ -287,7 +279,9 @@ test_that("findSlang",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceSlangs <- TRUE
+
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   slang <- "yur"
   data <- "yur name"
@@ -304,7 +298,9 @@ test_that("findSlang slang type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceSlangs <- TRUE
+
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   slang <- NULL
   data <- "yur name"
@@ -321,7 +317,9 @@ test_that("findSlang data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceSlangs <- TRUE
+
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   slang <- "yur"
   data <- NULL
@@ -338,7 +336,9 @@ test_that("replaceSlang ",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceSlangs <- TRUE
+
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   slang <- "yur"
   extendedSlang <- "your"
@@ -356,7 +356,9 @@ test_that("replaceSlang slang type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceSlangs <- TRUE
+
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   slang <- NULL
   extendedSlang <- "your"
@@ -375,7 +377,9 @@ test_that("replaceSlang extendedSlang type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceSlangs <- TRUE
+
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   slang <- "yur"
   extendedSlang <- NULL
@@ -394,7 +398,9 @@ test_that("replaceSlang data type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceSlangs <- TRUE
+
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   slang <- "yur"
   extendedSlang <- "your"
@@ -413,12 +419,13 @@ test_that("getPropertyLanguageName",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   expect_equal(pipe$getPropertyLanguageName(), "language")
 
@@ -432,12 +439,13 @@ test_that("getResourcesSlangsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -458,12 +466,13 @@ test_that("setResourcesSlangsPath",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   path <- file.path("resourcesFiles",
                     "testResources",
@@ -484,12 +493,13 @@ test_that("setResourcesSlangsPath path type error",{
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceSlangs <- TRUE
 
   Bdpar$new(configurationFilePath = file.path("testFiles",
                                               "testSlangPipe",
                                               "configurations.ini"))
 
-  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- SlangPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps, replaceSlangs)
 
   path <- NULL
 
