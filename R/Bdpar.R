@@ -130,7 +130,7 @@
 #' \itemize{
 #' \item{\emph{Usage}:}{
 #' \preformatted{
-#' proccess_files(filesPath,
+#' proccess_files(path,
 #'                pipe = SerialPipe$new(),
 #'                instanceFactory = InstanceFactory$new())}
 #'
@@ -140,7 +140,7 @@
 #' }
 #' \item{\emph{Arguments}:}{
 #' \itemize{
-#' \item{\strong{filesPath}:}{
+#' \item{\strong{path}:}{
 #' (\emph{character}) path where the files to be processed are located.
 #' }
 #' \item{\strong{pipe}:}{
@@ -167,9 +167,9 @@
 #'                                      package ="bdpar")
 #'
 #' #Folder with the files to preprocess
-#' filesPath <- system.file(file.path("examples",
-#'                                    "testFiles"),
-#'                          package = "bdpar")
+#' path <- system.file(file.path("examples",
+#'                               "testFiles"),
+#'                     package = "bdpar")
 #'
 #' #Object which indicates the pipes' flow
 #' pipe <- SerialPipe$new()
@@ -180,7 +180,7 @@
 #' objectBdpar <- Bdpar$new(configurationFilePath)
 #'
 #' #Starting file preprocessing...
-#' objectBdpar$proccess_files(filesPath, pipe, instanceFactory)
+#' objectBdpar$proccess_files(path, pipe, instanceFactory)
 #' }
 #' @keywords NULL
 #'
@@ -247,15 +247,9 @@ Bdpar <- R6Class(
 
     },
 
-    proccess_files = function(filesPath,
+    proccess_files = function(path,
                               pipe = SerialPipe$new(),
                               instanceFactory = InstanceFactory$new()) {
-
-      if (!"character" %in% class(filesPath)) {
-        stop("[Bdpar][proccess_files][Error]
-                Checking the type of the variable: filesPath ",
-                  class(filesPath))
-      }
 
       if (!"TypePipe" %in% class(pipe)) {
         stop("[Bdpar][proccess_files][Error]
@@ -269,12 +263,31 @@ Bdpar <- R6Class(
                   class(instanceFactory))
       }
 
-      #Array of files to preprocess
-      Files <- list.files(path = filesPath, recursive = TRUE, full.names = TRUE, all.files = TRUE)
+      if (!"character" %in% class(path)) {
+        stop("[Bdpar][proccess_files][Error]
+                Checking the type of the variable: path ",
+                  class(path))
+      }
+
+      if (all(sapply(path, function(p) file.exists(p) || dir.exists(p)))) {
+        files <- unlist(lapply(path, function(p) {
+                                       ifelse(dir.exists(p),
+                                              return(list.files(path = p,
+                                                                recursive = TRUE,
+                                                                full.names = TRUE,
+                                                                all.files = TRUE)),
+                                              return(p))
+          }))
+      } else {
+        stop("[Bdpar][proccess_files][Error] Path parameter must be an existing ",
+             "file or directory")
+      }
+
       #Create the list of instances, which will contain the date, source, path, data
       #and a list of properties of the file that is in the indicated path
-      InstancesList <- sapply(Files, instanceFactory$createInstance)
-      message("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.\n")
+      InstancesList <- sapply(files, instanceFactory$createInstance)
+
+      message("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.")
       listInstances <- sapply(InstancesList, pipe$pipeAll)
 
       return(listInstances)

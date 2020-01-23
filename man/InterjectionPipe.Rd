@@ -20,7 +20,8 @@ interjections removement.
 InterjectionPipe$new(propertyName = "interjection",
                      propertyLanguageName = "language",
                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-                     notAfterDeps = list())
+                     notAfterDeps = list(),
+                     removeInterjections = TRUE)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -37,6 +38,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{removeInterjections:}}{
+(\emph{logical}) indicates if the interjections are removed or not.
 }
 }
 }
@@ -75,12 +79,11 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 \item{\bold{pipe}}{
 Preprocesses the \code{\link{Instance}} to obtain/remove the interjections.
 The interjections found in the Pipe are added to the list of properties of
-the \code{\link{Instance}}. If the \code{removeInterjections} parameter is TRUE,
-the interjections in the data will be removed.
+the \code{\link{Instance}}.
 \itemize{
 \item{\emph{Usage:}}{
 
-\code{pipe(instance, removeInterjections = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -89,9 +92,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{removeInterjections:}}{
-(\emph{logical}) indicates if the interjections are removed or not.
 }
 }
 }
@@ -193,6 +193,9 @@ sets the path of interjections resources.
 }
 \item{\bold{resourcesInterjectionsPath:}}{
  (\emph{character}) the path where are the resources.
+}
+\item{\bold{removeInterjections:}}{
+ (\emph{logical}) indicates if the interjections are removed or not.
 }
 }
 }

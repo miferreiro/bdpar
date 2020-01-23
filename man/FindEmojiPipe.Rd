@@ -18,7 +18,8 @@ Moreover if required, is able to perform inline emoji replacement.
 \preformatted{
 FindEmojiPipe$new(propertyName = "emoji",
                   alwaysBeforeDeps = list(),
-                  notAfterDeps = list())
+                  notAfterDeps = list(),
+                  replaceEmojis = TRUE)
 }
 
 \itemize{
@@ -33,6 +34,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{replaceEmojis:}}{
+(\emph{logical}) indicates if the emojis are replaced.
 }
 }
 }
@@ -63,7 +67,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain/replace the emojis.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, replaceEmoji = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -72,9 +76,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{replaceEmoji:}}{
-(\emph{logical}) indicates if the emojis are replaced.
 }
 }
 }
@@ -126,6 +127,15 @@ the data with emoji replaced.
 }
 }
 }
+}
+}
+}
+
+\section{Private fields}{
+
+\itemize{
+\item{\bold{replaceEmojis:}}{
+ (\emph{logical}) indicates if the emojis are replaced.
 }
 }
 }

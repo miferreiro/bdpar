@@ -18,7 +18,8 @@ Moreover if required, is able to perform inline emoticon removement.
 \preformatted{
 FindEmoticonPipe$new(propertyName = "emoticon",
                      alwaysBeforeDeps = list(),
-                     notAfterDeps = list("FindHashtagPipe"))
+                     notAfterDeps = list("FindHashtagPipe"),
+                     removeEmoticons = TRUE)
 }
 
 \itemize{
@@ -33,6 +34,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{removeEmoticons:}}{
+(\emph{logical}) indicates if the emoticons are replaced.
 }
 }
 }
@@ -64,7 +68,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain/remove the emoticons.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, removeEmoticon = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -73,9 +77,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{removeEmoticon:}}{
-(\emph{logical}) indicates if the emoticons are replaced.
 }
 }
 }
@@ -127,6 +128,15 @@ the data with emoticons removed.
 \itemize{
 \item{\bold{emoticonPattern:}}{
  (\emph{character}) regular expression to detect emoticons.
+}
+}
+}
+
+\section{Private fields}{
+
+\itemize{
+\item{\bold{removeEmoticons:}}{
+ (\emph{logical}) indicates if the emoticons are replaced.
 }
 }
 }

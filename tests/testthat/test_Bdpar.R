@@ -57,16 +57,16 @@ test_that("Bdpar filesPath type error",{
 
   object <- Bdpar$new(configurationFilePath, editConfigurationFile)
 
-  filesPath <- NULL
+  path <- NULL
 
   pipe <- SerialPipe$new()
 
   instanceFactory <- InstanceFactory$new()
 
-  expect_error(object$proccess_files(filesPath = filesPath,
+  expect_error(object$proccess_files(path = path,
                                      pipe = pipe,
                                      instanceFactory = instanceFactory),"\\[Bdpar\\]\\[proccess_files\\]\\[Error\\]
-                Checking the type of the variable: filesPath NULL")
+                Checking the type of the variable: path NULL")
 })
 
 test_that("Bdpar pipe type error",{
@@ -80,15 +80,15 @@ test_that("Bdpar pipe type error",{
 
   object <- Bdpar$new(configurationFilePath, editConfigurationFile)
 
-  filesPath <- file.path("testFiles",
-                         "testBdpar",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testBdpar",
+                    "testFiles_pipeline_execute_tsms")
 
   pipe <- NULL
 
   instanceFactory <- InstanceFactory$new()
 
-  expect_error(object$proccess_files(filesPath = filesPath,
+  expect_error(object$proccess_files(path = path,
                                      pipe = pipe,
                                      instanceFactory = instanceFactory),"\\[Bdpar\\]\\[proccess_files\\]\\[Error\\]
                 Checking the type of the variable: pipe NULL")
@@ -105,15 +105,15 @@ test_that("Bdpar instanceFactory type error",{
 
   object <- Bdpar$new(configurationFilePath, editConfigurationFile)
 
-  filesPath <- file.path("testFiles",
-                         "testBdpar",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testBdpar",
+                    "testFiles_pipeline_execute_tsms")
 
   pipe <- SerialPipe$new()
 
   instanceFactory <- NULL
 
-  expect_error(object$proccess_files(filesPath = filesPath,
+  expect_error(object$proccess_files(path = path,
                                      pipe = pipe,
                                      instanceFactory = instanceFactory),"\\[Bdpar\\]\\[proccess_files\\]\\[Error\\]
                 Checking the type of the variable: instanceFactory NULL")
@@ -138,9 +138,9 @@ test_that("Bdpar default flow of pipes with the examples files tsms",{
   object <- Bdpar$new(configurationFilePath)
 
   #Folder with the files to preprocess
-  filesPath <- file.path("testFiles",
-                         "testBdpar",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testBdpar",
+                    "testFiles_pipeline_execute_tsms")
 
   #Object which indicates the pipes' flow
   pipe <- SerialPipe$new()
@@ -149,7 +149,7 @@ test_that("Bdpar default flow of pipes with the examples files tsms",{
   instanceFactory <- InstanceFactory$new()
 
   #Starting file preprocessing...
-  output <- suppressWarnings(object$proccess_files(filesPath,
+  output <- suppressWarnings(object$proccess_files(path = path,
                              pipe = pipe,
                              instanceFactory = instanceFactory))
   file1 <- output[[1]]

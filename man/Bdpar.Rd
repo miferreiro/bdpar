@@ -120,7 +120,7 @@ preprocess files through the indicated flow of pipes.
 \itemize{
 \item{\emph{Usage}:}{
 \preformatted{
-proccess_files(filesPath,
+proccess_files(path,
                pipe = SerialPipe$new(),
                instanceFactory = InstanceFactory$new())}
 
@@ -130,7 +130,7 @@ list of \code{Instances} that have been preprocessed.
 }
 \item{\emph{Arguments}:}{
 \itemize{
-\item{\strong{filesPath}:}{
+\item{\strong{path}:}{
 (\emph{character}) path where the files to be processed are located.
 }
 \item{\strong{pipe}:}{
@@ -155,9 +155,9 @@ configurationFilePath <- system.file(file.path("examples",
                                      package ="bdpar")
 
 #Folder with the files to preprocess
-filesPath <- system.file(file.path("examples",
-                                   "testFiles"),
-                         package = "bdpar")
+path <- system.file(file.path("examples",
+                              "testFiles"),
+                    package = "bdpar")
 
 #Object which indicates the pipes' flow
 pipe <- SerialPipe$new()
@@ -168,7 +168,7 @@ instanceFactory <- InstanceFactory$new()
 objectBdpar <- Bdpar$new(configurationFilePath)
 
 #Starting file preprocessing...
-objectBdpar$proccess_files(filesPath, pipe, instanceFactory)
+objectBdpar$proccess_files(path, pipe, instanceFactory)
 }
 }
 \seealso{

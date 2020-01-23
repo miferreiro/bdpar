@@ -8,9 +8,9 @@ test_that("pipeline_execute configurationFilePath type error",{
   editConfigurationFile <- FALSE
 
   #Folder with the files to preprocess
-  filesPath <- file.path("testFiles",
-                         "testPipelineExecute",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testPipelineExecute",
+                    "testFiles_pipeline_execute_tsms")
 
   #Object which indicates the pipes' flow
   pipe <- SerialPipe$new()
@@ -21,7 +21,7 @@ test_that("pipeline_execute configurationFilePath type error",{
 
   expect_error(pipeline_execute(configurationFilePath = configurationFilePath,
                                 editConfigurationFile = editConfigurationFile,
-                                filesPath = filesPath,
+                                path = path,
                                 pipe = pipe,
                                 instanceFactory = instanceFactory),"\\[pipeline_execute\\]\\[Error\\]
               Checking the type of the variable: configurationFilePath numeric")
@@ -36,9 +36,9 @@ test_that("pipeline_execute configurationFilePath extension error",{
   editConfigurationFile <- FALSE
 
   #Folder with the files to preprocess
-  filesPath <- file.path("testFiles",
-                         "testPipelineExecute",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testPipelineExecute",
+                    "testFiles_pipeline_execute_tsms")
 
   #Object which indicates the pipes' flow
   pipe <- SerialPipe$new()
@@ -49,7 +49,7 @@ test_that("pipeline_execute configurationFilePath extension error",{
 
   expect_error(pipeline_execute(configurationFilePath = configurationFilePath,
                                 editConfigurationFile = editConfigurationFile,
-                                filesPath = filesPath,
+                                path = path,
                                 pipe = pipe,
                                 instanceFactory = instanceFactory),"\\[pipeline_execute\\]\\[Error\\]
               Checking the extension of the file: configurationFilePath ext")
@@ -65,9 +65,9 @@ test_that("pipeline_execute editConfigurationFile type error",{
   editConfigurationFile <- NULL
 
   #Folder with the files to preprocess
-  filesPath <- file.path("testFiles",
-                         "testPipelineExecute",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testPipelineExecute",
+                    "testFiles_pipeline_execute_tsms")
 
   #Object which indicates the pipes' flow
   pipe <- SerialPipe$new()
@@ -78,7 +78,7 @@ test_that("pipeline_execute editConfigurationFile type error",{
 
   expect_error(pipeline_execute(configurationFilePath = configurationFilePath,
                                 editConfigurationFile = editConfigurationFile,
-                                filesPath = filesPath,
+                                path = path,
                                 pipe = pipe,
                                 instanceFactory = instanceFactory),"\\[pipeline_execute\\]\\[Error\\]
             Checking the type of the variable: editConfigurationFile NULL")
@@ -116,7 +116,7 @@ test_that("pipeline_execute editConfigurationFile type error",{
 # })
 
 
-test_that("pipeline_execute filesPath type error",{
+test_that("pipeline_execute path type error",{
 
   #Path where the configuration file are located
   configurationFilePath <- file.path("testFiles",
@@ -126,7 +126,7 @@ test_that("pipeline_execute filesPath type error",{
   editConfigurationFile <- FALSE
 
   #Folder with the files to preprocess
-  filesPath <- NULL
+  path <- NULL
 
   #Object which indicates the pipes' flow
   pipe <- SerialPipe$new()
@@ -137,10 +137,10 @@ test_that("pipeline_execute filesPath type error",{
 
   expect_error(pipeline_execute(configurationFilePath = configurationFilePath,
                                 editConfigurationFile = editConfigurationFile,
-                                filesPath = filesPath,
+                                path = path,
                                 pipe = pipe,
                                 instanceFactory = instanceFactory),"\\[pipeline_execute\\]\\[Error\\]
-            Checking the type of the variable: filesPath NULL")
+            Checking the type of the variable: path NULL")
 })
 
 
@@ -154,9 +154,9 @@ test_that("pipeline_execute pipe type error",{
   editConfigurationFile <- FALSE
 
   #Folder with the files to preprocess
-  filesPath <- file.path("testFiles",
-                         "testPipelineExecute",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testPipelineExecute",
+                    "testFiles_pipeline_execute_tsms")
 
   #Object which indicates the pipes' flow
   pipe <- NULL
@@ -167,7 +167,7 @@ test_that("pipeline_execute pipe type error",{
 
   expect_error(pipeline_execute(configurationFilePath = configurationFilePath,
                                 editConfigurationFile = editConfigurationFile,
-                                filesPath = filesPath,
+                                path = path,
                                 pipe = pipe,
                                 instanceFactory = instanceFactory),"\\[pipeline_execute\\]\\[Error\\]
             Checking the type of the variable: pipe NULL")
@@ -183,9 +183,9 @@ test_that("pipeline_execute instanceFactory type error",{
   editConfigurationFile <- FALSE
 
   #Folder with the files to preprocess
-  filesPath <- file.path("testFiles",
-                         "testPipelineExecute",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testPipelineExecute",
+                    "testFiles_pipeline_execute_tsms")
 
   #Object which indicates the pipes' flow
   pipe <- SerialPipe$new()
@@ -196,7 +196,7 @@ test_that("pipeline_execute instanceFactory type error",{
 
   expect_error(pipeline_execute(configurationFilePath = configurationFilePath,
                                 editConfigurationFile = editConfigurationFile,
-                                filesPath = filesPath,
+                                path = path,
                                 pipe = pipe,
                                 instanceFactory = instanceFactory),"\\[pipeline_execute\\]\\[Error\\]
             Checking the type of the variable: instanceFactory NULL")
@@ -219,9 +219,9 @@ test_that("pipeline_execute default flow of pipes with the examples files tsms",
                                      "test_pipeline_execute_tsms_configurations.ini")
 
   #Folder with the files to preprocess
-  filesPath <- file.path("testFiles",
-                         "testPipelineExecute",
-                         "testFiles_pipeline_execute_tsms")
+  path <- file.path("testFiles",
+                    "testPipelineExecute",
+                    "testFiles_pipeline_execute_tsms")
 
   #Object which indicates the pipes' flow
   pipe <- SerialPipe$new()
@@ -230,9 +230,9 @@ test_that("pipeline_execute default flow of pipes with the examples files tsms",
   instanceFactory <- InstanceFactory$new()
   #Starting file preprocessing...
   output <- suppressWarnings(pipeline_execute(configurationFilePath = configurationFilePath,
-                             filesPath = filesPath,
-                             pipe = pipe,
-                             instanceFactory = instanceFactory))
+                                              path = path,
+                                              pipe = pipe,
+                                              instanceFactory = instanceFactory))
   file1 <- output[[1]]
 
   expect_equal(file1$getDate(),"")

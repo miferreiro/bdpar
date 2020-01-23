@@ -130,7 +130,7 @@ freduce = function(instance, function_list)
       instance <- eval(function_list[[i]](instance))
       if (!instance$isInstanceValid()) {
         message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
-            " is invalid and will not continue through the flow of pipes\n")
+            " is invalid and will not continue through the flow of pipes")
         break
       }
     }

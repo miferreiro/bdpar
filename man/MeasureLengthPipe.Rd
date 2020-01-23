@@ -18,7 +18,8 @@ throught the class constructor.
 \preformatted{
 MeasureLengthPipe$new(propertyName = "length",
                       alwaysBeforeDeps = list(),
-                      notAfterDeps = list())
+                      notAfterDeps = list(),
+                      nchar_conf = TRUE)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -32,6 +33,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{nchar_conf}}{
+(\emph{logical}) indicates if the Pipe uses nchar or object.size.
 }
 }
 }
@@ -51,7 +55,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain the length of data.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, propertyName = super$getPropertyName(), nchar_conf = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -60,12 +64,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{propertyName}}{
-(\emph{character}) the name of the property that will be obtained in the Pipe.
-}
-\item{\strong{nchar_conf}}{
-(\emph{logical}) indicates if the Pipe uses nchar or object.size.
 }
 }
 }
@@ -92,6 +90,15 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 }
 }
 }
+}
+}
+}
+
+\section{Private fields}{
+
+\itemize{
+\item{\bold{nchar_conf:}}{
+ (\emph{logical}) indicates if the Pipe uses nchar or object.size.
 }
 }
 }

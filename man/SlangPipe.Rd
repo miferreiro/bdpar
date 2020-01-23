@@ -20,7 +20,8 @@ slangs replacement.
 SlangPipe$new(propertyName = "langpropname",
               propertyLanguageName = "language",
               alwaysBeforeDeps = list("GuessLanguagePipe"),
-              notAfterDeps = list())
+              notAfterDeps = list(),
+              replaceSlangs = TRUE)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -37,6 +38,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{replaceSlangs:}}{
+(\emph{logical}) indicates if the slangs are replace or not.
 }
 }
 }
@@ -76,11 +80,10 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 \item{\bold{pipe:}}{
 preprocesses the \code{\link{Instance}} to obtain/replace the slangs.
 The slangs found in the Pipe are added to the list of properties of the
-\code{\link{Instance}} If the \code{replaceSlangs} parameter is TRUE, the \code{\link{Instance}} data will be
-modified by replacing the slangs found.
+\code{\link{Instance}}.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, replaceSlangs = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -89,9 +92,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{replaceSlangs:}}{
-(\emph{logical}) indicate if the slangs are replace or not.
 }
 }
 }
@@ -199,6 +199,9 @@ sets the path of slangs resources.
 }
 \item{\bold{resourcesSlangsPath:}}{
  (\emph{character}) the path where are the resources.
+}
+\item{\bold{replaceSlangs:}}{
+ (\emph{logical}) indicates if the slangs are replace or not.
 }
 }
 }

@@ -5,7 +5,7 @@
 \alias{pipeline_execute}
 \title{Initiates the pipelining process.}
 \usage{
-pipeline_execute(configurationFilePath = NULL, editConfigurationFile = FALSE, filesPath,
+pipeline_execute(configurationFilePath = NULL, editConfigurationFile = FALSE, path,
 pipe = SerialPipe$new(), instanceFactory = InstanceFactory$new())
 }
 \arguments{
@@ -17,7 +17,7 @@ will be used.}
 \item{editConfigurationFile}{(\emph{boolean}) indicates whether a file is
 opened to modify the configuration file or not.}
 
-\item{filesPath}{(\emph{character}) path where the files to be preprocessed
+\item{path}{(\emph{character}) path where the files to be preprocessed
 are located.}
 
 \item{pipe}{(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
@@ -102,9 +102,9 @@ configurationFilePath <- system.file(file.path("examples",
                                      package ="bdpar")
 
 #Folder with the files to preprocess
-filesPath <- system.file(file.path("examples",
-                                   "testFiles"),
-                         package = "bdpar")
+path <- system.file(file.path("examples",
+                              "testFiles"),
+                    package = "bdpar")
 
 #Object which indicates the pipes' flow
 pipe <- SerialPipe$new()
@@ -114,7 +114,7 @@ instanceFactory <- InstanceFactory$new()
 
 #Starting file preprocessing...
 pipeline_execute(configurationFilePath = configurationFilePath,
-                 filesPath = filesPath,
+                 path = path,
                  pipe = pipe,
                  instanceFactory = instanceFactory)
 }

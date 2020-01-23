@@ -18,7 +18,8 @@ Moreover if required, is able to perform inline user nanme removement.
 \preformatted{
 FindUserNamePipe$new(propertyName = "userName",
                      alwaysBeforeDeps = list(),
-                     notAfterDeps = list())
+                     notAfterDeps = list(),
+                     removeUser = TRUE)
 }
 
 \itemize{
@@ -33,6 +34,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{removeUser:}}{
+(\emph{logical}) indicates if the users are removed.
 }
 }
 }
@@ -64,7 +68,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain/remove the name users.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, removeUser = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -73,9 +77,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{removeUser:}}{
-(\emph{logical}) indicates if the users are removed.
 }
 }
 }
@@ -127,6 +128,15 @@ the data with name users removed.
 \itemize{
 \item{\bold{userPattern:}}{
  (\emph{character}) regular expression to detect users.
+}
+}
+}
+
+\section{Private fields}{
+
+\itemize{
+\item{\bold{removeUser:}}{
+ (\emph{logical}) indicates if the users are removed.
 }
 }
 }

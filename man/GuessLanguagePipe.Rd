@@ -18,7 +18,8 @@ Optionally, it is possible to choose the language provided by Twitter.
 GuessLanguagePipe$new(propertyName = "language",
                       alwaysBeforeDeps = list("StoreFileExtPipe",
                                               "TargetAssigningPipe"),
-                      notAfterDeps = list())
+                      notAfterDeps = list(),
+                      languageTwitter = TRUE)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -32,6 +33,10 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{languageTwitter:}}{
+(\emph{logical}) indicates whether for the Instances of type twtid the language that
+returns the api is obtained or the detector is applied.
 }
 }
 }
@@ -63,7 +68,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain the language of the data.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, languageTwitter = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -72,10 +77,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{languageTwitter:}}{
-(\emph{logical}) indicates whether for the Instances of type twtid the language that
-returns the api is obtained or the detector is applied.
 }
 }
 }
@@ -99,6 +100,16 @@ the language guesser. Format: see ISO 639-3:2007.
 }
 }
 }
+}
+}
+}
+
+\section{Private fields}{
+
+\itemize{
+\item{\bold{languageTwitter:}}{
+ (\emph{logical}) indicates whether for the Instances of type twtid the language that
+returns the api is obtained or the detector is applied.
 }
 }
 }

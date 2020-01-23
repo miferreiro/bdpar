@@ -20,7 +20,8 @@ contractions replacement.
 ContractionsPipe$new(propertyName = "contractions",
                      propertyLanguageName = "language",
                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-                     notAfterDeps = list())
+                     notAfterDeps = list(),
+                     replaceContractions = TRUE)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -37,6 +38,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{replaceContractions:}}{
+(\emph{logical}) indicates if the contractions are replace or not.
 }
 }
 }
@@ -76,11 +80,10 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 \item{\bold{pipe:}}{
 preprocesses the \code{\link{Instance}} to obtain/replace the contractions.
 The contractions found in the Pipe are added to the list of properties of
-the \code{\link{Instance}} If the \code{replaceContractions} parameter is TRUE,
-the \code{\link{Instance}} data will be modified by replacing the contractions found.
+the \code{\link{Instance}}.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, replaceContractions = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -89,9 +92,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{replaceContractions:}}{
-(\emph{logical}) indicates if the contractions are replace or not.
 }
 }
 }
@@ -195,6 +195,9 @@ sets the path of contractions resources.
 }
 \item{\bold{resourcesContractionsPath:}}{
  (\emph{character}) the path where are the resources.
+}
+\item{\bold{replaceContractions:}}{
+ (\emph{logical}) indicates if the contractions are replace or not.
 }
 }
 }

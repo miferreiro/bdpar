@@ -30,7 +30,7 @@
 #'
 #' @format NULL
 #'
-#' @usage pipeline_execute(configurationFilePath = NULL, editConfigurationFile = FALSE, filesPath,
+#' @usage pipeline_execute(configurationFilePath = NULL, editConfigurationFile = FALSE, path,
 #' pipe = SerialPipe$new(), instanceFactory = InstanceFactory$new())
 #'
 #' @param configurationFilePath (\emph{character}) path where the configuration
@@ -39,7 +39,7 @@
 #' will be used.
 #' @param editConfigurationFile (\emph{boolean}) indicates whether a file is
 #' opened to modify the configuration file or not.
-#' @param filesPath (\emph{character}) path where the files to be preprocessed
+#' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
 #' @param pipe (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
 #' implements the whole pipeling process.
@@ -113,9 +113,9 @@
 #'                                      package ="bdpar")
 #'
 #' #Folder with the files to preprocess
-#' filesPath <- system.file(file.path("examples",
-#'                                    "testFiles"),
-#'                          package = "bdpar")
+#' path <- system.file(file.path("examples",
+#'                               "testFiles"),
+#'                     package = "bdpar")
 #'
 #' #Object which indicates the pipes' flow
 #' pipe <- SerialPipe$new()
@@ -125,7 +125,7 @@
 #'
 #' #Starting file preprocessing...
 #' pipeline_execute(configurationFilePath = configurationFilePath,
-#'                  filesPath = filesPath,
+#'                  path = path,
 #'                  pipe = pipe,
 #'                  instanceFactory = instanceFactory)
 #' }
@@ -136,7 +136,7 @@
 
 pipeline_execute = function(configurationFilePath = NULL,
                             editConfigurationFile = FALSE,
-                            filesPath,
+                            path,
                             pipe = SerialPipe$new(),
                             instanceFactory = InstanceFactory$new()) {
 
@@ -183,10 +183,10 @@ pipeline_execute = function(configurationFilePath = NULL,
     }
   }
 
-  if (!"character" %in% class(filesPath)) {
+  if (!"character" %in% class(path)) {
     stop("[pipeline_execute][Error]
-            Checking the type of the variable: filesPath ",
-              class(filesPath))
+            Checking the type of the variable: path ",
+              class(path))
   }
 
   if (!"TypePipe" %in% class(pipe)) {
@@ -202,5 +202,5 @@ pipeline_execute = function(configurationFilePath = NULL,
   }
 
   bdpar_object <- Bdpar$new(configurationFilePath)
-  bdpar_object$proccess_files(filesPath, pipe, instanceFactory)
+  bdpar_object$proccess_files(path, pipe, instanceFactory)
 }

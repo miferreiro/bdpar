@@ -18,7 +18,10 @@ Moreover if required, is able to perform inline URLs removement.
 \preformatted{
 FindUrlPipe$new(propertyName = "URLs",
                 alwaysBeforeDeps = list(),
-                notAfterDeps = list())
+                notAfterDeps = list(),
+                removeUrls = TRUE,
+                URLPatterns = list(self$URLPattern, self$EmailPattern),
+                namesURLPatterns = list("UrlPattern","EmailPattern"))
 }
 
 \itemize{
@@ -33,6 +36,15 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{removeUrls:}}{
+(\emph{logical}) indicates if the URLs are removed.
+}
+\item{\strong{URLPatterns:}}{
+(\emph{list}) the regex to find URLs.
+}
+\item{\strong{namesURLPatterns:}}{
+(\emph{list}) the names of regex.
 }
 }
 }
@@ -66,10 +78,7 @@ preprocesses the \code{\link{Instance}} to obtain/remove the users.
 \item{\emph{Usage:}}{
 
 \preformatted{
-pipe(instance,
-     removeUrl = TRUE,
-     URLPatterns = list(self$URLPattern, self$EmailPattern),
-     namesURLPatterns = list("UrlPattern","EmailPattern"))}
+pipe(instance)}
 }
 \item{\emph{Value:}}{
 
@@ -79,15 +88,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{removeUrl:}}{
-(\emph{logical}) indicates if the URLs are removed.
-}
-\item{\strong{URLPatterns:}}{
-(\emph{list}) the regex to find URLs.
-}
-\item{\strong{namesURLPatterns:}}{
-(\emph{list}) the names of regex.
 }
 }
 }
@@ -219,6 +219,9 @@ sets the name of URLs.
 }
 \item{\bold{namesURLPatterns:}}{
  (\emph{list}) names of regular expressions that are used to identify URLs.
+}
+\item{\bold{removeUrls:}}{
+ (\emph{logical}) indicates if the URLs are removed.
 }
 }
 }

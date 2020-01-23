@@ -18,7 +18,8 @@ Moreover if required, is able to perform inline hashtag removement.
 \preformatted{
 FindHashtagPipe$new(propertyName = "hashtag",
                     alwaysBeforeDeps = list(),
-                    notAfterDeps = list())
+                    notAfterDeps = list(),
+                    removeHashtags = TRUE)
 }
 
 \itemize{
@@ -33,6 +34,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{removeHashtag:}}{
+(\emph{logical}) indicates if the hashstags are removed.
 }
 }
 }
@@ -64,7 +68,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain/remove the hashtags.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, removeHashtag = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -73,9 +77,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{removeHashtag:}}{
-(\emph{logical}) indicates if the hashstags are removed
 }
 }
 }
@@ -127,6 +128,15 @@ the data with hashtags removed.
 \itemize{
 \item{\bold{hashtagPattern:}}{
  (\emph{character}) regular expression to detect hashtags.
+}
+}
+}
+
+\section{Private fields}{
+
+\itemize{
+\item{\bold{removeHashtags:}}{
+ (\emph{logical}) indicates if the hashstags are removed.
 }
 }
 }
