@@ -35,8 +35,22 @@
 #' @format NULL
 #'
 #' @section Details:
-#' This is the \%>\% operator of the modified magrittr library in order
-#' to stop the flow when the \code{\link{Instance}} is invalid.
+#' This is the \%>\% operator of the modified magrittr library to both
+#' (i) to stop the flow when the \code{\link{Instance}} is invalid and (ii)
+#' automatically call the \code{pipe} function of the R6 objects passing
+#' through it.
+#'
+#' The usage structure would be as shown below:
+#'
+#' \preformatted{
+#' instance \%>I\%
+#'
+#' pipeObject$new() \%>I\%
+#'
+#' pipeObject$new(<<argument1>>, <<argument2>, ...) \%>I\%
+#'
+#' pipeObject$new()
+#' }
 #'
 #' @section Note:
 #' Pipelining proccess is automatically stopped if the \code{\link{Instance}}
@@ -47,9 +61,9 @@
 #'
 #' @usage lhs \%>I\% rhs
 #'
-#' @return the \code{\link{Instance}} modified by the methods it has traversed.
+#' @return The \code{\link{Instance}} modified by the methods it has traversed.
 #'
-#' @seealso \code{\link{Instance}}
+#' @seealso \code{\link{Instance}}, \code{\link{PipeGeneric}}
 #'
 #' @keywords NULL
 #'

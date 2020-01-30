@@ -380,9 +380,9 @@ Instance <- R6Class(
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[Instance][initialize][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[Instance][initialize][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       private$path <- path
@@ -393,14 +393,12 @@ Instance <- R6Class(
 
     obtainDate = function() {
 
-      stop("[Instance][obtainDate][Error]
-              I'm an abstract interface method")
+      stop("[Instance][obtainDate][Error] I am an abstract interface method")
     },
 
     obtainSource = function() {
 
-      stop("[Instance][obtainSource][Error]
-              I'm an abstract interface method")
+      stop("[Instance][obtainSource][Error] I am an abstract interface method")
     },
 
     getDate = function() {
@@ -431,9 +429,9 @@ Instance <- R6Class(
     setSource = function(source) {
 
       if (!"character" %in% class(source)) {
-        stop("[Instance][setSource][Error]
-                Checking the type of the variable: source ",
-                  class(source))
+        stop("[Instance][setSource][Error] ",
+             "Checking the type of the 'source' variable: ",
+             class(source))
       }
 
       private$source <- source
@@ -444,9 +442,9 @@ Instance <- R6Class(
     setDate = function(date) {
 
       if (!"character" %in% class(date)) {
-        stop("[Instance][setDate][Error]
-                Checking the type of the variable: date ",
-                  class(date))
+        stop("[Instance][setDate][Error] ",
+             "Checking the type of the 'date' variable: ",
+             class(date))
       }
 
       private$date <- date
@@ -457,9 +455,9 @@ Instance <- R6Class(
     setProperties = function(properties) {
 
       if (!"list" %in% class(properties)) {
-        stop("[Instance][setProperties][Error]
-                Checking the type of the variable: properties ",
-                  class(properties))
+        stop("[Instance][setProperties][Error] ",
+             "Checking the type of the 'properties' variable: ",
+             class(properties))
       }
 
       private$properties <- properties
@@ -470,9 +468,9 @@ Instance <- R6Class(
     addProperties = function(propertyValue, propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[Instance][addProperties][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[Instance][addProperties][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       private$properties <- list.append(self$getProperties(), propertyValue)
@@ -485,9 +483,9 @@ Instance <- R6Class(
     getSpecificProperty = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[Instance][getSpecificProperty][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[Instance][getSpecificProperty][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       return(self$getProperties()[[propertyName]])
@@ -501,9 +499,9 @@ Instance <- R6Class(
     setSpecificProperty = function(propertyName, propertyValue) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[Instance][setSpecificProperty][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[Instance][setSpecificProperty][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       private$properties[[propertyName]] <- propertyValue
@@ -519,9 +517,9 @@ Instance <- R6Class(
     setData = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[Instance][setData][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[Instance][setData][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       private$data <- data
@@ -549,9 +547,9 @@ Instance <- R6Class(
     addFlowPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe)) {
-        stop("[Instance][addFlowPipes][Error]
-                Checking the type of the variable: namePipe ",
-                  class(namePipe))
+        stop("[Instance][addFlowPipes][Error] ",
+             "Checking the type of the 'namePipe' variable: ",
+             class(namePipe))
       }
 
       private$flowPipes <- list.append(private$flowPipes, namePipe)
@@ -567,9 +565,9 @@ Instance <- R6Class(
     addBanPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe) & !is.null(namePipe)) {
-        stop("[Instance][addBanPipes][Error]
-                Checking the type of the variable: namePipe ",
-                  class(namePipe))
+        stop("[Instance][addBanPipes][Error] ",
+             "Checking the type of the 'namePipe' variable: ",
+             class(namePipe))
       }
 
       if (!is.null(namePipe)) {
@@ -582,15 +580,15 @@ Instance <- R6Class(
     checkCompatibility = function(namePipe, alwaysBefore) {
 
       if (!"character" %in% class(namePipe)) {
-        stop("[Instance][checkCompatibility][Error]
-                Checking the type of the variable: namePipe ",
-                  class(namePipe))
+        stop("[Instance][checkCompatibility][Error] ",
+             "Checking the type of the 'namePipe' variable: ",
+             class(namePipe))
       }
 
       if (!"list" %in% class(alwaysBefore)) {
-        stop("[Instance][checkCompatibility][Error]
-                Checking the type of the variable: alwaysBefore ",
-                  class(alwaysBefore))
+        stop("[Instance][checkCompatibility][Error] ",
+             "Checking the type of the 'alwaysBefore' variable: ",
+             class(alwaysBefore))
       }
 
       for (depsB in alwaysBefore) {

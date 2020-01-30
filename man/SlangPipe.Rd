@@ -54,12 +54,8 @@ containing the correspondence between slangs and meaning. To this end,
 the language of the text indicated in the \emph{propertyLanguageName} should
 be contained in the resource file name (ie. slang.xxx.json where xxx is the
 value defined in the \emph{propertyLanguageName} ). The location of the
-resources should defined in the \emph{resourcesPath} section of the
-configuration file.
-
-\strong{[resourcesPath]}
-
-resourcesSlangsPath = \emph{<<resources_slangs_path>>}
+resources should be defined in the \strong{"resources.slangs.path"} field of
+\emph{\link{bdpar.Options}} variable.
 }
 
 \section{Note}{
@@ -207,14 +203,15 @@ sets the path of slangs resources.
 }
 
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-         \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-         \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-         \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-         \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-         \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-         \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
-         \code{\link{ResourceHandler}}, \code{\link{StopWordPipe}},
-         \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-         \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+         \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+         \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+         \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+         \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+         \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+         \code{\link{PipeGeneric}}, \code{\link{ResourceHandler}},
+         \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+         \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+         \code{\link{ToLowerCasePipe}}
 }

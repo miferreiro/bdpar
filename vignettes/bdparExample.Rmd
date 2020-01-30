@@ -41,34 +41,15 @@ bdparData
 ## Execution
 
 <div style="text-aling:justify">
-For this preprocessing we will use both the default preprocessing flow (SerialPipes) and the way to create the Instances (InstanceFactory). Regarding the configuration file as a preprocess files are in the directory tree of the package.
-
-The configuration file used will have the following form:
-
-```
-[resourcesPath]
-resourcesAbbreviationsPath = 
-resourcesContractionsPath = 
-resourcesInterjectionsPath = 
-resourcesSlangsPath = 
-resourcesStopWordsPath = 
- 
-[eml]
-PartSelectedOnMPAlternative = text/plain
- 
-[CSVPath]
-outPutTeeCSVPipePath = example.csv
-```
+For this preprocessing we will use both the default preprocessing flow (SerialPipes) and the default way to create the Instances (InstanceFactory). 
 
 Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
 
 ```{R, echo = TRUE, results = "hide", eval = FALSE}
-pipeline_execute( configurationFilePath = system.file(package = "bdpar", "examples/configurationsExample.ini"), 
-                  path = system.file(package = "bdpar", "testFiles"))
+bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
+bdpar.Options$set("teeCSVPipe.output.path", "example.csv")
+pipeline_execute(path = system.file(package = "bdpar", "testFiles"))
 ```
 
 This function will generate a csv file in the user's working directory, where you can see the characteristics of the text obtained, such as cleaning the text to be preprocessed.
 </div>
-
-
-

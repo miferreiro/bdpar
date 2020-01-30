@@ -108,20 +108,20 @@ GuessDatePipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[GuessDatePipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[GuessDatePipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[GuessDatePipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[GuessDatePipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[GuessDatePipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[GuessDatePipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -130,15 +130,15 @@ GuessDatePipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[GuessDatePipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[GuessDatePipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance$addFlowPipes("GuessDatePipe")
 
       if (!instance$checkCompatibility("GuessDatePipe", self$getAlwaysBeforeDeps())) {
-        stop("[GuessDatePipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[GuessDatePipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))

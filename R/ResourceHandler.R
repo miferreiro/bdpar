@@ -117,21 +117,14 @@ ResourceHandler <- R6Class(
 
   public = list(
 
-    initialize = function() {
-      if (!requireNamespace("rjson", quietly = TRUE)) {
-        stop("[ResourceHandler][initialize][Error]
-                Package \"rjson\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-    },
+    initialize = function() { },
 
     isLoadResource = function(pathResource) {
 
       if (!"character" %in% class(pathResource)) {
-        stop("[ResourceHandler][isLoadResource][Error]
-                Checking the type of the variable: pathResource ",
-                  class(pathResource));
+        stop("[ResourceHandler][isLoadResource][Error] ",
+             "Checking the type of the 'pathResource' variable: ",
+             class(pathResource))
       }
 
       if (pathResource %in% self$getNamesResources()) {

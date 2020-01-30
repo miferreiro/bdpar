@@ -175,49 +175,28 @@ FindUserNamePipe <- R6Class(
                           notAfterDeps = list(),
                           removeUser = TRUE) {
 
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[FindUserNamePipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[FindUserNamePipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("stringr", quietly = TRUE)) {
-        stop("[FindUserNamePipe][initialize][Error]
-                Package \"stringr\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!"character" %in% class(propertyName)) {
-        stop("[FindUserNamePipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[FindUserNamePipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindUserNamePipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[FindUserNamePipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindUserNamePipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[FindUserNamePipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeUser)) {
-        stop("[FindUserNamePipe][initialize][Error]
-                  Checking the type of the variable: removeUser ",
-                    class(removeUser))
+        stop("[FindUserNamePipe][initialize][Error] ",
+             "Checking the type of the 'removeUser' variable: ",
+             class(removeUser))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -229,15 +208,15 @@ FindUserNamePipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindUserNamePipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[FindUserNamePipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance$addFlowPipes("FindUserNamePipe")
 
       if (!instance$checkCompatibility("FindUserNamePipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindUserNamePipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[FindUserNamePipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
@@ -262,7 +241,7 @@ FindUserNamePipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindUserNamePipe][pipe][Warning] ", message, " \n")
+        warning("[FindUserNamePipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -275,9 +254,9 @@ FindUserNamePipe <- R6Class(
     findUserName = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindUserNamePipe][findUserName][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindUserNamePipe][findUserName][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_match_all(data,
@@ -289,9 +268,9 @@ FindUserNamePipe <- R6Class(
     removeUserName = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindUserNamePipe][removeUserName][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindUserNamePipe][removeUserName][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_replace_all(data,

@@ -74,7 +74,7 @@ gets of the dependences always before.
 \code{getAlwaysBeforeDeps()}
 }
 \item{\emph{Value:}}{
-Value of dependences always before.
+value of dependences always before.
 }
 }
 }

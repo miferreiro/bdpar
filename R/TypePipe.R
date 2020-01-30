@@ -23,9 +23,11 @@
 
 #' @title Absctract super class implementing the pipelining proccess.
 #'
-#' @description Class to establish the flow of Pipes.
+#' @description Abstract super class to establish the flow of Pipes.
 #'
 #' @docType class
+#'
+#' @format NULL
 #'
 #' @section Constructor:
 #' \code{TypePipe$new()}
@@ -97,7 +99,8 @@
 #' }
 #' }
 #'
-#' @seealso \code{\link{Instance}}, \code{\link{SerialPipe}}
+#' @seealso \code{\link{Instance}}, \code{\link{SerialPipe}},
+#'          \code{\link{PipeGeneric}}, \code{\link{\%>I\%}}
 #'
 #' @keywords NULL
 #'
@@ -110,16 +113,14 @@ TypePipe <- R6Class(
 
   public = list(
 
-    initialize = function() {
-
-    },
+    initialize = function() { },
 
     pipeAll = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[TypePipe][pipeAll][Error]
-                Checking the type of the variable: instance ",
-                  class(instance));
+        stop("[TypePipe][pipeAll][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance %>I%

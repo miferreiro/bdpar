@@ -4,7 +4,6 @@
 \name{ToLowerCasePipe}
 \alias{ToLowerCasePipe}
 \title{Class to convert the data field of an Instance to lower case}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
 \usage{
 ToLowerCasePipe
 }

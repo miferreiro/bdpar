@@ -175,49 +175,28 @@ FindHashtagPipe <- R6Class(
                           notAfterDeps = list(),
                           removeHashtags = TRUE) {
 
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("stringr", quietly = TRUE)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Package \"stringr\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!"character" %in% class(propertyName)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeHashtags)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Checking the type of the variable: removeHashtags ",
-                  class(removeHashtags))
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'removeHashtags' variable: ",
+             class(removeHashtags))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -229,15 +208,15 @@ FindHashtagPipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindHashtagPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[FindHashtagPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance$addFlowPipes("FindHashtagPipe")
 
       if (!instance$checkCompatibility("FindHashtagPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindHashtagPipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[FindHashtagPipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
@@ -262,7 +241,7 @@ FindHashtagPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindHashtagPipe][pipe][Warning] ", message, " \n")
+        warning("[FindHashtagPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -275,9 +254,9 @@ FindHashtagPipe <- R6Class(
     findHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][findHashtag][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindHashtagPipe][findHashtag][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_match_all(data,
@@ -289,9 +268,9 @@ FindHashtagPipe <- R6Class(
     removeHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][removeHashtag][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindHashtagPipe][removeHashtag][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_replace_all(data,

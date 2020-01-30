@@ -25,87 +25,22 @@
 #'
 #' @description \code{Bdpar} class provides the static variables required
 #' to perform the whole data flow process. To this end \code{Bdpar} is
-#' in charge of (i) loading the configuration parameters (from configurationsTemplate.ini
-#' or the user configuration file) and (ii) executing the flow of pipes
-#' (inherited from \code{\link{TypePipe}} class) passed as argument.
+#' in charge of (i) initialize the objects of handle the connections to APIs
+#' (\code{\link{Connections}}) and handles json resources (\code{\link{ResourceHandler}})
+#' and (ii) executing the flow of pipes (inherited from \code{\link{TypePipe}} class)
+#' passed as argument.
 #'
 #' @docType class
 #'
 #' @format NULL
 #'
 #' @section Constructor:
-#' \code{Bdpar$new(configurationFilePath = NULL, editConfigurationFile = FALSE)}
-#' \itemize{
-#' \item{\emph{Arguments}:}{
-#' \itemize{
-#' \item{\strong{configurationFilePath}:}{
-#' (\emph{character}) path where the configuration file is located. The file
-#' must have the .ini extension. In the case that the argument is null, the
-#' default configuration file (configurationsTemplate.ini) will be used.
-#' }
-#' \item{\strong{editConfigurationFile}:}{
-#' (\emph{boolean}) indicates if open an editor to change the configuration
-#' file or not.
-#' }
-#' }
-#' }
-#' }
+#' \code{Bdpar$new()}
 #'
 #' @section Details:
-#' The configuration file can be indicated by the user or use the default
-#' configuration file (configurationsTemplate.ini). In addition, once we call
-#' the \code{Bdpar} constructor, it will be possible to choose if the user
-#' wants to edit the file of indicated configurations or not.
-#'
-#' The \emph{configurationFilePath} file should have the following structure
-#' (Depends on the Pipes used). Also the configurationsTemplate.ini has this
-#' structure:
-#'
-#' \strong{[twitter]}
-#'
-#' ConsumerKey = \emph{<<consumer_key>>}
-#'
-#' ConsumerSecret = \emph{<<consumer_secret>>}
-#'
-#' AccessToken = \emph{<<access_token>>}
-#'
-#' AccessTokenSecret = \emph{<<access_token_secret>>}
-#'
-#' \strong{[youtube]}
-#'
-#' app_id = \emph{<<app_id>>}
-#'
-#' app_password = \emph{<<app_password>>}
-#'
-#' \strong{[eml]}
-#'
-#' PartSelectedOnMPAlternative = \emph{<<part_selected>>} (text/html or text/plain)
-#'
-#' \strong{[resourcesPath]}
-#'
-#' resourcesAbbreviationsPath = \emph{<<resources_abbreviations_path>>}
-#'
-#' resourcesContractionsPath = \emph{<<resources_contractions_path>>}
-#'
-#' resourcesInterjectionsPath = \emph{<<resources_interjections_path>>}
-#'
-#' resourcesSlangsPath = \emph{<<resources_slangs_path>>}
-#'
-#' resourcesStopWordsPath = \emph{<<resources_stopWords_path>>}
-#'
-#' \strong{[CSVPath]}
-#'
-#' outPutTeeCSVPipePath = \emph{<<out_put_teeCSVPipe_path>>}
-#'
-#' \strong{[cache]}
-#'
-#' cachePathTwtid = \emph{<<cache_path_twtid>>}
-#'
-#' cachePathYtbid = \emph{<<cache_path_ytbid>>}
-#'
-#' @section Note:
-#' In the case of choosing to edit the configuration file, the default editor
-#' will be opened.
+#' In the case that some pipe, defined on the workflow, needs some type of configuration,
+#' it can be defined throught \emph{\link{bdpar.Options}} variable
+#' which have differents methods to support the funcionality of different pipes.
 #'
 #' @section Static variables:
 #' \itemize{
@@ -113,11 +48,6 @@
 #' (\emph{Connections}) object that handles the connections with YouTube and
 #' Twitter.
 #' }
-#' \item{\bold{configurationFilePath}:}{
-#' (\emph{character}) path where the configuration file is located. The file
-#' must have the .ini extension. In the case that the argument is null, the
-#' default configuration file (configurationsTemplate.ini) will be used.
-#' },
 #' \item{\bold{resourceHandler}:}{
 #' (\emph{ResourceHandler}) object that handles the json resources files.
 #' }
@@ -155,16 +85,18 @@
 #' }
 #' }
 #' }
-#' @seealso \code{\link{Connections}}, \code{\link{Instance}},
-#' \code{\link{InstanceFactory}}, \code{\link{pipeline_execute}},
-#' \code{\link{TypePipe}}, \code{\link{SerialPipe}}
+#' @seealso \code{\link{bdpar.Options}}, \code{\link{Connections}},
+#'          \code{\link{Instance}}, \code{\link{InstanceFactory}},
+#'          \code{\link{ResourceHandler}}, \code{\link{pipeline_execute}},
+#'          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
 #'
 #' @examples
 #' \dontrun{
-#' #Path where the configuration file are located
-#' configurationFilePath <- system.file(file.path("examples",
-#'                                                "configurationsExample.ini"),
-#'                                      package ="bdpar")
+#'
+#' #If it is necessary to indicate any existing configuration key, do it through:
+#' #bdpar.Options$set(key, value)
+#' #If the key is not initialized, do it through:
+#' #bdpar.Options$add(key, value)
 #'
 #' #Folder with the files to preprocess
 #' path <- system.file(file.path("examples",
@@ -177,16 +109,14 @@
 #' #Object which decides how creates the instances
 #' instanceFactory <- InstanceFactory$new()
 #'
-#' objectBdpar <- Bdpar$new(configurationFilePath)
+#' objectBdpar <- Bdpar$new()
 #'
 #' #Starting file preprocessing...
 #' objectBdpar$proccess_files(path, pipe, instanceFactory)
 #' }
 #' @keywords NULL
 #'
-#' @import ini R6 tools
-#' @importFrom svMisc file_edit
-#' @importFrom utils write.table
+#' @import R6
 #' @export Bdpar
 
 Bdpar <- R6Class(
@@ -195,54 +125,9 @@ Bdpar <- R6Class(
 
   public = list(
 
-    initialize = function(configurationFilePath = NULL,
-                          editConfigurationFile = FALSE) {
+    initialize = function() {
 
-      if (!is.null(configurationFilePath)) {
-        if (!"character" %in% class(configurationFilePath)) {
-          stop("[Bdpar][initialize][Error]
-                  Checking the type of the variable: configurationFilePath ",
-                    class(configurationFilePath))
-        }
-
-        if (!"ini" %in% tools::file_ext(configurationFilePath)) {
-          stop("[Bdpar][initialize][Error]
-                  Checking the extension of the file: configurationFilePath ",
-                    tools::file_ext(configurationFilePath))
-        }
-      }
-
-      if (!"logical" %in% class(editConfigurationFile)) {
-        stop("[Bdpar][initialize][Error]
-                Checking the type of the variable: editConfigurationFile ",
-                  class(editConfigurationFile))
-      }
-
-      if (editConfigurationFile) {
-
-        if (!is.null(configurationFilePath)) {
-
-          file_edit(file = configurationFilePath,
-                    wait = TRUE)
-
-        } else {
-          file_edit(file = system.file("configurations",
-                                       "configurationsTemplate.ini",
-                                       package = "bdpar"),
-                    wait = TRUE)
-        }
-      } else {
-
-        if (is.null(configurationFilePath)) {
-
-          configurationFilePath <- system.file("configurations",
-                                               "configurationsTemplate.ini",
-                                               package = "bdpar")
-        }
-      }
-
-      Bdpar[["private_fields"]][["configurationFilePath"]] <- configurationFilePath
-      Bdpar[["private_fields"]][["connections"]] <- Connections$new(configurationFilePath)
+      Bdpar[["private_fields"]][["connections"]] <- Connections$new()
       Bdpar[["private_fields"]][["resourceHandler"]] <- ResourceHandler$new()
 
     },
@@ -251,22 +136,22 @@ Bdpar <- R6Class(
                               pipe = SerialPipe$new(),
                               instanceFactory = InstanceFactory$new()) {
 
+      if (!"character" %in% class(path)) {
+        stop("[Bdpar][proccess_files][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
+      }
+
       if (!"TypePipe" %in% class(pipe)) {
-        stop("[Bdpar][proccess_files][Error]
-                Checking the type of the variable: pipe ",
-                  class(pipe))
+        stop("[Bdpar][proccess_files][Error] ",
+             "Checking the type of the 'pipe' variable: ",
+             class(pipe))
       }
 
       if (!"InstanceFactory" %in% class(instanceFactory)) {
-        stop("[Bdpar][proccess_files][Error]
-                Checking the type of the variable: instanceFactory ",
-                  class(instanceFactory))
-      }
-
-      if (!"character" %in% class(path)) {
-        stop("[Bdpar][proccess_files][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[Bdpar][proccess_files][Error] ",
+             "Checking the type of the 'instanceFactory' variable: ",
+             class(instanceFactory))
       }
 
       if (all(sapply(path, function(p) file.exists(p) || dir.exists(p)))) {
@@ -297,8 +182,6 @@ Bdpar <- R6Class(
   private = list(
     #Initialize the object that handles the different types of connections with youtube and twitter
     connections = NULL,
-    #Path where the file with keys are located.
-    configurationFilePath = NULL,
     #Object that handles the json resources files.
     resourceHandler = NULL
   )

@@ -176,77 +176,50 @@ FindEmojiPipe <- R6Class(
                           notAfterDeps = list(),
                           replaceEmojis = TRUE) {
 
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if(!requireNamespace("textutils", quietly = TRUE)) {
-        message("[FindEmojiPipe][initialize][Warning] ",
-                "Package \"rtweet\" needed for this class to work. ",
-                "Pipe function will return an empty list to emoji property. ",
-                "Please install it.")
-      }
-
       if (!"character" %in% class(propertyName)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(replaceEmojis)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Checking the type of the variable: replaceEmojis ",
-                  class(replaceEmojis))
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'replaceEmojis' variable: ",
+             class(replaceEmojis))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
       private$replaceEmojis <- replaceEmojis
-
     },
 
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindEmojiPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[FindEmojiPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance$addFlowPipes("FindEmojiPipe")
 
       if (!instance$checkCompatibility("FindEmojiPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindEmojiPipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[FindEmojiPipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       emojisLocated <- list()
-
-      if (!requireNamespace("rtweet", quietly = TRUE)) {
-        instance$addProperties(paste(emojisLocated),super$getPropertyName())
-        return(instance)
-      }
 
       emojisList <- as.list(rtweet::emojis[2][[1]])
       names(emojisList) <- as.list(rtweet::emojis[[1]][])
@@ -275,15 +248,15 @@ FindEmojiPipe <- R6Class(
     findEmoji = function(data, emoji) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmojiPipe][findEmoji][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindEmojiPipe][findEmoji][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(emoji)) {
-        stop("[FindEmojiPipe][findEmoji][Error]
-                Checking the type of the variable: emoji ",
-                  class(emoji))
+        stop("[FindEmojiPipe][findEmoji][Error] ",
+             "Checking the type of the 'emoji' variable: ",
+             class(emoji))
       }
 
       return(grepl(pattern = rex::escape(emoji), x = data, fixed = TRUE, useBytes = TRUE))
@@ -293,21 +266,21 @@ FindEmojiPipe <- R6Class(
     replaceEmoji = function(emoji, extendedEmoji, data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmojiPipe][replaceEmoji][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindEmojiPipe][replaceEmoji][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(emoji)) {
-        stop("[FindEmojiPipe][replaceEmoji][Error]
-                Checking the type of the variable: emoji ",
-                  class(emoji))
+        stop("[FindEmojiPipe][replaceEmoji][Error] ",
+             "Checking the type of the 'emoji' variable: ",
+             class(emoji))
       }
 
       if (!"character" %in% class(extendedEmoji)) {
-        stop("[FindEmojiPipe][replaceEmoji][Error]
-                Checking the type of the variable: extendedEmoji ",
-                  class(extendedEmoji))
+        stop("[FindEmojiPipe][replaceEmoji][Error] ",
+             "Checking the type of the 'extendedEmoji' variable: ",
+             class(extendedEmoji))
       }
 
       return(gsub(rex::escape(emoji),

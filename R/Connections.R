@@ -32,36 +32,27 @@
 #' @format NULL
 #'
 #' @section Constructor:
-#' \code{Connections$new(keysPath)}
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{keysPath:}}{
-#' (\emph{character}) path of the .ini file that contains the keys.
-#' }
-#' }
-#' }
-#' }
+#' \code{Connections$new()}
 #'
 #' @section Details:
 #' The way to indicate the keys of YouTube and Twitter has to be
-#' through the configuration file that contains the following structure:
+#' through fields of \emph{\link{bdpar.Options}} variable:
 #'
 #' \strong{[twitter]}
 #'
-#' ConsumerKey = \emph{<<consumer_key>>}
+#' - \code{bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)}
 #'
-#' ConsumerSecret = \emph{<<consumer_secret>>}
+#' - \code{bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)}
 #'
-#' AccessToken = \emph{<<access_token>>}
+#' - \code{bdpar.Options$set("twitter.access.token", <<access_token>>)}
 #'
-#' AccessTokenSecret = \emph{<<access_token_secret>>}
+#' - \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
 #'
 #' \strong{[youtube]}
 #'
-#' app_id = \emph{<<app_id>>}
+#' - \code{bdpar.Options$set("youtube.app.id", <<app_id>>)}
 #'
-#' app_password = \emph{<<app_password>>}
+#' - \code{bdpar.Options$set("youtube.app.password", <<app_password>>)}
 #'
 #' @section Note:
 #' Fiels of unused connections will be automatically ignored by the platform.
@@ -160,11 +151,12 @@
 #' }
 #' }
 #'
-#' @seealso \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}}
+#' @seealso \code{\link{bdpar.Options}}, \code{\link{ExtractorTwtid}},
+#'          \code{\link{ExtractorYtbid}}
 #'
 #' @keywords NULL
 #'
-#' @import ini R6 tools
+#' @import R6
 #' @export Connections
 
 Connections <- R6Class(
@@ -173,23 +165,7 @@ Connections <- R6Class(
 
   public = list(
 
-    initialize = function(keysPath) {
-
-      if (!"character" %in% class(keysPath)) {
-        stop("[Connections][initialize][Error]
-                Checking the type of the variable: keysPath ",
-                  class(keysPath))
-      }
-
-      if (!"ini" %in% file_ext(keysPath)) {
-        stop("[Connections][initialize][Error]
-                Checking the extension of the file: keysPath ",
-                  file_ext(keysPath))
-      }
-
-      private$keys <- read.ini(keysPath)
-
-    },
+    initialize = function() { },
 
     ######################################################################
     #####                    Twitter connections                    ######
@@ -201,44 +177,48 @@ Connections <- R6Class(
 
     startConnectionWithTwitter = function() {
 
-      # if (!requireNamespace("rtweet", quietly = TRUE)) {
-      #   stop("[Connections][startConnectionWithTwitter][Error]
-      #           Package \"rtweet\" needed for this function to work.
-      #             Please install it.",
-      #               call. = FALSE)
-      # }
-
       if (!private$connectionWithTwitter) {
-
-        tryCatch(
-          {
-            if (!file.exists(file.path(Sys.getenv("HOME"), ".rtweet_token.rds"))) {
+        if (!file.exists(file.path(Sys.getenv("HOME"), ".rtweet_token.rds"))) {
+          if (any(!bdpar.Options$isSpecificOption("twitter.consumer.key"),
+                  !bdpar.Options$isSpecificOption("twitter.consumer.secret"),
+                  !bdpar.Options$isSpecificOption("twitter.access.token"),
+                  !bdpar.Options$isSpecificOption("twitter.access.token.secret"),
+                  is.null(bdpar.Options$get("twitter.consumer.key")),
+                  is.null(bdpar.Options$get("twitter.consumer.secret")),
+                  is.null(bdpar.Options$get("twitter.access.token")),
+                  is.null(bdpar.Options$get("twitter.access.token.secret")))) {
+            stop("[Connections][startConnectionWithTwitter][Error] Twitter API keys are ",
+                 "not defined on bdpar.Options")
+          }
+          tryCatch(
+            {
               private$twitterToken <- rtweet::create_token(
                 app = "my_twitter_research_app",
-                consumer_key = private$keys$twitter$ConsumerKey,
-                consumer_secret = private$keys$twitter$ConsumerSecret,
-                access_token = private$keys$twitter$AccessToken,
-                access_secret = private$keys$twitter$AccessTokenSecret,
+                consumer_key = bdpar.Options$get("twitter.consumer.key"),
+                consumer_secret = bdpar.Options$get("twitter.consumer.secret"),
+                access_token = bdpar.Options$get("twitter.access.token"),
+                access_secret = bdpar.Options$get("twitter.access.token.secret"),
                 set_renv = TRUE)
-                saveRDS(object = private$twitterToken,
-                        file = file.path(Sys.getenv("HOME"),".rtweet_token.rds"))
-            } else {
-              private$twitterToken <- readRDS(file.path(Sys.getenv("HOME"),
-                                                        ".rtweet_token.rds"))
+              saveRDS(object = private$twitterToken,
+                      file = file.path(Sys.getenv("HOME"),".rtweet_token.rds"))
+              private$connectionWithTwitter <- TRUE
+
+              message("[Connections][startConectionWithTwitter][Info] Twitter: established ",
+                      "connection")
             }
-          }
-          ,
+            ,
+            error = function(e) {
+              message("[Connections][startConnectionWithTwitter][Error] Error on create_token: ",
+                      paste(e))
+            })
+        } else {
+          private$twitterToken <- readRDS(file.path(Sys.getenv("HOME"),
+                                                    ".rtweet_token.rds"))
+          private$connectionWithTwitter <- TRUE
 
-          error = function(e) {
-            message("[Connections][startConnectionWithTwitter][Error] Error on create_token",
-                      paste(e), "\n")
-          }
-        )
-
-        private$connectionWithTwitter <- TRUE
-
-        message("[Connections][startConectionWithTwitter][Info] Twitter: established ",
-                "connection\n")
+          message("[Connections][startConectionWithTwitter][Info] Twitter: established ",
+                  "connection")
+        }
       }
       return()
     },
@@ -248,29 +228,27 @@ Connections <- R6Class(
       tryCatch(
       {
         if (rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]] == 0) {
-          message("[Connections][checkRequestToTwitter][Info] ",
-                    paste(Sys.time()),"\n")
+          message("[Connections][checkRequestToTwitter][Info] ", paste(Sys.time()))
 
           message("[Connections][checkRequestToTwitter][Info] ",
-                  "Waiting 15 min to be able to make new requests from twitter...\n")
+                  "Waiting 15 min to be able to make new requests from twitter...")
 
           Sys.sleep(900)
         } else{
           message("[Connections][checkRequestToTwitter][Info] ",
                     "There are ", rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]],
-                      " twitter requests to be consumed\n")
+                      " twitter requests to be consumed")
         }
       }
       ,
         warning = function(w) {
 
-          warning("[Connections][checkRequestToTwitter][Warning]", paste(w), " \n")
+          warning("[Connections][checkRequestToTwitter][Warning]", paste(w))
+
+          message("[Connections][checkRequestToTwitter][Info] ", paste(Sys.time()))
 
           message("[Connections][checkRequestToTwitter][Info] ",
-                  paste(Sys.time()),"\n")
-
-          message("[Connections][checkRequestToTwitter][Info] ",
-                  "Waiting 15 min to be able to make new requests from twitter...\n")
+                  "Waiting 15 min to be able to make new requests from twitter...")
 
           Sys.sleep(900)
         }
@@ -282,22 +260,23 @@ Connections <- R6Class(
     ######################################################################
     startConnectionWithYoutube = function() {
 
-      if (!requireNamespace("tuber", quietly = TRUE)) {
-        stop("[Connections][startConnectionWithYoutube][Error]
-                Package \"tuber\" needed for this function to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!private$connectionWithYoutube) {
-        tuber::yt_oauth(private$keys$youtube$app_id,
-                 private$keys$youtube$app_password)
+
+        if (any(!bdpar.Options$isSpecificOption("youtube.app.id"),
+                !bdpar.Options$isSpecificOption("youtube.app.password"),
+                is.null(bdpar.Options$get("youtube.app.id")),
+                is.null(bdpar.Options$get("youtube.app.password")))) {
+          stop("[Connections][startConnectionWithYoutube][Error] Youtube API keys are ",
+               "not defined on bdpar.Options")
+        }
+
+        tuber::yt_oauth(bdpar.Options$get("youtube.app.id"),
+                        bdpar.Options$get("youtube.app.password"))
 
         private$connectionWithYoutube <- TRUE
 
-
         message("[Connections][startConnectionWithYoutube][Info] Youtube: established",
-                "connection\n")
+                "connection")
       }
 
       return()
@@ -314,7 +293,7 @@ Connections <- R6Class(
 
       if (private$numRequestToYoutube >= self$getNumRequestMaxToYoutube()) {
         message("[Connections][checkRequestToYoutube][Info] ",
-                "Waiting 15 min to be able to make new requests from youtube...\n")
+                "Waiting 15 min to be able to make new requests from youtube...")
         Sys.sleep(900)
         private$numRequestToYoutube <- 0
       }
@@ -328,7 +307,6 @@ Connections <- R6Class(
   ),
 
   private = list(
-    keys = "",
     numRequestToYoutube = 0,
     numRequestMaxToYoutube = 900,
     connectionWithYoutube = FALSE,

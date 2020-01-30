@@ -77,9 +77,9 @@ InstanceFactory <- R6Class(
     createInstance = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[InstanceFactory][createInstance][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[InstanceFactory][createInstance][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       switch(tools::file_ext(path),

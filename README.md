@@ -41,19 +41,14 @@ application has two modes of execution of the *Pipes*:
 <div style="text-align: justify">
 
 The simple mode allows the tools to be executed through a single
-function in which the configuration file (with the option to use the
-default configuration file, **configurationsTemplate.ini** in the case
-that the value of the parameter is NULL), the option to edit the input
-configuration file, the path of the folder that contains the files to be
-preprocessed, the flow of selected *Pipes* and the mode in which that
-the types of *Instances* are created.
+function in which the files and/or the folders that contains the files
+to be preprocessed, the flow of selected *Pipes* and the mode in which
+that the types of *Instances* are created.
 
 </div>
 
 ``` r
-output <- pipeline_execute(configurationFilePath = NULL, 
-                           editConfigurationFile = FALSE,
-                           filesPath = "folderWithFiles",
+output <- pipeline_execute(path,
                            pipe = SerialPipes$new(),
                            instanceFactory = InstanceFactory$new())
 ```
@@ -71,62 +66,53 @@ that the user needs to realize their own preprocessing.
 </div>
 
 ``` r
-bdpar_object <- Bdpar$new(configurationFilePath = NULL,
-                          editConfigurationFile = FALSE) 
-bdpar_object$proccess_files(filesPath,
+bdpar_object <- Bdpar$new() 
+bdpar_object$proccess_files(path,
                             pipe = SerialPipes$new(), 
                             instanceFactory = InstanceFactory$new())
 ```
 
 <div style="text-align: justify">
 
-The configuration file is used to store the different configuration
+The bdpar.Options object is used to store the different configuration
 parameters of the pipes used in the preprocessing. For example, to
 indicate the keys used to work with the APIs that require it (such as
 YouTube or Twitter) as well as various configuration parameters that
 allow to customize the behavior of the application such as the choice of
 text format to use in case there are multipart emails (plain text or
 text in html format). It is important to keep in mind that if the
-parameters are not needed, the value can be omitted. The description of
-the structure of the configuration file can be accessed through the
-package help interface (?Bbp4aR). It is important to indicate that the
-tool has a default template that can be modified by the user through the
-parameter *editConfigurationFile*, in both simple and advanced mode.
+parameters are not needed, the value can be omitted.
 
-The following is the template that the configuration file
-(**configurationsTemplate.ini**) have initially:
+The different options that exist initially and how their value is
+indicated to you are shown below.
 
 </div>
 
-``` ini
-[twitter] 
-ConsumerKey = <<consumer_key>>
-ConsumerSecret = <<consumer_secret>>
-AccessToken = <<access_token>>
-AccessTokenSecret = <<access_token_secret>>
+``` r
+# [eml]
+bdpar.Options$set("eml.PartSelectedOnMPAlternative", <<PartSelectedOnMPAlternative>>)
 
-[youtube] 
-app_id = <<app_id>>
-app_password = <<app_password>>
+# [resources]
+bdpar.Options$set("resources.abbreviations.path", <<abbreviation.path>>)
+bdpar.Options$set("resources.contractions.path", <<contractions.path>>)
+bdpar.Options$set("resources.interjections.path", <<interjections.path>>)
+bdpar.Options$set("resources.slangs.path", <<slangs.path>>)
+bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)
 
-[eml] 
-PartSelectedOnMPAlternative= <<part_selected>> (text/html or text/plain)
- 
-[resourcesPath]
+# [twitter]
+bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)
+bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)
+bdpar.Options$set("twitter.access.token", <<access_token>>)
+bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)
+bdpar.Options$set("twitter.cache.path", <<cache.path>>)
 
-resourcesAbbreviationsPath = <<resources_abbreviations_path>>
-resourcesContractionsPath = <<resources_contractions_path>>
-resourcesInterjectionsPath = <<resources_interjections_path>>
-resourcesSlangsPath = <<resources_slangs_path>>
-resourcesStopWordsPath = <<resources_stop_words_path>>
- 
- 
-[CSVPath]
-outPutTeeCSVPipePath = <<out_put_TeeCSVPipe_path>>
+# [teeCSVPipe]
+bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
 
-[cache] 
-cachePathTwtid = <<cache_path_twtid>>
-cachePathYtbid = <<cache_path_ytbid>>
+# [youtube]
+bdpar.Options$set("youtube.app.id", <<app_id>>)
+bdpar.Options$set("youtube.app.password", <<app_password>>)
+bdpar.Options$set("youtube.cache.path", <<cache.path>>)
 ```
 
 <div style="text-align: justify">
@@ -150,7 +136,7 @@ well as define *Pipes* that implement new functionalities. For this, it
 is necessary to create a class that inherits from *PipeGeneric* and
 implements the new functionality within the *pipe* method. In the case
 of using *Pipes* by default, you can consult more information in the
-package documentation through the command ?bdpar.
+package documentation through the command *help(package = “bdpar”)*.
 
 </div>
 
@@ -201,20 +187,20 @@ process](additional-material/PipelineExample.png)
 
   - **Imports**:
 
-|        | R Libraries |       |
-| :----: | :---------: | :---: |
-|  ini   |  magrittr   | pipeR |
-| purrr  |     R6      | rlist |
-| svMisc |    tools    | utils |
+|          | R Libraries |       |
+| :------: | :---------: | :---: |
+| magrittr |    pipeR    | purrr |
+|    R6    |    rlist    | tools |
+|  utils   |             |       |
 
   - **Suggests**:
 
-|           | R Libraries |           |
-| :-------: | :---------: | :-------: |
-|   cld2    |    knitr    |   readr   |
-|    rex    |    rjson    | rmarkdown |
-|  rtweet   |   stringi   |  stringr  |
-| textutils |    tuber    |           |
+|          | R Libraries |           |
+| :------: | :---------: | :-------: |
+|   cld2   |    knitr    |   readr   |
+|   rex    |    rjson    | rmarkdown |
+|  rtweet  |   stringi   |  stringr  |
+| testthat |  textutils  |   tuber   |
 
 ##### Suggested configuration for not USA people
 

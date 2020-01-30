@@ -1,38 +1,47 @@
-context("InstanceFactory")
+testthat::context("InstanceFactory")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
 
-  expect_silent(InstanceFactory$new())
+  testthat::expect_silent(InstanceFactory$new())
 })
 
-test_that("createInstance NULL",{
+testthat::test_that("createInstance NULL",{
 
   factory <- InstanceFactory$new()
-  expect_null(factory$createInstance("example.exa"))
+  testthat::expect_null(factory$createInstance("example.exa"))
 })
 
-test_that("createInstance path type error",{
+testthat::test_that("createInstance path type error",{
 
   path <- NULL
-  expect_error(InstanceFactory$new()$createInstance(path),"\\[InstanceFactory\\]\\[createInstance\\]\\[Error\\]
-                Checking the type of the variable: path NULL")
+  testthat::expect_error(InstanceFactory$new()$createInstance(path),
+                         "[InstanceFactory][createInstance][Error] Checking the type of the 'path' variable: NULL",
+                         fixed = TRUE)
 
 })
 
-test_that("createInstance tsms",{
-  skip_if_not_installed("readr")
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("createInstance tsms",{
+  testthat::skip_if_not_installed("readr")
   factory <- InstanceFactory$new()
 
-  expect_equal(class(factory$createInstance("example.tsms")), c("ExtractorSms","Instance","R6"))
+  bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
+
+  testthat::expect_equal(class(factory$createInstance("example.tsms")),
+                         c("ExtractorSms","Instance","R6"))
 
 })
 
-test_that("createInstance eml",{
+testthat::test_that("createInstance eml",{
 
   factory <- InstanceFactory$new()
-  expect_equal(class(factory$createInstance("example.eml")), c("ExtractorEml","Instance","R6"))
+  testthat::expect_equal(class(factory$createInstance("example.eml")),
+                         c("ExtractorEml","Instance","R6"))
 
 })
+
+testthat::teardown(bdpar.Options$reset())
 
 # test_that("createInstance twtid",{
 #

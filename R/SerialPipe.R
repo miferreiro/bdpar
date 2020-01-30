@@ -89,18 +89,18 @@ SerialPipe <- R6Class(
     pipeAll = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[SerialPipe][pipeAll][Error]
-                Checking the type of the variable: instance ",
-                  class(instance));
+        stop("[SerialPipe][pipeAll][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
-      message("[SerialPipe][pipeAll][Info] ", instance$getPath(), "\n")
+      message("[SerialPipe][pipeAll][Info] ", instance$getPath())
 
       tryCatch(
         instance <- super$pipeAll(instance)
       ,
         error = function(e) {
-          message("[SerialPipe][pipeAll][Error]", instance$getPath()," :", paste(e), "\n")
+          message("[SerialPipe][pipeAll][Error]", instance$getPath()," :", paste(e))
           instance$invalidate()
         }
       )

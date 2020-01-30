@@ -4,12 +4,11 @@
 \name{TypePipe}
 \alias{TypePipe}
 \title{Absctract super class implementing the pipelining proccess.}
-\format{An object of class \code{R6ClassGenerator} of length 24.}
 \usage{
 TypePipe
 }
 \description{
-Class to establish the flow of Pipes.
+Abstract super class to establish the flow of Pipes.
 }
 \section{Constructor}{
 
@@ -88,5 +87,6 @@ the preprocessed \code{\link{Instance}}.
 }
 
 \seealso{
-\code{\link{Instance}}, \code{\link{SerialPipe}}
+\code{\link{Instance}}, \code{\link{SerialPipe}},
+         \code{\link{PipeGeneric}}, \code{\link{\%>I\%}}
 }

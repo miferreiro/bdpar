@@ -1,46 +1,57 @@
-context("ToLowerCasePipe")
+testthat::context("ToLowerCasePipe")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
 
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_silent(ToLowerCasePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps))
+  testthat::expect_silent(ToLowerCasePipe$new(propertyName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps))
 })
 
-test_that("initialize propertyName type error",{
+testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_error(ToLowerCasePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[ToLowerCasePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  testthat::expect_error(ToLowerCasePipe$new(propertyName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps),
+                         "[ToLowerCasePipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
+testthat::test_that("initialize alwaysBeforeDeps type error",{
 
   propertyName <- ""
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
 
-  expect_error(ToLowerCasePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[ToLowerCasePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  testthat::expect_error(ToLowerCasePipe$new(propertyName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps),
+                         "[ToLowerCasePipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
+testthat::test_that("initialize notAfterDeps type error",{
 
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
 
-  expect_error(ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[ToLowerCasePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
+  testthat::expect_error(ToLowerCasePipe$new(propertyName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps),
+                         "[ToLowerCasePipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 
 })
 
-test_that("pipe",{
+testthat::test_that("pipe",{
   skip_if_not_installed("readr")
   propertyName <- ""
   alwaysBeforeDeps <- list()
@@ -54,11 +65,11 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setData("eXaMpLe")
   instance <- pipe$pipe(instance)
-  expect_equal(instance$getData(),"example")
+  testthat::expect_equal(instance$getData(),"example")
 
 })
 
-test_that("pipe Bad compatibility between Pipes.",{
+testthat::test_that("pipe Bad compatibility between Pipes.",{
   skip_if_not_installed("readr")
   propertyName <- ""
   alwaysBeforeDeps <- list("pipeExample")
@@ -71,11 +82,13 @@ test_that("pipe Bad compatibility between Pipes.",{
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
-  expect_error(pipe$pipe(instance),"\\[ToLowerCasePipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
+  testthat::expect_error(pipe$pipe(instance),
+                         "[ToLowerCasePipe][pipe][Error] Bad compatibility between Pipes",
+                         fixed = TRUE)
 
 })
 
-test_that("pipe instance type error",{
+testthat::test_that("pipe instance type error",{
 
   propertyName <- ""
   alwaysBeforeDeps <- list()
@@ -83,13 +96,14 @@ test_that("pipe instance type error",{
   pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
   instance <- NULL
-  expect_error(pipe$pipe(instance),"\\[ToLowerCasePipe\\]\\[pipe\\]\\[Error\\]
-                  Checking the type of the variable: instance NULL")
+  testthat::expect_error(pipe$pipe(instance),
+                         "[ToLowerCasePipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
 
 })
 
 
-test_that("toLowerCase",{
+testthat::test_that("toLowerCase",{
 
   propertyName <- ""
   alwaysBeforeDeps <- list()
@@ -97,11 +111,11 @@ test_that("toLowerCase",{
   pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
   data <- "ExAmPlE"
-  expect_equal(pipe$toLowerCase(data),"example")
+  testthat::expect_equal(pipe$toLowerCase(data),"example")
 
 })
 
-test_that("toLowerCase data type error",{
+testthat::test_that("toLowerCase data type error",{
 
   propertyName <- ""
   alwaysBeforeDeps <- list()
@@ -109,7 +123,8 @@ test_that("toLowerCase data type error",{
   pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
 
   data <- NULL
-  expect_error(pipe$toLowerCase(data),"\\[ToLowerCasePipe\\]\\[toLowerCase\\]\\[Error\\]
-                  Checking the type of the variable: data NULL")
+  testthat::expect_error(pipe$toLowerCase(data),
+                         "[ToLowerCasePipe][toLowerCase][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 
 })

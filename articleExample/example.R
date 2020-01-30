@@ -7,8 +7,15 @@ set.seed(1234)
 
 unzip("testFiles.zip")
 
-result <- pipeline_execute(configurationFilePath = "configurations.ini",
-                           filesPath = "testFiles")
+bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
+bdpar.Options$set("resources.abbreviations.path", "testResources/abbreviations-json")
+bdpar.Options$set("resources.contractions.path", "testResources/contractions-json")
+bdpar.Options$set("resources.interjections.path", "testResources/interjections-json")
+bdpar.Options$set("resources.slangs.path", "testResources/slangs-json")
+bdpar.Options$set("resources.stopwords.path", "testResources/stopwords-json")
+bdpar.Options$set("teeCSVPipe.output.path", "example.csv")
+
+result <- pipeline_execute(path = "testFiles")
 
 all <- read.csv(file = "example.csv", header = TRUE, sep = ";", dec = ".", fill = FALSE,
                 stringsAsFactors = FALSE)

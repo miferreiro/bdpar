@@ -69,12 +69,9 @@
 #' containing the list of interjections. To this end, the language of the text
 #' indicated in the \emph{propertyLanguageName} should be contained in the
 #' resource file name (ie. interj.xxx.json where xxx is the value defined in the
-#' \emph{propertyLanguageName} ). The location of the resources should defined
-#' in the \emph{resourcesPath} section of the configuration file.
-#'
-#' \strong{[resourcesPath]}
-#'
-#' resourcesInterjectionsPath = \emph{<<resources_interjections_path>>}
+#' \emph{propertyLanguageName} ). The location of the resources should be
+#' defined in the \strong{"resources.interjections.path"} field of
+#' \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Note:
 #' \code{\link{InterjectionPipe}} will automatically invalidate the
@@ -207,20 +204,21 @@
 #' }
 #' }
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{ResourceHandler}},
-#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-#'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
+#'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
+#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+#'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
-#' @import ini pipeR R6 rlist
+#' @import pipeR R6 rlist
 #' @export InterjectionPipe
 
 InterjectionPipe <- R6Class(
@@ -235,49 +233,36 @@ InterjectionPipe <- R6Class(
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
                           notAfterDeps = list(),
-                          removeInterjections = TRUE) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[InterjectionPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[InterjectionPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+                          removeInterjections = TRUE,
+                          resourcesInterjectionsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[InterjectionPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[InterjectionPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[InterjectionPipe][initialize][Error]
-                Checking the type of the variable: propertyLanguageName ",
-                  class(propertyLanguageName))
+        stop("[InterjectionPipe][initialize][Error] ",
+             "Checking the type of the 'propertyLanguageName' variable: ",
+             class(propertyLanguageName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[InterjectionPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[InterjectionPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[InterjectionPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[InterjectionPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeInterjections)) {
-        stop("[InterjectionPipe][initialize][Error]
-                Checking the type of the variable: removeInterjections ",
+        stop("[InterjectionPipe][initialize][Error] ",
+             "Checking the type of the 'removeInterjections' variable: ",
              class(removeInterjections))
       }
 
@@ -285,7 +270,23 @@ InterjectionPipe <- R6Class(
 
       private$propertyLanguageName <- propertyLanguageName
 
-      private$resourcesInterjectionsPath <- ini::read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesInterjectionsPath
+      if (is.null(resourcesInterjectionsPath)) {
+        if (any(!bdpar.Options$isSpecificOption("resources.interjections.path"),
+                is.null(bdpar.Options$get("resources.interjections.path")))) {
+          stop("[InterjectionPipe][initialize][Error] Path of interjections ",
+               "resources is neither defined in initialize or in bdpar.Options")
+        } else {
+          resourcesInterjectionsPath <- bdpar.Options$get("resources.interjections.path")
+        }
+      }
+
+      if (!"character" %in% class(resourcesInterjectionsPath)) {
+        stop("[InterjectionPipe][initialize][Error] ",
+             "Checking the type of the 'resourcesInterjectionsPath' variable: ",
+             class(resourcesInterjectionsPath))
+      }
+
+      private$resourcesInterjectionsPath <- resourcesInterjectionsPath
 
       private$removeInterjections <- removeInterjections
     },
@@ -293,15 +294,15 @@ InterjectionPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[InterjectionPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[InterjectionPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance$addFlowPipes("InterjectionPipe")
 
       if (!instance$checkCompatibility("InterjectionPipe", self$getAlwaysBeforeDeps())) {
-        stop("[InterjectionPipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[InterjectionPipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
@@ -319,7 +320,7 @@ InterjectionPipe <- R6Class(
 
         message <- c( "The file: " , instance$getPath() , " has not language property")
 
-        warning("[InterjectionPipe][pipe][Warning] ", message, " \n")
+        warning("[InterjectionPipe][pipe][Warning] ", message)
 
         return(instance)
       }
@@ -361,7 +362,7 @@ InterjectionPipe <- R6Class(
 
         warning("[InterjectionPipe][pipe][Warning] ",
             "The file: " , instance$getPath() , " has not an interjectionsJsonFile ",
-            "to apply to the language ->", languageInstance, " \n")
+            "to apply to the language ->", languageInstance)
 
         return(instance)
       }
@@ -374,7 +375,7 @@ InterjectionPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[InterjectionPipe][pipe][Warning] ", message, " \n")
+        warning("[InterjectionPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -387,15 +388,15 @@ InterjectionPipe <- R6Class(
     findInterjection = function(data, interjection) {
 
       if (!"character" %in% class(data)) {
-        stop("[InterjectionPipe][findInterjection][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[InterjectionPipe][findInterjection][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(interjection)) {
-        stop("[InterjectionPipe][findInterjection][Error]
-                Checking the type of the variable: interjection ",
-                  class(interjection))
+        stop("[InterjectionPipe][findInterjection][Error] ",
+             "Checking the type of the 'interjection' variable: ",
+             class(interjection))
       }
 
       interjectionEscaped <- rex::escape(interjection)
@@ -411,16 +412,16 @@ InterjectionPipe <- R6Class(
     removeInterjection = function(interjection, data) {
 
       if (!"character" %in% class(interjection)) {
-        stop("[InterjectionPipe][removeInterjection][Error]
-                Checking the type of the variable: interjection ",
-                  class(interjection))
+        stop("[InterjectionPipe][removeInterjection][Error] ",
+             "Checking the type of the 'interjection' variable: ",
+             class(interjection))
       }
 
 
       if (!"character" %in% class(data)) {
-        stop("[InterjectionPipe][removeInterjection][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[InterjectionPipe][removeInterjection][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       interjectionEscaped <- rex::escape(interjection)
@@ -447,9 +448,9 @@ InterjectionPipe <- R6Class(
     setResourcesInterjectionsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[InterjectionPipe][setResourcesInterjectionsPath][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[InterjectionPipe][setResourcesInterjectionsPath][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       private$resourcesInterjectionsPath <- path

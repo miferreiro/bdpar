@@ -145,33 +145,27 @@ MeasureLengthPipe <- R6Class(
                           nchar_conf = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[MeasureLengthPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[MeasureLengthPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[MeasureLengthPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[MeasureLengthPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[MeasureLengthPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
-      }
-
-      if (!"character" %in% class(propertyName)) {
-        stop("[MeasureLengthPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[MeasureLengthPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(nchar_conf)) {
-        stop("[MeasureLengthPipe][initialize][Error]
-                Checking the type of the variable: nchar_conf ",
-                  class(nchar_conf))
+        stop("[MeasureLengthPipe][initialize][Error] ",
+             "Checking the type of the 'nchar_conf' variable: ",
+             class(nchar_conf))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -181,15 +175,15 @@ MeasureLengthPipe <- R6Class(
     pipe = function(instance) {
 
         if (!"Instance" %in% class(instance)) {
-            stop("[MeasureLengthPipe][pipe][Error]
-                    Checking the type of the variable: instance ",
-                      class(instance))
+            stop("[MeasureLengthPipe][pipe][Error] ",
+                 "Checking the type of the 'instance' variable: ",
+                 class(instance))
         }
 
         instance$addFlowPipes("MeasureLengthPipe")
 
         if (!instance$checkCompatibility("MeasureLengthPipe", self$getAlwaysBeforeDeps())) {
-          stop("[MeasureLengthPipe][pipe][Error] Bad compatibility between Pipes.")
+          stop("[MeasureLengthPipe][pipe][Error] Bad compatibility between Pipes")
         }
 
         instance$addBanPipes(unlist(super$getNotAfterDeps()))
@@ -204,15 +198,15 @@ MeasureLengthPipe <- R6Class(
     getLength = function(data, nchar_conf = TRUE) {
 
       if (!"character" %in% class(data)) {
-        stop("[MeasureLengthPipe][getLength][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[MeasureLengthPipe][getLength][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"logical" %in% class(nchar_conf)) {
-        stop("[MeasureLengthPipe][getLength][Error]
-                Checking the type of the variable: nchar_conf ",
-                  class(nchar_conf))
+        stop("[MeasureLengthPipe][getLength][Error] ",
+             "Checking the type of the 'nchar_conf' variable: ",
+             class(nchar_conf))
       }
 
       return(ifelse(private$nchar_conf, nchar(data), object.size(data)))

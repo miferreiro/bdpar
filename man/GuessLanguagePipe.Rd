@@ -46,7 +46,10 @@ returns the api is obtained or the detector is applied.
 \section{Details}{
 
 To obtain the language of the tweets, it will be verified that there is a
-json file with the information stored in memory.
+json file with the information stored in memory. On the other hand, it is
+necessary define the \strong{"twitter.cache.path"} field of
+\emph{\link{bdpar.Options}} variable to know where the
+information of tweets are saved.
 }
 
 \section{Note}{
@@ -108,21 +111,21 @@ the language guesser. Format: see ISO 639-3:2007.
 
 \itemize{
 \item{\bold{languageTwitter:}}{
- (\emph{logical}) indicates whether for the Instances of type twtid the language that
+(\emph{logical}) indicates whether for the Instances of type twtid the language that
 returns the api is obtained or the detector is applied.
 }
 }
 }
 
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-         \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-         \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-         \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-         \code{\link{GuessDatePipe}}, \code{\link{Instance}},
-         \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-         \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
-         \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
-         \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
-         \code{\link{ToLowerCasePipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+         \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+         \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+         \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+         \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+         \code{\link{Instance}}, \code{\link{InterjectionPipe}},
+         \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
+         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+         \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
+         \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
 }

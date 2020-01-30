@@ -89,17 +89,10 @@ ExtractorSms <- R6Class(
 
     initialize = function(path) {
 
-      if (!requireNamespace("readr", quietly = TRUE)) {
-        stop("[ExtractorSms][initialize][Error]
-                Package \"readr\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!"character" %in% class(path)) {
-        stop("[ExtractorSms][initialize][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[ExtractorSms][initialize][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
       path %>>%
         super$initialize()

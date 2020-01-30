@@ -1,35 +1,46 @@
-context("SerialPipe")
+testthat::context("SerialPipe")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
 
-  expect_silent(SerialPipe$new())
+  testthat::expect_silent(SerialPipe$new())
 })
 
-test_that("pipeAll instance type error",{
+testthat::test_that("pipeAll instance type error",{
 
   instance <- NULL
-  expect_error(SerialPipe$new()$pipeAll(instance),"\\[SerialPipe\\]\\[pipeAll\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
+  testthat::expect_error(SerialPipe$new()$pipeAll(instance),
+                         "[SerialPipe][pipeAll][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
 })
+
 if (Sys.info()[['sysname']] %in% "Windows") {
-test_that("pipeAll instance type error",{
-  skip_if_not_installed("cld2")
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rex")
-  skip_if_not_installed("rjson")
-  skip_if_not_installed("rtweet")
-  skip_if_not_installed("stringi")
-  skip_if_not_installed("stringr")
-  skip_if_not_installed("textutils")
+
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipeAll",{
+  testthat::skip_if_not_installed("cld2")
+  testthat::skip_if_not_installed("readr")
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("rjson")
+  testthat::skip_if_not_installed("rtweet")
+  testthat::skip_if_not_installed("stringi")
+  testthat::skip_if_not_installed("stringr")
+  testthat::skip_if_not_installed("textutils")
   path <- file.path("testFiles",
                     "testSerialPipe",
                     "files",
                     "_ham_",
                     "testFile.tsms")
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testSerialPipe",
-                                              "configurations.ini"))
+  bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
+  bdpar.Options$set("resources.abbreviations.path", "")
+  bdpar.Options$set("resources.contractions.path", "")
+  bdpar.Options$set("resources.interjections.path", "")
+  bdpar.Options$set("resources.slangs.path", "")
+  bdpar.Options$set("resources.stopwords.path", "")
+  bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+
+  Bdpar$new()
   instance <- ExtractorSms$new(path)
   instanceInitial <- ExtractorSms$new(path)
 
@@ -77,8 +88,54 @@ test_that("pipeAll instance type error",{
 
   instance$addBanPipes(c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
   suppressWarnings(SerialPipe$new()$pipeAll(instanceInitial))
-  expect_equal(instanceInitial, instance)
+  testthat::expect_equal(instanceInitial,
+                         instance)
 
   file.remove("output_tsms.csv")
 })
+
+testthat::teardown(bdpar.Options$reset())
+
+}
+
+if (Sys.info()[['sysname']] %in% "Windows") {
+
+  testthat::setup(bdpar.Options$reset())
+
+  testthat::test_that("pipeAll",{
+    testthat::skip_if_not_installed("readr")
+    path <- file.path("testFiles",
+                      "testSerialPipe",
+                      "files",
+                      "_ham_",
+                      "testFileEmpty.tsms")
+
+    Bdpar$new()
+
+    instanceInitial <- ExtractorSms$new(path)
+    instance <- ExtractorSms$new(path)
+
+
+    instance$setDate("")
+
+    instance$setSource("")
+
+    instance$setData("")
+    instance$setSpecificProperty("target", "ham")
+    instance$setSpecificProperty("extension", "tsms")
+    instance$addFlowPipes("TargetAssigningPipe")
+    instance$addFlowPipes("StoreFileExtPipe")
+    instance$addFlowPipes("GuessDatePipe")
+    instance$addFlowPipes("File2Pipe")
+
+
+    instance$addBanPipes(c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
+
+    testthat::expect_message(suppressWarnings(SerialPipe$new()$pipeAll(instanceInitial)),
+                             "[SerialPipe][pipeAll][Error]",
+                             fixed = TRUE)
+  })
+
+  testthat::teardown(bdpar.Options$reset())
+
 }

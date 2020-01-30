@@ -13,7 +13,7 @@ lhs \%>I\% rhs
 \item{rhs}{a function call using the bdpar semantics.}
 }
 \value{
-the \code{\link{Instance}} modified by the methods it has traversed.
+The \code{\link{Instance}} modified by the methods it has traversed.
 }
 \description{
 Defines a customized fordward pipe operator extending the
@@ -25,8 +25,22 @@ complete the whole proccess.
 }
 \section{Details}{
 
-This is the \%>\% operator of the modified magrittr library in order
-to stop the flow when the \code{\link{Instance}} is invalid.
+This is the \%>\% operator of the modified magrittr library to both
+(i) to stop the flow when the \code{\link{Instance}} is invalid and (ii)
+automatically call the \code{pipe} function of the R6 objects passing
+through it.
+
+The usage structure would be as shown below:
+
+\preformatted{
+instance \%>I\%
+
+pipeObject$new() \%>I\%
+
+pipeObject$new(<<argument1>>, <<argument2>, ...) \%>I\%
+
+pipeObject$new()
+}
 }
 
 \section{Note}{
@@ -36,5 +50,5 @@ is invalid.
 }
 
 \seealso{
-\code{\link{Instance}}
+\code{\link{Instance}}, \code{\link{PipeGeneric}}
 }

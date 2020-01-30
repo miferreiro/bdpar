@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title Initiates the pipelining process.
+#' @title Initiates the pipelining process
 #'
 #' @description \strong{pipeline_execute} is responsible for easily initialize
 #' the pipelining preprocessing proccess.
@@ -30,15 +30,8 @@
 #'
 #' @format NULL
 #'
-#' @usage pipeline_execute(configurationFilePath = NULL, editConfigurationFile = FALSE, path,
-#' pipe = SerialPipe$new(), instanceFactory = InstanceFactory$new())
+#' @usage pipeline_execute(path, pipe = SerialPipe$new(), instanceFactory = InstanceFactory$new())
 #'
-#' @param configurationFilePath (\emph{character}) path where the configuration
-#' file is located. The file must have the .ini extension. In the case that the
-#' argument is null, the default configuration file (configurationsTemplate.ini)
-#' will be used.
-#' @param editConfigurationFile (\emph{boolean}) indicates whether a file is
-#' opened to modify the configuration file or not.
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
 #' @param pipe (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
@@ -48,69 +41,19 @@
 #' is created.
 #'
 #' @section Details:
-#' The configuration file can be indicated by the user or use the default
-#' configuration file (configurationsTemplate.ini). In addition, once we call
-#' the function, it will be possible to choose if the user
-#' wants to edit the file of indicated configurations or not.
-#'
-#' The \emph{configurationFilePath} file should have the following structure
-#' (Depends on the Pipes used). Also the configurationsTemplate.ini has this
-#' structure:
-#'
-#' \strong{[twitter]}
-#'
-#' ConsumerKey = \emph{<<consumer_key>>}
-#'
-#' ConsumerSecret = \emph{<<consumer_secret>>}
-#'
-#' AccessToken = \emph{<<access_token>>}
-#'
-#' AccessTokenSecret = \emph{<<access_token_secret>>}
-#'
-#' \strong{[youtube]}
-#'
-#' app_id = \emph{<<app_id>>}
-#'
-#' app_password = \emph{<<app_password>>}
-#'
-#' \strong{[eml]}
-#'
-#' PartSelectedOnMPAlternative = \emph{<<part_selected>>} (text/html or text/plain)
-#'
-#' \strong{[resourcesPath]}
-#'
-#' resourcesAbbreviationsPath = \emph{<<resources_abbreviations_path>>}
-#'
-#' resourcesContractionsPath = \emph{<<resources_contractions_path>>}
-#'
-#' resourcesInterjectionsPath = \emph{<<resources_interjections_path>>}
-#'
-#' resourcesSlangsPath = \emph{<<resources_slangs_path>>}
-#'
-#' resourcesStopWordsPath = \emph{<<resources_stopWords_path>>}
-#'
-#' \strong{[CSVPath]}
-#'
-#' outPutTeeCSVPipePath = \emph{<<out_put_teeCSVPipe_path>>}
-#'
-#' \strong{[cache]}
-#'
-#' cachePathTwtid = \emph{<<cache_path_twtid>>}
-#'
-#' cachePathYtbid = \emph{<<cache_path_ytbid>>}
-#'
-#' @section Notes:
-#' In the case of choosing to edit the configuration file, the default editor
-#' will be opened.
+#' In the case that some pipe, defined on the workflow, needs some type of configuration,
+#' it can be defined throught \emph{\link{bdpar.Options}} variable
+#' which have differents methods to support the funcionality of different pipes.
 #'
 #' @return List of \code{\link{Instance}} that have been preprocessed.
 #'
 #' @examples
 #' \dontrun{
-#' #Path where the configuration file are located
-#' configurationFilePath <- system.file(file.path("examples",
-#'                                                "configurationsExample.ini"),
-#'                                      package ="bdpar")
+#'
+#' #If it is necessary to indicate any existing configuration key, do it through:
+#' #bdpar.Options$set(key, value)
+#' #If the key is not initialized, do it through:
+#' #bdpar.Options$add(key, value)
 #'
 #' #Folder with the files to preprocess
 #' path <- system.file(file.path("examples",
@@ -124,83 +67,40 @@
 #' instanceFactory <- InstanceFactory$new()
 #'
 #' #Starting file preprocessing...
-#' pipeline_execute(configurationFilePath = configurationFilePath,
-#'                  path = path,
+#' pipeline_execute(path = path,
 #'                  pipe = pipe,
 #'                  instanceFactory = instanceFactory)
 #' }
 #' @keywords NULL
-#' @importFrom svMisc file_edit
-#' @importFrom tools file_ext
 #' @export pipeline_execute
+#' @seealso \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
+#'          \code{\link{Connections}}, \code{\link{Instance}},
+#'          \code{\link{InstanceFactory}}, \code{\link{ResourceHandler}},
+#'          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
 
-pipeline_execute = function(configurationFilePath = NULL,
-                            editConfigurationFile = FALSE,
-                            path,
+
+pipeline_execute = function(path,
                             pipe = SerialPipe$new(),
                             instanceFactory = InstanceFactory$new()) {
 
-  if (!is.null(configurationFilePath)) {
-    if (!"character" %in% class(configurationFilePath)) {
-      stop("[pipeline_execute][Error]
-              Checking the type of the variable: configurationFilePath ",
-                class(configurationFilePath))
-    }
-
-    if (!"ini" %in% tools::file_ext(configurationFilePath)) {
-      stop("[pipeline_execute][Error]
-              Checking the extension of the file: configurationFilePath ",
-                tools::file_ext(configurationFilePath))
-    }
-  }
-
-  if (!"logical" %in% class(editConfigurationFile)) {
-    stop("[pipeline_execute][Error]
-            Checking the type of the variable: editConfigurationFile ",
-              class(editConfigurationFile))
-  }
-
-  if (editConfigurationFile) {
-
-    if (!is.null(configurationFilePath)) {
-
-      file_edit(file = configurationFilePath,
-                wait = TRUE)
-
-    } else {
-      file_edit(file = system.file("configurations",
-                                   "configurationsTemplate.ini",
-                                   package = "bdpar"),
-                wait = TRUE)
-    }
-  } else {
-
-    if (is.null(configurationFilePath)) {
-
-      configurationFilePath <- system.file("configurations",
-                                           "configurationsTemplate.ini",
-                                           package = "bdpar")
-    }
-  }
-
   if (!"character" %in% class(path)) {
-    stop("[pipeline_execute][Error]
-            Checking the type of the variable: path ",
-              class(path))
+    stop("[pipeline_execute][Error] ",
+         "Checking the type of the 'path' variable: ",
+         class(path))
   }
 
   if (!"TypePipe" %in% class(pipe)) {
-    stop("[pipeline_execute][Error]
-            Checking the type of the variable: pipe ",
-              class(pipe))
+    stop("[pipeline_execute][Error] ",
+         "Checking the type of the 'pipe' variable: ",
+         class(pipe))
   }
 
   if (!"InstanceFactory" %in% class(instanceFactory)) {
-    stop("[pipeline_execute][Error]
-            Checking the type of the variable: instanceFactory ",
-              class(instanceFactory))
+    stop("[pipeline_execute][Error] ",
+         "Checking the type of the 'instanceFactory' variable: ",
+         class(instanceFactory))
   }
 
-  bdpar_object <- Bdpar$new(configurationFilePath)
+  bdpar_object <- Bdpar$new()
   bdpar_object$proccess_files(path, pipe, instanceFactory)
 }

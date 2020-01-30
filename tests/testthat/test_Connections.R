@@ -1,101 +1,70 @@
-context("Connections")
+testthat::context("Connections")
 
-test_that("initialize",{
-  #Path where the configuration file are located
-  configurationFilePath <-  file.path("testFiles",
-                                      "testConnections",
-                                      "configurations.ini")
+test_that("startConnectionWithTwitter connectionWithTwitter=FALSE",{
+  testthat::skip_if_not_installed("rtweet")
 
-  connection <- Connections$new(configurationFilePath)
-  expect_type(connection$.__enclos_env__$private$keys, "list")
+  connection <- Connections$new()
+
+  testthat::expect_error(connection$startConnectionWithTwitter(),
+                         "[Connections][startConnectionWithTwitter][Error] Twitter API keys are not defined on bdpar.Options",
+                         fixed = TRUE)
 })
 
-test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
-  skip_if_not_installed("tuber")
-  #Path where the configuration file are located
-  configurationFilePath <-  file.path("testFiles",
-                                      "testConnections",
-                                      "configurations.ini")
+testthat::test_that("startConnectionWithTwitter connectionWithTwitter=TRUE",{
+  testthat::skip_if_not_installed("rtweet")
 
-  connection <- Connections$new(configurationFilePath)
+  connection <- Connections$new()
 
+  connection$.__enclos_env__$private$connectionWithTwitter <- TRUE
 
-  expect_error(connection$startConnectionWithYoutube(), "Please provide values for app_id and app_secret")
-
+  testthat::expect_null(connection$startConnectionWithTwitter())
 })
 
-test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
-  skip_if_not_installed("tuber")
-  #Path where the configuration file are located
-  configurationFilePath <-  file.path("testFiles",
-                                      "testConnections",
-                                      "configurations.ini")
+testthat::test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
+  testthat::skip_if_not_installed("tuber")
 
-  connection <- Connections$new(configurationFilePath)
+  connection <- Connections$new()
 
-  connection$.__enclos_env__$private$connectionWithYoutube = TRUE
-
-  expect_null(connection$startConnectionWithYoutube())
-
+  testthat::expect_error(connection$startConnectionWithYoutube(),
+                         "[Connections][startConnectionWithYoutube][Error] Youtube API keys are not defined on bdpar.Options",
+                         fixed = TRUE)
 })
 
-test_that("addNumRequestToYoutube",{
-  #Path where the configuration file are located
-  configurationFilePath <-  file.path("testFiles",
-                                      "testConnections",
-                                      "configurations.ini")
+testthat::test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
+  testthat::skip_if_not_installed("tuber")
 
-  connection <- Connections$new(configurationFilePath)
+  connection <- Connections$new()
+
+  connection$.__enclos_env__$private$connectionWithYoutube <- TRUE
+
+  testthat::expect_null(connection$startConnectionWithYoutube())
+})
+
+testthat::test_that("addNumRequestToYoutube",{
+  #Path where the configuration file are located
+  connection <- Connections$new()
 
   connection$addNumRequestToYoutube()
 
-  expect_equal(connection$.__enclos_env__$private$numRequestToYoutube, 1)
-
+  testthat::expect_equal(connection$.__enclos_env__$private$numRequestToYoutube,
+                         1)
 })
 
-test_that("checkRequestToYoutube numRequest < numRequestMax",{
-  skip_if_not_installed("tuber")
-  #Path where the configuration file are located
-  configurationFilePath <-  file.path("testFiles",
-                                      "testConnections",
-                                      "configurations.ini")
+testthat::test_that("checkRequestToYoutube numRequest < numRequestMax",{
+  testthat::skip_if_not_installed("tuber")
 
-  connection <- Connections$new(configurationFilePath)
+  connection <- Connections$new()
 
   connection$.__enclos_env__$private$numRequestToYoutube <- 0
   connection$.__enclos_env__$private$numRequestMaxToYoutube <- 1
 
-  expect_null(connection$checkRequestToYoutube())
-
+  testthat::expect_null(connection$checkRequestToYoutube())
 })
 
-# test_that("checkRequestToYoutube numRequest >= numRequestMax",{
-#
-#   #Path where the configuration file are located
-#   configurationFilePath <-  system.file("configurations",
-#                                         "test_Connections.ini",
-#                                         package = "bdpar")
-#
-#   connection <- Connections$new(configurationFilePath)
-#
-#   connection$.__enclos_env__$private$numRequestToYoutube <- 1
-#   connection$.__enclos_env__$private$numRequestMaxToYoutube <- 1
-#
-#   expect_message(connection$checkRequestToYoutube(), "Connections[Connections][checkRequestToYoutube][Info]  Waiting 15 min to be able to make new requests from youtube...")
-#
-# })
+testthat::test_that("getNumRequestMaxToYoutube",{
+  testthat::skip_if_not_installed("tuber")
 
-test_that("getNumRequestMaxToYoutube",{
-  skip_if_not_installed("tuber")
-  #Path where the configuration file are located
-  configurationFilePath <-  file.path("testFiles",
-                                      "testConnections",
-                                      "configurations.ini")
+  connection <- Connections$new()
 
-  connection <- Connections$new(configurationFilePath)
-
-  expect_type(connection$getNumRequestMaxToYoutube(), "double")
-
+  testthat::expect_type(connection$getNumRequestMaxToYoutube(), "double")
 })
-
-

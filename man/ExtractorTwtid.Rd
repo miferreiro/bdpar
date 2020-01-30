@@ -13,12 +13,18 @@ implements the functions of extracting the text and the date of an twtid type fi
 }
 \section{Constructor}{
 
-\code{ExtractorTwtid$new(path)}
+\code{ExtractorTwtid$new(path,
+                         cachePath = NULL)}
 \itemize{
 \item{\emph{Arguments:}}{
 \itemize{
 \item{\strong{path:}}{
 (\emph{character}) path of the twtid type file.
+}
+\item{\strong{cachePath:}}{
+(\emph{character}) path of the cache location. If it is NULL, checks if is
+defined in the \strong{"twitter.cache.path"} field of
+\emph{\link{bdpar.Options}} variable.
 }
 }
 }
@@ -32,14 +38,10 @@ Twitter connection is handled through the \code{\link{Connections}} class
 which loads the Twitter API credentials from the configuration file.
 Additionally, to increase the processing speed, each twitter query is stored
 in a cache to avoid the execution of duplicated queries. To enable this option,
-cache location should be in the \emph{cachePathTwtid} indicated in the
-\emph{cache} section from the configuration file. This variable has to be the
+cache location should be in the \strong{"twitter.cache.path"} field of
+\emph{{bdpar.Options}} variable. This variable has to be the
 path to store the tweets and it is neccesary that it has two folder named:
 "_spam_" and "_ham_"
-
-\strong{[cache]}
-
-cachePathTwtid = \emph{<<cache_path_twtid>>}
 }
 
 \section{Inherit}{
@@ -105,6 +107,7 @@ performed using on Twitter API.
 }
 
 \seealso{
-\code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
-\code{\link{ExtractorYtbid}}, \code{\link{Instance}},
+\code{\link{bdpar.Options}}, \code{\link{Connections}},
+         \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
+         \code{\link{ExtractorYtbid}}, \code{\link{Instance}},
 }

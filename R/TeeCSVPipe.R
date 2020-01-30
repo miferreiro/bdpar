@@ -61,13 +61,9 @@
 #' }
 #'
 #' @section Details:
-#' The path to save the properties have to indicate in the configuration file.
-#'
-#' The way to indicate is the following:
-#'
-#' \strong{[CSVPath]}
-#'
-#' outPutTeeCSVPipePath = <<out_put_TeeCSVPipe_path>>
+#' The path to save the properties should be defined in the
+#' \strong{"teeCSVPipe.output.path"} field of
+#' \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Inherit:
 #' This class inherits from \code{\link{PipeGeneric}} and implements the
@@ -105,20 +101,21 @@
 #' }
 #' }
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
-#'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
-#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
-#'          \code{\link{TargetAssigningPipe}}, \code{\link{ToLowerCasePipe}}
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+#'          \code{\link{PipeGeneric}}, \code{\link{ResourceHandler}},
+#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
-#' @import ini R6 tools utils
+#' @import R6 tools utils
 #' @export TeeCSVPipe
 
 TeeCSVPipe <- R6Class(
@@ -133,70 +130,83 @@ TeeCSVPipe <- R6Class(
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list(),
                           withData = TRUE,
-                          withSource = TRUE) {
+                          withSource = TRUE,
+                          outputPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(withSource)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: withSource ",
-                  class(withSource))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'withSource' variable: ",
+             class(withSource))
       }
 
       if (!"logical" %in% class(withData)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: withData ",
-                  class(withData))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'withData' variable: ",
+             class(withData))
       }
+
+      if (is.null(outputPath)) {
+        if (!all(bdpar.Options$isSpecificOption("teeCSVPipe.output.path"),
+                 !is.null(bdpar.Options$get("teeCSVPipe.output.path")))) {
+          stop("[TeeCSVPipe][initialize][Error] Path of TeeCSVPipe output ",
+               "is neither defined in initialize or in bdpar.Options")
+        } else {
+          outputPath <- bdpar.Options$get("teeCSVPipe.output.path")
+        }
+      }
+
+      if (!"character" %in% class(outputPath)) {
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'outputPath' variable: ",
+             class(outputPath))
+      }
+
+      if (!"csv" %in% file_ext(outputPath)) {
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the extension of the file: ",
+             file_ext(outputPath))
+      }
+
+      private$outputPath <- outputPath
+
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
 
       private$withSource <- withSource
       private$withData <- withData
+
     },
 
     pipe = function(instance) {
 
-      outPutPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$CSVPath$outPutTeeCSVPipePath
-
       if (!"Instance" %in% class(instance)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
-      }
-
-      if (!"character" %in% class(outPutPath)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: outPutPath ",
-                  class(outPutPath))
-      }
-
-      if (!"csv" %in% file_ext(outPutPath)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the extension of the file: outPutPath ",
-                  file_ext(outPutPath))
+        stop("[TeeCSVPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance$addFlowPipes("TeeCSVPipe")
 
       if (!instance$checkCompatibility("TeeCSVPipe", self$getAlwaysBeforeDeps())) {
-        stop("[TeeCSVPipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[TeeCSVPipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
@@ -205,8 +215,8 @@ TeeCSVPipe <- R6Class(
         return(instance)
       }
 
-      if (file.exists(outPutPath)) {
-        dataFrameAll <- read.csv(file = outPutPath, header = TRUE,
+      if (file.exists(private$outputPath)) {
+        dataFrameAll <- read.csv(file = private$outputPath, header = TRUE,
                                  sep = ";", dec = ".", fill = FALSE, stringsAsFactors = FALSE)
       } else {
         dataFrameAll <- data.frame()
@@ -236,7 +246,7 @@ TeeCSVPipe <- R6Class(
       }
 
       write.table(x = dataFrameAll,
-                  file = outPutPath,
+                  file = private$outputPath,
                   sep = ";",
                   dec = ".",
                   quote = TRUE,
@@ -251,6 +261,7 @@ TeeCSVPipe <- R6Class(
 
   private = list(
     withSource = TRUE,
-    withData = TRUE
+    withData = TRUE,
+    outputPath = ""
   )
 )

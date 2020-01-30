@@ -82,9 +82,9 @@ ExtractorTytb <- R6Class(
   public = list(
     initialize = function(path) {
       if (!"character" %in% class(path)) {
-        stop("[ExtractorTytb][initialize][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[ExtractorTytb][initialize][Error] ",
+             "Checking the type of the variable: path ",
+             class(path))
       }
       path %>>%
         super$initialize()
@@ -125,9 +125,9 @@ InstanceFactoryCustom <- R6Class(
     },
     createInstance = function(path) {
       if (!"character" %in% class(path)) {
-        stop("[InstanceFactoryCustom][createInstance][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[InstanceFactoryCustom][createInstance][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
       switch(file_ext(path),
        `email` =  return(ExtractorEml$new(path)),
@@ -251,33 +251,32 @@ RemovesWhiteSpaces <- R6Class(
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list()) {
       if (!"character" %in% class(propertyName)) {
-        stop("[RemovesWhiteSpaces][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[RemovesWhiteSpaces][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[RemovesWhiteSpaces][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[RemovesWhiteSpaces][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[RemovesWhiteSpaces][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[RemovesWhiteSpaces][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
     },
     pipe = function(instance) {
       if (!"Instance" %in% class(instance)) {
-        stop("[RemovesWhiteSpaces][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[RemovesWhiteSpaces][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
       instance$addFlowPipes("RemovesWhiteSpaces")
       if (!instance$checkCompatibility("RemovesWhiteSpaces", 
                                        self$getAlwaysBeforeDeps())) {
-        stop("[RemovesWhiteSpaces][pipe][Error] Bad compatibility between
-                                                Pipes.")
+        stop("[RemovesWhiteSpaces][pipe][Error] Bad compatibility between Pipes")
       }
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
       instance$getData() %>>%
@@ -339,11 +338,11 @@ TestPipe <- R6Class(
     },
     pipeAll = function(instance) {
       if (!"Instance" %in% class(instance)) {
-        stop("[TestPipe][pipeAll][Error]
-             Checking the type of the variable: instance ",
-             class(instance));
+        stop("[TestPipe][pipeAll][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-      message("[TestPipe][pipeAll][Info] ", instance$getPath(), "\n")
+      message("[TestPipe][pipeAll][Info] ", instance$getPath())
       tryCatch(
         instance %>I%
           TargetAssigningPipe$new() %>I%
@@ -356,8 +355,7 @@ TestPipe <- R6Class(
           message("[TestPipe][pipeAll][Error]", 
               instance$getPath(),
               " :", 
-              paste(e), 
-              "\n")
+              paste(e))
           instance$invalidate()
         }
       )
@@ -371,44 +369,42 @@ TestPipe <- R6Class(
 
 To manage the flow of pipes, there is a new operator called **%>I%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not.
 In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*.
+On the other hand, it facilitates the workflow between pipes because it automatically invokes the *pipe* function of the objects that pass through it.
 
-# Configuration file
+# bdpar.Options
 
 <div style = "text-align: justify">
 
-The configuration file is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted. The description of the structure of the configuration file can be accessed through the package help interface (?bdpar). It is important to indicate that the tool has a default template that can be modified by the user through the parameter *editConfigurationFile*, in both simple and advanced mode.
+The bdpar.Options object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
 
-The following is the template that the configuration file (**configurationsTemplate.ini**) have initially:
+The different options that exist initially and how their value is indicated to you are
+shown below.
 </div>
-```ini
-[twitter] 
-ConsumerKey = <<consumer_key>>
-ConsumerSecret = <<consumer_secret>>
-AccessToken = <<access_token>>
-AccessTokenSecret = <<access_token_secret>>
+```R
+# [eml]
+bdpar.Options$set("eml.PartSelectedOnMPAlternative", <<PartSelectedOnMPAlternative>>)
 
-[youtube] 
-app_id = <<app_id>>
-app_password = <<app_password>>
+# [resources]
+bdpar.Options$set("resources.abbreviations.path", <<abbreviation.path>>)
+bdpar.Options$set("resources.contractions.path", <<contractions.path>>)
+bdpar.Options$set("resources.interjections.path", <<interjections.path>>)
+bdpar.Options$set("resources.slangs.path", <<slangs.path>>)
+bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)
 
-[eml] 
-PartSelectedOnMPAlternative= <<part_selected>> (text/html or text/plain)
- 
-[resourcesPath]
+# [twitter]
+bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)
+bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)
+bdpar.Options$set("twitter.access.token", <<access_token>>)
+bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)
+bdpar.Options$set("twitter.cache.path", <<cache.path>>)
 
-resourcesAbbreviationsPath = <<resources_abbreviations_path>>
-resourcesContractionsPath = <<resources_contractions_path>>
-resourcesInterjectionsPath = <<resources_interjections_path>>
-resourcesSlangsPath = <<resources_slangs_path>>
-resourcesStopWordsPath = <<resources_stop_words_path>>
- 
- 
-[CSVPath]
-outPutTeeCSVPipePath = <<out_put_TeeCSVPipe_path>>
+# [teeCSVPipe]
+bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
 
-[cache] 
-cachePathTwtid = <<cache_path_twtid>>
-cachePathYtbid = <<cache_path_ytbid>>
+# [youtube]
+bdpar.Options$set("youtube.app.id", <<app_id>>)
+bdpar.Options$set("youtube.app.password", <<app_password>>)
+bdpar.Options$set("youtube.cache.path", <<cache.path>>)
 ```
 
 

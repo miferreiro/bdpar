@@ -21,7 +21,8 @@ ContractionsPipe$new(propertyName = "contractions",
                      propertyLanguageName = "language",
                      alwaysBeforeDeps = list("GuessLanguagePipe"),
                      notAfterDeps = list(),
-                     replaceContractions = TRUE)
+                     replaceContractions = TRUE,
+                     resourcesContractionsPath = NULL)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -42,6 +43,10 @@ one).
 \item{\strong{replaceContractions:}}{
 (\emph{logical}) indicates if the contractions are replace or not.
 }
+\item{\strong{resourcesContractionsPath:}}{
+(\emph{character}) path of resource files (in json format) containing the
+correspondence between contractions and meaning.
+}
 }
 }
 }
@@ -54,12 +59,8 @@ containing the correspondence between contractions and meaning. To this end,
 the language of the text indicated in the \emph{propertyLanguageName} should
 be contained in the resource file name (ie. contr.xxx.json where xxx is the
 value defined in the \emph{propertyLanguageName} ). The location of the
-resources should defined in the \emph{resourcesPath} section of the
-configuration file.
-
-\strong{[resourcesPath]}
-
-resourcesContractionsPath = \emph{<<resources_contractions_path>>}
+resources should be defined in the \strong{"resources.contractions.path"}
+field of \emph{\link{bdpar.Options}} variable.
 }
 
 \section{Note}{
@@ -194,7 +195,8 @@ sets the path of contractions resources.
  (\emph{character}) the name of property about language.
 }
 \item{\bold{resourcesContractionsPath:}}{
- (\emph{character}) the path where are the resources.
+ (\emph{character}) path of resource files (in json format) containing the
+correspondence between contractions and meaning.
 }
 \item{\bold{replaceContractions:}}{
  (\emph{logical}) indicates if the contractions are replace or not.
@@ -203,14 +205,15 @@ sets the path of contractions resources.
 }
 
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{File2Pipe}},
-         \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
-         \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
-         \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
-         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
-         \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-         \code{\link{PipeGeneric}}, \code{\link{ResourceHandler}},
-         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-         \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-         \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+         \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
+         \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
+         \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
+         \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
+         \code{\link{Instance}}, \code{\link{InterjectionPipe}},
+         \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
+         \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
+         \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+         \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+         \code{\link{ToLowerCasePipe}}
 }

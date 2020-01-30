@@ -31,12 +31,18 @@
 #' @format NULL
 #'
 #' @section Constructor:
-#' \code{ExtractorTwtid$new(path)}
+#' \code{ExtractorTwtid$new(path,
+#'                          cachePath = NULL)}
 #' \itemize{
 #' \item{\emph{Arguments:}}{
 #' \itemize{
 #' \item{\strong{path:}}{
 #' (\emph{character}) path of the twtid type file.
+#' }
+#' \item{\strong{cachePath:}}{
+#' (\emph{character}) path of the cache location. If it is NULL, checks if is
+#' defined in the \strong{"twitter.cache.path"} field of
+#' \emph{\link{bdpar.Options}} variable.
 #' }
 #' }
 #' }
@@ -45,17 +51,13 @@
 #' @section Details:
 #'
 #' Twitter connection is handled through the \code{\link{Connections}} class
-#' which loads the Twitter API credentials from the configuration file.
+#' which loads the Twitter API credentials from the \emph{{bdpar.Options}} object.
 #' Additionally, to increase the processing speed, each twitter query is stored
 #' in a cache to avoid the execution of duplicated queries. To enable this option,
-#' cache location should be in the \emph{cachePathTwtid} indicated in the
-#' \emph{cache} section from the configuration file. This variable has to be the
+#' cache location should be in the \strong{"twitter.cache.path"} field of
+#' \emph{{bdpar.Options}} variable. This variable has to be the
 #' path to store the tweets and it is neccesary that it has two folder named:
 #' "_spam_" and "_ham_"
-#'
-#' \strong{[cache]}
-#'
-#' cachePathTwtid = \emph{<<cache_path_twtid>>}
 #'
 #' @section Inherit:
 #' This class inherits from \code{\link{Instance}} and implements the
@@ -113,8 +115,9 @@
 #' }
 #' }
 #'
-#' @seealso \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
-#'\code{\link{ExtractorYtbid}}, \code{\link{Instance}},
+#' @seealso \code{\link{bdpar.Options}}, \code{\link{Connections}},
+#'          \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
+#'          \code{\link{ExtractorYtbid}}, \code{\link{Instance}},
 #'
 #' @keywords NULL
 #'
@@ -129,19 +132,13 @@ ExtractorTwtid <- R6Class(
 
   public = list(
 
-    initialize = function(path) {
-
-      if (!requireNamespace("rjson", quietly = TRUE)) {
-        stop("[ExtractorTwtid][initialize][Error]
-                Package \"rjson\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+    initialize = function(path,
+                          cachePath = NULL) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorTwtid][initialize][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[ExtractorTwtid][initialize][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       path %>>%
@@ -151,6 +148,24 @@ ExtractorTwtid <- R6Class(
       #Singleton
       Bdpar[["private_fields"]][["connections"]]$startConnectionWithTwitter()
 
+
+      if (is.null(cachePath)) {
+        if (!all(bdpar.Options$isSpecificOption("twitter.cache.path"),
+                 !is.null(bdpar.Options$get("twitter.cache.path")))) {
+          stop("[ExtractorTwtid][initialize][Error] Path of tweets cache ",
+               "is neither defined in initialize or in bdpar.Options")
+        } else {
+          cachePath <- bdpar.Options$get("twitter.cache.path")
+        }
+      }
+
+      if (!"character" %in% class(cachePath)) {
+        stop("[ExtractorTwtid][initialize][Error] ",
+             "Checking the type of the 'cachePath' variable: ",
+             class(cachePath))
+      }
+
+      private$cachePath <- cachePath
       return()
     },
 
@@ -168,10 +183,8 @@ ExtractorTwtid <- R6Class(
 
     obtainDate = function() {
 
-      cachePath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$cache$cachePathTwtid
-
       if (file.exists(
-        paste(cachePath,
+        paste(private$cachePath,
           "/_",
           super$getSpecificProperty("target"),
           "_/",
@@ -183,7 +196,7 @@ ExtractorTwtid <- R6Class(
 
         private$path <-
           paste(
-            cachePath,"/_",
+            private$cachePath,"/_",
             super$getSpecificProperty("target"),
             "_/",
             self$getId(),
@@ -220,12 +233,12 @@ ExtractorTwtid <- R6Class(
 
           warning = function(w) {
             warning("[ExtractorTwtid][obtainDate][Warning] Date twtid warning: ",
-                      self$getId(), " ", paste(w),"\n")
+                      self$getId(), " ", paste(w))
           },
 
           error = function(e) {
             message("[ExtractorTwtid][obtainDate][Error] Date twtid error: ",
-                     self$getId(), " ", paste(e),"\n")
+                     self$getId(), " ", paste(e))
           }
         )
 
@@ -264,7 +277,7 @@ ExtractorTwtid <- R6Class(
           cat(
             exportJSON,
             file = paste(
-              cachePath,
+              private$cachePath,
               "/_",
               super$getSpecificProperty("target"),
               "_/",
@@ -278,7 +291,7 @@ ExtractorTwtid <- R6Class(
 
         error = function(e) {
           message("[ExtractorTwtid][obtainDate][Error] exportJSON: ",
-                   self$getId(), " " , paste(e), "\n")
+                   self$getId(), " " , paste(e))
 
           lista <- list(source = "",
                         date = super$getDate(),
@@ -289,7 +302,7 @@ ExtractorTwtid <- R6Class(
           cat(
             exportJSON,
             file = paste(
-              cachePath,
+              private$cachePath,
               "/_",
               super$getSpecificProperty("target"),
               "_/",
@@ -307,11 +320,9 @@ ExtractorTwtid <- R6Class(
 
     obtainSource = function() {
 
-      cachePath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$cache$cachePathTwtid
-
       if (file.exists(
         paste(
-          cachePath,
+          private$cachePath,
           "/_",
           super$getSpecificProperty("target"),
           "_/",
@@ -322,7 +333,7 @@ ExtractorTwtid <- R6Class(
       )) {
         private$path <-
           paste(
-            cachePath,
+            private$cachePath,
             "/_",
             super$getSpecificProperty("target"),
             "_/",
@@ -361,12 +372,12 @@ ExtractorTwtid <- R6Class(
 
           warning = function(w) {
             warning("[ExtractorTwtid][obtainSource][Warning] Source twtid warning: ",
-                      self$getId(), " ", paste(w),"\n")
+                      self$getId(), " ", paste(w))
           },
 
           error = function(e) {
             message(paste("[ExtractorTwtid][obtainSource][Error] Source twtid error: ",
-                      self$getId(), " ", paste(e)),"\n")
+                      self$getId(), " ", paste(e)))
           }
         )
 
@@ -408,7 +419,7 @@ ExtractorTwtid <- R6Class(
           message(
             exportJSON,
             file = paste(
-              cachePath,
+              private$cachePath,
               "/_",
               super$getSpecificProperty("target"),
               "_/",
@@ -422,7 +433,7 @@ ExtractorTwtid <- R6Class(
         error = function(e) {
 
           message("[ExtractorTwtid][obtainSource][Error] exportJSON: ",
-                   self$getId(), " " , paste(e), "\n")
+                   self$getId(), " " , paste(e))
 
           lista <- list(
             source = "",
@@ -435,7 +446,7 @@ ExtractorTwtid <- R6Class(
           cat(
             exportJSON,
             file = paste(
-              cachePath,
+              private$cachePath,
               "/_",
               super$getSpecificProperty("target"),
               "_/",
@@ -453,6 +464,7 @@ ExtractorTwtid <- R6Class(
   ),
 
   private = list(
-    id = ""
+    id = "",
+    cachePath  = ""
   )
 )

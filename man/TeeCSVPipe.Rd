@@ -45,13 +45,9 @@ one).
 
 \section{Details}{
 
-The path to save the properties have to indicate in the configuration file.
-
-The way to indicate is the following:
-
-\strong{[CSVPath]}
-
-outPutTeeCSVPipePath = <<out_put_TeeCSVPipe_path>>
+The path to save the properties should be defined in the
+\strong{"teeCSVPipe.output.path"} field of
+\emph{\link{bdpar.Options}} variable.
 }
 
 \section{Inherit}{
@@ -97,14 +93,15 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 }
 
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-         \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-         \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-         \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-         \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-         \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-         \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
-         \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
-         \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
-         \code{\link{TargetAssigningPipe}}, \code{\link{ToLowerCasePipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+         \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+         \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+         \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+         \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+         \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+         \code{\link{PipeGeneric}}, \code{\link{ResourceHandler}},
+         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+         \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
+         \code{\link{ToLowerCasePipe}}
 }

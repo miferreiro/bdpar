@@ -13,12 +13,18 @@ implements the functions of extracting the text and the date of an ytbid type fi
 }
 \section{Constructor}{
 
-\code{ExtractorYtbid$new(path)}
+\code{ExtractorYtbid$new(path,
+                         cachePath = NULL)}
 \itemize{
 \item{\emph{Arguments:}}{
 \itemize{
 \item{\strong{path:}}{
 (\emph{character}) path of the ytbid type file.
+}
+\item{\strong{cachePath:}}{
+(\emph{character}) path of the cache location. If it is NULL, checks if is
+defined in the \strong{"youtube.cache.path"} field of
+\emph{\link{bdpar.Options}} variable.
 }
 }
 }
@@ -31,14 +37,10 @@ YouTube conection is handled through the \code{\link{Connections}} class
 which loads the YouTube API credentials from the configuration file.
 Additionally, to increase the processing speed, each youtube query is stored
 in a cache to avoid the execution of duplicated queries. To enable this option,
-cache location should be in the \emph{cachePathYtbid} indicated in the
-\emph{cache} section from the configuration file. This variable has to be the
+cache location should be in the \strong{"youtube.cache.path"} field of
+\emph{\link{bdpar.Options}} variable. This variable has to be the
 path to store the comments and it is neccesary that it has two folder named:
 "_spam_" and "_ham_"
-
-\strong{[cache]}
-
-cachePathYtbid = \emph{<<cache_path_ytbid>>}
 }
 
 \section{Inherit}{
@@ -104,6 +106,7 @@ performed using on YouTube API.
 }
 
 \seealso{
-\code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
-\code{\link{ExtractorTwtid}}, \code{\link{Instance}}
+\code{\link{bdpar.Options}}, \code{\link{Connections}},
+         \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
+         \code{\link{ExtractorTwtid}}, \code{\link{Instance}}
 }

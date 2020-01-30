@@ -90,7 +90,7 @@
 #' \code{getAlwaysBeforeDeps()}
 #' }
 #' \item{\emph{Value:}}{
-#' Value of dependences always before.
+#' value of dependences always before.
 #' }
 #' }
 #' }
@@ -197,21 +197,21 @@ PipeGeneric <- R6Class(
     initialize = function(propertyName, alwaysBeforeDeps, notAfterDeps) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[PipeGeneric][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[PipeGeneric][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[PipeGeneric][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[PipeGeneric][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[PipeGeneric][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[PipeGeneric][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
       private$propertyName <- propertyName
       private$alwaysBeforeDeps <- alwaysBeforeDeps
@@ -221,7 +221,7 @@ PipeGeneric <- R6Class(
 
     pipe = function(instance) {
 
-      stop("I'm an abstract interface method")
+      stop("I am an abstract interface method")
     },
 
     getPropertyName = function() {
@@ -242,9 +242,9 @@ PipeGeneric <- R6Class(
     setPropertyName = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[PipeGeneric][setPropertyName][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[PipeGeneric][setPropertyName][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       private$propertyName <- propertyName
@@ -255,9 +255,9 @@ PipeGeneric <- R6Class(
     setAlwaysBeforeDeps = function(alwaysBeforeDeps) {
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[PipeGeneric][setAlwaysBeforeDeps][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[PipeGeneric][setAlwaysBeforeDeps][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       private$alwaysBeforeDeps <- alwaysBeforeDeps
@@ -268,9 +268,9 @@ PipeGeneric <- R6Class(
     setNotAfterDeps = function(notAfterDeps) {
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[PipeGeneric][setNotAfterDeps][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[PipeGeneric][setNotAfterDeps][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       private$notAfterDeps <- notAfterDeps

@@ -112,21 +112,21 @@ File2Pipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[File2Pipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[File2Pipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[File2Pipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[File2Pipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[File2Pipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[File2Pipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -135,15 +135,15 @@ File2Pipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[File2Pipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[File2Pipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
       instance$addFlowPipes("File2Pipe")
 
       if (!instance$checkCompatibility("File2Pipe", self$getAlwaysBeforeDeps())) {
-        stop("[File2Pipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[File2Pipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
@@ -155,7 +155,7 @@ File2Pipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[File2Pipe][pipe][Warning] ", message, " \n")
+        warning("[File2Pipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -167,7 +167,7 @@ File2Pipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[File2Pipe][pipe][Warning] ", message, " \n")
+        warning("[File2Pipe][pipe][Warning] ", message)
 
         instance$invalidate()
 

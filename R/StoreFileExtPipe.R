@@ -132,20 +132,21 @@ StoreFileExtPipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[StoreFileExtPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[StoreFileExtPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[StoreFileExtPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[StoreFileExtPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[StoreFileExtPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[StoreFileExtPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -154,16 +155,16 @@ StoreFileExtPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[StoreFileExtPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[StoreFileExtPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
 
       instance$addFlowPipes("StoreFileExtPipe")
 
       if (!instance$checkCompatibility("StoreFileExtPipe", self$getAlwaysBeforeDeps())) {
-        stop("[StoreFileExtPipe][pipe][Error] Bad compatibility between Pipes.")
+        stop("[StoreFileExtPipe][pipe][Error] Bad compatibility between Pipes")
       }
 
       instance$addBanPipes(unlist(super$getNotAfterDeps()))
@@ -178,7 +179,7 @@ StoreFileExtPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[StoreFileExtPipe][pipe][Warning] ", message, " \n")
+        warning("[StoreFileExtPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -192,9 +193,9 @@ StoreFileExtPipe <- R6Class(
     obtainExtension = function(path) {
 
       if (!"character" %in% class(path)) {
-          stop("[StoreFileExtPipe][obtainExtension][Error]
-                  Checking the type of the variable: path ",
-                    class(path))
+          stop("[StoreFileExtPipe][obtainExtension][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       return(file_ext(path))

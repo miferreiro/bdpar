@@ -1,51 +1,64 @@
-context("GuessDatePipe")
+testthat::context("GuessDatePipe")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
 
   propertyName <- "date"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_silent(GuessDatePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps))
+  testthat::expect_silent(GuessDatePipe$new(propertyName,
+                                            alwaysBeforeDeps,
+                                            notAfterDeps))
 })
 
-test_that("initialize propertyName type error",{
+testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_error(GuessDatePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[GuessDatePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  testthat::expect_error(GuessDatePipe$new(propertyName,
+                                           alwaysBeforeDeps,
+                                           notAfterDeps),
+                         "[GuessDatePipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
+testthat::test_that("initialize alwaysBeforeDeps type error",{
 
   propertyName <- "date"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
 
-  expect_error(GuessDatePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[GuessDatePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  testthat::expect_error(GuessDatePipe$new(propertyName,
+                                           alwaysBeforeDeps,
+                                           notAfterDeps),
+                         "[GuessDatePipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
+testthat::test_that("initialize notAfterDeps type error",{
 
   propertyName <- "date"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
 
-  expect_error(GuessDatePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[GuessDatePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
-
+  testthat::expect_error(GuessDatePipe$new(propertyName,
+                                           alwaysBeforeDeps,
+                                           notAfterDeps),
+                         "[GuessDatePipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe",{
-  skip_if_not_installed("readr")
+testthat::test_that("pipe",{
+  testthat::skip_if_not_installed("readr")
   propertyName <- "date"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- GuessDatePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+  pipe <- GuessDatePipe$new(propertyName,
+                            alwaysBeforeDeps,
+                            notAfterDeps)
 
   path <- file.path("testFiles",
                     "testGuessDatePipe",
@@ -55,16 +68,18 @@ test_that("pipe",{
   instanceExpected <- ExtractorSms$new(path)
   instanceExpected$setDate("")
   instanceExpected$addFlowPipes("GuessDatePipe")
-  expect_equal(pipe$pipe(instance),instanceExpected)
-
+  testthat::expect_equal(pipe$pipe(instance),
+                         instanceExpected)
 })
 
-test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("readr")
+testthat::test_that("pipe Bad compatibility between Pipes",{
+  testthat::skip_if_not_installed("readr")
   propertyName <- "date"
   alwaysBeforeDeps <- list("pipeExample")
   notAfterDeps <- list()
-  pipe <- GuessDatePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- GuessDatePipe$new(propertyName,
+                            alwaysBeforeDeps,
+                            notAfterDeps)
 
   path <- file.path("testFiles",
                     "testGuessDatePipe",
@@ -72,11 +87,12 @@ test_that("pipe Bad compatibility between Pipes.",{
 
   instance <- ExtractorSms$new(path)
   instance$addBanPipes("pipeExample")
-  expect_error(pipe$pipe(instance),"\\[GuessDatePipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
-
+  testthat::expect_error(pipe$pipe(instance),
+                         "[GuessDatePipe][pipe][Error] Bad compatibility between Pipes",
+                         fixed = TRUE)
 })
 
-test_that("pipe instance type error",{
+testthat::test_that("pipe instance type error",{
 
   propertyName <- "date"
   alwaysBeforeDeps <- list()
@@ -85,9 +101,7 @@ test_that("pipe instance type error",{
 
   instance <- NULL
 
-  expect_error(pipe$pipe(instance),"\\[GuessDatePipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
+  testthat::expect_error(pipe$pipe(instance),
+                         "[GuessDatePipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
 })
-
-
