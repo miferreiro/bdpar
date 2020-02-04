@@ -30,15 +30,16 @@
 #'
 #' @format NULL
 #'
-#' @usage pipeline_execute(path, pipe = SerialPipe$new(), instanceFactory = InstanceFactory$new())
+#' @usage pipeline_execute(path, instanceFactory = InstanceFactory$new(),
+#'                  pipeline = SerialPipe$new())
 #'
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
-#' @param pipe (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
-#' implements the whole pipeling process.
 #' @param instanceFactory (\emph{InstanceFactory}) object implementing
 #' the method \code{createInstance} to choose which type of \code{\link{Instance}}
 #' is created.
+#' @param pipeline (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
+#' implements the whole pipeling process.
 #'
 #' @section Details:
 #' In the case that some pipe, defined on the workflow, needs some type of configuration,
@@ -59,15 +60,15 @@
 #' path <- system.file(file.path("example"),
 #'                     package = "bdpar")
 #'
-#' #Object which indicates the pipes' flow
-#' pipe <- SerialPipe$new()
-#'
 #' #Object which decides how creates the instances
 #' instanceFactory <- InstanceFactory$new()
 #'
+#' #Object which indicates the pipes' flow
+#' pipeline <- SerialPipe$new()
+#'
 #' #Starting file preprocessing...
 #' pipeline_execute(path = path,
-#'                  pipe = pipe,
+#'                  pipeline = pipeline,
 #'                  instanceFactory = instanceFactory)
 #' }
 #' @keywords NULL
@@ -79,19 +80,13 @@
 
 
 pipeline_execute = function(path,
-                            pipe = SerialPipe$new(),
-                            instanceFactory = InstanceFactory$new()) {
+                            instanceFactory = InstanceFactory$new(),
+                            pipeline = SerialPipe$new()) {
 
   if (!"character" %in% class(path)) {
     stop("[pipeline_execute][Error] ",
          "Checking the type of the 'path' variable: ",
          class(path))
-  }
-
-  if (!"TypePipe" %in% class(pipe)) {
-    stop("[pipeline_execute][Error] ",
-         "Checking the type of the 'pipe' variable: ",
-         class(pipe))
   }
 
   if (!"InstanceFactory" %in% class(instanceFactory)) {
@@ -100,6 +95,12 @@ pipeline_execute = function(path,
          class(instanceFactory))
   }
 
+  if (!"TypePipe" %in% class(pipeline)) {
+    stop("[pipeline_execute][Error] ",
+         "Checking the type of the 'pipeline' variable: ",
+         class(pipeline))
+  }
+
   bdpar_object <- Bdpar$new()
-  bdpar_object$proccess_files(path, pipe, instanceFactory)
+  bdpar_object$proccess_files(path, instanceFactory, pipeline)
 }

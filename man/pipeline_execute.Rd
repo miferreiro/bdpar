@@ -5,18 +5,19 @@
 \alias{pipeline_execute}
 \title{Initiates the pipelining process}
 \usage{
-pipeline_execute(path, pipe = SerialPipe$new(), instanceFactory = InstanceFactory$new())
+pipeline_execute(path, instanceFactory = InstanceFactory$new(),
+                 pipeline = SerialPipe$new())
 }
 \arguments{
 \item{path}{(\emph{character}) path where the files to be preprocessed
 are located.}
 
-\item{pipe}{(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
-implements the whole pipeling process.}
-
 \item{instanceFactory}{(\emph{InstanceFactory}) object implementing
 the method \code{createInstance} to choose which type of \code{\link{Instance}}
 is created.}
+
+\item{pipeline}{(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
+implements the whole pipeling process.}
 }
 \value{
 List of \code{\link{Instance}} that have been preprocessed.
@@ -42,18 +43,17 @@ which have differents methods to support the funcionality of different pipes.
 
 #Folder with the files to preprocess
 path <- system.file(file.path("example"),
-                              "testFiles"),
                     package = "bdpar")
-
-#Object which indicates the pipes' flow
-pipe <- SerialPipe$new()
 
 #Object which decides how creates the instances
 instanceFactory <- InstanceFactory$new()
 
+#Object which indicates the pipes' flow
+pipeline <- SerialPipe$new()
+
 #Starting file preprocessing...
 pipeline_execute(path = path,
-                 pipe = pipe,
+                 pipeline = pipeline,
                  instanceFactory = instanceFactory)
 }
 }

@@ -4,13 +4,13 @@ testthat::test_that("pipeline_execute path type error",{
 
   path <- NULL
 
-  pipe <- SerialPipe$new()
+  pipeline <- SerialPipe$new()
 
   instanceFactory <- InstanceFactory$new()
 
   testthat::expect_error(pipeline_execute(path = path,
-                                pipe = pipe,
-                                instanceFactory = instanceFactory),
+                                          pipeline = pipeline,
+                                          instanceFactory = instanceFactory),
                          "[pipeline_execute][Error] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
@@ -21,14 +21,14 @@ testthat::test_that("pipeline_execute pipe type error",{
                     "testPipelineExecute",
                     "testFiles_pipeline_execute_tsms")
 
-  pipe <- NULL
+  pipeline <- NULL
 
   instanceFactory <- InstanceFactory$new()
 
   testthat::expect_error(pipeline_execute(path = path,
-                                pipe = pipe,
-                                instanceFactory = instanceFactory),
-                         "[pipeline_execute][Error] Checking the type of the 'pipe' variable: NULL",
+                                          pipeline = pipeline,
+                                          instanceFactory = instanceFactory),
+                         "[pipeline_execute][Error] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -38,13 +38,13 @@ testthat::test_that("pipeline_execute instanceFactory type error",{
                     "testPipelineExecute",
                     "testFiles_pipeline_execute_tsms")
 
-  pipe <- SerialPipe$new()
+  pipeline <- SerialPipe$new()
 
   instanceFactory <- NULL
 
   testthat::expect_error(pipeline_execute(path = path,
-                                pipe = pipe,
-                                instanceFactory = instanceFactory),
+                                          pipeline = pipeline,
+                                          instanceFactory = instanceFactory),
                          "[pipeline_execute][Error] Checking the type of the 'instanceFactory' variable: NULL",
                          fixed = TRUE)
 })
@@ -67,7 +67,7 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
                     "testPipelineExecute",
                     "testFiles_pipeline_execute_tsms")
 
-  pipe <- SerialPipe$new()
+  pipeline <- SerialPipe$new()
 
   instanceFactory <- InstanceFactory$new()
 
@@ -80,7 +80,7 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
   bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
 
   output <- suppressWarnings(pipeline_execute(path = path,
-                                              pipe = pipe,
+                                              pipeline = pipeline,
                                               instanceFactory = instanceFactory))
   file1 <- output[[1]]
 

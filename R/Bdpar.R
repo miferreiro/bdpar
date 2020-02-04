@@ -61,7 +61,7 @@
 #' \item{\emph{Usage}:}{
 #' \preformatted{
 #' proccess_files(path,
-#'                pipe = SerialPipe$new(),
+#'                pipeline = SerialPipe$new(),
 #'                instanceFactory = InstanceFactory$new())}
 #'
 #' }
@@ -73,12 +73,12 @@
 #' \item{\strong{path}:}{
 #' (\emph{character}) path where the files to be processed are located.
 #' }
-#' \item{\strong{pipe}:}{
-#' (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which implements the \code{pipe} method.
-#' }
 #' \item{\strong{instanceFactory}:}{
 #' (\emph{InstanceFactory}) class which implements the method \code{createInstance}
 #' to choose which type of \code{\link{Instance}} is created.
+#' }
+#' \item{\strong{pipeline}:}{
+#' (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which implements the \code{pipe} method.
 #' }
 #' }
 #' }
@@ -102,16 +102,18 @@
 #' path <- system.file(file.path("example"),
 #'                     package = "bdpar")
 #'
-#' #Object which indicates the pipes' flow
-#' pipe <- SerialPipe$new()
-#'
 #' #Object which decides how creates the instances
 #' instanceFactory <- InstanceFactory$new()
+#'
+#' #Object which indicates the pipes' flow
+#' pipeline <- SerialPipe$new()
 #'
 #' objectBdpar <- Bdpar$new()
 #'
 #' #Starting file preprocessing...
-#' objectBdpar$proccess_files(path, pipe, instanceFactory)
+#' objectBdpar$proccess_files(path = path,
+#'                            instanceFactory = instanceFactory,
+#'                            pipeline = pipeline)
 #' }
 #' @keywords NULL
 #'
@@ -132,8 +134,8 @@ Bdpar <- R6Class(
     },
 
     proccess_files = function(path,
-                              pipe = SerialPipe$new(),
-                              instanceFactory = InstanceFactory$new()) {
+                              instanceFactory = InstanceFactory$new(),
+                              pipeline = SerialPipe$new()) {
 
       if (!"character" %in% class(path)) {
         stop("[Bdpar][proccess_files][Error] ",
@@ -141,16 +143,16 @@ Bdpar <- R6Class(
              class(path))
       }
 
-      if (!"TypePipe" %in% class(pipe)) {
-        stop("[Bdpar][proccess_files][Error] ",
-             "Checking the type of the 'pipe' variable: ",
-             class(pipe))
-      }
-
       if (!"InstanceFactory" %in% class(instanceFactory)) {
         stop("[Bdpar][proccess_files][Error] ",
              "Checking the type of the 'instanceFactory' variable: ",
              class(instanceFactory))
+      }
+
+      if (!"TypePipe" %in% class(pipeline)) {
+        stop("[Bdpar][proccess_files][Error] ",
+             "Checking the type of the 'pipeline' variable: ",
+             class(pipeline))
       }
 
       if (all(sapply(path, function(p) file.exists(p) || dir.exists(p)))) {
@@ -172,7 +174,7 @@ Bdpar <- R6Class(
       InstancesList <- sapply(files, instanceFactory$createInstance)
 
       message("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.")
-      listInstances <- sapply(InstancesList, pipe$pipeAll)
+      listInstances <- sapply(InstancesList, pipeline$pipeAll)
 
       return(listInstances)
     }

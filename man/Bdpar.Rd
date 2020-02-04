@@ -49,7 +49,7 @@ preprocess files through the indicated flow of pipes.
 \item{\emph{Usage}:}{
 \preformatted{
 proccess_files(path,
-               pipe = SerialPipe$new(),
+               pipeline = SerialPipe$new(),
                instanceFactory = InstanceFactory$new())}
 
 }
@@ -61,12 +61,12 @@ list of \code{Instances} that have been preprocessed.
 \item{\strong{path}:}{
 (\emph{character}) path where the files to be processed are located.
 }
-\item{\strong{pipe}:}{
-(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which implements the \code{pipe} method.
-}
 \item{\strong{instanceFactory}:}{
 (\emph{InstanceFactory}) class which implements the method \code{createInstance}
 to choose which type of \code{\link{Instance}} is created.
+}
+\item{\strong{pipeline}:}{
+(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which implements the \code{pipe} method.
 }
 }
 }
@@ -85,19 +85,20 @@ to choose which type of \code{\link{Instance}} is created.
 
 #Folder with the files to preprocess
 path <- system.file(file.path("example"),
-                              "testFiles"),
                     package = "bdpar")
-
-#Object which indicates the pipes' flow
-pipe <- SerialPipe$new()
 
 #Object which decides how creates the instances
 instanceFactory <- InstanceFactory$new()
 
+#Object which indicates the pipes' flow
+pipeline <- SerialPipe$new()
+
 objectBdpar <- Bdpar$new()
 
 #Starting file preprocessing...
-objectBdpar$proccess_files(path, pipe, instanceFactory)
+objectBdpar$proccess_files(path = path,
+                           instanceFactory = instanceFactory,
+                           pipeline = pipeline)
 }
 }
 \seealso{
