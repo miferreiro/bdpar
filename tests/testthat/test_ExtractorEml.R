@@ -33,6 +33,10 @@ testthat::test_that("initialize PartSelectedOnMPAlternative type error",{
 
   path <- "example.eml"
   PartSelectedOnMPAlternative <- NULL
+
+  bdpar.Options$set(key = "eml.PartSelectedOnMPAlternative",
+                    value = NULL)
+
   testthat::expect_error(ExtractorEml$new(path,
                                           PartSelectedOnMPAlternative),
                          "[ExtractorEml][initialize][Error] Part of select on .eml files is neither defined in initialize or in bdpar.Options",

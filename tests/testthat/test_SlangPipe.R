@@ -206,6 +206,9 @@ testthat::test_that("initialize resourcesSlangsPath type error",{
   replaceSlangs <- TRUE
   resourcesSlangsPath <- NULL
 
+  bdpar.Options$set(key = "resources.slangs.path",
+                    value = NULL)
+
   testthat::expect_error(SlangPipe$new(propertyName,
                                        propertyLanguageName,
                                        alwaysBeforeDeps,

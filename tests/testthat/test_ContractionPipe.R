@@ -206,6 +206,9 @@ testthat::test_that("initialize resourcesContractionsPath type error",{
   replaceContractions <- TRUE
   resourcesContractionsPath <- NULL
 
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = NULL)
+
   testthat::expect_error(ContractionPipe$new(propertyName,
                                              propertyLanguageName,
                                              alwaysBeforeDeps,

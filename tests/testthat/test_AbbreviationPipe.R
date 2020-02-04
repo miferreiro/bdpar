@@ -206,6 +206,8 @@ testthat::test_that("initialize resourcesAbbreviationsPath type error",{
   replaceAbbreviations <- TRUE
   resourcesAbbreviationsPath <- NULL
 
+  bdpar.Options$set(key = "resources.abbreviations.path",
+                    value = NULL)
   testthat::expect_error(AbbreviationPipe$new(propertyName,
                                               propertyLanguageName,
                                               alwaysBeforeDeps,

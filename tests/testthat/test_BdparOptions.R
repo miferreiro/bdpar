@@ -6,7 +6,7 @@ test_that("initialize",{
 
 test_that("get",{
   options <- BdparOptions$new()
-  testthat::expect_null(options$get("resources.abbreviations.path"))
+  testthat::expect_null(options$get("twitter.consumer.key"))
 })
 
 test_that("get key type error",{
@@ -112,48 +112,5 @@ test_that("isSpecificOption",{
 
 test_that("print",{
   options <- BdparOptions$new()
-  testthat::expect_output(print(options), "$eml.PartSelectedOnMPAlternative
-NULL
-
-$resources.abbreviations.path
-NULL
-
-$resources.contractions.path
-NULL
-
-$resources.interjections.path
-NULL
-
-$resources.slangs.path
-NULL
-
-$resources.stopwords.path
-NULL
-
-$twitter.consumer.key
-NULL
-
-$twitter.consumer.secret
-NULL
-
-$twitter.access.token
-NULL
-
-$twitter.access.token.secret
-NULL
-
-$twitter.cache.path
-NULL
-
-$teeCSVPipe.output.path
-NULL
-
-$youtube.app.id
-NULL
-
-$youtube.app.password
-NULL
-
-$youtube.cache.path
-NULL", fixed = TRUE)
+  testthat::expect_output(print(options), "[A-Za-z0-9$/.]+")
 })

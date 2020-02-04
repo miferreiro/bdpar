@@ -46,7 +46,6 @@ For this preprocessing we will use both the default preprocessing flow (SerialPi
 Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
 
 ```{R, echo = TRUE, results = "hide", eval = FALSE}
-bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
 bdpar.Options$set("teeCSVPipe.output.path", "example.csv")
 pipeline_execute(path = system.file(package = "bdpar", "testFiles"))
 ```

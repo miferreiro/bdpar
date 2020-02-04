@@ -206,6 +206,9 @@ testthat::test_that("initialize resourcesStopWordsPath type error",{
   removeStopWords <- TRUE
   resourcesStopWordsPath <- NULL
 
+  bdpar.Options$set(key = "resources.stopwords.path",
+                    value = NULL)
+
   testthat::expect_error(StopWordPipe$new(propertyName,
                                           propertyLanguageName,
                                           alwaysBeforeDeps,

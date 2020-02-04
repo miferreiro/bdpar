@@ -31,12 +31,27 @@ BdparOptions <- R6Class(
 
     initialize = function() {
 
-      private$bdpar.options <- list(eml.PartSelectedOnMPAlternative = NULL,
-                                    resources.abbreviations.path = NULL,
-                                    resources.contractions.path = NULL,
-                                    resources.interjections.path = NULL,
-                                    resources.slangs.path = NULL,
-                                    resources.stopwords.path = NULL,
+      private$bdpar.options <- list(eml.PartSelectedOnMPAlternative = "text/plain",
+                                    resources.abbreviations.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                             "bdpar",
+                                                                             "resources",
+                                                                             "abbreviations-json"),
+                                    resources.contractions.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                            "bdpar",
+                                                                            "resources",
+                                                                            "contractions-json"),
+                                    resources.interjections.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                             "bdpar",
+                                                                             "resources",
+                                                                             "interjections-json"),
+                                    resources.slangs.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                      "bdpar",
+                                                                      "resources",
+                                                                      "slangs-json"),
+                                    resources.stopwords.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                         "bdpar",
+                                                                         "resources",
+                                                                         "stopwords-json"),
                                     twitter.consumer.key = NULL,
                                     twitter.consumer.secret = NULL,
                                     twitter.access.token = NULL,
@@ -81,10 +96,16 @@ BdparOptions <- R6Class(
              class(key))
       }
 
+
+
       if (!self$isSpecificOption(key)) {
         stop("[BdparOptions][set][Error] '", key, "' option is not configured")
       } else {
-        private$bdpar.options[[key]] <- value
+        if (is.null(value)) {
+          private$bdpar.options[key] <- list(value)
+        } else {
+          private$bdpar.options[[key]] <- value
+        }
       }
     },
 
@@ -106,12 +127,27 @@ BdparOptions <- R6Class(
     },
 
     reset = function() {
-      private$bdpar.options <- list(eml.PartSelectedOnMPAlternative = NULL,
-                                    resources.abbreviations.path = NULL,
-                                    resources.contractions.path = NULL,
-                                    resources.interjections.path = NULL,
-                                    resources.slangs.path = NULL,
-                                    resources.stopwords.path = NULL,
+      private$bdpar.options <- list(eml.PartSelectedOnMPAlternative = "text/plain",
+                                    resources.abbreviations.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                             "bdpar",
+                                                                             "resources",
+                                                                             "abbreviations-json"),
+                                    resources.contractions.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                            "bdpar",
+                                                                            "resources",
+                                                                            "contractions-json"),
+                                    resources.interjections.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                             "bdpar",
+                                                                             "resources",
+                                                                             "interjections-json"),
+                                    resources.slangs.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                      "bdpar",
+                                                                      "resources",
+                                                                      "slangs-json"),
+                                    resources.stopwords.path = file.path(Sys.getenv("R_LIBS_USER"),
+                                                                         "bdpar",
+                                                                         "resources",
+                                                                         "stopwords-json"),
                                     twitter.consumer.key = NULL,
                                     twitter.consumer.secret = NULL,
                                     twitter.access.token = NULL,

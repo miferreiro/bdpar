@@ -91,7 +91,7 @@ ExtractorTytb <- R6Class(
     },
     obtainDate = function() {
       super$getPath() %>>%
-      file.info()[[ctime]] %>>%
+      file.info()[["ctime"]] %>>%
       super$setDate()
       return()
     },

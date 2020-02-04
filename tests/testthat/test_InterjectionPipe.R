@@ -205,6 +205,9 @@ testthat::test_that("initialize resourcesInterjectionsPath type error",{
   removeInterjections <- TRUE
   resourcesInterjectionsPath <- NULL
 
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = NULL)
+
   testthat::expect_error(InterjectionPipe$new(propertyName,
                                               propertyLanguageName,
                                               alwaysBeforeDeps,

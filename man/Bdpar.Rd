@@ -84,7 +84,7 @@ to choose which type of \code{\link{Instance}} is created.
 #bdpar.Options$add(key, value)
 
 #Folder with the files to preprocess
-path <- system.file(file.path("examples",
+path <- system.file(file.path("example"),
                               "testFiles"),
                     package = "bdpar")
 

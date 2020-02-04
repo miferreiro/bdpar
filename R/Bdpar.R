@@ -99,8 +99,7 @@
 #' #bdpar.Options$add(key, value)
 #'
 #' #Folder with the files to preprocess
-#' path <- system.file(file.path("examples",
-#'                               "testFiles"),
+#' path <- system.file(file.path("example"),
 #'                     package = "bdpar")
 #'
 #' #Object which indicates the pipes' flow

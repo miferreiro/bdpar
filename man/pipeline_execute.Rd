@@ -41,7 +41,7 @@ which have differents methods to support the funcionality of different pipes.
 #bdpar.Options$add(key, value)
 
 #Folder with the files to preprocess
-path <- system.file(file.path("examples",
+path <- system.file(file.path("example"),
                               "testFiles"),
                     package = "bdpar")
 
