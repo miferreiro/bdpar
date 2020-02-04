@@ -34,7 +34,7 @@ defined in the \strong{"youtube.cache.path"} field of
 \section{Details}{
 
 YouTube conection is handled through the \code{\link{Connections}} class
-which loads the YouTube API credentials from the configuration file.
+which loads the YouTube API credentials from the \emph{{bdpar.Options}} object.
 Additionally, to increase the processing speed, each youtube query is stored
 in a cache to avoid the execution of duplicated queries. To enable this option,
 cache location should be in the \strong{"youtube.cache.path"} field of

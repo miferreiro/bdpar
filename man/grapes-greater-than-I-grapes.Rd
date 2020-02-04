@@ -3,7 +3,7 @@
 \docType{methods}
 \name{\%>I\%}
 \alias{\%>I\%}
-\title{bdpar customized forward-pipe operator}
+\title{bdpar customized fordward-pipe operator}
 \usage{
 lhs \%>I\% rhs
 }

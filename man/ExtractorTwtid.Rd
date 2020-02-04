@@ -35,7 +35,7 @@ defined in the \strong{"twitter.cache.path"} field of
 
 
 Twitter connection is handled through the \code{\link{Connections}} class
-which loads the Twitter API credentials from the configuration file.
+which loads the Twitter API credentials from the \emph{{bdpar.Options}} object.
 Additionally, to increase the processing speed, each twitter query is stored
 in a cache to avoid the execution of duplicated queries. To enable this option,
 cache location should be in the \strong{"twitter.cache.path"} field of

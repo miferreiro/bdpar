@@ -90,8 +90,9 @@ ExtractorTytb <- R6Class(
         super$initialize()
     },
     obtainDate = function() {
-      "" %>>%
-        super$setDate()
+      super$getPath() %>>%
+      file.info()[[ctime]] %>>%
+      super$setDate()
       return()
     },
     obtainSource = function() {
@@ -99,8 +100,8 @@ ExtractorTytb <- R6Class(
       read_file() %>>%
       super$setSource()
         
-    super$getSource() %>>%
-      super$setData()
+      super$getSource() %>>%
+        super$setData()
     
       return()
     }
@@ -124,17 +125,10 @@ InstanceFactoryCustom <- R6Class(
     initialize = function() {
     },
     createInstance = function(path) {
-      if (!"character" %in% class(path)) {
-        stop("[InstanceFactoryCustom][createInstance][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
-      }
       switch(file_ext(path),
        `email` =  return(ExtractorEml$new(path)),
        `tytb` = return(ExtractorTytb$new(path))
       )
-        
-      return()
     }
   )
 )

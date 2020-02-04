@@ -21,7 +21,7 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title bdpar customized forward-pipe operator
+#' @title bdpar customized fordward-pipe operator
 #'
 #' @description Defines a customized fordward pipe operator extending the
 #' features of classical \%>\%. Concretely \%>I\% is able to stop the pipelining
