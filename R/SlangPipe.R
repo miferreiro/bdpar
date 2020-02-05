@@ -304,14 +304,6 @@ SlangPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("SlangPipe")
-
-      if (!instance$checkCompatibility("SlangPipe", self$getAlwaysBeforeDeps())) {
-        stop("[SlangPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       languageInstance <- "Unknown"
 
       languageInstance <- instance$getSpecificProperty(self$getPropertyLanguageName())

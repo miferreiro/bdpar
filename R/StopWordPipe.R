@@ -296,14 +296,6 @@ StopWordPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("StopWordPipe")
-
-      if (!instance$checkCompatibility("StopWordPipe", self$getAlwaysBeforeDeps())) {
-        stop("[StopWordPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       languageInstance <- "Unknown"
 
       languageInstance <- instance$getSpecificProperty(self$getPropertyLanguageName())

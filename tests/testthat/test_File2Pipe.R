@@ -65,14 +65,11 @@ testthat::test_that("pipe",{
   instanceExpected <- ExtractorSms$new(path)
   instanceExpected$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   instanceExpected$setData("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
-  instanceExpected$addFlowPipes("File2Pipe")
   instanceFinal <- pipe$pipe(instance)
   testthat::expect_equal(instanceFinal$getSource(),
                          instanceExpected$getSource())
   testthat::expect_equal(instanceFinal$getData(),
                          instanceExpected$getData())
-  testthat::expect_equal(instanceFinal$getFlowPipes(),
-                         instanceExpected$getFlowPipes())
 })
 
 testthat::test_that("pipe empty source",{
@@ -89,24 +86,6 @@ testthat::test_that("pipe empty source",{
   instance <- ExtractorSms$new(path)
   testthat::expect_warning(pipe$pipe(instance),
                            "\\[File2Pipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFile2Pipe\\/example_File2Pipe_empty\\.tsms has source empty")
-})
-
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("readr")
-  propertyName <- "source"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  pipe <- File2Pipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testFile2Pipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[File2Pipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
 })
 
 testthat::test_that("pipe instance type error",{

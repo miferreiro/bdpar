@@ -398,48 +398,6 @@ testthat::test_that("pipe wihtout language property",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipe Bad compatibility between Pipes",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("rjson")
-  propertyName <- "interjection"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  removeInterjections <- TRUE
-  resourcesInterjectionsPath <- NULL
-
-  path <- file.path("resourcesFiles",
-                    "testResources",
-                    "interjections-json")
-
-  bdpar.Options$set(key = "resources.interjections.path",
-                    value = path)
-
-  Bdpar$new()
-
-  pipe <- InterjectionPipe$new(propertyName,
-                               propertyLanguageName,
-                               alwaysBeforeDeps,
-                               notAfterDeps,
-                               removeInterjections,
-                               resourcesInterjectionsPath)
-
-  path <- file.path("testFiles",
-                    "testInterjectionPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("yeah I like it")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[InterjectionPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

@@ -138,33 +138,6 @@ testthat::test_that("pipe removeEmoticons <- FALSE",{
 
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("stringr")
-  propertyName <- "emoticon"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  removeEmoticons <- TRUE
-
-  pipe <- FindEmoticonPipe$new(propertyName,
-                               alwaysBeforeDeps,
-                               notAfterDeps,
-                               removeEmoticons)
-
-  path <- file.path("testFiles",
-                    "testFindEmoticonPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("Hey I am :)")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[FindEmoticonPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-
-})
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

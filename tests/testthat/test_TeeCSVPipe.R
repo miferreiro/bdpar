@@ -254,44 +254,6 @@ testthat::test_that("pipe instance invalid",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("readr")
-  testthat::skip_if_not_installed("rjson")
-  propertyName <- ""
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  withData <- TRUE
-  withSource <- TRUE
-  outputPath <- NULL
-
-  pathOutput <- "output_tsms.csv"
-
-  bdpar.Options$set(key = "teeCSVPipe.output.path",
-                    value = pathOutput)
-
-  pipe <- TeeCSVPipe$new(propertyName,
-                         alwaysBeforeDeps,
-                         notAfterDeps,
-                         withData,
-                         withSource,
-                         outputPath)
-
-  Bdpar$new()
-
-  path <- file.path("testFiles",
-                    "testTeeCSVPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[TeeCSVPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rjson")
   propertyName <- ""

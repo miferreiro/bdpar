@@ -299,14 +299,6 @@ InterjectionPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("InterjectionPipe")
-
-      if (!instance$checkCompatibility("InterjectionPipe", self$getAlwaysBeforeDeps())) {
-        stop("[InterjectionPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       languageInstance <- "Unknown"
 
       languageInstance <- instance$getSpecificProperty(self$getPropertyLanguageName())

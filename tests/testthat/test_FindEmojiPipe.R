@@ -133,31 +133,6 @@ testthat::test_that("pipe replaceEmojis <- FALSE",{
                          "Hey I am \U0001f600")
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("rtweet")
-  propertyName <- "Emojis"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  replaceEmojis <- TRUE
-  pipe <- FindEmojiPipe$new(propertyName,
-                            alwaysBeforeDeps,
-                            notAfterDeps,
-                            replaceEmojis)
-
-  path <- file.path("testFiles",
-                    "testFindEmojiPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("Hey I am \U0001f600")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[FindEmojiPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

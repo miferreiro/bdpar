@@ -67,29 +67,8 @@ testthat::test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instanceExpected <- ExtractorSms$new(path)
   instanceExpected$setDate("")
-  instanceExpected$addFlowPipes("GuessDatePipe")
   testthat::expect_equal(pipe$pipe(instance),
                          instanceExpected)
-})
-
-testthat::test_that("pipe Bad compatibility between Pipes",{
-  testthat::skip_if_not_installed("readr")
-  propertyName <- "date"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  pipe <- GuessDatePipe$new(propertyName,
-                            alwaysBeforeDeps,
-                            notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testGuessDatePipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[GuessDatePipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
 })
 
 testthat::test_that("pipe instance type error",{

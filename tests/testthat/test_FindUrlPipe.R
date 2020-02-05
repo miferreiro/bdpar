@@ -215,37 +215,6 @@ testthat::test_that("pipe removeUrl <- FALSE",{
                          "www.google.com")
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("stringr")
-  propertyName <- "URLs"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  removeUrls <- TRUE
-  URLPattern <- "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:(?:[[:alnum:]]+:(?:\\/{1,2}))|\\/{0,2}www\\.)(?:[\\w-]+(?:(?:\\.[\\w-]+)*))(?:(?:[\\w~?=-][.;,@?^=%&:\\/~+#-]?)*)[\\w@?^=%&\\/~+#,;!:<\\\\\"?-]?(?=(?:[<\\\\,;!\"?\\)]|\\s|$)))"
-  URLPatterns <- list(URLPattern)
-  namesURLPatterns <- list("UrlPattern")
-
-  pipe <- FindUrlPipe$new(propertyName,
-                          alwaysBeforeDeps,
-                          notAfterDeps,
-                          removeUrls,
-                          URLPatterns,
-                          namesURLPatterns)
-
-  path <- file.path("testFiles",
-                    "testFindUrlPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$setData("www.google.com")
-  instance$addBanPipes("pipeExample")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[FindUrlPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

@@ -213,14 +213,6 @@ FindEmoticonPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("FindEmoticonPipe")
-
-      if (!instance$checkCompatibility("FindEmojiInStringBufferPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindEmoticonPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$getData() %>>%
         self$findEmoticon() %>>%
           unique() %>>%

@@ -402,49 +402,6 @@ testthat::test_that("pipe wihtout language property",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("rjson")
-  propertyName <- "contractions"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  replaceContractions <- TRUE
-  resourcesContractionsPath <- NULL
-
-  pathResources <- file.path("resourcesFiles",
-                             "testResources",
-                             "contractions-json")
-
-  bdpar.Options$set(key = "resources.contractions.path",
-                    value = pathResources)
-
-  Bdpar$new()
-
-  pipe <- ContractionPipe$new(propertyName,
-                              propertyLanguageName,
-                              alwaysBeforeDeps,
-                              notAfterDeps,
-                              replaceContractions,
-                              resourcesContractionsPath)
-
-  path <- file.path("testFiles",
-                    "testContractionPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("I'm tall")
-
-  testthat::expect_error(pipe$pipe(instance),
-                         "[ContractionPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

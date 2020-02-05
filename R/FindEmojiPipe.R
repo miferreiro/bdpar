@@ -211,14 +211,6 @@ FindEmojiPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("FindEmojiPipe")
-
-      if (!instance$checkCompatibility("FindEmojiPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindEmojiPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       emojisLocated <- list()
 
       emojisList <- as.list(rtweet::emojis[2][[1]])

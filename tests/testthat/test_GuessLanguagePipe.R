@@ -129,30 +129,6 @@ testthat::test_that("pipe no detect language",{
 
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("readr")
-  propertyName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  languageTwitter <- TRUE
-
-  pipe <- GuessLanguagePipe$new(propertyName,
-                                alwaysBeforeDeps,
-                                notAfterDeps,
-                                languageTwitter)
-
-  path <- file.path("testFiles",
-                    "testGuessLanguagePipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-
-  instance$addBanPipes("pipeExample")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[GuessLanguagePipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
 testthat::test_that("pipe instance type error",{
 
   propertyName <- "language"

@@ -28,7 +28,7 @@ complete the whole proccess.
 This is the \%>\% operator of the modified magrittr library to both
 (i) to stop the flow when the \code{\link{Instance}} is invalid and (ii)
 automatically call the \code{pipe} function of the R6 objects passing
-through it.
+through it and (iii) check the dependencies of the \code{\link{Instance}}.
 
 The usage structure would be as shown below:
 

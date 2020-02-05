@@ -155,14 +155,6 @@ ToLowerCasePipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("ToLowerCasePipe")
-
-      if (!instance$checkCompatibility("ToLowerCasePipe", self$getAlwaysBeforeDeps())) {
-        stop("[ToLowerCasePipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$getData() %>>%
         self$toLowerCase() %>>%
           instance$setData()

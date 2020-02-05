@@ -135,14 +135,6 @@ GuessDatePipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("GuessDatePipe")
-
-      if (!instance$checkCompatibility("GuessDatePipe", self$getAlwaysBeforeDeps())) {
-        stop("[GuessDatePipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$obtainDate()
 
       return(instance)

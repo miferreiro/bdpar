@@ -38,7 +38,7 @@
 #' This is the \%>\% operator of the modified magrittr library to both
 #' (i) to stop the flow when the \code{\link{Instance}} is invalid and (ii)
 #' automatically call the \code{pipe} function of the R6 objects passing
-#' through it.
+#' through it and (iii) check the dependencies of the \code{\link{Instance}}.
 #'
 #' The usage structure would be as shown below:
 #'
@@ -123,7 +123,8 @@
 #              Execute the functions and allow interruption if the instance is
 #              invalid.
 # @details This is the freduce method of the modified magrittr library in order
-#          to stop the flow when the instance is invalid.
+#          to (i) stop the flow when the instance is invalid, (ii) invoke automatically
+#          pipe function of object received and (iii) check the dependencies of the Instances.
 # @docType methods
 # @param value Initial value.
 # @param function_list A list of functions.
@@ -141,21 +142,69 @@ freduce = function(instance, function_list)
 
   if (k > 1) {
     for (i in 1:(k - 1L)) {
+
+      pipeName <- parse(text = paste0("class(",
+                                      substr(deparse(function_list[[i]])[2],
+                                             12,
+                                             nchar(deparse(function_list[[i]])[2]) - 16),
+                                      ")[1]"))
+
+      exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[i]])[2],
+                                                   12,
+                                                   nchar(deparse(function_list[[i]])[2]) - 16),
+                                            "$getAlwaysBeforeDeps()"))
+
+      exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[i]])[2],
+                                                   12,
+                                                   nchar(deparse(function_list[[i]])[2]) - 16),
+                                            "$getNotAfterDeps()"))
+
+      instance$addFlowPipes(eval(pipeName))
+
+      if (!instance$checkCompatibility(eval(pipeName), eval(exprAlwBefDeps))) {
+        message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName))
+        break
+      }
+
+      instance$addBanPipes(unlist(eval(exprNotAftDeps)))
+
       instance <- eval(function_list[[i]](instance))
       if (!instance$isInstanceValid()) {
         message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
-            " is invalid and will not continue through the flow of pipes")
+                " is invalid and will not continue through the flow of pipes")
         break
       }
     }
   }
-
   if (instance$isInstanceValid()) {
-    instance <- withVisible(eval(function_list[[k]](instance)))
+    pipeName <- parse(text = paste0("class(",
+                                    substr(deparse(function_list[[k]])[2],
+                                           12,
+                                           nchar(deparse(function_list[[k]])[2]) - 16),
+                                    ")[1]"))
+
+    exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[k]])[2],
+                                                 12,
+                                                 nchar(deparse(function_list[[k]])[2]) - 16),
+                                          "$getAlwaysBeforeDeps()"))
+
+    exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[k]])[2],
+                                                 12,
+                                                 nchar(deparse(function_list[[k]])[2]) - 16),
+                                          "$getNotAfterDeps()"))
+
+    instance$addFlowPipes(eval(pipeName))
+
+    if (!instance$checkCompatibility(eval(pipeName), eval(exprAlwBefDeps))) {
+      message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName))
+    } else {
+      instance$addBanPipes(unlist(eval(exprNotAftDeps)))
+
+      instance <- withVisible(eval(function_list[[k]](instance)))
+    }
   } else {
     instance <- withVisible(instance)
   }
-
 
   if (instance[["visible"]])
     instance[["value"]]
@@ -169,7 +218,6 @@ split_chain = function(expr, env)
   pipes <- list()
   i <- 1L
 
-
   while (is.call(expr) && is_pipe(expr[[1L]])) {
     pipes[[i]] <- expr[[1L]]
     rhs <- expr[[3L]]
@@ -180,7 +228,6 @@ split_chain = function(expr, env)
       rhs <- eval(rhs, env, env)
     }
 
-
     rhss[[i]] <- if (is_dollar(pipes[[i]]) || is_funexpr(rhs))
       rhs
     else if (purrr::is_function(rhs))
@@ -188,8 +235,6 @@ split_chain = function(expr, env)
     else if (is_first(rhs))
       prepare_first(rhs)
     else rhs
-
-
 
     if (is.call(rhss[[i]]) && identical(rhss[[i]][[1L]],
                                         quote(`function`)))
@@ -199,10 +244,8 @@ split_chain = function(expr, env)
     i <- i + 1L
   }
 
-
   list(rhss = rev(rhss), pipes = rev(pipes), lhs = expr)
 }
-
 
 is_pipe = function (pipe)
 {
@@ -268,4 +311,3 @@ is_compound_pipe = function (pipe)
 {
   identical(pipe, quote(`%<>%`))
 }
-

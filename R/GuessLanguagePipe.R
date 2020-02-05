@@ -190,14 +190,6 @@ GuessLanguagePipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("GuessLanguagePipe")
-
-      if (!instance$checkCompatibility("GuessLanguagePipe", self$getAlwaysBeforeDeps())) {
-        stop("[GuessLanguagePipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       if (private$languageTwitter &&
           instance$getSpecificProperty("extension") %in% "twtid") {
 

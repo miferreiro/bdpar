@@ -304,14 +304,6 @@ ContractionPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("ContractionPipe")
-
-      if (!instance$checkCompatibility("ContractionPipe", self$getAlwaysBeforeDeps())) {
-        stop("[ContractionPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       languageInstance <- "Unknown"
 
       languageInstance <- instance$getSpecificProperty( self$getPropertyLanguageName())

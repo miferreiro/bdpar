@@ -140,14 +140,6 @@ File2Pipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("File2Pipe")
-
-      if (!instance$checkCompatibility("File2Pipe", self$getAlwaysBeforeDeps())) {
-        stop("[File2Pipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$obtainSource()
 
       if (is.na(instance$getSource()) || all(instance$getSource() == "") || is.null(instance$getSource())) {

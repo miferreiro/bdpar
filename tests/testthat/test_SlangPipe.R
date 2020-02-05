@@ -419,49 +419,6 @@ testthat::test_that("pipe wihtout language property",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
-  testthat::skip_if_not_installed("rjson")
-  propertyName <- "langpropname"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  replaceSlangs <- TRUE
-  resourcesSlangsPath <- NULL
-
-  path <- file.path("resourcesFiles",
-                    "testResources",
-                    "slangs-json")
-
-  bdpar.Options$set(key = "resources.slangs.path",
-                    value = path)
-
-  Bdpar$new()
-
-  pipe <- SlangPipe$new(propertyName,
-                        propertyLanguageName,
-                        alwaysBeforeDeps,
-                        notAfterDeps,
-                        replaceSlangs,
-                        resourcesSlangsPath)
-
-  path <- file.path("testFiles",
-                    "testSlangPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("yur name")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[SlangPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

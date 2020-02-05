@@ -180,14 +180,6 @@ MeasureLengthPipe <- R6Class(
                  class(instance))
         }
 
-        instance$addFlowPipes("MeasureLengthPipe")
-
-        if (!instance$checkCompatibility("MeasureLengthPipe", self$getAlwaysBeforeDeps())) {
-          stop("[MeasureLengthPipe][pipe][Error] Bad compatibility between Pipes")
-        }
-
-        instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
         instance$getData() %>>%
           {self$getLength(.,private$nchar_conf)} %>>%
             {instance$addProperties(.,private$propertyName)}

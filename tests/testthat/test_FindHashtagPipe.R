@@ -138,33 +138,6 @@ testthat::test_that("pipe removeHashtags <- FALSE",{
                          "Hey I am #example")
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("stringr")
-  propertyName <- "hashtag"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  removeHashtags <- TRUE
-
-  pipe <- FindHashtagPipe$new(propertyName,
-                              alwaysBeforeDeps,
-                              notAfterDeps,
-                              removeHashtags)
-
-  path <- file.path("testFiles",
-                    "testFindHashtagPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("Hey I am #example")
-
-  testthat::expect_error(pipe$pipe(instance),
-                         "[FindHashtagPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

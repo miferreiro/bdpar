@@ -203,14 +203,6 @@ TeeCSVPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("TeeCSVPipe")
-
-      if (!instance$checkCompatibility("TeeCSVPipe", self$getAlwaysBeforeDeps())) {
-        stop("[TeeCSVPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       if (!instance$isInstanceValid()) {
         return(instance)
       }

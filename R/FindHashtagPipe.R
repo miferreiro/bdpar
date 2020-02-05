@@ -213,14 +213,6 @@ FindHashtagPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("FindHashtagPipe")
-
-      if (!instance$checkCompatibility("FindHashtagPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindHashtagPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$getData() %>>%
         self$findHashtag() %>>%
           unique() %>>%

@@ -160,15 +160,6 @@ StoreFileExtPipe <- R6Class(
              class(instance))
       }
 
-
-      instance$addFlowPipes("StoreFileExtPipe")
-
-      if (!instance$checkCompatibility("StoreFileExtPipe", self$getAlwaysBeforeDeps())) {
-        stop("[StoreFileExtPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$getPath() %>>%
         self$obtainExtension() %>>%
           {instance$addProperties(.,super$getPropertyName())}

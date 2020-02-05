@@ -317,14 +317,6 @@ FindUrlPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("FindUrlPipe")
-
-      if (!instance$checkCompatibility("FindEmojiInStringBufferPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindUrlPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$getData() %>>%
         {lapply(private$URLPatterns, self$findUrl,.)} %>>%
           self$putNamesURLPattern() %>>%

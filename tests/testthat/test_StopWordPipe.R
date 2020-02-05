@@ -405,50 +405,6 @@ testthat::test_that("pipe wihtout language property",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
-  testthat::skip_if_not_installed("rjson")
-  propertyName <- "stopWord"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  removeStopWords <- TRUE
-  resourcesStopWordsPath <- NULL
-
-  path <- file.path("resourcesFiles",
-                    "testResources",
-                    "stopwords-json")
-
-  bdpar.Options$set(key = "resources.stopwords.path",
-                    value = path)
-
-  Bdpar$new()
-
-  pipe <- StopWordPipe$new(propertyName,
-                           propertyLanguageName,
-                           alwaysBeforeDeps,
-                           notAfterDeps,
-                           removeStopWords,
-                           resourcesStopWordsPath)
-
-  path <- file.path("testFiles",
-                    "testStopWordPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("you want an apple")
-
-  testthat::expect_error(pipe$pipe(instance),
-                         "[StopWordPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

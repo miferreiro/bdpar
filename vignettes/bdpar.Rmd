@@ -129,7 +129,7 @@ A pipe consists of a simple task responsible for generating a new output by appl
 
 An important feature that has been added to the Pipe concept is the control of the functionalities that go before and after a Pipe, that is, a control of the preprocessing flow. On the one hand, this control allows us to ensure that if a Pipe needs another before, it has already been executed. On the other hand, prevents a Pipe can not be executed later because it interferes with the functionality of a previous Pipe.
 
-This functionality can be customized in each of the pipes that the user uses and/or develops, allowing to decide what to do in the situation in which the dependencies are not respected.
+This functionality can be customized in each of the pipes that the user uses and/or develops, allowing to decide what to do in the situation in which the dependencies are not respected. Internally, the operator always checks if the Instance satisfies  the dependencies to enter the following pipe.
 
 ## Pipes available by default
 
@@ -254,16 +254,14 @@ RemovesWhiteSpaces <- R6Class(
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
-      instance$addFlowPipes("RemovesWhiteSpaces")
-      if (!instance$checkCompatibility("RemovesWhiteSpaces", 
-                                       self$getAlwaysBeforeDeps())) {
-        stop("[RemovesWhiteSpaces][pipe][Error] Bad compatibility between Pipes")
-      }
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
       instance$getData() %>>%
         stringr::str_trim() %>>%
         stringr::str_squish() %>>%
         instance$setData()
+      
+      if (length(instance$getData()) == 0) {
+        instance$invalidate()
+      }
       
       return(instance)
     }
@@ -333,10 +331,7 @@ TestPipe <- R6Class(
           TeeCSVPipe$new()
         ,
         error = function(e) {
-          message("[TestPipe][pipeAll][Error]", 
-              instance$getPath(),
-              " :", 
-              paste(e))
+          message("[TestPipe][pipeAll][Error]", instance$getPath(), " :", paste(e))
           instance$invalidate()
         }
       )
@@ -348,9 +343,7 @@ TestPipe <- R6Class(
 
 ## Operator
 
-To manage the flow of pipes, there is a new operator called **%>I%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not.
-In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*.
-On the other hand, it facilitates the workflow between pipes because it automatically invokes the *pipe* function of the objects that pass through it.
+To manage the flow of pipes, there is a new operator called **%>I%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not. In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*. On the other hand, it facilitates the workflow between pipes because it automatically invokes the *pipe* function of the objects that pass through it. Finally, it should be noted that it also checks whether an *Instance* complies with the requirements to enter the following pipe.
 
 # bdpar.Options
 

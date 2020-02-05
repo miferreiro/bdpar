@@ -69,25 +69,6 @@ testthat::test_that("pipe",{
 
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("readr")
-  propertyName <- ""
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  pipe <- ToLowerCasePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testToLowerCasePipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[ToLowerCasePipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-
-})
-
 testthat::test_that("pipe instance type error",{
 
   propertyName <- ""

@@ -137,31 +137,6 @@ testthat::test_that("pipe removeUser <- FALSE",{
                          "Hey I am @example")
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("stringr")
-  propertyName <- "userName"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  removeUser <- TRUE
-  pipe <- FindUserNamePipe$new(propertyName,
-                               alwaysBeforeDeps,
-                               notAfterDeps,
-                               removeUser)
-
-  path <- file.path("testFiles",
-                    "testUserNamePipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("Hey I am @example")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[FindUserNamePipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")

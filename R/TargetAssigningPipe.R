@@ -228,14 +228,6 @@ TargetAssigningPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("TargetAssigningPipe")
-
-      if (!instance$checkCompatibility("TargetAssigningPipe", self$getAlwaysBeforeDeps())) {
-        stop("[TargetAssigningPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$getPath() %>>%
         self$getTarget() %>>%
           {instance$addProperties(.,super$getPropertyName())}

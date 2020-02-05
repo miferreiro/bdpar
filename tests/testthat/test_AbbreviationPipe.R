@@ -403,49 +403,6 @@ testthat::test_that("pipe wihtout language property",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipe Bad compatibility between Pipes",{
-  testthat::skip_if_not_installed("rjson")
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  propertyName <- "abbreviation"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  replaceAbbreviations <- TRUE
-  resourcesAbbreviationsPath <- NULL
-
-  pathResources <- file.path("resourcesFiles",
-                             "testResources",
-                             "abbreviations-json")
-
-  bdpar.Options$set(key = "resources.abbreviations.path",
-                    value = pathResources)
-
-  Bdpar$new()
-
-  pipe <- AbbreviationPipe$new(propertyName,
-                               propertyLanguageName,
-                               alwaysBeforeDeps,
-                               notAfterDeps,
-                               replaceAbbreviations,
-                               resourcesAbbreviationsPath)
-
-  path <- file.path("testFiles",
-                    "testAbbreviationPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("D. something")
-
-  testthat::expect_error(pipe$pipe(instance),
-                         "[AbbreviationPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-})
-
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
-
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")

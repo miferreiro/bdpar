@@ -213,14 +213,6 @@ FindUserNamePipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("FindUserNamePipe")
-
-      if (!instance$checkCompatibility("FindUserNamePipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindUserNamePipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       instance$getData() %>>%
         self$findUserName() %>>%
           unique() %>>%

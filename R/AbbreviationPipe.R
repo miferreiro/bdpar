@@ -305,14 +305,6 @@ AbbreviationPipe <- R6Class(
              class(instance))
       }
 
-      instance$addFlowPipes("AbbreviationPipe")
-
-      if (!instance$checkCompatibility("AbbreviationPipe", self$getAlwaysBeforeDeps())) {
-        stop("[AbbreviationPipe][pipe][Error] Bad compatibility between Pipes")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
       languageInstance <- "Unknown"
 
       languageInstance <- instance$getSpecificProperty(self$getPropertyLanguageName())

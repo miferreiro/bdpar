@@ -128,28 +128,6 @@ testthat::test_that("pipe",{
                          "ham")
 })
 
-testthat::test_that("pipe Bad compatibility between Pipes.",{
-  testthat::skip_if_not_installed("stringi")
-  testthat::skip_if_not_installed("readr")
-  targets <- list("ham","spam")
-  targetsName <- list("_ham_","_spam_")
-  propertyName <- "target"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  pipe <- TargetAssigningPipe$new(targets, targetsName, propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testTargetAssigningPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  testthat::expect_error(pipe$pipe(instance),
-                         "[TargetAssigningPipe][pipe][Error] Bad compatibility between Pipes",
-                         fixed = TRUE)
-
-})
-
 testthat::test_that("pipe unrecognizable target",{
   testthat::skip_if_not_installed("stringi")
   testthat::skip_if_not_installed("readr")
