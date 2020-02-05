@@ -8,11 +8,11 @@ testthat::test_that("Bdpar path type error",{
 
   pipeline <- SerialPipe$new()
 
-  instanceFactory <- InstanceFactory$new()
+  extractorFactory <- ExtractorFactory$new()
 
   testthat::expect_error(object$proccess_files(path = path,
                                                pipeline = pipeline,
-                                               instanceFactory = instanceFactory),
+                                               extractors = extractorFactory),
                          "[Bdpar][proccess_files][Error] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
@@ -25,11 +25,11 @@ testthat::test_that("Bdpar path does not exists",{
 
   pipeline <- SerialPipe$new()
 
-  instanceFactory <- InstanceFactory$new()
+  extractorFactory <- ExtractorFactory$new()
 
   testthat::expect_error(object$proccess_files(path = path,
                                                pipeline = pipeline,
-                                               instanceFactory = instanceFactory),
+                                               extractors = extractorFactory),
                          "[Bdpar][proccess_files][Error] Path parameter must be an existing file or directory",
                          fixed = TRUE)
 })
@@ -44,16 +44,16 @@ testthat::test_that("Bdpar pipe type error",{
 
   pipeline <- NULL
 
-  instanceFactory <- InstanceFactory$new()
+  extractorFactory <- ExtractorFactory$new()
 
   testthat::expect_error(object$proccess_files(path = path,
                                                pipeline = pipeline,
-                                               instanceFactory = instanceFactory),
+                                               extractors = extractorFactory),
                          "[Bdpar][proccess_files][Error] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::test_that("Bdpar instanceFactory type error",{
+testthat::test_that("Bdpar extractorFactory type error",{
   testthat::skip_if_not_installed("rjson")
 
   object <- Bdpar$new()
@@ -64,12 +64,12 @@ testthat::test_that("Bdpar instanceFactory type error",{
 
   pipeline <- SerialPipe$new()
 
-  instanceFactory <- NULL
+  extractorFactory <- NULL
 
   testthat::expect_error(object$proccess_files(path = path,
                                                pipeline = pipeline,
-                                               instanceFactory = instanceFactory),
-                         "[Bdpar][proccess_files][Error] Checking the type of the 'instanceFactory' variable: NULL",
+                                               extractors = extractorFactory),
+                         "[Bdpar][proccess_files][Error] Checking the type of the 'extractors' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -100,11 +100,11 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
 
   pipeline <- SerialPipe$new()
 
-  instanceFactory <- InstanceFactory$new()
+  extractorFactory <- ExtractorFactory$new()
 
   output <- suppressWarnings(object$proccess_files(path = path,
                                                    pipeline = pipeline,
-                                                   instanceFactory = instanceFactory))
+                                                   extractors = extractorFactory))
   file1 <- output[[1]]
 
   testthat::expect_equal(file1$getDate(), "")

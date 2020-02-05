@@ -5,14 +5,14 @@
 \alias{pipeline_execute}
 \title{Initiates the pipelining process}
 \usage{
-pipeline_execute(path, instanceFactory = InstanceFactory$new(),
+pipeline_execute(path, extractors = ExtractorFactory$new(),
                  pipeline = SerialPipe$new())
 }
 \arguments{
 \item{path}{(\emph{character}) path where the files to be preprocessed
 are located.}
 
-\item{instanceFactory}{(\emph{InstanceFactory}) object implementing
+\item{extractors}{(\emph{ExtractorFactory}) object implementing
 the method \code{createInstance} to choose which type of \code{\link{Instance}}
 is created.}
 
@@ -46,7 +46,7 @@ path <- system.file(file.path("example"),
                     package = "bdpar")
 
 #Object which decides how creates the instances
-instanceFactory <- InstanceFactory$new()
+extractors <- ExtractorFactory$new()
 
 #Object which indicates the pipes' flow
 pipeline <- SerialPipe$new()
@@ -54,12 +54,12 @@ pipeline <- SerialPipe$new()
 #Starting file preprocessing...
 pipeline_execute(path = path,
                  pipeline = pipeline,
-                 instanceFactory = instanceFactory)
+                 extractors = extractors)
 }
 }
 \seealso{
 \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
          \code{\link{Connections}}, \code{\link{Instance}},
-         \code{\link{InstanceFactory}}, \code{\link{ResourceHandler}},
+         \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
 }

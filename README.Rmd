@@ -42,8 +42,8 @@ The simple mode allows the tools to be executed through a single function in whi
 
 ```R
 output <- pipeline_execute(path,
-                           pipe = SerialPipes$new(),
-                           instanceFactory = InstanceFactory$new())
+                           extractors = ExtractorFactory$new(),
+                           pipeline = SerialPipes$new())
 ```
 
 #### *Advanced mode*
@@ -57,8 +57,8 @@ The advanced mode allows (i) improve the customization of the tool and (ii) have
 ```R
 bdpar_object <- Bdpar$new() 
 bdpar_object$proccess_files(path,
-                            pipe = SerialPipes$new(), 
-                            instanceFactory = InstanceFactory$new())
+                            extractors = ExtractorFactory$new(),
+                            pipeline = SerialPipes$new())
 ```
 
 <div style = "text-align: justify">
@@ -110,7 +110,7 @@ Once a new preprocessing flow has been created, the user can both use and custom
 
 <div style = "text-align: justify">
 
-In case you want to introduce different types of extensions, you will first need to create a class that inherits from the *Instance* class which implements the abstract methods: *obtainSource* and *obtainDate*. In addition, you must create a subclass that overrides the *createInstance* method of the *InstanceFactory* class, which comes by default, to decide on what is based to create one type of *Instance* or another. It should be noted that although normally it is decided according to the extension of the file, the user can decide other criterion according to their needs.
+In case you want to introduce different types of extensions, you will first need to create a class that inherits from the *Instance* class which implements the abstract methods: *obtainSource* and *obtainDate*. In addition, you must execute *registerExtractor* function of *ExtractorFactory* class where it is necessary indicate the specific extension and the correspondant extractor.
 
 On the other hand, the types of the files which are implemented by default are:
 

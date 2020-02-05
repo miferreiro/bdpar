@@ -103,7 +103,7 @@ objectBdpar$proccess_files(path = path,
 }
 \seealso{
 \code{\link{bdpar.Options}}, \code{\link{Connections}},
-         \code{\link{Instance}}, \code{\link{InstanceFactory}},
+         \code{\link{Instance}}, \code{\link{ExtractorFactory}},
          \code{\link{ResourceHandler}}, \code{\link{pipeline_execute}},
          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
 }

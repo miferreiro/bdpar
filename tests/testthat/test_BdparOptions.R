@@ -1,15 +1,15 @@
-context("BdparOptions")
+testthat::context("BdparOptions")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
   testthat::expect_silent(BdparOptions$new())
 })
 
-test_that("get",{
+testthat::test_that("get",{
   options <- BdparOptions$new()
   testthat::expect_null(options$get("twitter.consumer.key"))
 })
 
-test_that("get key type error",{
+testthat::test_that("get key type error",{
   options <- BdparOptions$new()
   testthat::expect_error(options$get(1),
                          "[BdparOptions][get][Error] Checking the type of the 'key' variable: numeric",
@@ -22,7 +22,7 @@ test_that("get key type error",{
 
 testthat::setup(bdpar.Options$reset())
 
-test_that("add",{
+testthat::test_that("add",{
   options <- BdparOptions$new()
   testthat::expect_invisible(options$add("new", 2))
   testthat::expect_equal(options$get("new"), 2)
@@ -31,7 +31,7 @@ test_that("add",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-test_that("add key type error",{
+testthat::test_that("add key type error",{
   options <- BdparOptions$new()
   testthat::expect_error(options$add(1,1),
                          "[BdparOptions][add][Error] Checking the type of the 'key' variable: numeric",
@@ -45,16 +45,19 @@ test_that("add key type error",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-test_that("set",{
+testthat::test_that("set",{
   options <- BdparOptions$new()
   testthat::expect_invisible(options$set("resources.abbreviations.path", 2))
   testthat::expect_equal(options$get("resources.abbreviations.path"), 2)
+
+  testthat::expect_invisible(options$set("resources.abbreviations.path", NULL))
+  testthat::expect_null(options$get("resources.abbreviations.path"))
 })
 
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-test_that("set key type error",{
+testthat::test_that("set key type error",{
   options <- BdparOptions$new()
   testthat::expect_error(options$set(1,1),
                          "[BdparOptions][set][Error] Checking the type of the 'key' variable: numeric",
@@ -68,7 +71,7 @@ test_that("set key type error",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-test_that("remove",{
+testthat::test_that("remove",{
   options <- BdparOptions$new()
   testthat::expect_invisible(options$remove("resources.abbreviations.path"))
   testthat::expect_error(options$get("resources.abbreviations.path"))
@@ -77,7 +80,7 @@ test_that("remove",{
 testthat::teardown(bdpar.Options$reset())
 testthat::setup(bdpar.Options$reset())
 
-test_that("remove key type error",{
+testthat::test_that("remove key type error",{
   options <- BdparOptions$new()
   testthat::expect_error(options$remove(1),
                          "[BdparOptions][remove][Error] Checking the type of the 'key' variable: numeric",
@@ -90,12 +93,12 @@ test_that("remove key type error",{
 
 testthat::teardown(bdpar.Options$reset())
 
-test_that("getAll",{
+testthat::test_that("getAll",{
   options <- BdparOptions$new()
   testthat::expect_type(options$getAll(),"list")
 })
 
-test_that("reset",{
+testthat::test_that("reset",{
   options <- BdparOptions$new()
 
   op <- options$getAll()
@@ -104,13 +107,13 @@ test_that("reset",{
   testthat::expect_equal(options$getAll(), op)
 })
 
-test_that("isSpecificOption",{
+testthat::test_that("isSpecificOption",{
   options <- BdparOptions$new()
   testthat::expect_true(options$isSpecificOption("resources.abbreviations.path"))
   testthat::expect_false(options$isSpecificOption("a"))
 })
 
-test_that("print",{
+testthat::test_that("print",{
   options <- BdparOptions$new()
   testthat::expect_output(print(options), "[A-Za-z0-9$/.]+")
 })

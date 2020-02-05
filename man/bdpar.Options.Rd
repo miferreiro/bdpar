@@ -126,7 +126,7 @@ modifies the value of the one option.
 removes a specific option.
 \itemize{
 \item{\emph{Usage:}}{
-\code{get(key)}
+\code{remove(key)}
 }
 \item{\emph{Arguments:}}{
 \itemize{

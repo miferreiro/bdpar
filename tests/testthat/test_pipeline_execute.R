@@ -6,11 +6,11 @@ testthat::test_that("pipeline_execute path type error",{
 
   pipeline <- SerialPipe$new()
 
-  instanceFactory <- InstanceFactory$new()
+  extractorFactory <- ExtractorFactory$new()
 
   testthat::expect_error(pipeline_execute(path = path,
                                           pipeline = pipeline,
-                                          instanceFactory = instanceFactory),
+                                          extractors = extractorFactory),
                          "[pipeline_execute][Error] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
@@ -23,16 +23,16 @@ testthat::test_that("pipeline_execute pipe type error",{
 
   pipeline <- NULL
 
-  instanceFactory <- InstanceFactory$new()
+  extractorFactory <- ExtractorFactory$new()
 
   testthat::expect_error(pipeline_execute(path = path,
                                           pipeline = pipeline,
-                                          instanceFactory = instanceFactory),
+                                          extractors = extractorFactory),
                          "[pipeline_execute][Error] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::test_that("pipeline_execute instanceFactory type error",{
+testthat::test_that("pipeline_execute extractorFactory type error",{
 
   path <- file.path("testFiles",
                     "testPipelineExecute",
@@ -40,12 +40,12 @@ testthat::test_that("pipeline_execute instanceFactory type error",{
 
   pipeline <- SerialPipe$new()
 
-  instanceFactory <- NULL
+  extractorFactory <- NULL
 
   testthat::expect_error(pipeline_execute(path = path,
                                           pipeline = pipeline,
-                                          instanceFactory = instanceFactory),
-                         "[pipeline_execute][Error] Checking the type of the 'instanceFactory' variable: NULL",
+                                          extractors = extractorFactory),
+                         "[pipeline_execute][Error] Checking the type of the 'extractors' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -69,7 +69,7 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
 
   pipeline <- SerialPipe$new()
 
-  instanceFactory <- InstanceFactory$new()
+  extractorFactory <- ExtractorFactory$new()
 
   bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
   bdpar.Options$set("resources.abbreviations.path", "")
@@ -81,7 +81,7 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
 
   output <- suppressWarnings(pipeline_execute(path = path,
                                               pipeline = pipeline,
-                                              instanceFactory = instanceFactory))
+                                              extractors = extractorFactory))
   file1 <- output[[1]]
 
   testthat::expect_equal(file1$getDate(),"")

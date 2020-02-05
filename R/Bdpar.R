@@ -86,7 +86,7 @@
 #' }
 #' }
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{Connections}},
-#'          \code{\link{Instance}}, \code{\link{InstanceFactory}},
+#'          \code{\link{Instance}}, \code{\link{ExtractorFactory}},
 #'          \code{\link{ResourceHandler}}, \code{\link{pipeline_execute}},
 #'          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
 #'
@@ -134,7 +134,7 @@ Bdpar <- R6Class(
     },
 
     proccess_files = function(path,
-                              instanceFactory = InstanceFactory$new(),
+                              extractors = ExtractorFactory$new(),
                               pipeline = SerialPipe$new()) {
 
       if (!"character" %in% class(path)) {
@@ -143,10 +143,10 @@ Bdpar <- R6Class(
              class(path))
       }
 
-      if (!"InstanceFactory" %in% class(instanceFactory)) {
+      if (!"ExtractorFactory" %in% class(extractors)) {
         stop("[Bdpar][proccess_files][Error] ",
-             "Checking the type of the 'instanceFactory' variable: ",
-             class(instanceFactory))
+             "Checking the type of the 'extractors' variable: ",
+             class(extractors))
       }
 
       if (!"TypePipe" %in% class(pipeline)) {
@@ -171,7 +171,7 @@ Bdpar <- R6Class(
 
       #Create the list of instances, which will contain the date, source, path, data
       #and a list of properties of the file that is in the indicated path
-      InstancesList <- sapply(files, instanceFactory$createInstance)
+      InstancesList <- sapply(files, extractors$createInstance)
 
       message("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.")
       listInstances <- sapply(InstancesList, pipeline$pipeAll)

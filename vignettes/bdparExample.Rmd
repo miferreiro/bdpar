@@ -41,7 +41,7 @@ bdparData
 ## Execution
 
 <div style="text-aling:justify">
-For this preprocessing we will use both the default preprocessing flow (SerialPipes) and the default way to create the Instances (InstanceFactory). 
+For this preprocessing we will use both the default preprocessing flow (SerialPipes) and the default way to create the Instances (ExtractorFactory). 
 
 Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
 

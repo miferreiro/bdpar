@@ -62,7 +62,7 @@ The package have four input data implemented, which are:
 
 <div style = "text-align: justify">
 
-bdpar is able to load data source from multiple sources. In fact, by default is fully compatible with Twitter (twtid), SMS (tsms) and YouTube (ytbid) data sources. However, new data loaders can be easily implemented by implementing (i) a new class implementing *obtainSource* and *obtainDate* abstract methods from the *Instance* class and (ii) a new subclass overriding the *createInstance* method of the *InstanceFactory* class.
+**bdpar** is able to load data source from multiple sources. In fact, by default is fully compatible with Email (eml), Twitter (twtid), SMS (tsms) and YouTube (ytbid) data sources. However, new data loaders can be easily implemented by implementing (i) a new class implementing *obtainSource* and *obtainDate* abstract methods from the *Instance* class and (ii) registering this new class on the *ExtractorFactory* class through its method *registerExtractor*.
 
 Is important to take into account that the type of Instance used is deducted by default according to the file extension. However, this behaviour can be easily modelled according to user needs.
 
@@ -112,26 +112,13 @@ ExtractorTytb <- R6Class(
 
 ### Enabling a new Instance.
 
-In order to automatically execute the new *Instance* class (*ExtractorTytb*), is must be registered by (i) including the new class in the default *InstanceFactory* class or (ii) implementing a customized class that inherits from *InstanceFactory*. Below is shown an example describing how a new class (*InstanceFactoryCustom*) is implemented. As can be seen, this new class (inherited from *InstanceFactory*) overrides the *createInstance()* method from parent class and registers two extractors: *ExtractorEml* and *ExtractorTytb*.
+In order to automatically execute the new *Instance* class (*ExtractorTytb*), is must be registered through *registerExtractor* method of *ExtractorFactory* class. Below is shown an example describing how this extractor is registered.
 
 
 ```{R, echo = TRUE, results = "hide",ExtractorTytb}
-library(R6)
-library(tools)
 library(bdpar)
-InstanceFactoryCustom <- R6Class(
-  "InstanceFactoryCustom",
-  public = list(
-    initialize = function() {
-    },
-    createInstance = function(path) {
-      switch(file_ext(path),
-       `email` =  return(ExtractorEml$new(path)),
-       `tytb` = return(ExtractorTytb$new(path))
-      )
-    }
-  )
-)
+extractors <- ExtractorFactory$new()
+extractors$registerExtractor("tytb", ExtractorTytb)
 ```    
     
 ## Pipe
@@ -369,7 +356,7 @@ On the other hand, it facilitates the workflow between pipes because it automati
 
 <div style = "text-align: justify">
 
-The bdpar.Options object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
+The *bdpar.Options* object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
 
 The different options that exist initially and how their value is indicated to you are
 shown below.

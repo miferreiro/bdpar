@@ -30,12 +30,12 @@
 #'
 #' @format NULL
 #'
-#' @usage pipeline_execute(path, instanceFactory = InstanceFactory$new(),
+#' @usage pipeline_execute(path, extractors = ExtractorFactory$new(),
 #'                  pipeline = SerialPipe$new())
 #'
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
-#' @param instanceFactory (\emph{InstanceFactory}) object implementing
+#' @param extractors (\emph{ExtractorFactory}) object implementing
 #' the method \code{createInstance} to choose which type of \code{\link{Instance}}
 #' is created.
 #' @param pipeline (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
@@ -61,7 +61,7 @@
 #'                     package = "bdpar")
 #'
 #' #Object which decides how creates the instances
-#' instanceFactory <- InstanceFactory$new()
+#' extractors <- ExtractorFactory$new()
 #'
 #' #Object which indicates the pipes' flow
 #' pipeline <- SerialPipe$new()
@@ -69,18 +69,18 @@
 #' #Starting file preprocessing...
 #' pipeline_execute(path = path,
 #'                  pipeline = pipeline,
-#'                  instanceFactory = instanceFactory)
+#'                  extractors = extractors)
 #' }
 #' @keywords NULL
 #' @export pipeline_execute
 #' @seealso \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
 #'          \code{\link{Connections}}, \code{\link{Instance}},
-#'          \code{\link{InstanceFactory}}, \code{\link{ResourceHandler}},
+#'          \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
 #'          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
 
 
 pipeline_execute = function(path,
-                            instanceFactory = InstanceFactory$new(),
+                            extractors = ExtractorFactory$new(),
                             pipeline = SerialPipe$new()) {
 
   if (!"character" %in% class(path)) {
@@ -89,10 +89,10 @@ pipeline_execute = function(path,
          class(path))
   }
 
-  if (!"InstanceFactory" %in% class(instanceFactory)) {
+  if (!"ExtractorFactory" %in% class(extractors)) {
     stop("[pipeline_execute][Error] ",
-         "Checking the type of the 'instanceFactory' variable: ",
-         class(instanceFactory))
+         "Checking the type of the 'extractors' variable: ",
+         class(extractors))
   }
 
   if (!"TypePipe" %in% class(pipeline)) {
@@ -102,5 +102,5 @@ pipeline_execute = function(path,
   }
 
   bdpar_object <- Bdpar$new()
-  bdpar_object$proccess_files(path, instanceFactory, pipeline)
+  bdpar_object$proccess_files(path, extractors, pipeline)
 }
