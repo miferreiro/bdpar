@@ -122,5 +122,5 @@ the set of pipes containing the pipeline.
 \seealso{
 \code{\link{Instance}}, \code{\link{DefaultPipeline}},
          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-         \code{\link{\%>I\%}}
+         \code{\link{\%>|\%}}
 }

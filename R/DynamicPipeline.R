@@ -134,7 +134,7 @@
 #'
 #' @seealso \code{\link{Instance}}, \code{\link{DefaultPipeline}},
 #'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-#'          \code{\link{\%>I\%}}
+#'          \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'
@@ -272,7 +272,7 @@ DynamicPipeline <- R6Class(
 
       call <- "instance"
       for (pipe in 1:length(private$pipeline)) {
-        call <- paste(call, "%>I%", "private$pipeline[[", pipe, "]]")
+        call <- paste(call, "%>|%", "private$pipeline[[", pipe, "]]")
       }
 
       tryCatch(
@@ -295,7 +295,7 @@ DynamicPipeline <- R6Class(
 
       call <- "instance"
       for (pipe in private$pipeline) {
-        call <- paste(call, "%>I%", class(pipe)[1])
+        call <- paste(call, "%>|%", class(pipe)[1])
       }
 
       print(call)

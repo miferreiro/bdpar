@@ -280,25 +280,25 @@ By default bdpar provides a default pipelining proccess (implemented in *Default
 The code included below shows a pipelining example comprising 18 pipes:
 
 ```R
-  instance %>I%
-    TargetAssigningPipe$new() %>I%
-    StoreFileExtPipe$new() %>I%
-    GuessDatePipe$new() %>I%
-    File2Pipe$new() %>I%
-    MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") %>I%
-    FindUserNamePipe$new() %>I%
-    FindHashtagPipe$new() %>I%
-    FindUrlPipe$new() %>I%
-    FindEmoticonPipe$new() %>I%
-    FindEmojiPipe$new() %>I%
-    GuessLanguagePipe$new() %>I%
-    ContractionPipe$new() %>I%
-    AbbreviationPipe$new() %>I%
-    SlangPipe$new() %>I%
-    ToLowerCasePipe$new() %>I%
-    InterjectionPipe$new() %>I%
-    StopWordPipe$new() %>I%
-    MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") %>I%
+  instance %>|%
+    TargetAssigningPipe$new() %>|%
+    StoreFileExtPipe$new() %>|%
+    GuessDatePipe$new() %>|%
+    File2Pipe$new() %>|%
+    MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") %>|%
+    FindUserNamePipe$new() %>|%
+    FindHashtagPipe$new() %>|%
+    FindUrlPipe$new() %>|%
+    FindEmoticonPipe$new() %>|%
+    FindEmojiPipe$new() %>|%
+    GuessLanguagePipe$new() %>|%
+    ContractionPipe$new() %>|%
+    AbbreviationPipe$new() %>|%
+    SlangPipe$new() %>|%
+    ToLowerCasePipe$new() %>|%
+    InterjectionPipe$new() %>|%
+    StopWordPipe$new() %>|%
+    MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") %>|%
     TeeCSVPipe$new()
 ```
 
@@ -323,11 +323,11 @@ TestPipe <- R6Class(
       }
       message("[TestPipe][execute][Info] ", instance$getPath())
       tryCatch(
-        instance %>I%
-          TargetAssigningPipe$new() %>I%
-          StoreFileExtPipe$new() %>I%
-          File2Pipe$new() %>I%
-          RemovesWhiteSpaces$new() %>I%
+        instance %>|%
+          TargetAssigningPipe$new() %>|%
+          StoreFileExtPipe$new() %>|%
+          File2Pipe$new() %>|%
+          RemovesWhiteSpaces$new() %>|%
           TeeCSVPipe$new()
         ,
         error = function(e) {
@@ -352,7 +352,7 @@ pipeline$add(list(TeeCSVPipe$new()), pos = NULL)
 
 ## Operator
 
-To manage the flow of pipes, there is a new operator called **%>I%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not. In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*. On the other hand, it facilitates the workflow between pipes because it automatically invokes the *pipe* function of the objects that pass through it. Finally, it should be noted that it also checks whether an *Instance* complies with the requirements to enter the following pipe.
+To manage the flow of pipes, there is a new operator called **%>\|%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not. In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*. On the other hand, it facilitates the workflow between pipes because it automatically invokes the *pipe* function of the objects that pass through it. Finally, it should be noted that it also checks whether an *Instance* complies with the requirements to enter the following pipe.
 
 # bdpar.Options
 

@@ -38,43 +38,43 @@
 #' The default flow is:
 #'
 #' \preformatted{
-#' instance \%>I\%
+#' instance \%>|\%
 #'
-#'   TargetAssigningPipe$new() \%>I\%
+#'   TargetAssigningPipe$new() \%>|\%
 #'
-#'   StoreFileExtPipe$new() \%>I\%
+#'   StoreFileExtPipe$new() \%>|\%
 #'
-#'   GuessDatePipe$new() \%>I\%
+#'   GuessDatePipe$new() \%>|\%
 #'
-#'   File2Pipe$new() \%>I\%
+#'   File2Pipe$new() \%>|\%
 #'
-#'   MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") \%>I\%
+#'   MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") \%>|\%
 #'
-#'   FindUserNamePipe$new() \%>I\%
+#'   FindUserNamePipe$new() \%>|\%
 #'
-#'   FindHashtagPipe$new() \%>I\%
+#'   FindHashtagPipe$new() \%>|\%
 #'
-#'   FindUrlPipe$new() \%>I\%
+#'   FindUrlPipe$new() \%>|\%
 #'
-#'   FindEmoticonPipe$new() \%>I\%
+#'   FindEmoticonPipe$new() \%>|\%
 #'
-#'   FindEmojiPipe$new() \%>I\%
+#'   FindEmojiPipe$new() \%>|\%
 #'
-#'   GuessLanguagePipe$new() \%>I\%
+#'   GuessLanguagePipe$new() \%>|\%
 #'
-#'   ContractionPipe$new() \%>I\%
+#'   ContractionPipe$new() \%>|\%
 #'
-#'   AbbreviationPipe$new() \%>I\%
+#'   AbbreviationPipe$new() \%>|\%
 #'
-#'   SlangPipe$new() \%>I\%
+#'   SlangPipe$new() \%>|\%
 #'
-#'   ToLowerCasePipe$new() \%>I\%
+#'   ToLowerCasePipe$new() \%>|\%
 #'
-#'   InterjectionPipe$new() \%>I\%
+#'   InterjectionPipe$new() \%>|\%
 #'
-#'   StopWordPipe$new() \%>I\%
+#'   StopWordPipe$new() \%>|\%
 #'
-#'   MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") \%>I\%
+#'   MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") \%>|\%
 #'
 #'   TeeCSVPipe$new()
 #' }
@@ -119,7 +119,7 @@
 #'
 #' @seealso \code{\link{Instance}}, \code{\link{DynamicPipeline}},
 #'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-#'          \code{\link{\%>I\%}}
+#'          \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'
@@ -147,25 +147,25 @@ DefaultPipeline <- R6Class(
       message("[DefaultPipeline][execute][Info] ", instance$getPath())
 
       tryCatch(
-        instance %>I%
-          TargetAssigningPipe$new() %>I%
-          StoreFileExtPipe$new() %>I%
-          GuessDatePipe$new() %>I%
-          File2Pipe$new() %>I%
-          MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") %>I%
-          FindUserNamePipe$new() %>I%
-          FindHashtagPipe$new() %>I%
-          FindUrlPipe$new() %>I%
-          FindEmoticonPipe$new() %>I%
-          FindEmojiPipe$new() %>I%
-          GuessLanguagePipe$new() %>I%
-          ContractionPipe$new() %>I%
-          AbbreviationPipe$new() %>I%
-          SlangPipe$new() %>I%
-          ToLowerCasePipe$new() %>I%
-          InterjectionPipe$new() %>I%
-          StopWordPipe$new() %>I%
-          MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") %>I%
+        instance %>|%
+          TargetAssigningPipe$new() %>|%
+          StoreFileExtPipe$new() %>|%
+          GuessDatePipe$new() %>|%
+          File2Pipe$new() %>|%
+          MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") %>|%
+          FindUserNamePipe$new() %>|%
+          FindHashtagPipe$new() %>|%
+          FindUrlPipe$new() %>|%
+          FindEmoticonPipe$new() %>|%
+          FindEmojiPipe$new() %>|%
+          GuessLanguagePipe$new() %>|%
+          ContractionPipe$new() %>|%
+          AbbreviationPipe$new() %>|%
+          SlangPipe$new() %>|%
+          ToLowerCasePipe$new() %>|%
+          InterjectionPipe$new() %>|%
+          StopWordPipe$new() %>|%
+          MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") %>|%
           TeeCSVPipe$new()
         ,
         error = function(e) {
@@ -199,25 +199,25 @@ DefaultPipeline <- R6Class(
     },
 
     print = function(...) {
-      cat("instance %>I%
-          TargetAssigningPipe$new() %>I%
-          StoreFileExtPipe$new() %>I%
-          GuessDatePipe$new() %>I%
-          File2Pipe$new() %>I%
-          MeasureLengthPipe$new(propertyName = \"length_before_cleaning_text\") %>I%
-          FindUserNamePipe$new() %>I%
-          FindHashtagPipe$new() %>I%
-          FindUrlPipe$new() %>I%
-          FindEmoticonPipe$new() %>I%
-          FindEmojiPipe$new() %>I%
-          GuessLanguagePipe$new() %>I%
-          ContractionPipe$new() %>I%
-          AbbreviationPipe$new() %>I%
-          SlangPipe$new() %>I%
-          ToLowerCasePipe$new() %>I%
-          InterjectionPipe$new() %>I%
-          StopWordPipe$new() %>I%
-          MeasureLengthPipe$new(propertyName = \"length_after_cleaning_text\") %>I%
+      cat("instance %>|%
+          TargetAssigningPipe$new() %>|%
+          StoreFileExtPipe$new() %>|%
+          GuessDatePipe$new() %>|%
+          File2Pipe$new() %>|%
+          MeasureLengthPipe$new(propertyName = \"length_before_cleaning_text\") %>|%
+          FindUserNamePipe$new() %>|%
+          FindHashtagPipe$new() %>|%
+          FindUrlPipe$new() %>|%
+          FindEmoticonPipe$new() %>|%
+          FindEmojiPipe$new() %>|%
+          GuessLanguagePipe$new() %>|%
+          ContractionPipe$new() %>|%
+          AbbreviationPipe$new() %>|%
+          SlangPipe$new() %>|%
+          ToLowerCasePipe$new() %>|%
+          InterjectionPipe$new() %>|%
+          StopWordPipe$new() %>|%
+          MeasureLengthPipe$new(propertyName = \"length_after_cleaning_text\") %>|%
           TeeCSVPipe$new()")
     }
   )

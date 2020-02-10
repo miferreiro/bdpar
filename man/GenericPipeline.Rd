@@ -53,5 +53,5 @@ the set of pipes containing the pipeline.
 
 \seealso{
 \code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
-         \code{\link{Instance}}, \code{\link{GenericPipe}}, \code{\link{\%>I\%}}
+         \code{\link{Instance}}, \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 }

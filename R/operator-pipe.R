@@ -24,7 +24,7 @@
 #' @title bdpar customized fordward-pipe operator
 #'
 #' @description Defines a customized fordward pipe operator extending the
-#' features of classical \%>\%. Concretely \%>I\% is able to stop the pipelining
+#' features of classical \%>\%. Concretely \%>|\% is able to stop the pipelining
 #' process whenever an \code{\link{Instance}} has been invalidated. This issue,
 #' avoids executing the whole pipelining proccess for the invalidated
 #' \code{\link{Instance}} and therefore reduce the time and resources used to
@@ -43,11 +43,11 @@
 #' The usage structure would be as shown below:
 #'
 #' \preformatted{
-#' instance \%>I\%
+#' instance \%>|\%
 #'
-#' pipeObject$new() \%>I\%
+#' pipeObject$new() \%>|\%
 #'
-#' pipeObject$new(<<argument1>>, <<argument2>, ...) \%>I\%
+#' pipeObject$new(<<argument1>>, <<argument2>, ...) \%>|\%
 #'
 #' pipeObject$new()
 #' }
@@ -59,7 +59,7 @@
 #' @param lhs an \code{\link{Instance}} object.
 #' @param rhs a function call using the bdpar semantics.
 #'
-#' @usage lhs \%>I\% rhs
+#' @usage lhs \%>|\% rhs
 #'
 #' @return The \code{\link{Instance}} modified by the methods it has traversed.
 #'
@@ -69,9 +69,10 @@
 #'
 #' @import magrittr
 #' @importFrom purrr is_function
-#' @export %>I%
+#' @export
+#' @name operator-pipe
 
-`%>I%` <- function(lhs, rhs) {
+`%>|%` <- function(lhs, rhs) {
 
   parent <- parent.frame()
   env <- new.env(parent = parent)
@@ -231,7 +232,7 @@ split_chain = function(expr, env)
 
 is_pipe = function (pipe)
 {
-  identical(pipe, quote(`%>I%`))
+  identical(pipe, quote(`%>|%`))
 }
 
 wrap_function = function (body, pipe, env)
