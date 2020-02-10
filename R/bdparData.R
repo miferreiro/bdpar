@@ -29,6 +29,8 @@
 #' indicates the location of the target file and, (ii) source which contains
 #' the raw text comprising each file.
 #'
+#' @usage data(bdparData)
+#'
 #' @format A data frame with 20 rows and 2 variables:
 #' \describe{
 #'   \item{path}{File path.}

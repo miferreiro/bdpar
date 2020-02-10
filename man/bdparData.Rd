@@ -10,7 +10,7 @@
   \item{source}{File content.}
 }}
 \usage{
-bdparData
+data(bdparData)
 }
 \description{
 A manually collected data set containing e-mails and SMS messages from the
