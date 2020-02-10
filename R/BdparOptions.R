@@ -57,7 +57,7 @@ BdparOptions <- R6Class(
                                     twitter.access.token = NULL,
                                     twitter.access.token.secret = NULL,
                                     twitter.cache.path = NULL,
-                                    teeCSVPipe.output.path = NULL,
+                                    teeCSVPipe.output.path = "teeCSVPipe.output.csv",
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
                                     youtube.cache.path = NULL)
@@ -153,7 +153,7 @@ BdparOptions <- R6Class(
                                     twitter.access.token = NULL,
                                     twitter.access.token.secret = NULL,
                                     twitter.cache.path = NULL,
-                                    teeCSVPipe.output.path = NULL,
+                                    teeCSVPipe.output.path = "teeCSVPipe.output.csv",
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
                                     youtube.cache.path = NULL)

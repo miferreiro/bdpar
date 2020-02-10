@@ -132,6 +132,9 @@ testthat::test_that("initialize resourcesAbbreviationsPath type error",{
   withSource <- TRUE
   outputPath <- NULL
 
+  bdpar.Options$set(key = "teeCSVPipe.output.path",
+                    value = NULL)
+
   testthat::expect_error(TeeCSVPipe$new(propertyName,
                                         alwaysBeforeDeps,
                                         notAfterDeps,

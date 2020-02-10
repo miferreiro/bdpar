@@ -5,15 +5,12 @@ library("RColorBrewer")
 library("SnowballC")
 set.seed(1234)
 
-bdpar.Options$set(key = "teeCSVPipe.output.path",
-                  value = "example.csv")
+pipeline_execute(path = system.file(file.path("examples",
+                                              "testFiles"),
+                                    package = "bdpar"))
 
-result <- pipeline_execute(path = system.file(file.path("examples",
-                                                        "testFiles"),
-                                              package = "bdpar"))
-
-all <- read.csv(file = "example.csv", header = TRUE, sep = ";", dec = ".", fill = FALSE,
-                stringsAsFactors = FALSE)
+all <- read.csv(file = "example.csv", header = TRUE, sep = ";", dec = ".",
+                fill = FALSE, stringsAsFactors = FALSE)
 
 sms <- all[all$extension == "tsms",]
 eml <- all[all$extension == "eml",]

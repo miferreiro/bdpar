@@ -347,7 +347,6 @@ Alternatively, the pre-processing flow can be dynamically constructed through th
 library(bdpar)
 pipeline <- DynamicPipeline$new()
 pipeline$add(list(TargetAssigningPipe$new(),StoreFileExtPipe$new(),File2Pipe$new()), pos = NULL)
-bdpar.Options$set("teeCSVPipe.output.path", "output.csv")
 pipeline$add(list(TeeCSVPipe$new()), pos = NULL)
 ```
 
