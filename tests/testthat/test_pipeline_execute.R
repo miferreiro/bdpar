@@ -71,7 +71,7 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
 
   extractorFactory <- ExtractorFactory$new()
 
-  bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
+  bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
   bdpar.Options$set("resources.abbreviations.path", "")
   bdpar.Options$set("resources.contractions.path", "")
   bdpar.Options$set("resources.interjections.path", "")

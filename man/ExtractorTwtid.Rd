@@ -23,7 +23,7 @@ implements the functions of extracting the text and the date of an twtid type fi
 }
 \item{\strong{cachePath:}}{
 (\emph{character}) path of the cache location. If it is NULL, checks if is
-defined in the \strong{"twitter.cache.path"} field of
+defined in the \strong{"cache.twitter.path"} field of
 \emph{\link{bdpar.Options}} variable.
 }
 }
@@ -38,7 +38,7 @@ Twitter connection is handled through the \code{\link{Connections}} class
 which loads the Twitter API credentials from the \emph{{bdpar.Options}} object.
 Additionally, to increase the processing speed, each twitter query is stored
 in a cache to avoid the execution of duplicated queries. To enable this option,
-cache location should be in the \strong{"twitter.cache.path"} field of
+cache location should be in the \strong{"cache.twitter.path"} field of
 \emph{{bdpar.Options}} variable. This variable has to be the
 path to store the tweets and it is neccesary that it has two folder named:
 "_spam_" and "_ham_"

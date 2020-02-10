@@ -31,7 +31,7 @@ BdparOptions <- R6Class(
 
     initialize = function() {
 
-      private$bdpar.options <- list(eml.PartSelectedOnMPAlternative = "text/plain",
+      private$bdpar.options <- list(extractorEML.mpaPartSelected = "text/plain",
                                     resources.abbreviations.path = file.path(Sys.getenv("R_LIBS_USER"),
                                                                              "bdpar",
                                                                              "resources",
@@ -56,11 +56,11 @@ BdparOptions <- R6Class(
                                     twitter.consumer.secret = NULL,
                                     twitter.access.token = NULL,
                                     twitter.access.token.secret = NULL,
-                                    twitter.cache.path = NULL,
+                                    cache.twitter.path = NULL,
                                     teeCSVPipe.output.path = "teeCSVPipe.output.csv",
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
-                                    youtube.cache.path = NULL)
+                                    cache.youtube.path = NULL)
     },
 
     get = function(key) {
@@ -127,7 +127,7 @@ BdparOptions <- R6Class(
     },
 
     reset = function() {
-      private$bdpar.options <- list(eml.PartSelectedOnMPAlternative = "text/plain",
+      private$bdpar.options <- list(extractorEML.mpaPartSelected = "text/plain",
                                     resources.abbreviations.path = file.path(Sys.getenv("R_LIBS_USER"),
                                                                              "bdpar",
                                                                              "resources",
@@ -152,11 +152,11 @@ BdparOptions <- R6Class(
                                     twitter.consumer.secret = NULL,
                                     twitter.access.token = NULL,
                                     twitter.access.token.secret = NULL,
-                                    twitter.cache.path = NULL,
+                                    cache.twitter.path = NULL,
                                     teeCSVPipe.output.path = "teeCSVPipe.output.csv",
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
-                                    youtube.cache.path = NULL)
+                                    cache.youtube.path = NULL)
     },
 
     isSpecificOption = function(key) {

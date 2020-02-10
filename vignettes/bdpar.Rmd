@@ -365,7 +365,7 @@ shown below.
 </div>
 ```R
 # [eml]
-bdpar.Options$set("eml.PartSelectedOnMPAlternative", <<PartSelectedOnMPAlternative>>)
+bdpar.Options$set("extractorEML.mpaPartSelected", <<PartSelectedOnMPAlternative>>)
 
 # [resources]
 bdpar.Options$set("resources.abbreviations.path", <<abbreviation.path>>)
@@ -379,7 +379,7 @@ bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)
 bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)
 bdpar.Options$set("twitter.access.token", <<access_token>>)
 bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)
-bdpar.Options$set("twitter.cache.path", <<cache.path>>)
+bdpar.Options$set("cache.twitter.path", <<cache.path>>)
 
 # [teeCSVPipe]
 bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
@@ -387,7 +387,7 @@ bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
 # [youtube]
 bdpar.Options$set("youtube.app.id", <<app_id>>)
 bdpar.Options$set("youtube.app.password", <<app_password>>)
-bdpar.Options$set("youtube.cache.path", <<cache.path>>)
+bdpar.Options$set("cache.youtube.path", <<cache.path>>)
 ```
 
 

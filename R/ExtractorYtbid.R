@@ -41,7 +41,7 @@
 #' }
 #' \item{\strong{cachePath:}}{
 #' (\emph{character}) path of the cache location. If it is NULL, checks if is
-#' defined in the \strong{"youtube.cache.path"} field of
+#' defined in the \strong{"cache.youtube.path"} field of
 #' \emph{\link{bdpar.Options}} variable.
 #' }
 #' }
@@ -53,7 +53,7 @@
 #' which loads the YouTube API credentials from the \emph{{bdpar.Options}} object.
 #' Additionally, to increase the processing speed, each youtube query is stored
 #' in a cache to avoid the execution of duplicated queries. To enable this option,
-#' cache location should be in the \strong{"youtube.cache.path"} field of
+#' cache location should be in the \strong{"cache.youtube.path"} field of
 #' \emph{\link{bdpar.Options}} variable. This variable has to be the
 #' path to store the comments and it is neccesary that it has two folder named:
 #' "_spam_" and "_ham_"
@@ -148,12 +148,12 @@ ExtractorYtbid <- R6Class(
       Bdpar[["private_fields"]][["connections"]]$startConnectionWithYoutube()
 
       if (is.null(cachePath)) {
-        if (!all(bdpar.Options$isSpecificOption("youtube.cache.path"),
-                 !is.null(bdpar.Options$get("youtube.cache.path")))) {
+        if (!all(bdpar.Options$isSpecificOption("cache.youtube.path"),
+                 !is.null(bdpar.Options$get("cache.youtube.path")))) {
           stop("[ExtractorYtbid][initialize][Error] Path of YouTube comments' ",
                "cache is neither defined in initialize or in bdpar.Options")
         } else {
-          cachePath <- bdpar.Options$get("youtube.cache.path")
+          cachePath <- bdpar.Options$get("cache.youtube.path")
         }
       }
 

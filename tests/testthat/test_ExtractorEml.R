@@ -4,7 +4,7 @@ testthat::setup(bdpar.Options$reset())
 
 testthat::test_that("initialize",{
 
-  bdpar.Options$set("eml.PartSelectedOnMPAlternative",
+  bdpar.Options$set("extractorEML.mpaPartSelected",
                     "text/plain")
 
   path <- "example.eml"
@@ -34,7 +34,7 @@ testthat::test_that("initialize PartSelectedOnMPAlternative type error",{
   path <- "example.eml"
   PartSelectedOnMPAlternative <- NULL
 
-  bdpar.Options$set(key = "eml.PartSelectedOnMPAlternative",
+  bdpar.Options$set(key = "extractorEML.mpaPartSelected",
                     value = NULL)
 
   testthat::expect_error(ExtractorEml$new(path,
@@ -62,7 +62,7 @@ testthat::setup(bdpar.Options$reset())
 
 testthat::test_that("getPartSelectedOnMPAlternative",{
 
-  bdpar.Options$set("eml.PartSelectedOnMPAlternative",
+  bdpar.Options$set("extractorEML.mpaPartSelected",
                     "text/plain")
 
   path <- "example.tsms"
@@ -79,7 +79,7 @@ testthat::setup(bdpar.Options$reset())
 
 testthat::test_that("setPartSelectedOnMPAlternative",{
 
-  bdpar.Options$set("eml.PartSelectedOnMPAlternative",
+  bdpar.Options$set("extractorEML.mpaPartSelected",
                     "text/plain")
 
   path <- "example.tsms"
@@ -100,7 +100,7 @@ testthat::setup(bdpar.Options$reset())
 
 testthat::test_that("setPartSelectedOnMPAlternative PartSelectedOnMPAlternative input error",{
 
-  bdpar.Options$set("eml.PartSelectedOnMPAlternative",
+  bdpar.Options$set("extractorEML.mpaPartSelected",
                     "text/plain")
 
   path <- "example.eml"

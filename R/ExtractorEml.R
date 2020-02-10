@@ -40,7 +40,7 @@
 #' }
 #' \item{\strong{PartSelectedOnMPAlternative:}}{
 #' (\emph{character}) configuration to read the eml files. If it is NULL, checks
-#' if is defined in the \strong{"eml.PartSelectedOnMPAlternative"} field of
+#' if is defined in the \strong{"extractorEML.mpaPartSelected"} field of
 #' \emph{\link{bdpar.Options}} variable.
 #' }
 #' }
@@ -49,7 +49,7 @@
 #'
 #' @section Details:
 #' The way to indicate which part to choose in the email, when is a multipart email,
-#' is through the \strong{"eml.PartSelectedOnMPAlternative"}
+#' is through the \strong{"extractorEML.mpaPartSelected"}
 #' field of \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Note:
@@ -152,12 +152,12 @@ ExtractorEml <- R6Class(
 
 
       if (is.null(PartSelectedOnMPAlternative)) {
-        if (any(!bdpar.Options$isSpecificOption("eml.PartSelectedOnMPAlternative"),
-                is.null(bdpar.Options$get("eml.PartSelectedOnMPAlternative")))) {
+        if (any(!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected"),
+                is.null(bdpar.Options$get("extractorEML.mpaPartSelected")))) {
           stop("[ExtractorEml][initialize][Error] Part of select on .eml files ",
                "is neither defined in initialize or in bdpar.Options")
         } else {
-          PartSelectedOnMPAlternative <- bdpar.Options$get("eml.PartSelectedOnMPAlternative")
+          PartSelectedOnMPAlternative <- bdpar.Options$get("extractorEML.mpaPartSelected")
         }
       }
 

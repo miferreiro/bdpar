@@ -41,7 +41,7 @@
 #'
 #' \strong{[eml]}
 #'
-#' - \code{bdpar.Options$set("eml.PartSelectedOnMPAlternative", <<PartSelectedOnMPAlternative>>)}
+#' - \code{bdpar.Options$set("extractorEML.mpaPartSelected", <<PartSelectedOnMPAlternative>>)}
 #'
 #' \strong{[resources]}
 #'
@@ -65,7 +65,7 @@
 #'
 #' - \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
 #'
-#' - \code{bdpar.Options$set("twitter.cache.path", <<cache.path>>)}
+#' - \code{bdpar.Options$set("cache.twitter.path", <<cache.path>>)}
 #'
 #' \strong{[teeCSVPipe]}
 #'
@@ -77,7 +77,7 @@
 #'
 #' - \code{bdpar.Options$set("youtube.app.password", <<app_password>>)}
 #'
-#' - \code{bdpar.Options$set("youtube.cache.path", <<cache.path>>)}
+#' - \code{bdpar.Options$set("cache.youtube.path", <<cache.path>>)}
 
 #' @section Methods:
 #' \itemize{

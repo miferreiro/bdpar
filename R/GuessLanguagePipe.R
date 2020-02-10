@@ -63,7 +63,7 @@
 #' @section Details:
 #' To obtain the language of the tweets, it will be verified that there is a
 #' json file with the information stored in memory. On the other hand, it is
-#' necessary define the \strong{"twitter.cache.path"} field of
+#' necessary define the \strong{"cache.twitter.path"} field of
 #' \emph{\link{bdpar.Options}} variable to know where the
 #' information of tweets are saved.
 #'
@@ -193,7 +193,7 @@ GuessLanguagePipe <- R6Class(
       if (private$languageTwitter &&
           instance$getSpecificProperty("extension") %in% "twtid") {
 
-        cachePath <- bdpar.Options$get("twitter.cache.path")
+        cachePath <- bdpar.Options$get("cache.twitter.path")
         if (!is.null(cachePath) && file.exists(paste(cachePath, "/_",
                                                      instance$getSpecificProperty("target"),
                                                      "_/",

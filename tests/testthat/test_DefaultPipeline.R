@@ -32,7 +32,7 @@ testthat::test_that("execute",{
                     "_ham_",
                     "testFile.tsms")
 
-  bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
+  bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
   bdpar.Options$set("resources.abbreviations.path", "")
   bdpar.Options$set("resources.contractions.path", "")
   bdpar.Options$set("resources.interjections.path", "")

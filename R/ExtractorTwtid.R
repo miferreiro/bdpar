@@ -41,7 +41,7 @@
 #' }
 #' \item{\strong{cachePath:}}{
 #' (\emph{character}) path of the cache location. If it is NULL, checks if is
-#' defined in the \strong{"twitter.cache.path"} field of
+#' defined in the \strong{"cache.twitter.path"} field of
 #' \emph{\link{bdpar.Options}} variable.
 #' }
 #' }
@@ -54,7 +54,7 @@
 #' which loads the Twitter API credentials from the \emph{{bdpar.Options}} object.
 #' Additionally, to increase the processing speed, each twitter query is stored
 #' in a cache to avoid the execution of duplicated queries. To enable this option,
-#' cache location should be in the \strong{"twitter.cache.path"} field of
+#' cache location should be in the \strong{"cache.twitter.path"} field of
 #' \emph{{bdpar.Options}} variable. This variable has to be the
 #' path to store the tweets and it is neccesary that it has two folder named:
 #' "_spam_" and "_ham_"
@@ -150,12 +150,12 @@ ExtractorTwtid <- R6Class(
 
 
       if (is.null(cachePath)) {
-        if (!all(bdpar.Options$isSpecificOption("twitter.cache.path"),
-                 !is.null(bdpar.Options$get("twitter.cache.path")))) {
+        if (!all(bdpar.Options$isSpecificOption("cache.twitter.path"),
+                 !is.null(bdpar.Options$get("cache.twitter.path")))) {
           stop("[ExtractorTwtid][initialize][Error] Path of tweets cache ",
                "is neither defined in initialize or in bdpar.Options")
         } else {
-          cachePath <- bdpar.Options$get("twitter.cache.path")
+          cachePath <- bdpar.Options$get("cache.twitter.path")
         }
       }
 

@@ -22,7 +22,7 @@ implements the functions of extracting the text and the date from an eml type fi
 }
 \item{\strong{PartSelectedOnMPAlternative:}}{
 (\emph{character}) configuration to read the eml files. If it is NULL, checks
-if is defined in the \strong{"eml.PartSelectedOnMPAlternative"} field of
+if is defined in the \strong{"extractorEML.mpaPartSelected"} field of
 \emph{\link{bdpar.Options}} variable.
 }
 }
@@ -33,7 +33,7 @@ if is defined in the \strong{"eml.PartSelectedOnMPAlternative"} field of
 \section{Details}{
 
 The way to indicate which part to choose in the email, when is a multipart email,
-is through the \strong{"eml.PartSelectedOnMPAlternative"}
+is through the \strong{"extractorEML.mpaPartSelected"}
 field of \emph{\link{bdpar.Options}} variable.
 }
 

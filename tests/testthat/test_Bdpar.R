@@ -84,7 +84,7 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   testthat::skip_if_not_installed("stringr")
   testthat::skip_if_not_installed("textutils")
 
-  bdpar.Options$set("eml.PartSelectedOnMPAlternative", "text/plain")
+  bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
   bdpar.Options$set("resources.abbreviations.path", "")
   bdpar.Options$set("resources.contractions.path", "")
   bdpar.Options$set("resources.interjections.path", "")

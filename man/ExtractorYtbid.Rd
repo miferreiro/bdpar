@@ -23,7 +23,7 @@ implements the functions of extracting the text and the date of an ytbid type fi
 }
 \item{\strong{cachePath:}}{
 (\emph{character}) path of the cache location. If it is NULL, checks if is
-defined in the \strong{"youtube.cache.path"} field of
+defined in the \strong{"cache.youtube.path"} field of
 \emph{\link{bdpar.Options}} variable.
 }
 }
@@ -37,7 +37,7 @@ YouTube conection is handled through the \code{\link{Connections}} class
 which loads the YouTube API credentials from the \emph{{bdpar.Options}} object.
 Additionally, to increase the processing speed, each youtube query is stored
 in a cache to avoid the execution of duplicated queries. To enable this option,
-cache location should be in the \strong{"youtube.cache.path"} field of
+cache location should be in the \strong{"cache.youtube.path"} field of
 \emph{\link{bdpar.Options}} variable. This variable has to be the
 path to store the comments and it is neccesary that it has two folder named:
 "_spam_" and "_ham_"
