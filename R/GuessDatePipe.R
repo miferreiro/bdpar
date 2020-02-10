@@ -54,7 +54,7 @@
 #' }
 #'
 #' @section Inherit:
-#' this class inherit from \code{\link{PipeGeneric}} and implements the
+#' this class inherit from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -85,7 +85,7 @@
 #'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
 #'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
 #'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
 #'          \code{\link{ToLowerCasePipe}}
@@ -99,7 +99,7 @@ GuessDatePipe <- R6Class(
 
   "GuessDatePipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 

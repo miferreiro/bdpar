@@ -118,7 +118,7 @@
 #' }
 #'
 #' @seealso \code{\link{Instance}}, \code{\link{DynamicPipeline}},
-#'          \code{\link{GenericPipeline}}, \code{\link{PipeGeneric}},
+#'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
 #'          \code{\link{\%>I\%}}
 #'
 #' @keywords NULL

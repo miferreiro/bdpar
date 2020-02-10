@@ -35,7 +35,7 @@ adds a pipe or a pipe list to the pipeline
 \item{\emph{Arguments:}}{
 \itemize{
 \item{\strong{pipe:}}{
-(\emph{PipeGeneric}) pipe objects or a list of pipes to add
+(\emph{GenericPipe}) pipe objects or a list of pipes to add
 }
 \item{\strong{pos:}}{
 (\emph{numeric}) the value of the pos to add. If it is NULL, pipe is appended to the pipeline
@@ -121,6 +121,6 @@ the set of pipes containing the pipeline.
 
 \seealso{
 \code{\link{Instance}}, \code{\link{DefaultPipeline}},
-         \code{\link{GenericPipeline}}, \code{\link{PipeGeneric}},
+         \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
          \code{\link{\%>I\%}}
 }

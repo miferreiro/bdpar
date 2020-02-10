@@ -135,7 +135,7 @@ you to manage the workflow through the functions it offers.
 Once a new preprocessing flow has been created, the user can both use
 and customize the 18 *Pipes* included by default in the application, as
 well as define *Pipes* that implement new functionalities. For this, it
-is necessary to create a class that inherits from *PipeGeneric* and
+is necessary to create a class that inherits from *GenericPipe* and
 implements the new functionality within the *pipe* method. In the case
 of using *Pipes* by default, you can consult more information in the
 package documentation through the command *help(package = “bdpar”)*.

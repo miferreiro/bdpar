@@ -49,7 +49,7 @@
 #' \item{\emph{Arguments:}}{
 #' \itemize{
 #' \item{\strong{pipe:}}{
-#' (\emph{PipeGeneric}) pipe objects or a list of pipes to add
+#' (\emph{GenericPipe}) pipe objects or a list of pipes to add
 #' }
 #' \item{\strong{pos:}}{
 #' (\emph{numeric}) the value of the pos to add. If it is NULL, pipe is appended to the pipeline
@@ -133,7 +133,7 @@
 #' }
 #'
 #' @seealso \code{\link{Instance}}, \code{\link{DefaultPipeline}},
-#'          \code{\link{GenericPipeline}}, \code{\link{PipeGeneric}},
+#'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
 #'          \code{\link{\%>I\%}}
 #'
 #' @keywords NULL
@@ -158,9 +158,9 @@ DynamicPipeline <- R6Class(
                class(pipeline))
         }
 
-        if (!any(sapply(pipeline, inherits, "PipeGeneric"))) {
+        if (!any(sapply(pipeline, inherits, "GenericPipe"))) {
           stop("[DynamicPipeline][initialize][Error] ",
-               "Define pipes are not correct. Must be inherit from 'PipeGeneric' ",
+               "Define pipes are not correct. Must be inherit from 'GenericPipe' ",
                "class. Aborting...")
         }
 
@@ -176,7 +176,7 @@ DynamicPipeline <- R6Class(
         pipe <- list(pipe)
       }
 
-      if (!any(sapply(pipe, inherits, "PipeGeneric"))) {
+      if (!any(sapply(pipe, inherits, "GenericPipe"))) {
         stop("[DynamicPipeline][add][Error] Checking the type of the 'pipe' variable: ",
              class(pipe))
       }

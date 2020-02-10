@@ -63,7 +63,7 @@
 #'
 #' @return The \code{\link{Instance}} modified by the methods it has traversed.
 #'
-#' @seealso \code{\link{Instance}}, \code{\link{PipeGeneric}}
+#' @seealso \code{\link{Instance}}, \code{\link{GenericPipe}}
 #'
 #' @keywords NULL
 #'

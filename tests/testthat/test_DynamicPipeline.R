@@ -12,7 +12,7 @@ testthat::test_that("initialize error",{
                          fixed = TRUE)
 
   testthat::expect_error(DynamicPipeline$new(list(1)),
-                         "[DynamicPipeline][initialize][Error] Define pipes are not correct. Must be inherit from 'PipeGeneric' class. Aborting...",
+                         "[DynamicPipeline][initialize][Error] Define pipes are not correct. Must be inherit from 'GenericPipe' class. Aborting...",
                          fixed = TRUE)
 })
 

@@ -24,7 +24,7 @@
 #' @title Abstract super classs that handles the management of the Pipes
 #'
 #' @description Provides the required methods to succesfully handle each
-#' \code{\link{PipeGeneric}} class.
+#' \code{\link{GenericPipe}} class.
 #'
 #' @docType class
 #'
@@ -32,7 +32,7 @@
 #'
 #' @section Constructor:
 #' \preformatted{
-#' PipeGeneric$new(propertyName,
+#' GenericPipe$new(propertyName,
 #'                 alwaysBeforeDeps,
 #'                 notAfterDeps)
 #' }
@@ -186,30 +186,30 @@
 #' @keywords NULL
 #'
 #' @import R6
-#' @export PipeGeneric
+#' @export GenericPipe
 
-PipeGeneric <- R6Class(
+GenericPipe <- R6Class(
 
-  "PipeGeneric",
+  "GenericPipe",
 
   public = list(
 
     initialize = function(propertyName, alwaysBeforeDeps, notAfterDeps) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[PipeGeneric][initialize][Error] ",
+        stop("[GenericPipe][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[PipeGeneric][initialize][Error] ",
+        stop("[GenericPipe][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[PipeGeneric][initialize][Error] ",
+        stop("[GenericPipe][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
@@ -242,7 +242,7 @@ PipeGeneric <- R6Class(
     setPropertyName = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[PipeGeneric][setPropertyName][Error] ",
+        stop("[GenericPipe][setPropertyName][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
@@ -255,7 +255,7 @@ PipeGeneric <- R6Class(
     setAlwaysBeforeDeps = function(alwaysBeforeDeps) {
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[PipeGeneric][setAlwaysBeforeDeps][Error] ",
+        stop("[GenericPipe][setAlwaysBeforeDeps][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
@@ -268,7 +268,7 @@ PipeGeneric <- R6Class(
     setNotAfterDeps = function(notAfterDeps) {
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[PipeGeneric][setNotAfterDeps][Error] ",
+        stop("[GenericPipe][setNotAfterDeps][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }

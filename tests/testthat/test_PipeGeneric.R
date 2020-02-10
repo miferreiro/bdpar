@@ -1,4 +1,4 @@
-testthat::context("PipeGeneric")
+testthat::context("GenericPipe")
 
 testthat::test_that("initialize",{
 
@@ -6,7 +6,7 @@ testthat::test_that("initialize",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
   testthat::expect_equal(pipe$.__enclos_env__$private$propertyName,
@@ -23,10 +23,10 @@ testthat::test_that("initialize propertyName type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  testthat::expect_error(PipeGeneric$new(propertyName,
+  testthat::expect_error(GenericPipe$new(propertyName,
                                          alwaysBeforeDeps,
                                          notAfterDeps),
-                         "[PipeGeneric][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[GenericPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 
 })
@@ -37,10 +37,10 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
 
-  testthat::expect_error(PipeGeneric$new(propertyName,
+  testthat::expect_error(GenericPipe$new(propertyName,
                                          alwaysBeforeDeps,
                                          notAfterDeps),
-                         "[PipeGeneric][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[GenericPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -50,10 +50,10 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
 
-  testthat::expect_error(PipeGeneric$new(propertyName,
+  testthat::expect_error(GenericPipe$new(propertyName,
                                          alwaysBeforeDeps,
                                          notAfterDeps),
-                         "[PipeGeneric][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[GenericPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -63,7 +63,7 @@ testthat::test_that("pipe",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  testthat::expect_error(PipeGeneric$new(propertyName,
+  testthat::expect_error(GenericPipe$new(propertyName,
                                          alwaysBeforeDeps,
                                          notAfterDeps)$pipe(NULL),
                          "I am an abstract interface method",
@@ -76,7 +76,7 @@ testthat::test_that("getPropertyName",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
 
@@ -90,7 +90,7 @@ testthat::test_that("getAlwaysBeforeDeps",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
   testthat::expect_equal(pipe$getAlwaysBeforeDeps(),
@@ -103,7 +103,7 @@ testthat::test_that("getNotAfterDeps",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
   testthat::expect_equal(pipe$getNotAfterDeps(),
@@ -116,7 +116,7 @@ testthat::test_that("setPropertyName",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
 
@@ -133,14 +133,14 @@ testthat::test_that("setPropertyName propertyName type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
 
   propertyNameExpected <- NULL
 
   testthat::expect_error(pipe$setPropertyName(propertyNameExpected),
-                         "[PipeGeneric][setPropertyName][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[GenericPipe][setPropertyName][Error] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -150,7 +150,7 @@ testthat::test_that("setAlwaysBeforeDeps",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
 
@@ -167,14 +167,14 @@ testthat::test_that("setAlwaysBeforeDeps alwaysBeforeDeps type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
 
   alwaysBeforeDepsExpected <- NULL
 
   testthat::expect_error(pipe$setAlwaysBeforeDeps(alwaysBeforeDepsExpected),
-                         "[PipeGeneric][setAlwaysBeforeDeps][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[GenericPipe][setAlwaysBeforeDeps][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -184,7 +184,7 @@ testthat::test_that("setNotAfterDeps",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
 
@@ -201,13 +201,13 @@ testthat::test_that("setNotAfterDeps notAfterDeps type error",{
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  pipe <- PipeGeneric$new(propertyName,
+  pipe <- GenericPipe$new(propertyName,
                           alwaysBeforeDeps,
                           notAfterDeps)
 
   notAfterDepsExpected <- NULL
 
   testthat::expect_error(pipe$setNotAfterDeps(notAfterDepsExpected),
-                         "[PipeGeneric][setNotAfterDeps][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[GenericPipe][setNotAfterDeps][Error] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })

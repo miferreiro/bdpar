@@ -123,7 +123,7 @@ extractors$registerExtractor("tytb", ExtractorTytb)
     
 ## Pipe
 
-A pipe consists of a simple task responsible for generating a new output by applying some transformations over the input data. A set of sequentially interconnected pipes to achieve a required result is called pipeline. Pipes in bdpar are represented as *PipeGeneric* class while the pipelining process is defined through *GenericPipeline* abstract class.
+A pipe consists of a simple task responsible for generating a new output by applying some transformations over the input data. A set of sequentially interconnected pipes to achieve a required result is called pipeline. Pipes in bdpar are represented as *GenericPipe* class while the pipelining process is defined through *GenericPipeline* abstract class.
 
 ### Dependencies
 
@@ -133,7 +133,7 @@ This functionality can be customized in each of the pipes that the user uses and
 
 ## Pipes available by default
 
-The framework provides over 18 different pipes (inherited from *PipeGeneric*). Each pipe is classified following two categories: (i) basic-functionality pipes and (ii) external file access pipes. 
+The framework provides over 18 different pipes (inherited from *GenericPipe*). Each pipe is classified following two categories: (i) basic-functionality pipes and (ii) external file access pipes. 
 
 
 <div style = "text-align: justify">
@@ -218,7 +218,7 @@ Creates a new property **stopwords**, where the *empty words* that are in the **
 
 ## How to create your customized Pipe
 
-Additionally, in order to improve the customization capabilities, bdpar allows to easily desing and develop new personalized pipes by implementing the pipe method included in the *PipeGeneric* class (inheritance relation). The code included below, exemplified the creation of a simple pipe in charge of removing multiple consecutive spaces from a string.
+Additionally, in order to improve the customization capabilities, bdpar allows to easily desing and develop new personalized pipes by implementing the pipe method included in the *GenericPipe* class (inheritance relation). The code included below, exemplified the creation of a simple pipe in charge of removing multiple consecutive spaces from a string.
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
@@ -226,7 +226,7 @@ library(pipeR)
 library(stringr)
 RemovesWhiteSpaces <- R6Class(
   "RemovesWhiteSpaces",
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
   public = list(
     initialize = function(propertyName = "",
                           alwaysBeforeDeps = list(),

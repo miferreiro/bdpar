@@ -50,5 +50,5 @@ is invalid.
 }
 
 \seealso{
-\code{\link{Instance}}, \code{\link{PipeGeneric}}
+\code{\link{Instance}}, \code{\link{GenericPipe}}
 }

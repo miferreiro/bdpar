@@ -72,7 +72,7 @@
 #' can not be detect.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -130,7 +130,7 @@
 #'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
 #'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
 #'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
+#'          \code{\link{MeasureLengthPipe}}, \code{\link{GenericPipe}},
 #'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
 #'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
 #'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
@@ -144,7 +144,7 @@ GuessLanguagePipe <- R6Class(
 
   "GuessLanguagePipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
