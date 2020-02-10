@@ -27,7 +27,7 @@
 #' to perform the whole data flow process. To this end \code{Bdpar} is
 #' in charge of (i) initialize the objects of handle the connections to APIs
 #' (\code{\link{Connections}}) and handles json resources (\code{\link{ResourceHandler}})
-#' and (ii) executing the flow of pipes (inherited from \code{\link{TypePipe}} class)
+#' and (ii) executing the flow of pipes (inherited from \code{\link{GenericPipeline}} class)
 #' passed as argument.
 #'
 #' @docType class
@@ -61,8 +61,8 @@
 #' \item{\emph{Usage}:}{
 #' \preformatted{
 #' proccess_files(path,
-#'                pipeline = SerialPipe$new(),
-#'                instanceFactory = InstanceFactory$new())}
+#'                extractors = ExtractorFactory$new(),
+#'                pipeline = GenericPipeline$new())}
 #'
 #' }
 #' \item{\emph{Value}:}{
@@ -73,12 +73,12 @@
 #' \item{\strong{path}:}{
 #' (\emph{character}) path where the files to be processed are located.
 #' }
-#' \item{\strong{instanceFactory}:}{
-#' (\emph{InstanceFactory}) class which implements the method \code{createInstance}
+#' \item{\strong{extractors}:}{
+#' (\emph{ExtractorFactory}) class which implements the  \code{createInstance} method
 #' to choose which type of \code{\link{Instance}} is created.
 #' }
 #' \item{\strong{pipeline}:}{
-#' (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which implements the \code{pipe} method.
+#' (\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which implements the \code{execute} method.
 #' }
 #' }
 #' }
@@ -86,9 +86,10 @@
 #' }
 #' }
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{Connections}},
-#'          \code{\link{Instance}}, \code{\link{ExtractorFactory}},
-#'          \code{\link{ResourceHandler}}, \code{\link{pipeline_execute}},
-#'          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
+#'          \code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
+#'          \code{\link{GenericPipeline}},\code{\link{Instance}},
+#'          \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
+#'          \code{\link{pipeline_execute}}
 #'
 #' @examples
 #' \dontrun{
@@ -103,16 +104,16 @@
 #'                     package = "bdpar")
 #'
 #' #Object which decides how creates the instances
-#' instanceFactory <- InstanceFactory$new()
+#' extractors <- ExtractorFactory$new()
 #'
 #' #Object which indicates the pipes' flow
-#' pipeline <- SerialPipe$new()
+#' pipeline <- DefaultPipeline$new()
 #'
 #' objectBdpar <- Bdpar$new()
 #'
 #' #Starting file preprocessing...
 #' objectBdpar$proccess_files(path = path,
-#'                            instanceFactory = instanceFactory,
+#'                            extractors = extractors,
 #'                            pipeline = pipeline)
 #' }
 #' @keywords NULL
@@ -135,7 +136,7 @@ Bdpar <- R6Class(
 
     proccess_files = function(path,
                               extractors = ExtractorFactory$new(),
-                              pipeline = SerialPipe$new()) {
+                              pipeline = DefaultPipeline$new()) {
 
       if (!"character" %in% class(path)) {
         stop("[Bdpar][proccess_files][Error] ",
@@ -149,7 +150,7 @@ Bdpar <- R6Class(
              class(extractors))
       }
 
-      if (!"TypePipe" %in% class(pipeline)) {
+      if (!inherits(pipeline, c("GenericPipeline"))) {
         stop("[Bdpar][proccess_files][Error] ",
              "Checking the type of the 'pipeline' variable: ",
              class(pipeline))
@@ -174,7 +175,7 @@ Bdpar <- R6Class(
       InstancesList <- sapply(files, extractors$createInstance)
 
       message("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.")
-      listInstances <- sapply(InstancesList, pipeline$pipeAll)
+      listInstances <- sapply(InstancesList, pipeline$execute)
 
       return(listInstances)
     }

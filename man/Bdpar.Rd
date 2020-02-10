@@ -12,7 +12,7 @@ Bdpar
 to perform the whole data flow process. To this end \code{Bdpar} is
 in charge of (i) initialize the objects of handle the connections to APIs
 (\code{\link{Connections}}) and handles json resources (\code{\link{ResourceHandler}})
-and (ii) executing the flow of pipes (inherited from \code{\link{TypePipe}} class)
+and (ii) executing the flow of pipes (inherited from \code{\link{GenericPipeline}} class)
 passed as argument.
 }
 \section{Constructor}{
@@ -49,8 +49,8 @@ preprocess files through the indicated flow of pipes.
 \item{\emph{Usage}:}{
 \preformatted{
 proccess_files(path,
-               pipeline = SerialPipe$new(),
-               instanceFactory = InstanceFactory$new())}
+               extractors = ExtractorFactory$new(),
+               pipeline = GenericPipeline$new())}
 
 }
 \item{\emph{Value}:}{
@@ -61,12 +61,12 @@ list of \code{Instances} that have been preprocessed.
 \item{\strong{path}:}{
 (\emph{character}) path where the files to be processed are located.
 }
-\item{\strong{instanceFactory}:}{
-(\emph{InstanceFactory}) class which implements the method \code{createInstance}
+\item{\strong{extractors}:}{
+(\emph{ExtractorFactory}) class which implements the  \code{createInstance} method
 to choose which type of \code{\link{Instance}} is created.
 }
 \item{\strong{pipeline}:}{
-(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which implements the \code{pipe} method.
+(\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which implements the \code{execute} method.
 }
 }
 }
@@ -88,22 +88,23 @@ path <- system.file(file.path("example"),
                     package = "bdpar")
 
 #Object which decides how creates the instances
-instanceFactory <- InstanceFactory$new()
+extractors <- ExtractorFactory$new()
 
 #Object which indicates the pipes' flow
-pipeline <- SerialPipe$new()
+pipeline <- DefaultPipeline$new()
 
 objectBdpar <- Bdpar$new()
 
 #Starting file preprocessing...
 objectBdpar$proccess_files(path = path,
-                           instanceFactory = instanceFactory,
+                           extractors = extractors,
                            pipeline = pipeline)
 }
 }
 \seealso{
 \code{\link{bdpar.Options}}, \code{\link{Connections}},
-         \code{\link{Instance}}, \code{\link{ExtractorFactory}},
-         \code{\link{ResourceHandler}}, \code{\link{pipeline_execute}},
-         \code{\link{TypePipe}}, \code{\link{SerialPipe}}
+         \code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
+         \code{\link{GenericPipeline}},\code{\link{Instance}},
+         \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
+         \code{\link{pipeline_execute}}
 }

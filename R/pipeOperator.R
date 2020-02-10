@@ -82,13 +82,11 @@
   lhs <- chain_parts[["lhs"]]
 
   rhss <- lapply(rhss, function(call) {
-    call <- call[-2]
     parse(text = paste0(deparse(call), "$pipe(instance)"))
   })
 
   env[["_function_list"]] <- lapply(1:length(rhss), function(i) wrap_function(rhss[[i]],
                                                                                pipes[[i]], parent))
-
 
   env[["_fseq"]] <- `class<-`(eval(quote(function(value) {freduce(value,
                                                                  `_function_list`)}), env, env), c("fseq", "function"))
@@ -97,22 +95,15 @@
 
   if (is_placeholder(lhs)) {
     env[["_fseq"]]
-  }
-  else {
+  } else {
 
     env[["_lhs"]] <- eval(lhs, parent, parent)
 
     result <- withVisible(eval(expr = quote(`_fseq`(`_lhs`)),envir = env,
                                enclos = env))
-    if (is_compound_pipe(pipes[[1L]])) {
-      eval(call("<-", lhs, result[["value"]]), parent,
-           parent)
-    }
-    else {
-      if (result[["visible"]])
-        result[["value"]]
-      else invisible(result[["value"]])
-    }
+
+
+      result[["value"]]
   }
 }
 #
@@ -159,16 +150,16 @@ freduce = function(instance, function_list)
                                                    nchar(deparse(function_list[[i]])[2]) - 16),
                                             "$getNotAfterDeps()"))
 
-      instance$addFlowPipes(eval(pipeName))
+      instance$addFlowPipes(eval(pipeName, parent.frame()))
 
-      if (!instance$checkCompatibility(eval(pipeName), eval(exprAlwBefDeps))) {
-        message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName))
+      if (!instance$checkCompatibility(eval(pipeName, parent.frame()), eval(exprAlwBefDeps, parent.frame()))) {
+        message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName, parent.frame()))
         break
       }
 
-      instance$addBanPipes(unlist(eval(exprNotAftDeps)))
+      instance$addBanPipes(unlist(eval(exprNotAftDeps, parent.frame())))
 
-      instance <- eval(function_list[[i]](instance))
+      instance <- eval(function_list[[i]](instance), parent.frame())
       if (!instance$isInstanceValid()) {
         message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
                 " is invalid and will not continue through the flow of pipes")
@@ -176,7 +167,9 @@ freduce = function(instance, function_list)
       }
     }
   }
+
   if (instance$isInstanceValid()) {
+
     pipeName <- parse(text = paste0("class(",
                                     substr(deparse(function_list[[k]])[2],
                                            12,
@@ -193,27 +186,32 @@ freduce = function(instance, function_list)
                                                  nchar(deparse(function_list[[k]])[2]) - 16),
                                           "$getNotAfterDeps()"))
 
-    instance$addFlowPipes(eval(pipeName))
+    instance$addFlowPipes(eval(pipeName, parent.frame()))
 
-    if (!instance$checkCompatibility(eval(pipeName), eval(exprAlwBefDeps))) {
-      message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName))
+    if (!instance$checkCompatibility(eval(pipeName, parent.frame()), eval(exprAlwBefDeps, parent.frame()))) {
+      message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName, parent.frame()))
     } else {
-      instance$addBanPipes(unlist(eval(exprNotAftDeps)))
 
-      instance <- withVisible(eval(function_list[[k]](instance)))
+      instance$addBanPipes(unlist(eval(exprNotAftDeps, parent.frame())))
+
+      instance <- eval(function_list[[k]](instance), parent.frame())
+
+      if (!instance$isInstanceValid()) {
+        message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
+                " is invalid and will not continue through the flow of pipes")
+      }
+
+      instance <- withVisible(instance)
     }
   } else {
     instance <- withVisible(instance)
   }
 
-  if (instance[["visible"]])
-    instance[["value"]]
-  else invisible(instance[["value"]])
+  instance[["value"]]
 }
 
 split_chain = function(expr, env)
 {
-
   rhss <- list()
   pipes <- list()
   i <- 1L
@@ -222,24 +220,8 @@ split_chain = function(expr, env)
     pipes[[i]] <- expr[[1L]]
     rhs <- expr[[3L]]
 
+    rhss[[i]]  <- rhs
 
-    if (is_parenthesized(rhs)) {
-
-      rhs <- eval(rhs, env, env)
-    }
-
-    rhss[[i]] <- if (is_dollar(pipes[[i]]) || is_funexpr(rhs))
-      rhs
-    else if (purrr::is_function(rhs))
-      prepare_function(rhs)
-    else if (is_first(rhs))
-      prepare_first(rhs)
-    else rhs
-
-    if (is.call(rhss[[i]]) && identical(rhss[[i]][[1L]],
-                                        quote(`function`)))
-      stop("Anonymous functions must be parenthesized",
-           call. = FALSE)
     expr <- expr[[2L]]
     i <- i + 1L
   }
@@ -249,65 +231,15 @@ split_chain = function(expr, env)
 
 is_pipe = function (pipe)
 {
-  identical(pipe, quote(`%>%`)) || identical(pipe, quote(`%>I%`)) || identical(pipe, quote(`%T>%`)) ||
-    identical(pipe, quote(`%<>%`)) || identical(pipe, quote(`%$%`))
+  identical(pipe, quote(`%>I%`))
 }
 
 wrap_function = function (body, pipe, env)
 {
-
-  if (is_tee(pipe)) {
-    body <- call("{", body, quote(.))
-  }
-  else if (is_dollar(pipe)) {
-    body <- substitute(with(., b), list(b = body))
-  }
-
-  eval(call("function", as.pairlist(alist(. = )), body), env,
-       env)
-}
-
-is_tee = function (pipe)
-{
-  identical(pipe, quote(`%T>%`))
-}
-
-is_parenthesized = function (expr)
-{
-  is.call(expr) && identical(expr[[1]], quote(`(`))
-}
-
-is_dollar = function (pipe)
-{
-  identical(pipe, quote(`%$%`))
-}
-
-is_funexpr = function (expr)
-{
-  is.call(expr) && identical(expr[[1]], quote(`{`))
-}
-
-is_first = function (expr)
-{
-  !any(vapply(expr[-1], identical, logical(1), quote(.)))
-}
-
-prepare_first = function (expr)
-{
-  as.call(c(expr[[1L]], quote(.), as.list(expr[-1L])))
-}
-
-prepare_function = function(f)
-{
-  as.call(list(f, quote(.)))
+  eval(call("function", as.pairlist(alist(. = )), body), env, env)
 }
 
 is_placeholder = function (symbol)
 {
   identical(symbol, quote(.))
-}
-
-is_compound_pipe = function (pipe)
-{
-  identical(pipe, quote(`%<>%`))
 }

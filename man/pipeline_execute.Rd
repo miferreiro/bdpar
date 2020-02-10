@@ -6,7 +6,7 @@
 \title{Initiates the pipelining process}
 \usage{
 pipeline_execute(path, extractors = ExtractorFactory$new(),
-                 pipeline = SerialPipe$new())
+                 pipeline = DefaultPipeline$new())
 }
 \arguments{
 \item{path}{(\emph{character}) path where the files to be preprocessed
@@ -16,7 +16,7 @@ are located.}
 the method \code{createInstance} to choose which type of \code{\link{Instance}}
 is created.}
 
-\item{pipeline}{(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
+\item{pipeline}{(\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 implements the whole pipeling process.}
 }
 \value{
@@ -49,17 +49,18 @@ path <- system.file(file.path("example"),
 extractors <- ExtractorFactory$new()
 
 #Object which indicates the pipes' flow
-pipeline <- SerialPipe$new()
+pipeline <- DefaultPipeline$new()
 
 #Starting file preprocessing...
 pipeline_execute(path = path,
-                 pipeline = pipeline,
-                 extractors = extractors)
+                 extractors = extractors,
+                 pipeline = pipeline)
 }
 }
 \seealso{
 \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
-         \code{\link{Connections}}, \code{\link{Instance}},
-         \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
-         \code{\link{TypePipe}}, \code{\link{SerialPipe}}
+         \code{\link{Connections}},\code{\link{DefaultPipeline}},
+         \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
+         \code{\link{Instance}}, \code{\link{ExtractorFactory}},
+         \code{\link{ResourceHandler}}
 }

@@ -4,7 +4,7 @@ testthat::test_that("pipeline_execute path type error",{
 
   path <- NULL
 
-  pipeline <- SerialPipe$new()
+  pipeline <- DefaultPipeline$new()
 
   extractorFactory <- ExtractorFactory$new()
 
@@ -15,7 +15,7 @@ testthat::test_that("pipeline_execute path type error",{
                          fixed = TRUE)
 })
 
-testthat::test_that("pipeline_execute pipe type error",{
+testthat::test_that("pipeline_execute pipeline type error",{
 
   path <- file.path("testFiles",
                     "testPipelineExecute",
@@ -38,7 +38,7 @@ testthat::test_that("pipeline_execute extractorFactory type error",{
                     "testPipelineExecute",
                     "testFiles_pipeline_execute_tsms")
 
-  pipeline <- SerialPipe$new()
+  pipeline <- DefaultPipeline$new()
 
   extractorFactory <- NULL
 
@@ -67,7 +67,7 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
                     "testPipelineExecute",
                     "testFiles_pipeline_execute_tsms")
 
-  pipeline <- SerialPipe$new()
+  pipeline <- DefaultPipeline$new()
 
   extractorFactory <- ExtractorFactory$new()
 

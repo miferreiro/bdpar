@@ -1,15 +1,15 @@
-testthat::context("SerialPipe")
+testthat::context("DefaultPipeline")
 
 testthat::test_that("initialize",{
 
-  testthat::expect_silent(SerialPipe$new())
+  testthat::expect_silent(DefaultPipeline$new())
 })
 
-testthat::test_that("pipeAll instance type error",{
+testthat::test_that("execute instance type error",{
 
   instance <- NULL
-  testthat::expect_error(SerialPipe$new()$pipeAll(instance),
-                         "[SerialPipe][pipeAll][Error] Checking the type of the 'instance' variable: NULL",
+  testthat::expect_error(DefaultPipeline$new()$execute(instance),
+                         "[DefaultPipeline][execute][Error] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -17,7 +17,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipeAll",{
+testthat::test_that("execute",{
   testthat::skip_if_not_installed("cld2")
   testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rex")
@@ -27,7 +27,7 @@ testthat::test_that("pipeAll",{
   testthat::skip_if_not_installed("stringr")
   testthat::skip_if_not_installed("textutils")
   path <- file.path("testFiles",
-                    "testSerialPipe",
+                    "testDefaultPipeline",
                     "files",
                     "_ham_",
                     "testFile.tsms")
@@ -87,7 +87,7 @@ testthat::test_that("pipeAll",{
   instance$addFlowPipes("TeeCSVPipe")
 
   instance$addBanPipes(c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
-  suppressWarnings(SerialPipe$new()$pipeAll(instanceInitial))
+  suppressWarnings(DefaultPipeline$new()$execute(instanceInitial))
   testthat::expect_equal(instanceInitial,
                          instance)
 
@@ -102,10 +102,10 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
   testthat::setup(bdpar.Options$reset())
 
-  testthat::test_that("pipeAll",{
+  testthat::test_that("execute error",{
     testthat::skip_if_not_installed("readr")
     path <- file.path("testFiles",
-                      "testSerialPipe",
+                      "testDefaultPipeline",
                       "files",
                       "_ham_",
                       "testFileEmpty.tsms")
@@ -131,11 +131,46 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
     instance$addBanPipes(c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
 
-    testthat::expect_message(suppressWarnings(SerialPipe$new()$pipeAll(instanceInitial)),
-                             "[SerialPipe][pipeAll][Error]",
+    testthat::expect_message(suppressWarnings(DefaultPipeline$new()$execute(instanceInitial)),
+                             "[DefaultPipeline][execute][Error]",
                              fixed = TRUE)
   })
 
   testthat::teardown(bdpar.Options$reset())
 
 }
+
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("get",{
+
+  bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+
+  testthat::expect_equal(DefaultPipeline$new()$get(),
+                         list(TargetAssigningPipe$new(),
+                              StoreFileExtPipe$new(),
+                              GuessDatePipe$new(),
+                              File2Pipe$new(),
+                              MeasureLengthPipe$new(propertyName = "length_before_cleaning_text"),
+                              FindUserNamePipe$new(),
+                              FindHashtagPipe$new(),
+                              FindUrlPipe$new(),
+                              FindEmoticonPipe$new(),
+                              FindEmojiPipe$new(),
+                              GuessLanguagePipe$new(),
+                              ContractionPipe$new(),
+                              AbbreviationPipe$new(),
+                              SlangPipe$new(),
+                              ToLowerCasePipe$new(),
+                              InterjectionPipe$new(),
+                              StopWordPipe$new(),
+                              MeasureLengthPipe$new(propertyName = "length_after_cleaning_text"),
+                              TeeCSVPipe$new()))
+})
+
+testthat::teardown(bdpar.Options$reset())
+
+testthat::test_that("print",{
+  pipeline <- DefaultPipeline$new()
+  testthat::expect_output(print(pipeline), "[A-Za-z0-9$/.\\(\\)%>]+")
+})

@@ -50,7 +50,7 @@ that the types of *Instances* are created.
 ``` r
 output <- pipeline_execute(path,
                            extractors = ExtractorFactory$new(),
-                           pipeline = SerialPipes$new())
+                           pipeline = DefaultPipeline$new())
 ```
 
 #### *Advanced mode*
@@ -69,7 +69,7 @@ that the user needs to realize their own preprocessing.
 bdpar_object <- Bdpar$new() 
 bdpar_object$proccess_files(path,
                             extractors = ExtractorFactory$new(),
-                            pipeline = SerialPipes$new())
+                            pipeline = DefaultPipeline$new())
 ```
 
 <div style="text-align: justify">
@@ -118,13 +118,15 @@ bdpar.Options$set("youtube.cache.path", <<cache.path>>)
 <div style="text-align: justify">
 
 Regarding the flow of pipes used, the application provides a default
-flow implemented in the *SerialPipes* class. This method has been
+flow implemented in the *DefaultPipeline* class. This method has been
 implemented in such a way that it picks up the exceptions thrown by the
-flow defined in the superclass, that is, the *pipeAll* method of the
-*TypePipe* class. However, in order to adapt to the needs of each user,
-the application allows the design of new preprocessing flows. For this,
-it is necessary to create a class that inherits from *TypePipe* and
-implements the *pipeAll* method.
+flow defined in the superclass, that is, the *execute* method of the
+*GenericPipeline* class. However, in order to adapt to the needs of each
+user, the application allows the design of new preprocessing flows. For
+this, it is necessary to create a class that inherits from
+*GenericPipeline* and implements the *execute* method. Another
+alternative is to directly use the *DynamicPipeline* class which allows
+you to manage the workflow through the functions it offers.
 
 </div>
 

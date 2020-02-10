@@ -155,15 +155,12 @@ File2Pipe <- R6Class(
       }
 
       if (!validUTF8(instance$getSource())) {
-        message <- c( "The file: " , instance$getPath() , " is not utf8")
 
-        instance$addProperties(message, "reasonToInvalidate")
+        instance$addProperties(c("The file: " , instance$getPath(), " is not utf8", "reasonToInvalidate"))
 
-        warning("[File2Pipe][pipe][Warning] ", message)
+        warning("[File2Pipe][pipe][Warning] ", "The file: ", instance$getPath(), " is not utf8")
 
         instance$invalidate()
-
-        return(instance)
       }
 
       return(instance)

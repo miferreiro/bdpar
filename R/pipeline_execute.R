@@ -31,14 +31,14 @@
 #' @format NULL
 #'
 #' @usage pipeline_execute(path, extractors = ExtractorFactory$new(),
-#'                  pipeline = SerialPipe$new())
+#'                  pipeline = DefaultPipeline$new())
 #'
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
 #' @param extractors (\emph{ExtractorFactory}) object implementing
 #' the method \code{createInstance} to choose which type of \code{\link{Instance}}
 #' is created.
-#' @param pipeline (\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which
+#' @param pipeline (\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 #' implements the whole pipeling process.
 #'
 #' @section Details:
@@ -64,24 +64,25 @@
 #' extractors <- ExtractorFactory$new()
 #'
 #' #Object which indicates the pipes' flow
-#' pipeline <- SerialPipe$new()
+#' pipeline <- DefaultPipeline$new()
 #'
 #' #Starting file preprocessing...
 #' pipeline_execute(path = path,
-#'                  pipeline = pipeline,
-#'                  extractors = extractors)
+#'                  extractors = extractors,
+#'                  pipeline = pipeline)
 #' }
 #' @keywords NULL
 #' @export pipeline_execute
 #' @seealso \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
-#'          \code{\link{Connections}}, \code{\link{Instance}},
-#'          \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
-#'          \code{\link{TypePipe}}, \code{\link{SerialPipe}}
-
+#'          \code{\link{Connections}},\code{\link{DefaultPipeline}},
+#'          \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
+#'          \code{\link{Instance}}, \code{\link{ExtractorFactory}},
+#'          \code{\link{ResourceHandler}}
+#'
 
 pipeline_execute = function(path,
                             extractors = ExtractorFactory$new(),
-                            pipeline = SerialPipe$new()) {
+                            pipeline = DefaultPipeline$new()) {
 
   if (!"character" %in% class(path)) {
     stop("[pipeline_execute][Error] ",
@@ -95,7 +96,7 @@ pipeline_execute = function(path,
          class(extractors))
   }
 
-  if (!"TypePipe" %in% class(pipeline)) {
+  if (!inherits(pipeline, c("GenericPipeline"))) {
     stop("[pipeline_execute][Error] ",
          "Checking the type of the 'pipeline' variable: ",
          class(pipeline))

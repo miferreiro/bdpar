@@ -6,7 +6,7 @@ testthat::test_that("Bdpar path type error",{
 
   path <- NULL
 
-  pipeline <- SerialPipe$new()
+  pipeline <- DefaultPipeline$new()
 
   extractorFactory <- ExtractorFactory$new()
 
@@ -23,7 +23,7 @@ testthat::test_that("Bdpar path does not exists",{
 
   path <- "wrong.tsms"
 
-  pipeline <- SerialPipe$new()
+  pipeline <- DefaultPipeline$new()
 
   extractorFactory <- ExtractorFactory$new()
 
@@ -34,7 +34,7 @@ testthat::test_that("Bdpar path does not exists",{
                          fixed = TRUE)
 })
 
-testthat::test_that("Bdpar pipe type error",{
+testthat::test_that("Bdpar pipeline type error",{
 
   object <- Bdpar$new()
 
@@ -62,7 +62,7 @@ testthat::test_that("Bdpar extractorFactory type error",{
                     "testBdpar",
                     "testFiles_pipeline_execute_tsms")
 
-  pipeline <- SerialPipe$new()
+  pipeline <- DefaultPipeline$new()
 
   extractorFactory <- NULL
 
@@ -98,7 +98,7 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
                     "testBdpar",
                     "testFiles_pipeline_execute_tsms")
 
-  pipeline <- SerialPipe$new()
+  pipeline <- DefaultPipeline$new()
 
   extractorFactory <- ExtractorFactory$new()
 
