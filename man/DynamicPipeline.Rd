@@ -65,11 +65,11 @@ removes pipes by the position on the pipeline
 removes pipes by its name on the pipeline
 \itemize{
 \item{\emph{Usage:}}{
-\code{removeByPipe(pipe)}
+\code{removeByPipe(pipe.name)}
 }
 \item{\emph{Arguments:}}{
 \itemize{
-\item{\strong{pipe:}}{
+\item{\strong{pipe.name:}}{
 (\emph{character}) the pipe name to remove.
 }
 }

@@ -97,16 +97,16 @@ testthat::test_that("removeByPipe",{
 testthat::test_that("removeByPipe error",{
 
   pipeline <- DynamicPipeline$new()
-  testthat::expect_warning(pipeline$removeByPipe(pipe = "TargetAssigningPipe"),
+  testthat::expect_warning(pipeline$removeByPipe(pipe.name = "TargetAssigningPipe"),
                            "[DynamicPipeline][removeByPipe][Warning] Pipeline empty. Imposible remove",
                            fixed = TRUE)
 
   testthat::expect_error(pipeline$removeByPipe(pipe = 1),
-                         "[DynamicPipeline][removeByPipe][Error] Checking the type of the 'pipe' variable (must be a character list)",
+                         "[DynamicPipeline][removeByPipe][Error] Checking the type of the 'pipe.name' variable (must be a character list)",
                          fixed = TRUE)
 
   pipeline$add(pipe = GuessDatePipe$new())
-  testthat::expect_warning(pipeline$removeByPipe(pipe = "a"),
+  testthat::expect_warning(pipeline$removeByPipe(pipe.name = "a"),
                            "[DynamicPipeline][removeByPipe][Warning] Not found elements to remove",
                            fixed = TRUE)
 })

@@ -79,11 +79,11 @@
 #' removes pipes by its name on the pipeline
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{removeByPipe(pipe)}
+#' \code{removeByPipe(pipe.name)}
 #' }
 #' \item{\emph{Arguments:}}{
 #' \itemize{
-#' \item{\strong{pipe:}}{
+#' \item{\strong{pipe.name:}}{
 #' (\emph{character}) the pipe name to remove.
 #' }
 #' }
@@ -231,20 +231,20 @@ DynamicPipeline <- R6Class(
       }
     },
 
-    removeByPipe = function(pipe) {
+    removeByPipe = function(pipe.name) {
 
-      if (!is.list(pipe) || !is.vector(pipe)) {
-        pipe <- list(pipe)
+      if (!is.list(pipe.name) || !is.vector(pipe.name)) {
+        pipe.name <- list(pipe.name)
       }
 
-      if (!any(sapply(pipe, inherits, "character"))) {
-        stop("[DynamicPipeline][removeByPipe][Error] Checking the type of the 'pipe' variable (must be a character list)")
+      if (!any(sapply(pipe.name, inherits, "character"))) {
+        stop("[DynamicPipeline][removeByPipe][Error] Checking the type of the 'pipe.name' variable (must be a character list)")
       }
 
       if (length(private$pipeline) == 0) {
         warning("[DynamicPipeline][removeByPipe][Warning] Pipeline empty. Imposible remove")
       } else {
-        pos <- which(pipe %in% lapply(private$pipeline, function(p) class(p)[1]))
+        pos <- which(pipe.name %in% lapply(private$pipeline, function(p) class(p)[1]))
         if (length(pos) == 0) {
           warning("[DynamicPipeline][removeByPipe][Warning] Not found elements to remove")
         } else {
