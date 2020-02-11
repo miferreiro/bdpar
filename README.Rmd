@@ -41,9 +41,9 @@ The simple mode allows the tools to be executed through a single function in whi
 </div>
 
 ```R
-output <- pipeline_execute(path,
-                           extractors = ExtractorFactory$new(),
-                           pipeline = DefaultPipeline$new())
+output <- runPipeline(path,
+                      extractors = ExtractorFactory$new(),
+                      pipeline = DefaultPipeline$new())
 ```
 
 #### *Advanced mode*

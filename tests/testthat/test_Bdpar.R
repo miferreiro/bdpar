@@ -40,7 +40,7 @@ testthat::test_that("Bdpar pipeline type error",{
 
   path <- file.path("testFiles",
                     "testBdpar",
-                    "testFiles_pipeline_execute_tsms")
+                    "tsms")
 
   pipeline <- NULL
 
@@ -60,7 +60,7 @@ testthat::test_that("Bdpar extractorFactory type error",{
 
   path <- file.path("testFiles",
                     "testBdpar",
-                    "testFiles_pipeline_execute_tsms")
+                    "tsms")
 
   pipeline <- DefaultPipeline$new()
 
@@ -96,7 +96,7 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
 
   path <- file.path("testFiles",
                     "testBdpar",
-                    "testFiles_pipeline_execute_tsms")
+                    "tsms")
 
   pipeline <- DefaultPipeline$new()
 

@@ -23,15 +23,15 @@
 
 #' @title Initiates the pipelining process
 #'
-#' @description \strong{pipeline_execute} is responsible for easily initialize
+#' @description \strong{runPipeline} is responsible for easily initialize
 #' the pipelining preprocessing proccess.
 #'
 #' @docType methods
 #'
 #' @format NULL
 #'
-#' @usage pipeline_execute(path, extractors = ExtractorFactory$new(),
-#'                  pipeline = DefaultPipeline$new())
+#' @usage runPipeline(path, extractors = ExtractorFactory$new(),
+#' pipeline = DefaultPipeline$new())
 #'
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
@@ -67,12 +67,12 @@
 #' pipeline <- DefaultPipeline$new()
 #'
 #' #Starting file preprocessing...
-#' pipeline_execute(path = path,
-#'                  extractors = extractors,
-#'                  pipeline = pipeline)
+#' runPipeline(path = path,
+#'             extractors = extractors,
+#'             pipeline = pipeline)
 #' }
 #' @keywords NULL
-#' @export pipeline_execute
+#' @export runPipeline
 #' @seealso \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
 #'          \code{\link{Connections}},\code{\link{DefaultPipeline}},
 #'          \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
@@ -80,24 +80,24 @@
 #'          \code{\link{ResourceHandler}}
 #'
 
-pipeline_execute = function(path,
-                            extractors = ExtractorFactory$new(),
-                            pipeline = DefaultPipeline$new()) {
+runPipeline = function(path,
+                       extractors = ExtractorFactory$new(),
+                       pipeline = DefaultPipeline$new()) {
 
   if (!"character" %in% class(path)) {
-    stop("[pipeline_execute][Error] ",
+    stop("[runPipeline][Error] ",
          "Checking the type of the 'path' variable: ",
          class(path))
   }
 
   if (!"ExtractorFactory" %in% class(extractors)) {
-    stop("[pipeline_execute][Error] ",
+    stop("[runPipeline][Error] ",
          "Checking the type of the 'extractors' variable: ",
          class(extractors))
   }
 
   if (!inherits(pipeline, c("GenericPipeline"))) {
-    stop("[pipeline_execute][Error] ",
+    stop("[runPipeline][Error] ",
          "Checking the type of the 'pipeline' variable: ",
          class(pipeline))
   }

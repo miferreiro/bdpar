@@ -48,9 +48,9 @@ that the types of *Instances* are created.
 </div>
 
 ``` r
-output <- pipeline_execute(path,
-                           extractors = ExtractorFactory$new(),
-                           pipeline = DefaultPipeline$new())
+output <- runPipeline(path,
+                      extractors = ExtractorFactory$new(),
+                      pipeline = DefaultPipeline$new())
 ```
 
 #### *Advanced mode*

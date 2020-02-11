@@ -106,5 +106,5 @@ objectBdpar$proccess_files(path = path,
          \code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
          \code{\link{GenericPipeline}},\code{\link{Instance}},
          \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
-         \code{\link{pipeline_execute}}
+         \code{\link{runPipeline}}
 }

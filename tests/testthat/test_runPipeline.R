@@ -1,6 +1,6 @@
-testthat::context("pipeline_execute")
+testthat::context("runPipeline")
 
-testthat::test_that("pipeline_execute path type error",{
+testthat::test_that("runPipeline path type error",{
 
   path <- NULL
 
@@ -8,44 +8,44 @@ testthat::test_that("pipeline_execute path type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
-  testthat::expect_error(pipeline_execute(path = path,
-                                          pipeline = pipeline,
-                                          extractors = extractorFactory),
-                         "[pipeline_execute][Error] Checking the type of the 'path' variable: NULL",
+  testthat::expect_error(runPipeline(path = path,
+                                     pipeline = pipeline,
+                                     extractors = extractorFactory),
+                         "[runPipeline][Error] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::test_that("pipeline_execute pipeline type error",{
+testthat::test_that("runPipeline pipeline type error",{
 
   path <- file.path("testFiles",
                     "testPipelineExecute",
-                    "testFiles_pipeline_execute_tsms")
+                    "tsms")
 
   pipeline <- NULL
 
   extractorFactory <- ExtractorFactory$new()
 
-  testthat::expect_error(pipeline_execute(path = path,
-                                          pipeline = pipeline,
-                                          extractors = extractorFactory),
-                         "[pipeline_execute][Error] Checking the type of the 'pipeline' variable: NULL",
+  testthat::expect_error(runPipeline(path = path,
+                                     pipeline = pipeline,
+                                     extractors = extractorFactory),
+                         "[runPipeline][Error] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::test_that("pipeline_execute extractorFactory type error",{
+testthat::test_that("runPipeline extractorFactory type error",{
 
   path <- file.path("testFiles",
-                    "testPipelineExecute",
-                    "testFiles_pipeline_execute_tsms")
+                    "testRunPipeline",
+                    "tsms")
 
   pipeline <- DefaultPipeline$new()
 
   extractorFactory <- NULL
 
-  testthat::expect_error(pipeline_execute(path = path,
-                                          pipeline = pipeline,
-                                          extractors = extractorFactory),
-                         "[pipeline_execute][Error] Checking the type of the 'extractors' variable: NULL",
+  testthat::expect_error(runPipeline(path = path,
+                                     pipeline = pipeline,
+                                     extractors = extractorFactory),
+                         "[runPipeline][Error] Checking the type of the 'extractors' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -53,7 +53,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
 testthat::setup(bdpar.Options$reset())
 
-testthat::test_that("pipeline_execute default flow of pipes with the examples files tsms",{
+testthat::test_that("runPipeline default flow of pipes with the examples files tsms",{
   testthat::skip_if_not_installed("cld2")
   testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rex")
@@ -64,8 +64,8 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
   testthat::skip_if_not_installed("textutils")
 
   path <- file.path("testFiles",
-                    "testPipelineExecute",
-                    "testFiles_pipeline_execute_tsms")
+                    "testRunPipeline",
+                    "tsms")
 
   pipeline <- DefaultPipeline$new()
 
@@ -79,9 +79,9 @@ testthat::test_that("pipeline_execute default flow of pipes with the examples fi
   bdpar.Options$set("resources.stopwords.path", "")
   bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
 
-  output <- suppressWarnings(pipeline_execute(path = path,
-                                              pipeline = pipeline,
-                                              extractors = extractorFactory))
+  output <- suppressWarnings(runPipeline(path = path,
+                                         pipeline = pipeline,
+                                         extractors = extractorFactory))
   file1 <- output[[1]]
 
   testthat::expect_equal(file1$getDate(),"")
