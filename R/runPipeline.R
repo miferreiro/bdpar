@@ -103,5 +103,5 @@ runPipeline = function(path,
   }
 
   bdpar_object <- Bdpar$new()
-  bdpar_object$proccess_files(path, extractors, pipeline)
+  bdpar_object$execute(path, extractors, pipeline)
 }

@@ -43,14 +43,14 @@ Twitter.
 \section{Methods}{
 
 \itemize{
-\item{\bold{proccess_files}:}{
+\item{\bold{execute}:}{
 preprocess files through the indicated flow of pipes.
 \itemize{
 \item{\emph{Usage}:}{
 \preformatted{
-proccess_files(path,
-               extractors = ExtractorFactory$new(),
-               pipeline = GenericPipeline$new())}
+execute(path,
+        extractors = ExtractorFactory$new(),
+        pipeline = GenericPipeline$new())}
 
 }
 \item{\emph{Value}:}{
@@ -96,9 +96,9 @@ pipeline <- DefaultPipeline$new()
 objectBdpar <- Bdpar$new()
 
 #Starting file preprocessing...
-objectBdpar$proccess_files(path = path,
-                           extractors = extractors,
-                           pipeline = pipeline)
+objectBdpar$execute(path = path,
+                    extractors = extractors,
+                    pipeline = pipeline)
 }
 }
 \seealso{

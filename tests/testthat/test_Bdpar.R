@@ -10,10 +10,10 @@ testthat::test_that("Bdpar path type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
-  testthat::expect_error(object$proccess_files(path = path,
+  testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][proccess_files][Error] Checking the type of the 'path' variable: NULL",
+                         "[Bdpar][execute][Error] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -27,10 +27,10 @@ testthat::test_that("Bdpar path does not exists",{
 
   extractorFactory <- ExtractorFactory$new()
 
-  testthat::expect_error(object$proccess_files(path = path,
+  testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][proccess_files][Error] Path parameter must be an existing file or directory",
+                         "[Bdpar][execute][Error] Path parameter must be an existing file or directory",
                          fixed = TRUE)
 })
 
@@ -46,10 +46,10 @@ testthat::test_that("Bdpar pipeline type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
-  testthat::expect_error(object$proccess_files(path = path,
+  testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][proccess_files][Error] Checking the type of the 'pipeline' variable: NULL",
+                         "[Bdpar][execute][Error] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -66,10 +66,10 @@ testthat::test_that("Bdpar extractorFactory type error",{
 
   extractorFactory <- NULL
 
-  testthat::expect_error(object$proccess_files(path = path,
+  testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][proccess_files][Error] Checking the type of the 'extractors' variable: NULL",
+                         "[Bdpar][execute][Error] Checking the type of the 'extractors' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -102,7 +102,7 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
 
   extractorFactory <- ExtractorFactory$new()
 
-  output <- suppressWarnings(object$proccess_files(path = path,
+  output <- suppressWarnings(object$execute(path = path,
                                                    pipeline = pipeline,
                                                    extractors = extractorFactory))
   file1 <- output[[1]]

@@ -55,14 +55,14 @@
 #'
 #' @section Methods:
 #' \itemize{
-#' \item{\bold{proccess_files}:}{
+#' \item{\bold{execute}:}{
 #' preprocess files through the indicated flow of pipes.
 #' \itemize{
 #' \item{\emph{Usage}:}{
 #' \preformatted{
-#' proccess_files(path,
-#'                extractors = ExtractorFactory$new(),
-#'                pipeline = GenericPipeline$new())}
+#' execute(path,
+#'         extractors = ExtractorFactory$new(),
+#'         pipeline = GenericPipeline$new())}
 #'
 #' }
 #' \item{\emph{Value}:}{
@@ -112,9 +112,9 @@
 #' objectBdpar <- Bdpar$new()
 #'
 #' #Starting file preprocessing...
-#' objectBdpar$proccess_files(path = path,
-#'                            extractors = extractors,
-#'                            pipeline = pipeline)
+#' objectBdpar$execute(path = path,
+#'                     extractors = extractors,
+#'                     pipeline = pipeline)
 #' }
 #' @keywords NULL
 #'
@@ -134,24 +134,24 @@ Bdpar <- R6Class(
 
     },
 
-    proccess_files = function(path,
-                              extractors = ExtractorFactory$new(),
-                              pipeline = DefaultPipeline$new()) {
+    execute = function(path,
+                       extractors = ExtractorFactory$new(),
+                       pipeline = DefaultPipeline$new()) {
 
       if (!"character" %in% class(path)) {
-        stop("[Bdpar][proccess_files][Error] ",
+        stop("[Bdpar][execute][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
 
       if (!"ExtractorFactory" %in% class(extractors)) {
-        stop("[Bdpar][proccess_files][Error] ",
+        stop("[Bdpar][execute][Error] ",
              "Checking the type of the 'extractors' variable: ",
              class(extractors))
       }
 
       if (!inherits(pipeline, c("GenericPipeline"))) {
-        stop("[Bdpar][proccess_files][Error] ",
+        stop("[Bdpar][execute][Error] ",
              "Checking the type of the 'pipeline' variable: ",
              class(pipeline))
       }
@@ -166,7 +166,7 @@ Bdpar <- R6Class(
                                               return(p))
           }))
       } else {
-        stop("[Bdpar][proccess_files][Error] Path parameter must be an existing ",
+        stop("[Bdpar][execute][Error] Path parameter must be an existing ",
              "file or directory")
       }
 
@@ -174,7 +174,7 @@ Bdpar <- R6Class(
       #and a list of properties of the file that is in the indicated path
       InstancesList <- sapply(files, extractors$createInstance)
 
-      message("[Bdpar][proccess_files][Info] ", "Has been created: ", length(InstancesList)," instances.")
+      message("[Bdpar][execute][Info] ", "Has been created: ", length(InstancesList)," instances.")
       listInstances <- sapply(InstancesList, pipeline$execute)
 
       return(listInstances)

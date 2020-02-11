@@ -67,9 +67,9 @@ that the user needs to realize their own preprocessing.
 
 ``` r
 bdpar_object <- Bdpar$new() 
-bdpar_object$proccess_files(path,
-                            extractors = ExtractorFactory$new(),
-                            pipeline = DefaultPipeline$new())
+bdpar_object$execute(path,
+                     extractors = ExtractorFactory$new(),
+                     pipeline = DefaultPipeline$new())
 ```
 
 <div style="text-align: justify">
