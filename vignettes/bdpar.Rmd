@@ -70,7 +70,11 @@ Is important to take into account that the type of Instance used is deducted by 
 
 ### How to create a customized input data extractors.
 
+<div style = "text-align: justify">
+
 This example shows how a new type of *Instance* (named *ExtractorTytb*) is be created. In this particular case, *ExtractorTytb* is responsible of extracting textual comments from Youtube files (extension .tytb).
+
+</div>
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
@@ -112,8 +116,11 @@ ExtractorTytb <- R6Class(
 
 ### Enabling a new Instance.
 
+<div style = "text-align: justify">
+
 In order to automatically execute the new *Instance* class (*ExtractorTytb*), is must be registered through *registerExtractor* method of *ExtractorFactory* class. Below is shown an example describing how this extractor is registered.
 
+</div>
 
 ```{R, echo = TRUE, results = "hide",ExtractorTytb}
 library(bdpar)
@@ -123,13 +130,21 @@ extractors$registerExtractor("tytb", ExtractorTytb)
     
 ## Pipe
 
+<div style = "text-align: justify">
+
 A pipe consists of a simple task responsible for generating a new output by applying some transformations over the input data. A set of sequentially interconnected pipes to achieve a required result is called pipeline. Pipes in bdpar are represented as *GenericPipe* class while the pipelining process is defined through *GenericPipeline* abstract class.
 
+</div>
+
 ### Dependencies
+
+<div style = "text-align: justify">
 
 An important feature that has been added to the Pipe concept is the control of the functionalities that go before and after a Pipe, that is, a control of the preprocessing flow. On the one hand, this control allows us to ensure that if a Pipe needs another before, it has already been executed. On the other hand, prevents a Pipe can not be executed later because it interferes with the functionality of a previous Pipe.
 
 This functionality can be customized in each of the pipes that the user uses and/or develops, allowing to decide what to do in the situation in which the dependencies are not respected. Internally, the operator always checks if the Instance satisfies  the dependencies to enter the following pipe.
+
+</div>
 
 ## Pipes available by default
 
@@ -218,7 +233,11 @@ Creates a new property **stopwords**, where the *empty words* that are in the **
 
 ## How to create your customized Pipe
 
+<div style = "text-align: justify">
+
 Additionally, in order to improve the customization capabilities, bdpar allows to easily desing and develop new personalized pipes by implementing the pipe method included in the *GenericPipe* class (inheritance relation). The code included below, exemplified the creation of a simple pipe in charge of removing multiple consecutive spaces from a string.
+
+</div>
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
@@ -272,8 +291,12 @@ RemovesWhiteSpaces <- R6Class(
 
 ## Flow of Pipes (pipelining proccess)
 
+<div style = "text-align: justify">
+
 Flow of pipes is the set of pipes that comprising the whole preprocessing proccess. 
 By default bdpar provides a default pipelining proccess (implemented in *DefaultPipeline*) comprising all the 18 available pipes. 
+
+</div>
 
 ### Flow of Pipes available by default
 
@@ -304,24 +327,28 @@ The code included below shows a pipelining example comprising 18 pipes:
 
 ### Create your own flow of Pipes
 
-Additionally, in order to build a flexible framework, bdpar allows users to define their own (and customized) flow of pipes. To accomplish this task, it is necessary to create a new class that inherits from *GenericPipeline* and implements the *execute()* method. Below is included an example of how a new pipe (called *TestPipe*) is created:
+<div style = "text-align: justify">
 
-```{R, echo = TRUE, results = "hide",RemovesWhiteSpaces}
+Additionally, in order to build a flexible framework, bdpar allows users to define their own (and customized) flow of pipes. To accomplish this task, it is necessary to create a new class that inherits from *GenericPipeline* and implements the *execute()* method. Below is included an example of how a new pipe (called *TestPipeline*) is created:
+
+</div>
+
+```{R, echo = TRUE, results = "hide", RemovesWhiteSpaces}
 library(R6)
 library(bdpar)
-TestPipe <- R6Class(
-  "TestPipe",
-  inherit = TypePipe,
+TestPipeline <- R6Class(
+  "TestPipeline",
+  inherit = GenericPipeline,
   public = list(
     initialize = function() {
     },
     execute = function(instance) {
       if (!"Instance" %in% class(instance)) {
-        stop("[TestPipe][execute][Error] ",
+        stop("[TestPipeline][execute][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
-      message("[TestPipe][execute][Info] ", instance$getPath())
+      message("[TestPipeline][execute][Info] ", instance$getPath())
       tryCatch(
         instance %>|%
           TargetAssigningPipe$new() %>|%
@@ -331,7 +358,7 @@ TestPipe <- R6Class(
           TeeCSVPipe$new()
         ,
         error = function(e) {
-          message("[TestPipe][execute][Error]", instance$getPath(), " :", paste(e))
+          message("[TestPipeline][execute][Error]", instance$getPath(), " :", paste(e))
           instance$invalidate()
         }
       )
@@ -341,7 +368,11 @@ TestPipe <- R6Class(
 )
 ```
 
+<div style = "text-align: justify">
+
 Alternatively, the pre-processing flow can be dynamically constructed through the *DynamicPipeline* class. An example of its use is shown below. To see the rest of the options offered by this method, access the package's help through *help(package = "bdpar")*.
+
+</div>
 
 ```{R, echo = TRUE, results = "hide"}
 library(bdpar)
@@ -352,7 +383,11 @@ pipeline$add(list(TeeCSVPipe$new()), pos = NULL)
 
 ## Operator
 
+<div style = "text-align: justify">
+
 To manage the flow of pipes, there is a new operator called **%>\|%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not. In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*. On the other hand, it facilitates the workflow between pipes because it automatically invokes the *pipe* function of the objects that pass through it. Finally, it should be noted that it also checks whether an *Instance* complies with the requirements to enter the following pipe.
+
+</div>
 
 # bdpar.Options
 
