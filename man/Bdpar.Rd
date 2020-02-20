@@ -10,88 +10,21 @@ Bdpar
 \description{
 \code{Bdpar} class provides the static variables required
 to perform the whole data flow process. To this end \code{Bdpar} is
-in charge of (i) loading the configuration parameters (from configurationsTemplate.ini
-or the user configuration file) and (ii) executing the flow of pipes
-(inherited from \code{\link{TypePipe}} class) passed as argument.
+in charge of (i) initialize the objects of handle the connections to APIs
+(\code{\link{Connections}}) and handles json resources (\code{\link{ResourceHandler}})
+and (ii) executing the flow of pipes (inherited from \code{\link{GenericPipeline}} class)
+passed as argument.
 }
 \section{Constructor}{
 
-\code{Bdpar$new(configurationFilePath = NULL, editConfigurationFile = FALSE)}
-\itemize{
-\item{\emph{Arguments}:}{
-\itemize{
-\item{\strong{configurationFilePath}:}{
-(\emph{character}) path where the configuration file is located. The file
-must have the .ini extension. In the case that the argument is null, the
-default configuration file (configurationsTemplate.ini) will be used.
-}
-\item{\strong{editConfigurationFile}:}{
-(\emph{boolean}) indicates if open an editor to change the configuration
-file or not.
-}
-}
-}
-}
+\code{Bdpar$new()}
 }
 
 \section{Details}{
 
-The configuration file can be indicated by the user or use the default
-configuration file (configurationsTemplate.ini). In addition, once we call
-the \code{Bdpar} constructor, it will be possible to choose if the user
-wants to edit the file of indicated configurations or not.
-
-The \emph{configurationFilePath} file should have the following structure
-(Depends on the Pipes used). Also the configurationsTemplate.ini has this
-structure:
-
-\strong{[twitter]}
-
-ConsumerKey = \emph{<<consumer_key>>}
-
-ConsumerSecret = \emph{<<consumer_secret>>}
-
-AccessToken = \emph{<<access_token>>}
-
-AccessTokenSecret = \emph{<<access_token_secret>>}
-
-\strong{[youtube]}
-
-app_id = \emph{<<app_id>>}
-
-app_password = \emph{<<app_password>>}
-
-\strong{[eml]}
-
-PartSelectedOnMPAlternative = \emph{<<part_selected>>} (text/html or text/plain)
-
-\strong{[resourcesPath]}
-
-resourcesAbbreviationsPath = \emph{<<resources_abbreviations_path>>}
-
-resourcesContractionsPath = \emph{<<resources_contractions_path>>}
-
-resourcesInterjectionsPath = \emph{<<resources_interjections_path>>}
-
-resourcesSlangsPath = \emph{<<resources_slangs_path>>}
-
-resourcesStopWordsPath = \emph{<<resources_stopWords_path>>}
-
-\strong{[CSVPath]}
-
-outPutTeeCSVPipePath = \emph{<<out_put_teeCSVPipe_path>>}
-
-\strong{[cache]}
-
-cachePathTwtid = \emph{<<cache_path_twtid>>}
-
-cachePathYtbid = \emph{<<cache_path_ytbid>>}
-}
-
-\section{Note}{
-
-In the case of choosing to edit the configuration file, the default editor
-will be opened.
+In the case that some pipe, defined on the workflow, needs some type of configuration,
+it can be defined throught \emph{\link{bdpar.Options}} variable
+which have differents methods to support the funcionality of different pipes.
 }
 
 \section{Static variables}{
@@ -101,11 +34,6 @@ will be opened.
 (\emph{Connections}) object that handles the connections with YouTube and
 Twitter.
 }
-\item{\bold{configurationFilePath}:}{
-(\emph{character}) path where the configuration file is located. The file
-must have the .ini extension. In the case that the argument is null, the
-default configuration file (configurationsTemplate.ini) will be used.
-},
 \item{\bold{resourceHandler}:}{
 (\emph{ResourceHandler}) object that handles the json resources files.
 }
@@ -115,14 +43,14 @@ default configuration file (configurationsTemplate.ini) will be used.
 \section{Methods}{
 
 \itemize{
-\item{\bold{proccess_files}:}{
+\item{\bold{execute}:}{
 preprocess files through the indicated flow of pipes.
 \itemize{
 \item{\emph{Usage}:}{
 \preformatted{
-proccess_files(filesPath,
-               pipe = SerialPipe$new(),
-               instanceFactory = InstanceFactory$new())}
+execute(path,
+        extractors = ExtractorFactory$new(),
+        pipeline = GenericPipeline$new())}
 
 }
 \item{\emph{Value}:}{
@@ -130,15 +58,15 @@ list of \code{Instances} that have been preprocessed.
 }
 \item{\emph{Arguments}:}{
 \itemize{
-\item{\strong{filesPath}:}{
+\item{\strong{path}:}{
 (\emph{character}) path where the files to be processed are located.
 }
-\item{\strong{pipe}:}{
-(\emph{TypePipe}) subclass of \code{\link{TypePipe}}, which implements the \code{pipe} method.
-}
-\item{\strong{instanceFactory}:}{
-(\emph{InstanceFactory}) class which implements the method \code{createInstance}
+\item{\strong{extractors}:}{
+(\emph{ExtractorFactory}) class which implements the  \code{createInstance} method
 to choose which type of \code{\link{Instance}} is created.
+}
+\item{\strong{pipeline}:}{
+(\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which implements the \code{execute} method.
 }
 }
 }
@@ -149,30 +77,34 @@ to choose which type of \code{\link{Instance}} is created.
 
 \examples{
 \dontrun{
-#Path where the configuration file are located
-configurationFilePath <- system.file(file.path("examples",
-                                               "configurationsExample.ini"),
-                                     package ="bdpar")
+
+#If it is necessary to indicate any existing configuration key, do it through:
+#bdpar.Options$set(key, value)
+#If the key is not initialized, do it through:
+#bdpar.Options$add(key, value)
 
 #Folder with the files to preprocess
-filesPath <- system.file(file.path("examples",
-                                   "testFiles"),
-                         package = "bdpar")
-
-#Object which indicates the pipes' flow
-pipe <- SerialPipe$new()
+path <- system.file(file.path("example"),
+                    package = "bdpar")
 
 #Object which decides how creates the instances
-instanceFactory <- InstanceFactory$new()
+extractors <- ExtractorFactory$new()
 
-objectBdpar <- Bdpar$new(configurationFilePath)
+#Object which indicates the pipes' flow
+pipeline <- DefaultPipeline$new()
+
+objectBdpar <- Bdpar$new()
 
 #Starting file preprocessing...
-objectBdpar$proccess_files(filesPath, pipe, instanceFactory)
+objectBdpar$execute(path = path,
+                    extractors = extractors,
+                    pipeline = pipeline)
 }
 }
 \seealso{
-\code{\link{Connections}}, \code{\link{Instance}},
-\code{\link{InstanceFactory}}, \code{\link{pipeline_execute}},
-\code{\link{TypePipe}}, \code{\link{SerialPipe}}
+\code{\link{bdpar.Options}}, \code{\link{Connections}},
+         \code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
+         \code{\link{GenericPipeline}},\code{\link{Instance}},
+         \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
+         \code{\link{runPipeline}}
 }

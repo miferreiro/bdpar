@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -36,7 +36,8 @@
 #' \preformatted{
 #' FindHashtagPipe$new(propertyName = "hashtag",
 #'                     alwaysBeforeDeps = list(),
-#'                     notAfterDeps = list())
+#'                     notAfterDeps = list(),
+#'                     removeHashtags = TRUE)
 #' }
 #'
 #' \itemize{
@@ -52,6 +53,9 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{removeHashtag:}}{
+#' (\emph{logical}) indicates if the hashstags are removed.
+#' }
 #' }
 #' }
 #' }
@@ -65,7 +69,7 @@
 #' \code{\link{Instance}} whenever the obtained data is empty.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -74,7 +78,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain/remove the hashtags.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, removeHashtag = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -83,9 +87,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeHashtag:}}{
-#' (\emph{logical}) indicates if the hashstags are removed
 #' }
 #' }
 #' }
@@ -138,13 +139,20 @@
 #' }
 #' }
 #'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{removeHashtags:}}{
+#'  (\emph{logical}) indicates if the hashstags are removed.
+#' }
+#' }
+#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
 #'          \code{\link{FindEmoticonPipe}}, \code{\link{FindUrlPipe}},
 #'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
 #'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
 #'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
 #'          \code{\link{ToLowerCasePipe}}
@@ -158,78 +166,52 @@ FindHashtagPipe <- R6Class(
 
   "FindHashtagPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "hashtag",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("stringr", quietly = TRUE)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Package \"stringr\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+                          notAfterDeps = list(),
+                          removeHashtags = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindHashtagPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(removeHashtags)) {
+        stop("[FindHashtagPipe][initialize][Error] ",
+             "Checking the type of the 'removeHashtags' variable: ",
+             class(removeHashtags))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$removeHashtags <- removeHashtags
     },
 
     hashtagPattern = "(?:\\s|^|[\"><\u00A1\u00BF?!;:,.'-])(#[^[:cntrl:][:space:]!\"#$%&'()*+\\\\,\\/:;<=>?@\\[\\]^`{|}~.-]+)[;:?\"!,.'>-]?(?=(?:\\s|$|>))",
 
-    pipe = function(instance, removeHashtag = TRUE){
+    pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindHashtagPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[FindHashtagPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      if (!"logical" %in% class(removeHashtag)) {
-        stop("[FindHashtagPipe][pipe][Error]
-                Checking the type of the variable: removeHashtag ",
-                  class(removeHashtag))
-      }
-
-      instance$addFlowPipes("FindHashtagPipe")
-
-      if (!instance$checkCompatibility("FindHashtagPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindHashtagPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       instance$getData() %>>%
         self$findHashtag() %>>%
@@ -237,7 +219,7 @@ FindHashtagPipe <- R6Class(
             unlist() %>>%
               {instance$addProperties(.,super$getPropertyName())}
 
-      if (removeHashtag) {
+      if (private$removeHashtags) {
           instance$getData()  %>>%
             self$removeHashtag() %>>%
               textutils::trim() %>>%
@@ -251,7 +233,7 @@ FindHashtagPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindHashtagPipe][pipe][Warning] ", message, " \n")
+        warning("[FindHashtagPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -264,9 +246,9 @@ FindHashtagPipe <- R6Class(
     findHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][findHashtag][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindHashtagPipe][findHashtag][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_match_all(data,
@@ -278,9 +260,9 @@ FindHashtagPipe <- R6Class(
     removeHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][removeHashtag][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindHashtagPipe][removeHashtag][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_replace_all(data,
@@ -288,5 +270,9 @@ FindHashtagPipe <- R6Class(
                                    ignore_case = TRUE,
                                    multiline = TRUE), " "))
     }
+  ),
+
+  private = list(
+    removeHashtags = TRUE
   )
 )

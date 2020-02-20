@@ -20,7 +20,8 @@ interjections removement.
 InterjectionPipe$new(propertyName = "interjection",
                      propertyLanguageName = "language",
                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-                     notAfterDeps = list())
+                     notAfterDeps = list(),
+                     removeInterjections = TRUE)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -38,6 +39,9 @@ one).
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 }
+\item{\strong{removeInterjections:}}{
+(\emph{logical}) indicates if the interjections are removed or not.
+}
 }
 }
 }
@@ -49,12 +53,9 @@ one).
 containing the list of interjections. To this end, the language of the text
 indicated in the \emph{propertyLanguageName} should be contained in the
 resource file name (ie. interj.xxx.json where xxx is the value defined in the
-\emph{propertyLanguageName} ). The location of the resources should defined
-in the \emph{resourcesPath} section of the configuration file.
-
-\strong{[resourcesPath]}
-
-resourcesInterjectionsPath = \emph{<<resources_interjections_path>>}
+\emph{propertyLanguageName} ). The location of the resources should be
+defined in the \strong{"resources.interjections.path"} field of
+\emph{\link{bdpar.Options}} variable.
 }
 
 \section{Note}{
@@ -65,7 +66,7 @@ resourcesInterjectionsPath = \emph{<<resources_interjections_path>>}
 
 \section{Inherit}{
 
-This class inherits from \code{\link{PipeGeneric}} and implements the
+This class inherits from \code{\link{GenericPipe}} and implements the
 \code{pipe} abstract function.
 }
 
@@ -75,12 +76,11 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 \item{\bold{pipe}}{
 Preprocesses the \code{\link{Instance}} to obtain/remove the interjections.
 The interjections found in the Pipe are added to the list of properties of
-the \code{\link{Instance}}. If the \code{removeInterjections} parameter is TRUE,
-the interjections in the data will be removed.
+the \code{\link{Instance}}.
 \itemize{
 \item{\emph{Usage:}}{
 
-\code{pipe(instance, removeInterjections = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -89,9 +89,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{removeInterjections:}}{
-(\emph{logical}) indicates if the interjections are removed or not.
 }
 }
 }
@@ -194,18 +191,22 @@ sets the path of interjections resources.
 \item{\bold{resourcesInterjectionsPath:}}{
  (\emph{character}) the path where are the resources.
 }
+\item{\bold{removeInterjections:}}{
+ (\emph{logical}) indicates if the interjections are removed or not.
+}
 }
 }
 
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-         \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-         \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-         \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-         \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-         \code{\link{Instance}}, \code{\link{MeasureLengthPipe}},
-         \code{\link{PipeGeneric}}, \code{\link{ResourceHandler}},
-         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-         \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-         \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+         \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+         \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+         \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+         \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+         \code{\link{MeasureLengthPipe}}, \code{\link{GenericPipe}},
+         \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
+         \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+         \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+         \code{\link{ToLowerCasePipe}}
 }

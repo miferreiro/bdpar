@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -89,17 +89,10 @@ ExtractorSms <- R6Class(
 
     initialize = function(path) {
 
-      if (!requireNamespace("readr", quietly = TRUE)) {
-        stop("[ExtractorSms][initialize][Error]
-                Package \"readr\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!"character" %in% class(path)) {
-        stop("[ExtractorSms][initialize][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[ExtractorSms][initialize][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
       path %>>%
         super$initialize()

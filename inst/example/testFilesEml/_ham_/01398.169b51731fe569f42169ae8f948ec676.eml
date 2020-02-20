@@ -1,0 +1,56 @@
+From spambayes-bounces@python.org  Tue Nov 26 19:05:40 2002
+Return-Path: <spambayes-bounces@python.org>
+Delivered-To: yyyy@localhost.spamassassin.taint.org
+Received: from localhost (jalapeno [127.0.0.1])
+	by jmason.org (Postfix) with ESMTP id AC79716F7B
+	for <jm@localhost>; Tue, 26 Nov 2002 19:00:15 +0000 (GMT)
+Received: from jalapeno [127.0.0.1]
+	by localhost with IMAP (fetchmail-5.9.0)
+	for jm@localhost (single-drop); Tue, 26 Nov 2002 19:00:15 +0000 (GMT)
+Received: from mail.python.org (mail.python.org [12.155.117.29]) by
+    dogma.slashnull.org (8.11.6/8.11.6) with ESMTP id gAQGDpW10646 for
+    <jm@jmason.org>; Tue, 26 Nov 2002 16:13:51 GMT
+Received: from localhost.localdomain ([127.0.0.1] helo=mail.python.org) by
+    mail.python.org with esmtp (Exim 4.05) id 18GiMq-00055L-00; Tue,
+    26 Nov 2002 11:15:20 -0500
+Received: from [63.100.190.10] (helo=smtp.zope.com) by mail.python.org
+    with esmtp (Exim 4.05) id 18GiMl-00054Z-00 for spambayes@python.org;
+    Tue, 26 Nov 2002 11:15:15 -0500
+Received: from slothrop.zope.com ([208.251.201.42]) by smtp.zope.com
+    (8.12.5/8.12.5) with ESMTP id gAQGSu7C010012; Tue, 26 Nov 2002 11:28:58
+    -0500
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
+Message-Id: <15843.40441.659922.991160@slothrop.zope.com>
+Date: Tue, 26 Nov 2002 11:14:49 -0500
+From: jeremy@alum.mit.edu (Jeremy Hylton)
+To: skip@pobox.com
+Subject: Re: [Spambayes] Guidance re pickles versus DB for Outlook
+In-Reply-To: <15843.39397.770235.412408@montanaro.dyndns.org>
+References: <LCEPIIGDJPKCOIHOBJEPGEGPHOAA.mhammond@skippinet.com.au>
+    <KFDCKI53GFCALK829664VTA5074OJYX.3de2d94d@riven>
+    <15842.62697.829412.348546@slothrop.zope.com>
+    <15843.39397.770235.412408@montanaro.dyndns.org>
+X-Mailer: VM 7.00 under 21.4 (patch 6) "Common Lisp" XEmacs Lucid
+X-Mailscanner: Found to be clean
+Cc: Spambayes <spambayes@python.org>
+X-Beenthere: spambayes@python.org
+X-Mailman-Version: 2.1b5
+Precedence: list
+Reply-To: Jeremy Hylton <jeremy@alum.mit.edu>
+List-Id: Discussion list for Pythonic Bayesian classifier <spambayes.python.org>
+List-Help: <mailto:spambayes-request@python.org?subject=help>
+List-Post: <mailto:spambayes@python.org>
+List-Subscribe: <http://mail.python.org/mailman/listinfo/spambayes>,
+    <mailto:spambayes-request@python.org?subject=subscribe>
+List-Archive: <http://mail.python.org/pipermail/spambayes>
+List-Unsubscribe: <http://mail.python.org/mailman/listinfo/spambayes>,
+    <mailto:spambayes-request@python.org?subject=unsubscribe>
+Sender: spambayes-bounces@python.org
+Errors-To: spambayes-bounces@python.org
+
+Many people today are becoming obese because the average college student gets fast food two times a week. This is good for the fast food companies but not for the college students. When you do not eat healthy food, you will become unhealthy and inactive. Some of the main effects of not eating healthy are being obese, feeling tired all the time, having weak bones and/or muscles, and loosing weight.
+             Being obese is hard for some people to handle because it makes them feel that they are the center of attention. I know two people that are obese and I know some of the problems they deal with. They have shortness of breath, heart problems, weak joints, and not being able to walk a short distance. My dad is obese and I am familiar all the problems that he is going through. I was headed in that direction I started to eat healthy and now I am happy with the weight I am at. I also know a friend that was obese and now is not because he is eating healthy and exercising. The biggest solution to this problem is to eat healthy.
+             When you do not eat, healthy your body is nor getting the nutrients, that it needs to run which leaves you feeling sleepy. When you are feeling tried you will not have the energy to exercise which will lead you to obese. When you are feeling tried and you do not feel like exercising you should grab some veggies and walk outside so your skin will soak up the vitamin C.
+             Another problem of not eating healthy you will get weak bones and/or muscles. Many people deal with this problem. Some people can fall, break their fall with their hands, and still break their foot. When I was not eating healthy, I was the weakest girl in the home when I was usually the strongest. When I saw this, I was scared because I thought I was sick and going to die. 

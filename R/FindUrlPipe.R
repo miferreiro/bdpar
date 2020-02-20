@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -36,7 +36,10 @@
 #' \preformatted{
 #' FindUrlPipe$new(propertyName = "URLs",
 #'                 alwaysBeforeDeps = list(),
-#'                 notAfterDeps = list())
+#'                 notAfterDeps = list(),
+#'                 removeUrls = TRUE,
+#'                 URLPatterns = list(self$URLPattern, self$EmailPattern),
+#'                 namesURLPatterns = list("UrlPattern","EmailPattern"))
 #' }
 #'
 #' \itemize{
@@ -52,6 +55,15 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{removeUrls:}}{
+#' (\emph{logical}) indicates if the URLs are removed.
+#' }
+#' \item{\strong{URLPatterns:}}{
+#' (\emph{list}) the regex to find URLs.
+#' }
+#' \item{\strong{namesURLPatterns:}}{
+#' (\emph{list}) the names of regex.
+#' }
 #' }
 #' }
 #' }
@@ -65,7 +77,7 @@
 #' \code{\link{Instance}} whenever the obtained data is empty.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -76,10 +88,7 @@
 #' \item{\emph{Usage:}}{
 #'
 #' \preformatted{
-#' pipe(instance,
-#'      removeUrl = TRUE,
-#'      URLPatterns = list(self$URLPattern, self$EmailPattern),
-#'      namesURLPatterns = list("UrlPattern","EmailPattern"))}
+#' pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #'
@@ -89,15 +98,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeUrl:}}{
-#' (\emph{logical}) indicates if the URLs are removed.
-#' }
-#' \item{\strong{URLPatterns:}}{
-#' (\emph{list}) the regex to find URLs.
-#' }
-#' \item{\strong{namesURLPatterns:}}{
-#' (\emph{list}) the names of regex.
 #' }
 #' }
 #' }
@@ -226,6 +226,9 @@
 #' \item{\bold{namesURLPatterns:}}{
 #'  (\emph{list}) names of regular expressions that are used to identify URLs.
 #' }
+#' \item{\bold{removeUrls:}}{
+#'  (\emph{logical}) indicates if the URLs are removed.
+#' }
 #' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
@@ -234,7 +237,7 @@
 #'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
 #'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
 #'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
 #'          \code{\link{ToLowerCasePipe}}
@@ -248,98 +251,71 @@ FindUrlPipe <- R6Class(
 
   "FindUrlPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "URLs",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list("FindUrlPipe")) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[FindUrlPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[FindUrlPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("stringr", quietly = TRUE)) {
-        stop("[FindUrlPipe][initialize][Error]
-                Package \"stringr\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+                          notAfterDeps = list("FindUrlPipe"),
+                          removeUrls = TRUE,
+                          URLPatterns = list(self$URLPattern, self$EmailPattern),
+                          namesURLPatterns = list("UrlPattern","EmailPattern")) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindUrlPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[FindUrlPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindUrlPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[FindUrlPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindUrlPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[FindUrlPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(removeUrls)) {
+        stop("[FindUrlPipe][initialize][Error] ",
+             "Checking the type of the 'removeUrls' variable: ",
+             class(removeUrls))
+      }
+
+      if (!"list" %in% class(URLPatterns)) {
+        stop("[FindUrlPipe][initialize][Error] ",
+             "Checking the type of the 'URLPatterns' variable: ",
+             class(URLPatterns))
+      }
+
+      if (!"list" %in% class(namesURLPatterns)) {
+        stop("[FindUrlPipe][initialize][Error] ",
+             "Checking the type of the 'namesURLPatterns' variable: ",
+             class(namesURLPatterns))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+      private$removeUrls <- removeUrls
+      private$URLPatterns <- URLPatterns
+      private$namesURLPatterns <- namesURLPatterns
     },
 
     URLPattern = "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:(?:[[:alnum:]]+:(?:\\/{1,2}))|\\/{0,2}www\\.)(?:[\\w-]+(?:(?:\\.[\\w-]+)*))(?:(?:[\\w~?=-][.;,@?^=%&:\\/~+#-]?)*)[\\w@?^=%&\\/~+#,;!:<\\\\\"?-]?(?=(?:[<\\\\,;!\"?\\)]|\\s|$)))",
 
     EmailPattern = "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:[\\w_.\u00E7\u00F1+-]+)(?:@|\\(at\\)|<at>)(?:(?:\\w[\\\\.:\u00F1-]?)*)[[:alnum:]\u00F1](?:\\.[a-zA-Z]{2,4}))[;:?\"!,.'>\\)]?(?=(?:\\s|$|>|\\.|,))",
 
-    pipe = function(instance,
-                    removeUrl = TRUE,
-                    URLPatterns = list(self$URLPattern, self$EmailPattern),
-                    namesURLPatterns = list("UrlPattern","EmailPattern")) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindUrlPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[FindUrlPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      if (!"logical" %in% class(removeUrl)) {
-        stop("[FindUrlPipe][pipe][Error]
-                Checking the type of the variable: removeUrl ",
-                  class(removeUrl))
-      }
-
-      if (!"list" %in% class(URLPatterns)) {
-        stop("[FindUrlPipe][pipe][Error]
-                Checking the type of the variable: URLPatterns ",
-                  class(URLPatterns))
-      }
-
-      if (!"list" %in% class(namesURLPatterns)) {
-        stop("[FindUrlPipe][pipe][Error]
-                 Checking the type of the variable: namesURLPatterns ",
-                   class(namesURLPatterns))
-      }
-
-      instance$addFlowPipes("FindUrlPipe")
-
-      if (!instance$checkCompatibility("FindEmojiInStringBufferPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindUrlPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
-
-      private$URLPatterns <- URLPatterns
-      private$namesURLPatterns <- namesURLPatterns
 
       instance$getData() %>>%
         {lapply(private$URLPatterns, self$findUrl,.)} %>>%
@@ -347,7 +323,7 @@ FindUrlPipe <- R6Class(
             unlist() %>>%
               {instance$addProperties(.,super$getPropertyName())}
 
-      if (removeUrl) {
+      if (private$removeUrls) {
         for (pattern in self$getURLPatterns()) {
           instance$getData() %>>%
             {self$removeUrl(pattern,.)} %>>%
@@ -364,7 +340,7 @@ FindUrlPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindUrlPipe][pipe][Warning] ", message, " \n")
+        warning("[FindUrlPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -377,15 +353,15 @@ FindUrlPipe <- R6Class(
     findUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[FindUrlPipe][findUrl][Error]
-                Checking the type of the variable: pattern ",
-                  class(pattern))
+        stop("[FindUrlPipe][findUrl][Error] ",
+             "Checking the type of the 'pattern' variable: ",
+             class(pattern))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[FindUrlPipe][findUrl][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindUrlPipe][findUrl][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_match_all(data,
@@ -397,15 +373,15 @@ FindUrlPipe <- R6Class(
     removeUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[FindUrlPipe][removeUrl][Error]
-                Checking the type of the variable: pattern ",
-                  class(pattern))
+        stop("[FindUrlPipe][removeUrl][Error] ",
+             "Checking the type of the 'pattern' variable: ",
+             class(pattern))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[FindUrlPipe][removeUrl][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindUrlPipe][removeUrl][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_replace_all(data,
@@ -418,9 +394,9 @@ FindUrlPipe <- R6Class(
     putNamesURLPattern = function(resultOfURLPatterns) {
 
       if (!"list" %in% class(resultOfURLPatterns)) {
-        stop("[FindUrlPipe][putNamesURLPattern][Error]
-                Checking the type of the variable: resultOfURLPatterns ",
-                  class(resultOfURLPatterns))
+        stop("[FindUrlPipe][putNamesURLPattern][Error] ",
+             "Checking the type of the 'resultOfURLPatterns' variable: ",
+             class(resultOfURLPatterns))
       }
 
       names(resultOfURLPatterns) <- self$getNamesURLPatterns()
@@ -436,9 +412,9 @@ FindUrlPipe <- R6Class(
     setURLPatterns = function(URLPatterns) {
 
       if (!"list" %in% class(URLPatterns)) {
-        stop("[FindUrlPipe][setURLPatterns][Error]
-                Checking the type of the variable: URLPatterns ",
-                  class(URLPatterns))
+        stop("[FindUrlPipe][setURLPatterns][Error] ",
+             "Checking the type of the 'URLPatterns' variable: ",
+             class(URLPatterns))
       }
 
       private$URLPatterns <- URLPatterns
@@ -454,9 +430,9 @@ FindUrlPipe <- R6Class(
     setNamesURLPatterns = function(namesURLPatterns) {
 
       if (!"list" %in% class(namesURLPatterns)) {
-        stop("[FindUrlPipe][setNamesURLPatterns][Error]
-                Checking the type of the variable: namesURLPatterns ",
-                  class(namesURLPatterns))
+        stop("[FindUrlPipe][setNamesURLPatterns][Error] ",
+             "Checking the type of the 'namesURLPatterns' variable: ",
+             class(namesURLPatterns))
       }
 
       private$namesURLPatterns <- namesURLPatterns
@@ -467,6 +443,7 @@ FindUrlPipe <- R6Class(
 
   private = list(
     URLPatterns = list(),
-    namesURLPatterns = list()
+    namesURLPatterns = list(),
+    removeUrls = TRUE
   )
 )

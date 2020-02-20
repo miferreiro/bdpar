@@ -1,83 +1,101 @@
-context("FindUserNamePipe")
+testthat::context("FindUserNamePipe")
 
-test_that("initialize",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeUser <- TRUE
 
-  expect_silent(FindUserNamePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps))
+  testthat::expect_silent(FindUserNamePipe$new(propertyName,
+                                               alwaysBeforeDeps,
+                                               notAfterDeps,
+                                               removeUser))
 })
 
-test_that("initialize propertyName type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize propertyName type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeUser <- TRUE
 
-  expect_error(FindUserNamePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[FindUserNamePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  testthat::expect_error(FindUserNamePipe$new(propertyName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeUser),
+                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize alwaysBeforeDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  removeUser <- TRUE
 
-  expect_error(FindUserNamePipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[FindUserNamePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  testthat::expect_error(FindUserNamePipe$new(propertyName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeUser),
+                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize notAfterDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
-
-  expect_error(FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindUserNamePipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
-
-})
-
-test_that("pipe removeUser <- TRUE",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "userName"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testUserNamePipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$setData("Hey I am @example")
   removeUser <- TRUE
-  instance <- pipe$pipe(instance, removeUser)
-  expect_equal(instance$getSpecificProperty("userName"),"@example")
-  expect_equal(instance$getData(),"Hey I am")
 
+  testthat::expect_error(FindUserNamePipe$new(propertyName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeUser),
+                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe removeUser <- FALSE",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize removeUser type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeUser <- NULL
+
+  testthat::expect_error(FindUserNamePipe$new(propertyName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeUser),
+                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'removeUser' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::test_that("pipe removeUser <- TRUE",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
+  propertyName <- "userName"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeUser <- TRUE
+
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   path <- file.path("testFiles",
                     "testUserNamePipe",
@@ -85,79 +103,72 @@ test_that("pipe removeUser <- FALSE",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am @example")
+  instance <- pipe$pipe(instance)
+  testthat::expect_equal(instance$getSpecificProperty("userName"),
+                         "@example")
+  testthat::expect_equal(instance$getData(),
+                         "Hey I am")
+})
+
+testthat::test_that("pipe removeUser <- FALSE",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
+  propertyName <- "userName"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
   removeUser <- FALSE
-  instance <- pipe$pipe(instance, removeUser)
-  expect_equal(instance$getSpecificProperty("userName"),"@example")
-  expect_equal(instance$getData(),"Hey I am @example")
 
-})
-
-test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "userName"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   path <- file.path("testFiles",
                     "testUserNamePipe",
                     "testFile.tsms")
 
   instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
   instance$setData("Hey I am @example")
-  removeUser <- TRUE
-  expect_error(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
-
+  instance <- pipe$pipe(instance)
+  testthat::expect_equal(instance$getSpecificProperty("userName"),
+                         "@example")
+  testthat::expect_equal(instance$getData(),
+                         "Hey I am @example")
 })
 
-test_that("pipe instance type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("pipe instance type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeUser <- TRUE
+
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   instance <- NULL
+  testthat::expect_error(pipe$pipe(instance),
+                         "[FindUserNamePipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::test_that("pipe empty data",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
+  propertyName <- "userName"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
   removeUser <- TRUE
-  expect_error(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
-})
-
-test_that("pipe removeUser type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "userName"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testUserNamePipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$setData("Hey I am @example")
-  removeUser <- NULL
-  expect_error(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Error\\]
-                  Checking the type of the variable: removeUser NULL")
-
-})
-
-test_that("pipe empty data",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "userName"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   path <- file.path("testFiles",
                     "testFindUserNamePipe",
@@ -165,71 +176,91 @@ test_that("pipe empty data",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("@example")
+  expect_warning(pipe$pipe(instance),
+                 "\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUserNamePipe\\/testFile\\.tsms has data empty on pipe UserName")
+  testthat::expect_equal(instance$getSpecificProperty("userName"),
+                         "@example")
+  testthat::expect_equal(instance$getData(),
+                         "")
+})
+
+testthat::test_that("findUserName",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
+  propertyName <- "userName"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
   removeUser <- TRUE
-  expect_warning(pipe$pipe(instance, removeUser),"\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUserNamePipe\\/testFile\\.tsms has data empty on pipe UserName ")
-  expect_equal(instance$getSpecificProperty("userName"),"@example")
-  expect_equal(instance$getData(),"")
-
-})
-
-test_that("findUserName",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "userName"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   data <- "@example"
 
-  expect_equal(pipe$findUserName(data),"@example")
-
+  testthat::expect_equal(pipe$findUserName(data),
+                         "@example")
 })
 
-test_that("findUserName data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("findUserName data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeUser <- TRUE
+
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   data <- NULL
 
-  expect_error(pipe$findUserName(data),"\\[FindUserNamePipe\\]\\[findUserName\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
-
+  testthat::expect_error(pipe$findUserName(data),
+                         "[FindUserNamePipe][findUserName][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("removeUserName",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("removeUserName",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeUser <- TRUE
+
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   data <- "@example"
 
-  expect_equal(pipe$removeUserName(data)," ")
-
+  testthat::expect_equal(pipe$removeUserName(data),
+                         " ")
 })
 
-test_that("removeUserName data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("removeUserName data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindUserNamePipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeUser <- TRUE
+
+  pipe <- FindUserNamePipe$new(propertyName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeUser)
 
   data <- NULL
 
-  expect_error(pipe$removeUserName(data),"\\[FindUserNamePipe\\]\\[removeUserName\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
-
+  testthat::expect_error(pipe$removeUserName(data),
+                         "[FindUserNamePipe][removeUserName][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })

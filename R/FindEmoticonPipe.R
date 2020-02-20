@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -36,7 +36,8 @@
 #' \preformatted{
 #' FindEmoticonPipe$new(propertyName = "emoticon",
 #'                      alwaysBeforeDeps = list(),
-#'                      notAfterDeps = list("FindHashtagPipe"))
+#'                      notAfterDeps = list("FindHashtagPipe"),
+#'                      removeEmoticons = TRUE)
 #' }
 #'
 #' \itemize{
@@ -52,6 +53,9 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{removeEmoticons:}}{
+#' (\emph{logical}) indicates if the emoticons are replaced.
+#' }
 #' }
 #' }
 #' }
@@ -65,7 +69,7 @@
 #' \code{\link{Instance}} whenever the obtained data is empty.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -74,7 +78,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain/remove the emoticons.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, removeEmoticon = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -83,9 +87,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeEmoticon:}}{
-#' (\emph{logical}) indicates if the emoticons are replaced.
 #' }
 #' }
 #' }
@@ -138,13 +139,20 @@
 #' }
 #' }
 #'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{removeEmoticons:}}{
+#'  (\emph{logical}) indicates if the emoticons are replaced.
+#' }
+#' }
+#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
 #'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
 #'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
 #'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
 #'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
 #'          \code{\link{ToLowerCasePipe}}
@@ -158,79 +166,52 @@ FindEmoticonPipe <- R6Class(
 
   "FindEmoticonPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "emoticon",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list("FindHashtagPipe")) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[FindEmoticonPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[FindEmoticonPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("stringr", quietly = TRUE)) {
-        stop("[FindEmoticonPipe][initialize][Error]
-                Package \"stringr\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+                          notAfterDeps = list("FindHashtagPipe"),
+                          removeEmoticons = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindEmoticonPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[FindEmoticonPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindEmoticonPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[FindEmoticonPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindEmoticonPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[FindEmoticonPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(removeEmoticons)) {
+        stop("[FindEmoticonPipe][initialize][Error] ",
+             "Checking the type of the 'removeEmoticons' variable: ",
+             class(removeEmoticons))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
-
+      private$removeEmoticons <- removeEmoticons
     },
 
     emoticonPattern = '(\\:\\w+\\:|\\<[\\/\\\\]?3|[\\(\\)\\\\\\D|\\*\\$][\\-\\^]?[\\:\\;\\=]|[\\:\\;\\=B8][\\-\\^]?[3DOPp\\@\\$\\*\\\\\\)\\(\\/\\|])(?=\\s|[\\!\\.\\?\\:\\w<>]|$)',
 
-    pipe = function(instance, removeEmoticon = TRUE){
+    pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindEmoticonPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[FindEmoticonPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      if (!"logical" %in% class(removeEmoticon)) {
-        stop("[FindEmoticonPipe][pipe][Error]
-                Checking the type of the variable: removeEmoticon ",
-                  class(removeEmoticon))
-      }
-
-      instance$addFlowPipes("FindEmoticonPipe")
-
-      if (!instance$checkCompatibility("FindEmojiInStringBufferPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindEmoticonPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       instance$getData() %>>%
         self$findEmoticon() %>>%
@@ -238,7 +219,7 @@ FindEmoticonPipe <- R6Class(
             unlist() %>>%
               {instance$addProperties(.,super$getPropertyName())}
 
-      if (removeEmoticon) {
+      if (private$removeEmoticons) {
           instance$getData()  %>>%
             self$removeEmoticon() %>>%
               textutils::trim() %>>%
@@ -253,7 +234,7 @@ FindEmoticonPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindEmoticonPipe][pipe][Warning] ", message, " \n")
+        warning("[FindEmoticonPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -266,9 +247,9 @@ FindEmoticonPipe <- R6Class(
     findEmoticon = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmoticonPipe][findEmoticon][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindEmoticonPipe][findEmoticon][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_match_all(data,
@@ -280,9 +261,9 @@ FindEmoticonPipe <- R6Class(
     removeEmoticon = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmoticonPipe][removeEmoticon][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindEmoticonPipe][removeEmoticon][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(stringr::str_replace_all(data,
@@ -290,5 +271,9 @@ FindEmoticonPipe <- R6Class(
                                    ignore_case = TRUE,
                                    multiline = TRUE), " "))
     }
+  ),
+
+  private = list(
+    removeEmoticons = TRUE
   )
 )

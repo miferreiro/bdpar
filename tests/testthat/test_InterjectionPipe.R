@@ -1,88 +1,262 @@
-context("InterjectionPipe")
+testthat::context("InterjectionPipe")
 
-test_that("initialize",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
-  expect_silent(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  testthat::expect_silent(InterjectionPipe$new(propertyName,
+                                               propertyLanguageName,
+                                               alwaysBeforeDeps,
+                                               notAfterDeps,
+                                               removeInterjections,
+                                               resourcesInterjectionsPath))
+
+  resourcesInterjectionsPath <- path
+
+  testthat::expect_silent(InterjectionPipe$new(propertyName,
+                                               propertyLanguageName,
+                                               alwaysBeforeDeps,
+                                               notAfterDeps,
+                                               removeInterjections,
+                                               resourcesInterjectionsPath))
 })
 
-test_that("initialize propertyName type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize propertyName type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  testthat::expect_error(InterjectionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeInterjections,
+                                              resourcesInterjectionsPath),
+                         "[InterjectionPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize propertyLanguageName type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize propertyLanguageName type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyLanguageName NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  testthat::expect_error(InterjectionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeInterjections,
+                                              resourcesInterjectionsPath),
+                         "[InterjectionPipe][initialize][Error] Checking the type of the 'propertyLanguageName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize alwaysBeforeDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  testthat::expect_error(InterjectionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeInterjections,
+                                              resourcesInterjectionsPath),
+                         "[InterjectionPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize notAfterDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  expect_error(InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[InterjectionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  testthat::expect_error(InterjectionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeInterjections,
+                                              resourcesInterjectionsPath),
+                         "[InterjectionPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize removeInterjections type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- NULL
+  resourcesInterjectionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  testthat::expect_error(InterjectionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeInterjections,
+                                              resourcesInterjectionsPath),
+                         "[InterjectionPipe][initialize][Error] Checking the type of the 'removeInterjections' variable: NULL",
+                         fixed = TRUE)
+})
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize resourcesInterjectionsPath type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "interjection"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = NULL)
+
+  testthat::expect_error(InterjectionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeInterjections,
+                                              resourcesInterjectionsPath),
+                         "[InterjectionPipe][initialize][Error] Path of interjections resources is neither defined in initialize or in bdpar.Options",
+                         fixed = TRUE)
+
+  resourcesInterjectionsPath <- 1
+
+  testthat::expect_error(InterjectionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeInterjections,
+                                              resourcesInterjectionsPath),
+                         "[InterjectionPipe][initialize][Error] Checking the type of the 'resourcesInterjectionsPath' variable: numeric",
+                         fixed = TRUE)
+})
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "interjection"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -91,33 +265,40 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
   instance$addProperties("en","language")
+
+  pipe$pipe(instance)
+  testthat::expect_equal(instance$getSpecificProperty("interjection"), c("yeah", "like"))
+})
+
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe data empty",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "interjection"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
   removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
   path <- file.path("resourcesFiles",
                     "testResources",
                     "interjections-json")
 
-  pipe$setResourcesInterjectionsPath(path)
-  instance <- pipe$pipe(instance, removeInterjections)
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
 
-  expect_equal(instance$getSpecificProperty("interjection"),c("yeah","like"))
+  Bdpar$new()
 
-})
-
-test_that("pipe data empty",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "interjection"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
-
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -126,32 +307,40 @@ test_that("pipe data empty",{
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
-  removeInterjections <- TRUE
 
-  path <- file.path("resourcesFiles",
-                    "testResources",
-                    "interjections-json")
-
-  pipe$setResourcesInterjectionsPath(path)
-
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has data empty on pipe Interjection ")
-
+  testthat::expect_warning(pipe$pipe(instance),
+                           "\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has data empty on pipe Interjection")
 })
 
-test_that("pipe wihtout json file",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe wihtout json file",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-wrong")
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -160,26 +349,40 @@ test_that("pipe wihtout json file",{
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
   instance$addProperties("en","language")
-  removeInterjections <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en ")
-
+  testthat::expect_warning(pipe$pipe(instance),
+                           "\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en")
 })
 
-test_that("pipe wihtout language property",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe wihtout language property",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   path <- file.path("testFiles",
                     "testInterjectionPipe",
@@ -187,283 +390,429 @@ test_that("pipe wihtout language property",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("yeah I like it")
-  removeInterjections <- TRUE
 
-  expect_warning(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not language property")
-
+  testthat::expect_warning(pipe$pipe(instance),
+                           "\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not language property")
 })
 
-test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "interjection"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
-
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testInterjectionPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("yeah I like it")
-  removeInterjections <- TRUE
-  expect_error(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
-
-})
-
-test_that("pipe instance type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::test_that("pipe instance type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   instance <- NULL
+
+  testthat::expect_error(pipe$pipe(instance),
+                         "[InterjectionPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("findInterjection",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "interjection"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
   removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  expect_error(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
-})
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
 
-test_that("pipe removeInterjections type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "interjection"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
+  Bdpar$new()
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
-
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testInterjectionPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$setData("yeah I like it")
-  removeInterjections <- NULL
-  expect_error(pipe$pipe(instance, removeInterjections),"\\[InterjectionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: removeInterjections NULL")
-
-})
-
-test_that("findInterjection",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "interjection"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   interjection <- "yeah"
   data <- "yeah I like it"
 
-  expect_equal(pipe$findInterjection(data, interjection), TRUE)
-
+  testthat::expect_equal(pipe$findInterjection(data,
+                                               interjection),
+                         TRUE)
 })
 
-test_that("findInterjection interjection type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("findInterjection interjection type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   interjection <- NULL
   data <- "yeah I like it"
 
-  expect_error(pipe$findInterjection(data, interjection),"\\[InterjectionPipe\\]\\[findInterjection]\\[Error\\]
-                Checking the type of the variable: interjection NULL")
+  testthat::expect_error(pipe$findInterjection(data,
+                                               interjection),
+                         "[InterjectionPipe][findInterjection][Error] Checking the type of the 'interjection' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("findInterjection data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("findInterjection data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   interjection <- "yeah"
   data <- NULL
 
-  expect_error(pipe$findInterjection(data, interjection),"\\[InterjectionPipe\\]\\[findInterjection\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
+  testthat::expect_error(pipe$findInterjection(data,
+                                               interjection),
+                         "[InterjectionPipe][findInterjection][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("removeInterjection ",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("removeInterjection ",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   interjection <- "yeah"
   data <- "yeah I like it"
 
-  expect_equal(pipe$removeInterjection(interjection, data)," I like it")
-
+  testthat::expect_equal(pipe$removeInterjection(interjection,
+                                                 data),
+                         " I like it")
 })
 
-test_that("removeInterjection abbreviation type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("removeInterjection abbreviation type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   interjection <- NULL
   data <- "yeah I like it"
 
-  expect_error(pipe$removeInterjection(interjection, data),"\\[InterjectionPipe\\]\\[removeInterjection\\]\\[Error\\]
-                Checking the type of the variable: interjection NULL")
-
+  testthat::expect_error(pipe$removeInterjection(interjection,
+                                                 data),
+                         "[InterjectionPipe][removeInterjection][Error] Checking the type of the 'interjection' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("removeInterjection data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("removeInterjection data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   interjection <- "yeah"
   data <- NULL
 
-  expect_error(pipe$removeInterjection(interjection, data),"\\[InterjectionPipe\\]\\[removeInterjection\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
-
+  testthat::expect_error(pipe$removeInterjection(interjection,
+                                                 data),
+                         "[InterjectionPipe][removeInterjection][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("getPropertyLanguageName",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("getPropertyLanguageName",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
-
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  expect_equal(pipe$getPropertyLanguageName(), "language")
-
-})
-
-test_that("getResourcesInterjectionsPath",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "interjection"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
-
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
   path <- file.path("resourcesFiles",
                     "testResources",
-                    "interjections-json",
-                    "interj.en.json")
+                    "interjections-json")
 
-  pipe$setResourcesInterjectionsPath(path)
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
 
-  expect_equal(pipe$getResourcesInterjectionsPath(), path)
+  Bdpar$new()
 
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
+
+  testthat::expect_equal(pipe$getPropertyLanguageName(),
+                         "language")
 })
 
-test_that("setResourcesInterjectionsPath",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("getResourcesInterjectionsPath",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
-
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
   path <- file.path("resourcesFiles",
                     "testResources",
-                    "interjections-json",
-                    "interj.en.json")
+                    "interjections-json")
 
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
   pipe$setResourcesInterjectionsPath(path)
 
-  expect_equal(pipe$getResourcesInterjectionsPath(), path)
-
+  testthat::expect_equal(pipe$getResourcesInterjectionsPath(),
+                         path)
 })
 
-test_that("setResourcesInterjectionsPath path type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("setResourcesInterjectionsPath",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testInterjectionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
 
-  pipe <- InterjectionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  pipe$setResourcesInterjectionsPath(path)
+
+  testthat::expect_equal(pipe$getResourcesInterjectionsPath(),
+                         path)
+})
+
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("setResourcesInterjectionsPath path type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "interjection"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeInterjections <- TRUE
+  resourcesInterjectionsPath <- NULL
+
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "interjections-json")
+
+  bdpar.Options$set(key = "resources.interjections.path",
+                    value = path)
+
+  Bdpar$new()
+
+  pipe <- InterjectionPipe$new(propertyName,
+                               propertyLanguageName,
+                               alwaysBeforeDeps,
+                               notAfterDeps,
+                               removeInterjections,
+                               resourcesInterjectionsPath)
 
   path <- NULL
 
-  expect_error(pipe$setResourcesInterjectionsPath(path),"\\[InterjectionPipe\\]\\[setResourcesInterjectionsPath\\]\\[Error\\]
-                Checking the type of the variable: path NULL")
-
+  testthat::expect_error(pipe$setResourcesInterjectionsPath(path),
+                         "[InterjectionPipe][setResourcesInterjectionsPath][Error] Checking the type of the 'path' variable: NULL",
+                         fixed = TRUE)
 })
+
+testthat::teardown(bdpar.Options$reset())

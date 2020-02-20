@@ -18,7 +18,8 @@ Optionally, it is possible to choose the language provided by Twitter.
 GuessLanguagePipe$new(propertyName = "language",
                       alwaysBeforeDeps = list("StoreFileExtPipe",
                                               "TargetAssigningPipe"),
-                      notAfterDeps = list())
+                      notAfterDeps = list(),
+                      languageTwitter = TRUE)
 }
 \itemize{
 \item{\emph{Arguments:}}{
@@ -33,6 +34,10 @@ one).
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 }
+\item{\strong{languageTwitter:}}{
+(\emph{logical}) indicates whether for the Instances of type twtid the language that
+returns the api is obtained or the detector is applied.
+}
 }
 }
 }
@@ -41,7 +46,10 @@ one).
 \section{Details}{
 
 To obtain the language of the tweets, it will be verified that there is a
-json file with the information stored in memory.
+json file with the information stored in memory. On the other hand, it is
+necessary define the \strong{"cache.twitter.path"} field of
+\emph{\link{bdpar.Options}} variable to know where the
+information of tweets are saved.
 }
 
 \section{Note}{
@@ -52,7 +60,7 @@ can not be detect.
 
 \section{Inherit}{
 
-This class inherits from \code{\link{PipeGeneric}} and implements the
+This class inherits from \code{\link{GenericPipe}} and implements the
 \code{pipe} abstract function.
 }
 
@@ -63,7 +71,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain the language of the data.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, languageTwitter = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -72,10 +80,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{languageTwitter:}}{
-(\emph{logical}) indicates whether for the Instances of type twtid the language that
-returns the api is obtained or the detector is applied.
 }
 }
 }
@@ -103,15 +107,25 @@ the language guesser. Format: see ISO 639-3:2007.
 }
 }
 
+\section{Private fields}{
+
+\itemize{
+\item{\bold{languageTwitter:}}{
+(\emph{logical}) indicates whether for the Instances of type twtid the language that
+returns the api is obtained or the detector is applied.
+}
+}
+}
+
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-         \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-         \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-         \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-         \code{\link{GuessDatePipe}}, \code{\link{Instance}},
-         \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-         \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
-         \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
-         \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
-         \code{\link{ToLowerCasePipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+         \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+         \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+         \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+         \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+         \code{\link{Instance}}, \code{\link{InterjectionPipe}},
+         \code{\link{MeasureLengthPipe}}, \code{\link{GenericPipe}},
+         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+         \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
+         \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
 }

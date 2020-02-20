@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -36,7 +36,8 @@
 #' \preformatted{
 #' FindEmojiPipe$new(propertyName = "emoji",
 #'                   alwaysBeforeDeps = list(),
-#'                   notAfterDeps = list())
+#'                   notAfterDeps = list(),
+#'                   replaceEmojis = TRUE)
 #' }
 #'
 #' \itemize{
@@ -52,6 +53,9 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{replaceEmojis:}}{
+#' (\emph{logical}) indicates if the emojis are replaced.
+#' }
 #' }
 #' }
 #' }
@@ -64,7 +68,7 @@
 #' \code{\link{Instance}} whenever the obtained data is empty.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -73,7 +77,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain/replace the emojis.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, replaceEmoji = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -82,9 +86,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{replaceEmoji:}}{
-#' (\emph{logical}) indicates if the emojis are replaced.
 #' }
 #' }
 #' }
@@ -139,13 +140,20 @@
 #' }
 #' }
 #'
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{replaceEmojis:}}{
+#'  (\emph{logical}) indicates if the emojis are replaced.
+#' }
+#' }
+#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmoticonPipe}},
 #'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
 #'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
 #'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
 #'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
 #'          \code{\link{ToLowerCasePipe}}
@@ -159,84 +167,51 @@ FindEmojiPipe <- R6Class(
 
   "FindEmojiPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "Emojis",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if(!requireNamespace("textutils", quietly = TRUE)) {
-        message("[FindEmojiPipe][initialize][Warning] ",
-                "Package \"rtweet\" needed for this class to work. ",
-                "Pipe function will return an empty list to emoji property. ",
-                "Please install it.")
-      }
+                          notAfterDeps = list(),
+                          replaceEmojis = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindEmojiPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(replaceEmojis)) {
+        stop("[FindEmojiPipe][initialize][Error] ",
+             "Checking the type of the 'replaceEmojis' variable: ",
+             class(replaceEmojis))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
-
+      private$replaceEmojis <- replaceEmojis
     },
 
-    pipe = function(instance, replaceEmoji = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindEmojiPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[FindEmojiPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      if (!"logical" %in% class(replaceEmoji)) {
-        stop("[FindEmojiPipe][pipe][Error]
-                Checking the type of the variable: replaceEmoji ",
-                  class(replaceEmoji))
-      }
-
-      instance$addFlowPipes("FindEmojiPipe")
-
-      if (!instance$checkCompatibility("FindEmojiPipe", self$getAlwaysBeforeDeps())) {
-        stop("[FindEmojiPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       emojisLocated <- list()
-
-      if (!requireNamespace("rtweet", quietly = TRUE)) {
-        instance$addProperties(paste(emojisLocated),super$getPropertyName())
-        return(instance)
-      }
 
       emojisList <- as.list(rtweet::emojis[2][[1]])
       names(emojisList) <- as.list(rtweet::emojis[[1]][])
@@ -248,7 +223,7 @@ FindEmojiPipe <- R6Class(
           emojisLocated <- list.append(emojisLocated, emoji)
         }
 
-        if (replaceEmoji && emoji %in% emojisLocated) {
+        if (private$replaceEmojis && emoji %in% emojisLocated) {
 
           instance$getData() %>>%
             {self$replaceEmoji(emoji, emojisList[[emoji]], .)} %>>%
@@ -265,15 +240,15 @@ FindEmojiPipe <- R6Class(
     findEmoji = function(data, emoji) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmojiPipe][findEmoji][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindEmojiPipe][findEmoji][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(emoji)) {
-        stop("[FindEmojiPipe][findEmoji][Error]
-                Checking the type of the variable: emoji ",
-                  class(emoji))
+        stop("[FindEmojiPipe][findEmoji][Error] ",
+             "Checking the type of the 'emoji' variable: ",
+             class(emoji))
       }
 
       return(grepl(pattern = rex::escape(emoji), x = data, fixed = TRUE, useBytes = TRUE))
@@ -283,25 +258,29 @@ FindEmojiPipe <- R6Class(
     replaceEmoji = function(emoji, extendedEmoji, data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmojiPipe][replaceEmoji][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[FindEmojiPipe][replaceEmoji][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(emoji)) {
-        stop("[FindEmojiPipe][replaceEmoji][Error]
-                Checking the type of the variable: emoji ",
-                  class(emoji))
+        stop("[FindEmojiPipe][replaceEmoji][Error] ",
+             "Checking the type of the 'emoji' variable: ",
+             class(emoji))
       }
 
       if (!"character" %in% class(extendedEmoji)) {
-        stop("[FindEmojiPipe][replaceEmoji][Error]
-                Checking the type of the variable: extendedEmoji ",
-                  class(extendedEmoji))
+        stop("[FindEmojiPipe][replaceEmoji][Error] ",
+             "Checking the type of the 'extendedEmoji' variable: ",
+             class(extendedEmoji))
       }
 
       return(gsub(rex::escape(emoji),
                   paste(" ", extendedEmoji, " ", sep = ""), data, perl = TRUE))
     }
+  ),
+
+  private = list(
+    replaceEmojis = TRUE
   )
 )

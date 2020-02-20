@@ -1,9 +1,10 @@
-context("ExtractorTwtid")
+testthat::context("ExtractorTwtid")
 
-test_that("initialize path type error",{
-  skip_if_not_installed("rtweet")
-  skip_if_not_installed("rjson")
+testthat::test_that("initialize path type error",{
+  testthat::skip_if_not_installed("rtweet")
+  testthat::skip_if_not_installed("rjson")
   path <- NULL
-  expect_error(ExtractorTwtid$new(path),"\\[ExtractorTwtid\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: path NULL")
+  testthat::expect_error(ExtractorTwtid$new(path),
+                         "[ExtractorTwtid][initialize][Error] Checking the type of the 'path' variable: NULL",
+                         fixed = TRUE)
 })

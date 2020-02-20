@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -33,7 +33,9 @@
 #' \preformatted{
 #' TeeCSVPipe$new(propertyName = "",
 #'                alwaysBeforeDeps = list(),
-#'                notAfterDeps = list())
+#'                notAfterDeps = list(),
+#'                withData = TRUE,
+#'                withSource = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments}}{
@@ -48,21 +50,23 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{withData:}}{
+#' (\emph{logical}) indicates if the data is added to CSV.
+#' }
+#' \item{\strong{withSource:}}{
+#' (\emph{logical}) indicates if the source is added to CSV.
+#' }
 #' }
 #' }
 #' }
 #'
 #' @section Details:
-#' The path to save the properties have to indicate in the configuration file.
-#'
-#' The way to indicate is the following:
-#'
-#' \strong{[CSVPath]}
-#'
-#' outPutTeeCSVPipePath = <<out_put_TeeCSVPipe_path>>
+#' The path to save the properties should be defined in the
+#' \strong{"teeCSVPipe.output.path"} field of
+#' \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -71,7 +75,7 @@
 #' completes the CSV with the preprocessed \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, withData = TRUE, withSource = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -81,115 +85,130 @@
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
 #' }
-#' \item{\strong{withData:}}{
-#' (\emph{logical}) indicate if the data is added to CSV.
-#' }
-#' \item{\strong{withSource:}}{
-#' (\emph{logical}) indicate if the source is added to CSV.
-#' }
 #' }
 #' }
 #' }
 #' }
 #' }
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
-#'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
-#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
-#'          \code{\link{TargetAssigningPipe}}, \code{\link{ToLowerCasePipe}}
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{withSource:}}{
+#'  (\emph{logical}) indicates if the source is added to CSV.
+#' }
+#' \item{\bold{withData:}}{
+#'  (\emph{logical}) indicates if the data is added to CSV.
+#' }
+#' }
+#'
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{ResourceHandler}},
+#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
-#' @import ini R6 tools utils
+#' @import R6 tools utils
 #' @export TeeCSVPipe
 
 TeeCSVPipe <- R6Class(
 
   "TeeCSVPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "",
                           alwaysBeforeDeps = list(),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          withData = TRUE,
+                          withSource = TRUE,
+                          outputPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[TeeCSVPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
-      }
-
-      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
-    },
-
-    pipe = function(instance, withData = TRUE, withSource = TRUE) {
-
-      outPutPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$CSVPath$outPutTeeCSVPipePath
-
-      if (!"Instance" %in% class(instance)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(withSource)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: withSource ",
-                  class(withSource))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'withSource' variable: ",
+             class(withSource))
       }
 
       if (!"logical" %in% class(withData)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: withData ",
-                  class(withData))
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'withData' variable: ",
+             class(withData))
       }
 
-      if (!"character" %in% class(outPutPath)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the type of the variable: outPutPath ",
-                  class(outPutPath))
+      if (is.null(outputPath)) {
+        if (!all(bdpar.Options$isSpecificOption("teeCSVPipe.output.path"),
+                 !is.null(bdpar.Options$get("teeCSVPipe.output.path")))) {
+          stop("[TeeCSVPipe][initialize][Error] Path of TeeCSVPipe output ",
+               "is neither defined in initialize or in bdpar.Options")
+        } else {
+          outputPath <- bdpar.Options$get("teeCSVPipe.output.path")
+        }
       }
 
-      if (!"csv" %in% file_ext(outPutPath)) {
-        stop("[TeeCSVPipe][pipe][Error]
-                Checking the extension of the file: outPutPath ",
-                  file_ext(outPutPath))
+      if (!"character" %in% class(outputPath)) {
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the type of the 'outputPath' variable: ",
+             class(outputPath))
       }
 
-      instance$addFlowPipes("TeeCSVPipe")
-
-      if (!instance$checkCompatibility("TeeCSVPipe", self$getAlwaysBeforeDeps())) {
-        stop("[TeeCSVPipe][pipe][Error] Bad compatibility between Pipes.")
+      if (!"csv" %in% file_ext(outputPath)) {
+        stop("[TeeCSVPipe][initialize][Error] ",
+             "Checking the extension of the file: ",
+             file_ext(outputPath))
       }
 
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
+      private$outputPath <- outputPath
+
+
+      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+
+      private$withSource <- withSource
+      private$withData <- withData
+
+    },
+
+    pipe = function(instance) {
+
+      if (!"Instance" %in% class(instance)) {
+        stop("[TeeCSVPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
+      }
 
       if (!instance$isInstanceValid()) {
         return(instance)
       }
 
-      if (file.exists(outPutPath)) {
-        dataFrameAll <- read.csv(file = outPutPath, header = TRUE,
+      if (file.exists(private$outputPath)) {
+        dataFrameAll <- read.csv(file = private$outputPath, header = TRUE,
                                  sep = ";", dec = ".", fill = FALSE, stringsAsFactors = FALSE)
       } else {
         dataFrameAll <- data.frame()
@@ -199,11 +218,11 @@ TeeCSVPipe <- R6Class(
 
       dataFrameAll[pos, "path"] <- instance$getPath()
 
-      if (withData) {
+      if (private$withData) {
         dataFrameAll[pos, "data"] <- instance$getData()
       }
 
-      if (withSource) {
+      if (private$withSource) {
         dataFrameAll[pos, "source"] <-
           as.character(paste0(unlist(instance$getSource())))
       }
@@ -219,7 +238,7 @@ TeeCSVPipe <- R6Class(
       }
 
       write.table(x = dataFrameAll,
-                  file = outPutPath,
+                  file = private$outputPath,
                   sep = ";",
                   dec = ".",
                   quote = TRUE,
@@ -230,5 +249,11 @@ TeeCSVPipe <- R6Class(
 
       return(instance)
     }
+  ),
+
+  private = list(
+    withSource = TRUE,
+    withData = TRUE,
+    outputPath = ""
   )
 )

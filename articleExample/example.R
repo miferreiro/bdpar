@@ -5,13 +5,12 @@ library("RColorBrewer")
 library("SnowballC")
 set.seed(1234)
 
-unzip("testFiles.zip")
+runPipeline(path = system.file(file.path("examples",
+                                         "testFiles"),
+                               package = "bdpar"))
 
-result <- pipeline_execute(configurationFilePath = "configurations.ini",
-                           filesPath = "testFiles")
-
-all <- read.csv(file = "example.csv", header = TRUE, sep = ";", dec = ".", fill = FALSE,
-                stringsAsFactors = FALSE)
+all <- read.csv(file = "example.csv", header = TRUE, sep = ";", dec = ".",
+                fill = FALSE, stringsAsFactors = FALSE)
 
 sms <- all[all$extension == "tsms",]
 eml <- all[all$extension == "eml",]

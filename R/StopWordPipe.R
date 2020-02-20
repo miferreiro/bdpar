@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -38,7 +38,8 @@
 #' StopWordPipe$new(propertyName = "stopWord",
 #'                  propertyLanguageName = "language",
 #'                  alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                  notAfterDeps = list("AbbreviationPipe"))
+#'                  notAfterDeps = list("AbbreviationPipe"),
+#'                  removeStopWords = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -56,6 +57,9 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{removeStopWords:}}{
+#' (\emph{logical}) indicates if the stop words are removed or not.
+#' }
 #' }
 #' }
 #' }
@@ -65,19 +69,16 @@
 #' containing the list of stop words. To this end, the language of the text
 #' indicated in the \emph{propertyLanguageName} should be contained in the
 #' resource file name (ie. xxx.json where xxx is the value defined in the
-#' \emph{propertyLanguageName} ). The location of the resources should defined
-#' in the \emph{resourcesPath} section of the configuration file.
-#'
-#' \strong{[resourcesPath]}
-#'
-#' resourcesStopWordsPath = \emph{<<resources_stopWords_path>>}
+#' \emph{propertyLanguageName} ). The location of the resources should be
+#' defined in the \strong{"resources.stopwords.path"} field of
+#' \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Note:
 #' \code{\link{StopWordPipe}} will automatically invalidate the
 #' \code{\link{Instance}} whenever the obtained data is empty.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -85,11 +86,10 @@
 #' \item{\bold{pipe:}}{
 #' preprocesses the \code{\link{Instance}} to obtain/remove the stop words.
 #' The stop words found in the pipe are added to the list of properties of
-#' the \code{\link{Instance}} If the \emph{removeStopWords}  parameter is TRUE,
-#' the \code{\link{Instance}} data will be removed.
+#' the \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, removeStopWords = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -98,9 +98,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{removeStopWords:}}{
-#' (\emph{logical}) indicates if the stop words are removed or not.
 #' }
 #' }
 #' }
@@ -200,103 +197,104 @@
 #' \item{\bold{pathResourcesStopWords:}}{
 #'  (\emph{character}) the path where are the resources.
 #' }
+#' \item{\bold{removeStopWords:}}{
+#' (\emph{logical}) indicates if the stop words are removed or not.
+#' }
 #' }
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
-#'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
-#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-#'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{ResourceHandler}},
+#'          \code{\link{SlangPipe}}, \code{\link{StoreFileExtPipe}},
+#'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
-#' @import ini pipeR R6 rlist
+#' @import pipeR R6 rlist
 #' @export StopWordPipe
 
 StopWordPipe <- R6Class(
 
   "StopWordPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "stopWord",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
-                          notAfterDeps = list("AbbreviationPipe")) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[StopWordPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[StopWordPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+                          notAfterDeps = list("AbbreviationPipe"),
+                          removeStopWords = TRUE,
+                          resourcesStopWordsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[StopWordPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[StopWordPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[StopWordPipe][initialize][Error]
-                Checking the type of the variable: propertyLanguageName ",
-                  class(propertyLanguageName))
+        stop("[StopWordPipe][initialize][Error] ",
+             "Checking the type of the 'propertyLanguageName' variable: ",
+             class(propertyLanguageName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[StopWordPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[StopWordPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[StopWordPipe][initialize][Error]
-                 Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[StopWordPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(removeStopWords)) {
+        stop("[StopWordPipe][initialize][Error] ",
+             "Checking the type of the 'removeStopWords' variable: ",
+             class(removeStopWords))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
 
       private$propertyLanguageName <- propertyLanguageName
 
-      private$resourcesStopWordsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesStopWordsPath
+      if (is.null(resourcesStopWordsPath)) {
+        if (!all(bdpar.Options$isSpecificOption("resources.stopwords.path"),
+                 !is.null(bdpar.Options$get("resources.stopwords.path")))) {
+          stop("[StopWordPipe][initialize][Error] Path of stop words ",
+               "resources is neither defined in initialize or in bdpar.Options")
+        } else {
+          resourcesStopWordsPath <- bdpar.Options$get("resources.stopwords.path")
+        }
+      }
 
+      if (!"character" %in% class(resourcesStopWordsPath)) {
+        stop("[StopWordPipe][initialize][Error] ",
+             "Checking the type of the 'resourcesStopWordsPath' variable: ",
+             class(resourcesStopWordsPath))
+      }
+
+      private$resourcesStopWordsPath <- resourcesStopWordsPath
+
+      private$removeStopWords <- removeStopWords
     },
 
-    pipe = function(instance, removeStopWords = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[StopWordPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[StopWordPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      if (!"logical" %in% class(removeStopWords)) {
-        stop("[StopWordPipe][pipe][Error]
-                Checking the type of the variable: removeStopWords ",
-                  class(removeStopWords))
-      }
-
-      instance$addFlowPipes("StopWordPipe")
-
-      if (!instance$checkCompatibility("StopWordPipe", self$getAlwaysBeforeDeps())) {
-        stop("[StopWordPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       languageInstance <- "Unknown"
 
@@ -315,7 +313,7 @@ StopWordPipe <- R6Class(
                 " has not language property",
                 sep = "")
 
-        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message)
 
 
         return(instance)
@@ -340,7 +338,7 @@ StopWordPipe <- R6Class(
             stopWordLocated <- list.append(stopWordLocated, stopWord)
           }
 
-          if (removeStopWords && stopWord %in% stopWordLocated) {
+          if (private$removeStopWords && stopWord %in% stopWordLocated) {
 
             instance$getData() %>>%
               {self$removeStopWord(stopWord, .)} %>>%
@@ -365,7 +363,7 @@ StopWordPipe <- R6Class(
             sep = ""
           )
 
-        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message)
 
         return(instance)
       }
@@ -378,7 +376,7 @@ StopWordPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[StopWordPipe][pipe][Warning] ", message, " \n")
+        warning("[StopWordPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -391,15 +389,15 @@ StopWordPipe <- R6Class(
     findStopWord = function(data, stopWord) {
 
       if (!"character" %in% class(data)) {
-        stop("[StopWordPipe][findStopWord][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[StopWordPipe][findStopWord][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(stopWord)) {
-        stop("[StopWordPipe][findStopWord][Error]
-                Checking the type of the variable: stopWord ",
-                  class(stopWord))
+        stop("[StopWordPipe][findStopWord][Error] ",
+             "Checking the type of the 'stopWord' variable: ",
+             class(stopWord))
       }
 
       stopWordEscaped <- rex::escape(stopWord)
@@ -416,15 +414,15 @@ StopWordPipe <- R6Class(
     removeStopWord = function(stopWord, data) {
 
       if (!"character" %in% class(stopWord)) {
-        stop("[StopWordPipe][removeStopWord][Error]
-                Checking the type of the variable: stopWord ",
-                  class(stopWord))
+        stop("[StopWordPipe][removeStopWord][Error] ",
+             "Checking the type of the 'stopWord' variable: ",
+             class(stopWord))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[StopWordPipe][removeStopWord][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[StopWordPipe][removeStopWord][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       stopWordEscaped <- rex::escape(stopWord)
@@ -450,9 +448,9 @@ StopWordPipe <- R6Class(
     setResourcesStopWordsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[StopWordPipe][setResourcesStopWordsPath][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[StopWordPipe][setResourcesStopWordsPath][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       private$resourcesStopWordsPath <- path
@@ -463,6 +461,7 @@ StopWordPipe <- R6Class(
 
   private = list(
     propertyLanguageName = "",
-    resourcesStopWordsPath = ""
+    resourcesStopWordsPath = "",
+    removeStopWords = TRUE
   )
 )

@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -27,6 +27,8 @@
 #' to lower case.
 #'
 #' @docType class
+#'
+#' @format NULL
 #'
 #' @section Constructor:
 #' \preformatted{
@@ -52,7 +54,7 @@
 #' }
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -102,7 +104,7 @@
 #'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
 #'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
 #'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
+#'          \code{\link{MeasureLengthPipe}}, \code{\link{GenericPipe}},
 #'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}}
@@ -116,7 +118,7 @@ ToLowerCasePipe <- R6Class(
 
   "ToLowerCasePipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
@@ -125,21 +127,21 @@ ToLowerCasePipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[ToLowerCasePipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[ToLowerCasePipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[ToLowerCasePipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[ToLowerCasePipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[ToLowerCasePipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[ToLowerCasePipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -148,18 +150,10 @@ ToLowerCasePipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-          stop("[ToLowerCasePipe][pipe][Error]
-                  Checking the type of the variable: instance ",
-                    class(instance))
+          stop("[ToLowerCasePipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      instance$addFlowPipes("ToLowerCasePipe")
-
-      if (!instance$checkCompatibility("ToLowerCasePipe", self$getAlwaysBeforeDeps())) {
-        stop("[ToLowerCasePipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       instance$getData() %>>%
         self$toLowerCase() %>>%
@@ -171,9 +165,9 @@ ToLowerCasePipe <- R6Class(
     toLowerCase = function(data) {
 
       if (!"character" %in% class(data)) {
-          stop("[ToLowerCasePipe][toLowerCase][Error]
-                  Checking the type of the variable: data ",
-                    class(data))
+          stop("[ToLowerCasePipe][toLowerCase][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       return(data %>>% tolower())

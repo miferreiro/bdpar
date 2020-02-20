@@ -20,7 +20,7 @@ vignette: >
 
 The package has been develop using R6 class for implement, for example,  the extraction of input data and the 18 Pipes that there are in the application by default. Next, the different tools that make up the application are explained and how the features it offers can be extended.
 
-In case of any more specific doubt, use the package help through *?bdpar*.
+In case of any more specific doubt, use the package help through *help(package = "bdpar")*.
 
 ## Instance
 
@@ -62,7 +62,7 @@ The package have four input data implemented, which are:
 
 <div style = "text-align: justify">
 
-bdpar is able to load data source from multiple sources. In fact, by default is fully compatible with Twitter (twtid), SMS (tsms) and YouTube (ytbid) data sources. However, new data loaders can be easily implemented by implementing (i) a new class implementing *obtainSource* and *obtainDate* abstract methods from the *Instance* class and (ii) a new subclass overriding the *createInstance* method of the *InstanceFactory* class.
+**bdpar** is able to load data source from multiple sources. In fact, by default is fully compatible with Email (eml), Twitter (twtid), SMS (tsms) and YouTube (ytbid) data sources. However, new data loaders can be easily implemented by implementing (i) a new class implementing *obtainSource* and *obtainDate* abstract methods from the *Instance* class and (ii) registering this new class on the *ExtractorFactory* class through its method *registerExtractor*.
 
 Is important to take into account that the type of Instance used is deducted by default according to the file extension. However, this behaviour can be easily modelled according to user needs.
 
@@ -70,7 +70,11 @@ Is important to take into account that the type of Instance used is deducted by 
 
 ### How to create a customized input data extractors.
 
+<div style = "text-align: justify">
+
 This example shows how a new type of *Instance* (named *ExtractorTytb*) is be created. In this particular case, *ExtractorTytb* is responsible of extracting textual comments from Youtube files (extension .tytb).
+
+</div>
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
@@ -82,16 +86,17 @@ ExtractorTytb <- R6Class(
   public = list(
     initialize = function(path) {
       if (!"character" %in% class(path)) {
-        stop("[ExtractorTytb][initialize][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[ExtractorTytb][initialize][Error] ",
+             "Checking the type of the variable: path ",
+             class(path))
       }
       path %>>%
         super$initialize()
     },
     obtainDate = function() {
-      "" %>>%
-        super$setDate()
+      super$getPath() %>>%
+      file.info()[["ctime"]] %>>%
+      super$setDate()
       return()
     },
     obtainSource = function() {
@@ -99,8 +104,8 @@ ExtractorTytb <- R6Class(
       read_file() %>>%
       super$setSource()
         
-    super$getSource() %>>%
-      super$setData()
+      super$getSource() %>>%
+        super$setData()
     
       return()
     }
@@ -111,48 +116,39 @@ ExtractorTytb <- R6Class(
 
 ### Enabling a new Instance.
 
-In order to automatically execute the new *Instance* class (*ExtractorTytb*), is must be registered by (i) including the new class in the default *InstanceFactory* class or (ii) implementing a customized class that inherits from *InstanceFactory*. Below is shown an example describing how a new class (*InstanceFactoryCustom*) is implemented. As can be seen, this new class (inherited from *InstanceFactory*) overrides the *createInstance()* method from parent class and registers two extractors: *ExtractorEml* and *ExtractorTytb*.
+<div style = "text-align: justify">
 
+In order to automatically execute the new *Instance* class (*ExtractorTytb*), is must be registered through *registerExtractor* method of *ExtractorFactory* class. Below is shown an example describing how this extractor is registered.
+
+</div>
 
 ```{R, echo = TRUE, results = "hide",ExtractorTytb}
-library(R6)
-library(tools)
 library(bdpar)
-InstanceFactoryCustom <- R6Class(
-  "InstanceFactoryCustom",
-  public = list(
-    initialize = function() {
-    },
-    createInstance = function(path) {
-      if (!"character" %in% class(path)) {
-        stop("[InstanceFactoryCustom][createInstance][Error]
-                Checking the type of the variable: path ",
-                  class(path))
-      }
-      switch(file_ext(path),
-       `email` =  return(ExtractorEml$new(path)),
-       `tytb` = return(ExtractorTytb$new(path))
-      )
-        
-      return()
-    }
-  )
-)
+extractors <- ExtractorFactory$new()
+extractors$registerExtractor("tytb", ExtractorTytb)
 ```    
     
 ## Pipe
 
-A pipe consists of a simple task responsible for generating a new output by applying some transformations over the input data. A set of sequentially interconnected pipes to achieve a required result is called pipeline. Pipes in bdpar are represented as *PipeGeneric* class while the pipelining process is defined through *TypePipe* abstract class. It should be noted that *TypePipe* should include a set of pipes (*PipeGeneric* class) representing the whole preprocessing flow.
+<div style = "text-align: justify">
+
+A pipe consists of a simple task responsible for generating a new output by applying some transformations over the input data. A set of sequentially interconnected pipes to achieve a required result is called pipeline. Pipes in bdpar are represented as *GenericPipe* class while the pipelining process is defined through *GenericPipeline* abstract class.
+
+</div>
 
 ### Dependencies
 
+<div style = "text-align: justify">
+
 An important feature that has been added to the Pipe concept is the control of the functionalities that go before and after a Pipe, that is, a control of the preprocessing flow. On the one hand, this control allows us to ensure that if a Pipe needs another before, it has already been executed. On the other hand, prevents a Pipe can not be executed later because it interferes with the functionality of a previous Pipe.
 
-This functionality can be customized in each of the pipes that the user uses and/or develops, allowing to decide what to do in the situation in which the dependencies are not respected.
+This functionality can be customized in each of the pipes that the user uses and/or develops, allowing to decide what to do in the situation in which the dependencies are not respected. Internally, the operator always checks if the Instance satisfies  the dependencies to enter the following pipe.
+
+</div>
 
 ## Pipes available by default
 
-The framework provides over 18 different pipes (inherited from *PipeGeneric*). Each pipe is classified following two categories: (i) basic-functionality pipes and (ii) external file access pipes. 
+The framework provides over 18 different pipes (inherited from *GenericPipe*). Each pipe is classified following two categories: (i) basic-functionality pipes and (ii) external file access pipes. 
 
 
 <div style = "text-align: justify">
@@ -237,7 +233,11 @@ Creates a new property **stopwords**, where the *empty words* that are in the **
 
 ## How to create your customized Pipe
 
-Additionally, in order to improve the customization capabilities, bdpar allows to easily desing and develop new personalized pipes by implementing the pipe method included in the *PipeGeneric* class (inheritance relation). The code included below, exemplified the creation of a simple pipe in charge of removing multiple consecutive spaces from a string.
+<div style = "text-align: justify">
+
+Additionally, in order to improve the customization capabilities, bdpar allows to easily desing and develop new personalized pipes by implementing the pipe method included in the *GenericPipe* class (inheritance relation). The code included below, exemplified the creation of a simple pipe in charge of removing multiple consecutive spaces from a string.
+
+</div>
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
@@ -245,45 +245,42 @@ library(pipeR)
 library(stringr)
 RemovesWhiteSpaces <- R6Class(
   "RemovesWhiteSpaces",
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
   public = list(
     initialize = function(propertyName = "",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list()) {
       if (!"character" %in% class(propertyName)) {
-        stop("[RemovesWhiteSpaces][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[RemovesWhiteSpaces][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[RemovesWhiteSpaces][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[RemovesWhiteSpaces][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[RemovesWhiteSpaces][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[RemovesWhiteSpaces][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
     },
     pipe = function(instance) {
       if (!"Instance" %in% class(instance)) {
-        stop("[RemovesWhiteSpaces][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[RemovesWhiteSpaces][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-      instance$addFlowPipes("RemovesWhiteSpaces")
-      if (!instance$checkCompatibility("RemovesWhiteSpaces", 
-                                       self$getAlwaysBeforeDeps())) {
-        stop("[RemovesWhiteSpaces][pipe][Error] Bad compatibility between
-                                                Pipes.")
-      }
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
       instance$getData() %>>%
         stringr::str_trim() %>>%
         stringr::str_squish() %>>%
         instance$setData()
+      
+      if (length(instance$getData()) == 0) {
+        instance$invalidate()
+      }
       
       return(instance)
     }
@@ -294,70 +291,74 @@ RemovesWhiteSpaces <- R6Class(
 
 ## Flow of Pipes (pipelining proccess)
 
+<div style = "text-align: justify">
+
 Flow of pipes is the set of pipes that comprising the whole preprocessing proccess. 
-By default bdpar provides a default pipelining proccess (implemented in *SerialPipes*) comprising all the 18 available pipes. 
+By default bdpar provides a default pipelining proccess (implemented in *DefaultPipeline*) comprising all the 18 available pipes. 
+
+</div>
 
 ### Flow of Pipes available by default
 
 The code included below shows a pipelining example comprising 18 pipes:
 
 ```R
-  instance %>I%
-    TargetAssigningPipe$new()$pipe() %>I%
-    StoreFileExtPipe$new()$pipe() %>I%
-    GuessDatePipe$new()$pipe() %>I%
-    File2Pipe$new()$pipe() %>I%
-    MeasureLengthPipe$new()$pipe("length_before_cleaning_text") %>I%
-    FindUserNamePipe$new()$pipe() %>I%
-    FindHashtagPipe$new()$pipe() %>I%
-    FindUrlPipe$new()$pipe() %>I%
-    FindEmoticonPipe$new()$pipe() %>I%
-    FindEmojiPipe$new()$pipe() %>I%
-    GuessLanguagePipe$new()$pipe() %>I%
-    ContractionPipe$new()$pipe() %>I%
-    AbbreviationPipe$new()$pipe() %>I%
-    SlangPipe$new()$pipe() %>I%
-    ToLowerCasePipe$new()$pipe() %>I%
-    InterjectionPipe$new()$pipe() %>I%
-    StopWordPipe$new()$pipe() %>I%
-    MeasureLengthPipe$new()$pipe("length_after_cleaning_text") %>I%
-    TeeCSVPipe$new()$pipe()
+  instance %>|%
+    TargetAssigningPipe$new() %>|%
+    StoreFileExtPipe$new() %>|%
+    GuessDatePipe$new() %>|%
+    File2Pipe$new() %>|%
+    MeasureLengthPipe$new(propertyName = "length_before_cleaning_text") %>|%
+    FindUserNamePipe$new() %>|%
+    FindHashtagPipe$new() %>|%
+    FindUrlPipe$new() %>|%
+    FindEmoticonPipe$new() %>|%
+    FindEmojiPipe$new() %>|%
+    GuessLanguagePipe$new() %>|%
+    ContractionPipe$new() %>|%
+    AbbreviationPipe$new() %>|%
+    SlangPipe$new() %>|%
+    ToLowerCasePipe$new() %>|%
+    InterjectionPipe$new() %>|%
+    StopWordPipe$new() %>|%
+    MeasureLengthPipe$new(propertyName = "length_after_cleaning_text") %>|%
+    TeeCSVPipe$new()
 ```
 
 ### Create your own flow of Pipes
 
-Additionally, in order to build a flexible framework, bdpar allows users to define their own (and customized) flow of pipes. To accomplish this task, it is necessary to create a new class that inherits from *TypePipe* and implements the *pipeAll()* method. Below is included an example of how a new pipe (called *TestPipe*) is created:
+<div style = "text-align: justify">
 
-```{R, echo = TRUE, results = "hide",RemovesWhiteSpaces}
+Additionally, in order to build a flexible framework, bdpar allows users to define their own (and customized) flow of pipes. To accomplish this task, it is necessary to create a new class that inherits from *GenericPipeline* and implements the *execute()* method. Below is included an example of how a new pipe (called *TestPipeline*) is created:
+
+</div>
+
+```{R, echo = TRUE, results = "hide", RemovesWhiteSpaces}
 library(R6)
 library(bdpar)
-TestPipe <- R6Class(
-  "TestPipe",
-  inherit = TypePipe,
+TestPipeline <- R6Class(
+  "TestPipeline",
+  inherit = GenericPipeline,
   public = list(
     initialize = function() {
     },
-    pipeAll = function(instance) {
+    execute = function(instance) {
       if (!"Instance" %in% class(instance)) {
-        stop("[TestPipe][pipeAll][Error]
-             Checking the type of the variable: instance ",
-             class(instance));
+        stop("[TestPipeline][execute][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-      message("[TestPipe][pipeAll][Info] ", instance$getPath(), "\n")
+      message("[TestPipeline][execute][Info] ", instance$getPath())
       tryCatch(
-        instance %>I%
-          TargetAssigningPipe$new()$pipe() %>I%
-          StoreFileExtensionPipe$new()$pipe() %>I%
-          File2Pipe$new()$pipe() %>I%
-          RemovesWhiteSpaces$new()$pipe() %>I%
-          TeeCSVPipe$new()$pipe()
+        instance %>|%
+          TargetAssigningPipe$new() %>|%
+          StoreFileExtPipe$new() %>|%
+          File2Pipe$new() %>|%
+          RemovesWhiteSpaces$new() %>|%
+          TeeCSVPipe$new()
         ,
         error = function(e) {
-          message("[TestPipe][pipeAll][Error]", 
-              instance$getPath(),
-              " :", 
-              paste(e), 
-              "\n")
+          message("[TestPipeline][execute][Error]", instance$getPath(), " :", paste(e))
           instance$invalidate()
         }
       )
@@ -367,48 +368,61 @@ TestPipe <- R6Class(
 )
 ```
 
+<div style = "text-align: justify">
+
+Alternatively, the pre-processing flow can be dynamically constructed through the *DynamicPipeline* class. An example of its use is shown below. To see the rest of the options offered by this method, access the package's help through *help(package = "bdpar")*.
+
+</div>
+
+```{R, echo = TRUE, results = "hide"}
+library(bdpar)
+pipeline <- DynamicPipeline$new()
+pipeline$add(list(TargetAssigningPipe$new(),StoreFileExtPipe$new(),File2Pipe$new()), pos = NULL)
+pipeline$add(list(TeeCSVPipe$new()), pos = NULL)
+```
+
 ## Operator
-
-To manage the flow of pipes, there is a new operator called **%>I%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not.
-In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*.
-
-# Configuration file
 
 <div style = "text-align: justify">
 
-The configuration file is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted. The description of the structure of the configuration file can be accessed through the package help interface (?bdpar). It is important to indicate that the tool has a default template that can be modified by the user through the parameter *editConfigurationFile*, in both simple and advanced mode.
+To manage the flow of pipes, there is a new operator called **%>\|%**. This operator allows check if the *Instance* was invalidated in the lastest *Pipe* or not. In the case that the *Instance* is invalid, the flow of *Pipes* stops and the preprocessing pass to the next *Instance*. In the other case, the *Instance* continues the current flow of *Pipes*. On the other hand, it facilitates the workflow between pipes because it automatically invokes the *pipe* function of the objects that pass through it. Finally, it should be noted that it also checks whether an *Instance* complies with the requirements to enter the following pipe.
 
-The following is the template that the configuration file (**configurationsTemplate.ini**) have initially:
 </div>
-```ini
-[twitter] 
-ConsumerKey = <<consumer_key>>
-ConsumerSecret = <<consumer_secret>>
-AccessToken = <<access_token>>
-AccessTokenSecret = <<access_token_secret>>
 
-[youtube] 
-app_id = <<app_id>>
-app_password = <<app_password>>
+# bdpar.Options
 
-[eml] 
-PartSelectedOnMPAlternative= <<part_selected>> (text/html or text/plain)
- 
-[resourcesPath]
+<div style = "text-align: justify">
 
-resourcesAbbreviationsPath = <<resources_abbreviations_path>>
-resourcesContractionsPath = <<resources_contractions_path>>
-resourcesInterjectionsPath = <<resources_interjections_path>>
-resourcesSlangsPath = <<resources_slangs_path>>
-resourcesStopWordsPath = <<resources_stop_words_path>>
- 
- 
-[CSVPath]
-outPutTeeCSVPipePath = <<out_put_TeeCSVPipe_path>>
+The *bdpar.Options* object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
 
-[cache] 
-cachePathTwtid = <<cache_path_twtid>>
-cachePathYtbid = <<cache_path_ytbid>>
+The different options that exist initially and how their value is indicated to you are
+shown below.
+</div>
+```R
+# [eml]
+bdpar.Options$set("extractorEML.mpaPartSelected", <<PartSelectedOnMPAlternative>>)
+
+# [resources]
+bdpar.Options$set("resources.abbreviations.path", <<abbreviation.path>>)
+bdpar.Options$set("resources.contractions.path", <<contractions.path>>)
+bdpar.Options$set("resources.interjections.path", <<interjections.path>>)
+bdpar.Options$set("resources.slangs.path", <<slangs.path>>)
+bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)
+
+# [twitter]
+bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)
+bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)
+bdpar.Options$set("twitter.access.token", <<access_token>>)
+bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)
+bdpar.Options$set("cache.twitter.path", <<cache.path>>)
+
+# [teeCSVPipe]
+bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
+
+# [youtube]
+bdpar.Options$set("youtube.app.id", <<app_id>>)
+bdpar.Options$set("youtube.app.password", <<app_password>>)
+bdpar.Options$set("cache.youtube.path", <<cache.path>>)
 ```
 
 

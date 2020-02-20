@@ -1,29 +1,29 @@
-context("ResourceHandler")
+testthat::context("ResourceHandler")
 
-test_that("initialize",{
-  skip_if_not_installed("rjson")
-  expect_silent(ResourceHandler$new())
+testthat::test_that("initialize",{
+  testthat::skip_if_not_installed("rjson")
+  testthat::expect_silent(ResourceHandler$new())
 })
 
-test_that("isLoadResource loaded",{
-  skip_if_not_installed("rjson")
+testthat::test_that("isLoadResource loaded",{
+  testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   resourceHandler$setResources(list(exampleResource = list("aa","bb")))
 
-  expect_equal(resourceHandler$isLoadResource("exampleResource"), list("aa","bb"))
-
+  testthat::expect_equal(resourceHandler$isLoadResource("exampleResource"),
+                         list("aa","bb"))
 })
 
-test_that("isLoadResource file not exists",{
-  skip_if_not_installed("rjson")
+testthat::test_that("isLoadResource file not exists",{
+  testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
 
-  expect_equal(resourceHandler$isLoadResource("example"), NULL)
-
+  testthat::expect_equal(resourceHandler$isLoadResource("example"),
+                         NULL)
 })
 
-test_that("isLoadResource file exists",{
-  skip_if_not_installed("rjson")
+testthat::test_that("isLoadResource file exists",{
+  testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
 
   pathResource <- file.path("resourcesFiles",
@@ -31,41 +31,42 @@ test_that("isLoadResource file exists",{
                             "abbreviations-json",
                             "abbrev.en.json")
 
-  expect_length(resourceHandler$isLoadResource(pathResource), 6)
-
+  testthat::expect_length(resourceHandler$isLoadResource(pathResource),
+                          6)
 })
 
-test_that("isLoadResource pathResource type error",{
-  skip_if_not_installed("rjson")
+testthat::test_that("isLoadResource pathResource type error",{
+  testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   pathResource <- NULL
 
-  expect_error(resourceHandler$isLoadResource(pathResource),"\\[ResourceHandler\\]\\[isLoadResource\\]\\[Error\\]
-                Checking the type of the variable: pathResource NULL")
+  testthat::expect_error(resourceHandler$isLoadResource(pathResource),
+                         "[ResourceHandler][isLoadResource][Error] Checking the type of the 'pathResource' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("getResources",{
-  skip_if_not_installed("rjson")
+testthat::test_that("getResources",{
+  testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
 
-  expect_equal(resourceHandler$getResources(), list())
-
+  testthat::expect_equal(resourceHandler$getResources(),
+                         list())
 })
 
-test_that("setResources",{
-  skip_if_not_installed("rjson")
-  resourceHandler <- ResourceHandler$new()
-  resourceHandler$setResources(list(exampleResource = list("aa","bb")))
-
-  expect_equal(resourceHandler$getResources(), list(exampleResource = list("aa","bb")))
-
-})
-
-test_that("getNamesResources",{
-  skip_if_not_installed("rjson")
+testthat::test_that("setResources",{
+  testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   resourceHandler$setResources(list(exampleResource = list("aa","bb")))
 
-  expect_equal(resourceHandler$getNamesResources(), c("exampleResource"))
+  testthat::expect_equal(resourceHandler$getResources(),
+                         list(exampleResource = list("aa","bb")))
+})
 
+testthat::test_that("getNamesResources",{
+  testthat::skip_if_not_installed("rjson")
+  resourceHandler <- ResourceHandler$new()
+  resourceHandler$setResources(list(exampleResource = list("aa","bb")))
+
+  testthat::expect_equal(resourceHandler$getNamesResources(),
+                         c("exampleResource"))
 })

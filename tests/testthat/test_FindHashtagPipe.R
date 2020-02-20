@@ -1,82 +1,128 @@
-context("FindHashtagPipe")
+testthat::context("FindHashtagPipe")
 
-test_that("initialize",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeHashtags <- TRUE
 
-  expect_silent(FindHashtagPipe$new(propertyName,alwaysBeforeDeps,notAfterDeps))
+  testthat::expect_silent(FindHashtagPipe$new(propertyName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              removeHashtags))
 })
 
-test_that("initialize propertyName type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize propertyName type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  removeHashtags <- TRUE
 
-  expect_error(FindHashtagPipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[FindHashtagPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  testthat::expect_error(FindHashtagPipe$new(propertyName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             removeHashtags),
+                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                        fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize alwaysBeforeDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  removeHashtags <- TRUE
 
-  expect_error(FindHashtagPipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[FindHashtagPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  testthat::expect_error(FindHashtagPipe$new(propertyName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             removeHashtags),
+                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize notAfterDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  removeHashtags <- TRUE
 
-  expect_error(FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[FindHashtagPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
-
+  testthat::expect_error(FindHashtagPipe$new(propertyName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             removeHashtags),
+                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe removeHashtag <- TRUE",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("initialize removeHashtags type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- NULL
+
+  testthat::expect_error(FindHashtagPipe$new(propertyName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             removeHashtags),
+                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'removeHashtags' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::test_that("pipe removeHashtags <- TRUE",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
+  propertyName <- "hashtag"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  removeHashtags <- TRUE
+
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   path <- file.path("testFiles",
                     "testFindHashtagPipe",
                     "testFile.tsms")
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
-  removeHashtag <- TRUE
-  instance <- pipe$pipe(instance, removeHashtag)
-  expect_equal(instance$getSpecificProperty("hashtag"),"#example")
-  expect_equal(instance$getData(),"Hey I am")
 
+  instance <- pipe$pipe(instance)
+  testthat::expect_equal(instance$getSpecificProperty("hashtag"),
+                         "#example")
+  testthat::expect_equal(instance$getData(),
+                         "Hey I am")
 })
 
-test_that("pipe removeHashtag <- FALSE",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("pipe removeHashtags <- FALSE",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- FALSE
+
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   path <- file.path("testFiles",
                     "testFindHashtagPipe",
@@ -84,79 +130,47 @@ test_that("pipe removeHashtag <- FALSE",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("Hey I am #example")
-  removeHashtag <- FALSE
-  instance <- pipe$pipe(instance, removeHashtag)
-  expect_equal(instance$getSpecificProperty("hashtag"),"#example")
-  expect_equal(instance$getData(),"Hey I am #example")
 
+  instance <- pipe$pipe(instance)
+  testthat::expect_equal(instance$getSpecificProperty("hashtag"),
+                         "#example")
+  testthat::expect_equal(instance$getData(),
+                         "Hey I am #example")
 })
 
-test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "hashtag"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testFindHashtagPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("Hey I am #example")
-  removeHashtag <- TRUE
-  expect_error(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
-
-})
-
-test_that("pipe instance type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("pipe instance type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- TRUE
+
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   instance <- NULL
-  removeHashtag <- TRUE
-  expect_error(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
+  testthat::expect_error(pipe$pipe(instance),
+                         "[FindHashtagPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe removeHashtag type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("pipe empty data",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- TRUE
 
-  path <- file.path("testFiles",
-                    "testFindHashtagPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$setData("Hey I am #example")
-  removeHashtag <- NULL
-  expect_error(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: removeHashtag NULL")
-
-})
-
-test_that("pipe empty data",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
-  propertyName <- "hashtag"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   path <- file.path("testFiles",
                     "testFindHashtagPipe",
@@ -164,71 +178,93 @@ test_that("pipe empty data",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("#example")
-  removeHashtag <- TRUE
-  expect_warning(pipe$pipe(instance, removeHashtag),"\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindHashtagPipe\\/testFile\\.tsms has data empty on pipe Hashtag ")
-  expect_equal(instance$getSpecificProperty("hashtag"),"#example")
-  expect_equal(instance$getData(),"")
-
+  expect_warning(pipe$pipe(instance),
+                 "\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindHashtagPipe\\/testFile\\.tsms has data empty on pipe Hashtag")
+  testthat::expect_equal(instance$getSpecificProperty("hashtag"),
+                         "#example")
+  testthat::expect_equal(instance$getData(),
+                         "")
 })
 
-test_that("findUserName",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("findUserName",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- TRUE
+
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   data <- "#example"
 
-  expect_equal(pipe$findHashtag(data),"#example")
-
+  testthat::expect_equal(pipe$findHashtag(data),
+                         "#example")
 })
 
-test_that("findHashtag data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("findHashtag data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- TRUE
+
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   data <- NULL
 
-  expect_error(pipe$findHashtag(data),"\\[FindHashtagPipe\\]\\[findHashtag\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
-
+  testthat::expect_error(pipe$findHashtag(data),
+                         "[FindHashtagPipe][findHashtag][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("removeHashtag",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("removeHashtag",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- TRUE
+
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   data <- "#example"
 
-  expect_equal(pipe$removeHashtag(data)," ")
-
+  testthat::expect_equal(pipe$removeHashtag(data),
+                         " ")
 })
 
-test_that("removeHashtag data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("stringr")
+testthat::test_that("removeHashtag data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- FindHashtagPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  removeHashtags <- TRUE
+
+  pipe <- FindHashtagPipe$new(propertyName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              removeHashtags)
 
   data <- NULL
 
-  expect_error(pipe$removeHashtag(data),"\\[FindHashtagPipe\\]\\[removeHashtag\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
+  testthat::expect_error(pipe$removeHashtag(data),
+                         "[FindHashtagPipe][removeHashtag][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 
 })

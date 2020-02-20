@@ -1,88 +1,264 @@
-context("ContractionPipe")
+testthat::context("ContractionPipe")
+
+testthat::setup(bdpar.Options$reset())
 
 test_that("initialize",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "contractions-json")
 
-  expect_silent(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps))
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = path)
+
+  testthat::expect_silent(ContractionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              replaceContractions,
+                                              resourcesContractionsPath))
+
+  resourcesContractionsPath <- path
+
+  testthat::expect_silent(ContractionPipe$new(propertyName,
+                                              propertyLanguageName,
+                                              alwaysBeforeDeps,
+                                              notAfterDeps,
+                                              replaceContractions,
+                                              resourcesContractionsPath))
 })
 
-test_that("initialize propertyName type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize propertyName type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = path)
+
+  testthat::expect_error(ContractionPipe$new(propertyName,
+                                             propertyLanguageName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             replaceAbbreviations,
+                                             resourcesAbbreviationsPath),
+                         "[ContractionPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize propertyLanguageName type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize propertyLanguageName type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyLanguageName NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = path)
+
+  testthat::expect_error(ContractionPipe$new(propertyName,
+                                             propertyLanguageName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             replaceContractions,
+                                             resourcesContractionsPath),
+                         "[ContractionPipe][initialize][Error] Checking the type of the 'propertyLanguageName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize alwaysBeforeDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = path)
+
+  testthat::expect_error(ContractionPipe$new(propertyName,
+                                             propertyLanguageName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             replaceContractions,
+                                             resourcesContractionsPath),
+                         "[ContractionPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize notAfterDeps type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  expect_error(ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps),"\\[ContractionPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "contractions-json")
 
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = path)
+
+  testthat::expect_error(ContractionPipe$new(propertyName,
+                                             propertyLanguageName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             replaceContractions,
+                                             resourcesContractionsPath),
+                         "[ContractionPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize replaceContractions type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- NULL
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  path <- file.path("resourcesFiles",
+                    "testResources",
+                    "contractions-json")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps , notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = path)
+
+  testthat::expect_error(ContractionPipe$new(propertyName,
+                                             propertyLanguageName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             replaceContractions,
+                                             resourcesContractionsPath),
+                         "[ContractionPipe][initialize][Error] Checking the type of the 'replaceContractions' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize resourcesContractionsPath type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "contractions"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = NULL)
+
+  testthat::expect_error(ContractionPipe$new(propertyName,
+                                             propertyLanguageName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             replaceContractions,
+                                             resourcesContractionsPath),
+                         "[ContractionPipe][initialize][Error] Path of contractions resources is neither defined in initialize or in bdpar.Options",
+                         fixed = TRUE)
+
+  resourcesContractionsPath <- 1
+
+  testthat::expect_error(ContractionPipe$new(propertyName,
+                                             propertyLanguageName,
+                                             alwaysBeforeDeps,
+                                             notAfterDeps,
+                                             replaceContractions,
+                                             resourcesContractionsPath),
+                         "[ContractionPipe][initialize][Error] Checking the type of the 'resourcesContractionsPath' variable: numeric",
+                         fixed = TRUE)
+})
+
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "contractions"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -91,33 +267,41 @@ test_that("pipe",{
   instance <- ExtractorSms$new(path)
   instance$setData("I'm tall")
   instance$addProperties("en","language")
-  replaceContractions <- TRUE
 
-  path <- file.path("resourcesFiles",
-                    "testResources",
-                    "contractions-json")
+  instance <- pipe$pipe(instance)
 
-  pipe$setResourcesContractionsPath(path)
-  instance <- pipe$pipe(instance, replaceContractions)
-
-  expect_equal(instance$getSpecificProperty("contractions"),"I'm")
-
+  testthat::expect_equal(instance$getSpecificProperty("contractions"),"I'm")
 })
 
-test_that("pipe data empty",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe data empty",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -126,32 +310,41 @@ test_that("pipe data empty",{
   instance <- ExtractorSms$new(path)
   instance$setData("")
   instance$addProperties("en","language")
-  replaceContractions <- TRUE
 
-  path <- file.path("resourcesFiles",
-                    "testResources",
-                    "contractions-json")
-
-  pipe$setResourcesContractionsPath(path)
-
-  expect_warning(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has data empty on pipe Contractions ")
+  testthat::expect_warning(pipe$pipe(instance),
+                           "\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has data empty on pipe Contractions")
 
 })
 
-test_that("pipe wihtout json file",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe wihtout json file",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-wrong")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -160,25 +353,40 @@ test_that("pipe wihtout json file",{
   instance <- ExtractorSms$new(path)
   instance$setData("I'm tall")
   instance$addProperties("en","language")
-  replaceContractions <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not an contractionsJsonFile to apply to the language ->en ")
-
+  testthat::expect_warning(pipe$pipe(instance),
+                           "\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not an contractionsJsonFile to apply to the language ->en")
 })
 
-test_that("pipe wihtout language property",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe wihtout language property",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   path <- file.path("testFiles",
                     "testContractionPipe",
@@ -186,304 +394,476 @@ test_that("pipe wihtout language property",{
 
   instance <- ExtractorSms$new(path)
   instance$setData("I'm tall")
-  replaceContractions <- TRUE
 
-  expect_warning(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not language property")
-
+  testthat::expect_warning(pipe$pipe(instance),
+                           "\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not language property")
 })
 
-test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "contractions"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
-
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testContractionPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  instance$setData("I'm tall")
-  replaceContractions <- TRUE
-  expect_error(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
-
-})
-
-test_that("pipe instance type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::test_that("pipe instance type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   instance <- NULL
+
+  testthat::expect_error(pipe$pipe(instance),
+                         "[ContractionPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("findContraction",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- "contractions"
+  propertyLanguageName <- "language"
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
   replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  expect_error(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
 
-})
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
 
-test_that("pipe replaceContractions type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "contractions"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
+  Bdpar$new()
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
-
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testContractionPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$setData("I'm tall")
-  replaceContractions <- NULL
-  expect_error(pipe$pipe(instance, replaceContractions),"\\[ContractionPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: replaceContractions NULL")
-
-})
-
-test_that("findContraction",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
-  propertyName <- "contractions"
-  propertyLanguageName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   contraction <- "I'm"
   data <- "I'm tall"
 
-  expect_equal(pipe$findContraction(data, contraction), TRUE)
+  testthat::expect_equal(pipe$findContraction(data,
+                                              contraction),
+                         TRUE)
 
 })
 
-test_that("findContraction abbreviation type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("findContraction abbreviation type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   contraction <- NULL
   data <- "I'm tall"
 
-  expect_error(pipe$findContraction(data, contraction),"\\[ContractionPipe\\]\\[findContraction\\]\\[Error\\]
-                Checking the type of the variable: contraction NULL")
+  testthat::expect_error(pipe$findContraction(data,
+                                              contraction),
+                         "[ContractionPipe][findContraction][Error] Checking the type of the 'contraction' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("findContraction data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("findContraction data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   contraction <- "I'm"
   data <- NULL
 
-  expect_error(pipe$findContraction(data, contraction),"\\[ContractionPipe\\]\\[findContraction\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
+  testthat::expect_error(pipe$findContraction(data, contraction),
+                         "[ContractionPipe][findContraction][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("replaceContraction ",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("replaceContraction ",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   contraction <- "I'm"
   extendedContraction <- "I am"
   data <- "I'm tall"
 
-  expect_equal(pipe$replaceContraction(contraction, extendedContraction, data)," I am  tall")
-
+  testthat::expect_equal(pipe$replaceContraction(contraction,
+                                                 extendedContraction,
+                                                 data),
+                         " I am  tall")
 })
 
-test_that("replaceContraction abbreviation type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("replaceContraction contraction type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   contraction <- NULL
   extendedContraction <- "I am"
   data <- "I'm tall"
 
-  expect_error(pipe$replaceContraction(contraction, extendedContraction, data),"\\[ContractionPipe\\]\\[replaceContraction\\]\\[Error\\]
-                Checking the type of the variable: contraction NULL")
-
+  testthat::expect_error(pipe$replaceContraction(contraction,
+                                                 extendedContraction,
+                                                 data),
+                         "[ContractionPipe][replaceContraction][Error] Checking the type of the 'contraction' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("replaceContraction extendedContraction type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("replaceContraction extendedContraction type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   contraction <- "I'm"
   extendedContraction <- NULL
   data <- "I'm tall"
 
-  expect_error(pipe$replaceContraction(contraction, extendedContraction, data),"\\[ContractionPipe\\]\\[replaceContraction\\]\\[Error\\]
-                Checking the type of the variable: extendedContraction NULL")
-
+  testthat::expect_error(pipe$replaceContraction(contraction,
+                                                 extendedContraction,
+                                                 data),
+                         "[ContractionPipe][replaceContraction][Error] Checking the type of the 'extendedContraction' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("replaceContraction data type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("replaceContraction data type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps, notAfterDeps)
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
+
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
+
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   contraction <- "I'm"
   extendedContraction <- "I am"
   data <- NULL
 
-  expect_error(pipe$replaceContraction(contraction, extendedContraction, data),"\\[ContractionPipe\\]\\[replaceContraction\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
-
+  testthat::expect_error(pipe$replaceContraction(contraction,
+                                                 extendedContraction,
+                                                 data),
+                         "[ContractionPipe][replaceContraction][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("getPropertyLanguageName",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("getPropertyLanguageName",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
 
-  expect_equal(pipe$getPropertyLanguageName(), "language")
+  Bdpar$new()
 
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
+
+  testthat::expect_equal(pipe$getPropertyLanguageName(),
+                         "language")
 })
 
-test_that("getResourcesContractionsPath",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("getResourcesContractionsPath",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   path <- file.path("resourcesFiles",
                     "testResources",
-                    "contractions-json",
-                    "abbrev.en.json")
+                    "contractions-json")
 
   pipe$setResourcesContractionsPath(path)
 
-  expect_equal(pipe$getResourcesContractionsPath(), path)
-
+  testthat::expect_equal(pipe$getResourcesContractionsPath(),
+                         path)
 })
 
-test_that("setResourcesContractionsPath",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("setResourcesContractionsPath",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   path <- file.path("resourcesFiles",
                     "testResources",
-                    "contractions-json",
-                    "abbrev.en.json")
+                    "contractions-json")
 
   pipe$setResourcesContractionsPath(path)
 
-  expect_equal(pipe$getResourcesContractionsPath(), path)
-
+  testthat::expect_equal(pipe$getResourcesContractionsPath(),
+                         path)
 })
 
-test_that("setResourcesContractionsPath path type error",{
-  skip_if_not_installed("rex")
-  skip_if_not_installed("textutils")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("setResourcesContractionsPath path type error",{
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("textutils")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  replaceContractions <- TRUE
+  resourcesContractionsPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testContractionPipe",
-                                              "configurations.ini"))
+  pathResources <- file.path("resourcesFiles",
+                             "testResources",
+                             "contractions-json")
 
-  pipe <- ContractionPipe$new(propertyName, propertyLanguageName, alwaysBeforeDeps ,notAfterDeps)
+  bdpar.Options$set(key = "resources.contractions.path",
+                    value = pathResources)
+
+  Bdpar$new()
+
+  pipe <- ContractionPipe$new(propertyName,
+                              propertyLanguageName,
+                              alwaysBeforeDeps,
+                              notAfterDeps,
+                              replaceContractions,
+                              resourcesContractionsPath)
 
   path <- NULL
 
-  expect_error(pipe$setResourcesContractionsPath(path),"\\[ContractionPipe\\]\\[setResourcesContractionsPath\\]\\[Error\\]
-                Checking the type of the variable: path NULL")
-
+  testthat::expect_error(pipe$setResourcesContractionsPath(path),
+                         "[ContractionPipe][setResourcesContractionsPath][Error] Checking the type of the 'path' variable: NULL",
+                         fixed = TRUE)
 })
+
+testthat::teardown(bdpar.Options$reset())

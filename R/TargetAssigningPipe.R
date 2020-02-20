@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -68,7 +68,7 @@
 #' take.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -160,7 +160,7 @@
 #'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
 #'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
 #'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
+#'          \code{\link{MeasureLengthPipe}}, \code{\link{GenericPipe}},
 #'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
@@ -174,7 +174,7 @@ TargetAssigningPipe <- R6Class(
 
   "TargetAssigningPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
@@ -184,40 +184,33 @@ TargetAssigningPipe <- R6Class(
                                 alwaysBeforeDeps = list(),
                                   notAfterDeps = list()) {
 
-      if (!requireNamespace("stringi", quietly = TRUE)) {
-        stop("[TargetAssigningPipe][initialize][Error]
-                Package \"stringi\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!"list" %in% class(targets)) {
-        stop("[TargetAssigningPipe][initialize][Error]
-                Checking the type of the variable: targets ",
-                  class(targets))
+        stop("[TargetAssigningPipe][initialize][Error] ",
+             "Checking the type of the 'targets' variable: ",
+             class(targets))
       }
 
       if (!"list" %in% class(targetsName)) {
-        stop("[TargetAssigningPipe][initialize][Error]
-                Checking the type of the variable: targetsName ",
-                  class(targetsName))
+        stop("[TargetAssigningPipe][initialize][Error] ",
+             "Checking the type of the 'targetsName' variable: ",
+             class(targetsName))
       }
 
       if (!"character" %in% class(propertyName)) {
-        stop("[TargetAssigningPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[TargetAssigningPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[TargetAssigningPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[TargetAssigningPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[TargetAssigningPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[TargetAssigningPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       private$targets <- targets
@@ -230,18 +223,10 @@ TargetAssigningPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[TargetAssigningPipe][pipe][Error]
-                 Checking the type of the variable: instance ",
-                   class(instance))
+        stop("[TargetAssigningPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      instance$addFlowPipes("TargetAssigningPipe")
-
-      if (!instance$checkCompatibility("TargetAssigningPipe", self$getAlwaysBeforeDeps())) {
-        stop("[TargetAssigningPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       instance$getPath() %>>%
         self$getTarget() %>>%
@@ -253,7 +238,7 @@ TargetAssigningPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[TargetAssigningPipe][pipe][Warning] ", message, " \n")
+        warning("[TargetAssigningPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -267,9 +252,9 @@ TargetAssigningPipe <- R6Class(
     getTarget = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[TargetAssigningPipe][getTarget][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[TargetAssigningPipe][getTarget][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       for (target in names(self$getTargets())) {
@@ -286,15 +271,15 @@ TargetAssigningPipe <- R6Class(
     checkTarget = function(target, path) {
 
       if (!"character" %in% class(target)) {
-        stop("[TargetAssigningPipe][checkTarget][Error]
-                Checking the type of the variable: target ",
-                  class(target))
+        stop("[TargetAssigningPipe][checkTarget][Error] ",
+             "Checking the type of the 'target' variable: ",
+             class(target))
       }
 
       if (!"character" %in% class(path)) {
-        stop("[TargetAssigningPipe][checkTarget][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[TargetAssigningPipe][checkTarget][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       selectedTarget <- ""

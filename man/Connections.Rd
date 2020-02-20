@@ -14,38 +14,29 @@ with the APIs of Twitter and YouTube.
 }
 \section{Constructor}{
 
-\code{Connections$new(keysPath)}
-\itemize{
-\item{\emph{Arguments:}}{
-\itemize{
-\item{\strong{keysPath:}}{
-(\emph{character}) path of the .ini file that contains the keys.
-}
-}
-}
-}
+\code{Connections$new()}
 }
 
 \section{Details}{
 
 The way to indicate the keys of YouTube and Twitter has to be
-through the configuration file that contains the following structure:
+through fields of \emph{\link{bdpar.Options}} variable:
 
 \strong{[twitter]}
 
-ConsumerKey = \emph{<<consumer_key>>}
+- \code{bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)}
 
-ConsumerSecret = \emph{<<consumer_secret>>}
+- \code{bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)}
 
-AccessToken = \emph{<<access_token>>}
+- \code{bdpar.Options$set("twitter.access.token", <<access_token>>)}
 
-AccessTokenSecret = \emph{<<access_token_secret>>}
+- \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
 
 \strong{[youtube]}
 
-app_id = \emph{<<app_id>>}
+- \code{bdpar.Options$set("youtube.app.id", <<app_id>>)}
 
-app_password = \emph{<<app_password>>}
+- \code{bdpar.Options$set("youtube.app.password", <<app_password>>)}
 }
 
 \section{Note}{
@@ -152,5 +143,6 @@ value of number maximun of request to YouTube.
 }
 
 \seealso{
-\code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}}
+\code{\link{bdpar.Options}}, \code{\link{ExtractorTwtid}},
+         \code{\link{ExtractorYtbid}}
 }

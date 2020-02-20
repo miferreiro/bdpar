@@ -1,87 +1,89 @@
-context("Instance")
+testthat::context("Instance")
 
 test_that("initialize",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$.__enclos_env__$private$path, path)
-  expect_equal(instance$.__enclos_env__$private$properties, list(Initial_path = path))
+  testthat::expect_equal(instance$.__enclos_env__$private$path,
+                        path)
+  testthat::expect_equal(instance$.__enclos_env__$private$properties,
+                        list(Initial_path = path))
 })
 
-test_that("initialize path type error",{
+testthat::test_that("initialize path type error",{
 
   path <- NULL
 
-  expect_error(Instance$new(path),"\\[Instance\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: path NULL")
-
+  testthat::expect_error(Instance$new(path),
+                         "[Instance][initialize][Error] Checking the type of the 'path' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("obtainDate",{
+testthat::test_that("obtainDate",{
 
   path <- "example.tsms"
 
-  expect_error(Instance$new(path)$obtainDate(),"\\[Instance\\]\\[obtainDate\\]\\[Error\\]
-              I'm an abstract interface method")
-
+  testthat::expect_error(Instance$new(path)$obtainDate(),
+                         "[Instance][obtainDate][Error] I am an abstract interface method",
+                         fixed = TRUE)
 })
 
-test_that("obtainSource",{
+testthat::test_that("obtainSource",{
 
   path <- "example.tsms"
 
-  expect_error(Instance$new(path)$obtainSource(),"\\[Instance\\]\\[obtainSource\\]\\[Error\\]
-              I'm an abstract interface method")
-
+  testthat::expect_error(Instance$new(path)$obtainSource(),
+                         "[Instance][obtainSource][Error] I am an abstract interface method",
+                         fixed = TRUE)
 })
 
-test_that("getDate",{
-
-  path <- "example.tsms"
-
-  instance <- Instance$new(path)
-  expect_equal(instance$getDate(), "")
-
-})
-
-test_that("getSource",{
+testthat::test_that("getDate",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$getSource(), "")
-
+  testthat::expect_equal(instance$getDate(),
+                         "")
 })
 
-test_that("getPath",{
+testthat::test_that("getSource",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$getPath(), path)
-
+  testthat::expect_equal(instance$getSource(),
+                         "")
 })
 
-test_that("getData",{
+testthat::test_that("getPath",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$getData(), "")
-
+  testthat::expect_equal(instance$getPath(),
+                         path)
 })
 
-test_that("getProperties",{
+testthat::test_that("getData",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$getProperties(), list(Initial_path = path))
-
+  testthat::expect_equal(instance$getData(),
+                         "")
 })
 
-test_that("setSource",{
+testthat::test_that("getProperties",{
+
+  path <- "example.tsms"
+
+  instance <- Instance$new(path)
+  testthat::expect_equal(instance$getProperties(),
+                        list(Initial_path = path))
+})
+
+testthat::test_that("setSource",{
 
   path <- "example.tsms"
 
@@ -90,11 +92,11 @@ test_that("setSource",{
   sourceExpected <- "exampleExpected"
 
   instance$setSource(sourceExpected)
-  expect_equal(instance$getSource(), sourceExpected)
-
+  testthat::expect_equal(instance$getSource(),
+                        sourceExpected)
 })
 
-test_that("setSource source type error",{
+testthat::test_that("setSource source type error",{
 
   path <- "example.tsms"
 
@@ -102,11 +104,12 @@ test_that("setSource source type error",{
 
   sourceExpected <- NULL
 
-  expect_error(instance$setSource(sourceExpected),"\\[Instance\\]\\[setSource\\]\\[Error\\]
-                Checking the type of the variable: source NULL")
+  testthat::expect_error(instance$setSource(sourceExpected),
+                         "[Instance][setSource][Error] Checking the type of the 'source' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("setDate",{
+testthat::test_that("setDate",{
 
   path <- "example.tsms"
 
@@ -115,11 +118,11 @@ test_that("setDate",{
   dateExpected <- "exampleExpected"
 
   instance$setDate(dateExpected)
-  expect_equal(instance$getDate(), dateExpected)
-
+  testthat::expect_equal(instance$getDate(),
+                         dateExpected)
 })
 
-test_that("setDate source type error",{
+testthat::test_that("setDate source type error",{
 
   path <- "example.tsms"
 
@@ -127,11 +130,12 @@ test_that("setDate source type error",{
 
   dateExpected <- NULL
 
-  expect_error(instance$setDate(dateExpected),"\\[Instance\\]\\[setDate\\]\\[Error\\]
-                Checking the type of the variable: date NULL")
+  testthat::expect_error(instance$setDate(dateExpected),
+                         "[Instance][setDate][Error] Checking the type of the 'date' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("setProperties",{
+testthat::test_that("setProperties",{
 
   path <- "example.tsms"
 
@@ -140,11 +144,11 @@ test_that("setProperties",{
   propertiesExpected <- list(example = "example")
 
   instance$setProperties(propertiesExpected)
-  expect_equal(instance$getProperties(), propertiesExpected)
-
+  testthat::expect_equal(instance$getProperties(),
+                         propertiesExpected)
 })
 
-test_that("setProperties source type error",{
+testthat::test_that("setProperties source type error",{
 
   path <- "example.tsms"
 
@@ -152,11 +156,12 @@ test_that("setProperties source type error",{
 
   propertiesExpected <- NULL
 
-  expect_error(instance$setProperties(propertiesExpected),"\\[Instance\\]\\[setProperties\\]\\[Error\\]
-                Checking the type of the variable: properties NULL")
+  testthat::expect_error(instance$setProperties(propertiesExpected),
+                         "[Instance][setProperties][Error] Checking the type of the 'properties' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("addProperties",{
+testthat::test_that("addProperties",{
 
   path <- "example.tsms"
 
@@ -166,11 +171,11 @@ test_that("addProperties",{
   nameExpected <- "nameExpected"
 
   instance$addProperties(valueExpected, nameExpected)
-  expect_equal(instance$getProperties(), list(Initial_path = path, nameExpected = valueExpected))
-
+  testthat::expect_equal(instance$getProperties(),
+                         list(Initial_path = path, nameExpected = valueExpected))
 })
 
-test_that("addProperties propertyName type error",{
+testthat::test_that("addProperties propertyName type error",{
 
   path <- "example.tsms"
 
@@ -179,12 +184,12 @@ test_that("addProperties propertyName type error",{
   valueExpected <- "valueExpected"
   nameExpected <- NULL
 
-  expect_error(instance$addProperties(valueExpected, nameExpected),"\\[Instance\\]\\[addProperties\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
-
+  testthat::expect_error(instance$addProperties(valueExpected, nameExpected),
+                         "[Instance][addProperties][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("getSpecificProperty",{
+testthat::test_that("getSpecificProperty",{
 
   path <- "example.tsms"
 
@@ -192,11 +197,11 @@ test_that("getSpecificProperty",{
 
   nameExpected <- "Initial_path"
 
-  expect_equal(instance$getSpecificProperty(nameExpected), path)
-
+  testthat::expect_equal(instance$getSpecificProperty(nameExpected),
+                         path)
 })
 
-test_that("getSpecificProperty propertyName type error",{
+testthat::test_that("getSpecificProperty propertyName type error",{
 
   path <- "example.tsms"
 
@@ -204,12 +209,12 @@ test_that("getSpecificProperty propertyName type error",{
 
   nameExpected <- NULL
 
-  expect_error(instance$getSpecificProperty(nameExpected),"\\[Instance\\]\\[getSpecificProperty\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
-
+  testthat::expect_error(instance$getSpecificProperty(nameExpected),
+                         "[Instance][getSpecificProperty][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("isSpecificProperty TRUE",{
+testthat::test_that("isSpecificProperty TRUE",{
 
   path <- "example.tsms"
 
@@ -217,11 +222,11 @@ test_that("isSpecificProperty TRUE",{
 
   nameExpected <- "Initial_path"
 
-  expect_equal(instance$isSpecificProperty(nameExpected), TRUE)
-
+  testthat::expect_equal(instance$isSpecificProperty(nameExpected),
+                         TRUE)
 })
 
-test_that("isSpecificProperty FALSE",{
+testthat::test_that("isSpecificProperty FALSE",{
 
   path <- "example.tsms"
 
@@ -229,11 +234,11 @@ test_that("isSpecificProperty FALSE",{
 
   nameExpected <- "example"
 
-  expect_equal(instance$isSpecificProperty(nameExpected), FALSE)
-
+  testthat::expect_equal(instance$isSpecificProperty(nameExpected),
+                         FALSE)
 })
 
-test_that("setSpecificProperty",{
+testthat::test_that("setSpecificProperty",{
 
   path <- "example.tsms"
 
@@ -243,11 +248,11 @@ test_that("setSpecificProperty",{
   valueExpected <- "valueExpected"
 
   instance$setSpecificProperty(nameExpected, valueExpected)
-  expect_equal(instance$getSpecificProperty(nameExpected), valueExpected)
-
+  testthat::expect_equal(instance$getSpecificProperty(nameExpected),
+                         valueExpected)
 })
 
-test_that("setSpecificProperty propertyName type error",{
+testthat::test_that("setSpecificProperty propertyName type error",{
 
   path <- "example.tsms"
 
@@ -256,21 +261,22 @@ test_that("setSpecificProperty propertyName type error",{
   nameExpected <- NULL
   valueExpected <- "valueExpected"
 
-  expect_error(instance$setSpecificProperty(nameExpected, valueExpected),"\\[Instance\\]\\[setSpecificProperty\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  testthat::expect_error(instance$setSpecificProperty(nameExpected, valueExpected),
+                         "[Instance][setSpecificProperty][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("getNamesOfProperties",{
+testthat::test_that("getNamesOfProperties",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$getNamesOfProperties(), c("Initial_path"))
-
+  testthat::expect_equal(instance$getNamesOfProperties(),
+                         c("Initial_path"))
 })
 
 
-test_that("setData",{
+testthat::test_that("setData",{
 
   path <- "example.tsms"
 
@@ -279,11 +285,11 @@ test_that("setData",{
   dataExpected <- "exampleExpected"
 
   instance$setData(dataExpected)
-  expect_equal(instance$getData(), dataExpected)
-
+  testthat::expect_equal(instance$getData(),
+                         dataExpected)
 })
 
-test_that("setData source type error",{
+testthat::test_that("setData source type error",{
 
   path <- "example.tsms"
 
@@ -291,20 +297,21 @@ test_that("setData source type error",{
 
   dataExpected <- NULL
 
-  expect_error(instance$setData(dataExpected),"\\[Instance\\]\\[setData\\]\\[Error\\]
-                Checking the type of the variable: data NULL")
+  testthat::expect_error(instance$setData(dataExpected),
+                         "[Instance][setData][Error] Checking the type of the 'data' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("isInstanceValid",{
+testthat::test_that("isInstanceValid",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$isInstanceValid(), TRUE)
-
+  testthat::expect_equal(instance$isInstanceValid(),
+                         TRUE)
 })
 
-test_that("invalidate",{
+testthat::test_that("invalidate",{
 
   path <- "example.tsms"
 
@@ -312,20 +319,20 @@ test_that("invalidate",{
 
   instance$invalidate()
 
-  expect_equal(instance$isInstanceValid(), FALSE)
-
+  testthat::expect_equal(instance$isInstanceValid(),
+                         FALSE)
 })
 
-test_that("getFlowPipes",{
+testthat::test_that("getFlowPipes",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$getFlowPipes(), list())
-
+  testthat::expect_equal(instance$getFlowPipes(),
+                         list())
 })
 
-test_that("addFlowPipes",{
+testthat::test_that("addFlowPipes",{
 
   path <- "example.tsms"
 
@@ -334,11 +341,11 @@ test_that("addFlowPipes",{
   nameExpected <- "pipe"
 
   instance$addFlowPipes(nameExpected)
-  expect_equal(instance$getFlowPipes(), list(nameExpected))
-
+  testthat::expect_equal(instance$getFlowPipes(),
+                         list(nameExpected))
 })
 
-test_that("addFlowPipes namePipe type error",{
+testthat::test_that("addFlowPipes namePipe type error",{
 
   path <- "example.tsms"
 
@@ -346,22 +353,22 @@ test_that("addFlowPipes namePipe type error",{
 
   nameExpected <- NULL
 
-  expect_error(instance$addFlowPipes(nameExpected),"\\[Instance\\]\\[addFlowPipes\\]\\[Error\\]
-                Checking the type of the variable: namePipe NULL")
-
+  testthat::expect_error(instance$addFlowPipes(nameExpected),
+                         "[Instance][addFlowPipes][Error] Checking the type of the 'namePipe' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("getBanPipes",{
+testthat::test_that("getBanPipes",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
-  expect_equal(instance$getBanPipes(), c())
-
+  testthat::expect_equal(instance$getBanPipes(),
+                         c())
 })
 
 
-test_that("addBanPipes",{
+testthat::test_that("addBanPipes",{
 
   path <- "example.tsms"
 
@@ -370,11 +377,11 @@ test_that("addBanPipes",{
   nameExpected <- "pipe"
 
   instance$addBanPipes(nameExpected)
-  expect_equal(instance$getBanPipes(), c(nameExpected))
-
+  testthat::expect_equal(instance$getBanPipes(),
+                         c(nameExpected))
 })
 
-test_that("addBanPipes namePipe type error",{
+testthat::test_that("addBanPipes namePipe type error",{
 
   path <- "example.tsms"
 
@@ -382,12 +389,12 @@ test_that("addBanPipes namePipe type error",{
 
   nameExpected <- 1
 
-  expect_error(instance$addBanPipes(nameExpected),"\\[Instance\\]\\[addBanPipes\\]\\[Error\\]
-                Checking the type of the variable: namePipe numeric")
-
+  testthat::expect_error(instance$addBanPipes(nameExpected),
+                         "[Instance][addBanPipes][Error] Checking the type of the 'namePipe' variable: numeric",
+                         fixed = TRUE)
 })
 
-test_that("checkCompatibility TRUE",{
+testthat::test_that("checkCompatibility TRUE",{
 
   path <- "example.tsms"
 
@@ -396,11 +403,11 @@ test_that("checkCompatibility TRUE",{
   nameExpected <- "pipeExample"
   alwaysBefore <- list()
 
-  expect_equal(instance$checkCompatibility(nameExpected, alwaysBefore),TRUE)
-
+  testthat::expect_equal(instance$checkCompatibility(nameExpected, alwaysBefore),
+                         TRUE)
 })
 
-test_that("checkCompatibility FALSE alwaysBefore",{
+testthat::test_that("checkCompatibility FALSE alwaysBefore",{
 
   path <- "example.tsms"
 
@@ -409,11 +416,11 @@ test_that("checkCompatibility FALSE alwaysBefore",{
   nameExpected <- "pipeExample"
   alwaysBefore <- list("pipeExample")
 
-  expect_equal(instance$checkCompatibility(nameExpected, alwaysBefore), FALSE)
-
+  testthat::expect_equal(instance$checkCompatibility(nameExpected, alwaysBefore),
+                         FALSE)
 })
 
-test_that("checkCompatibility FALSE banAfter",{
+testthat::test_that("checkCompatibility FALSE banAfter",{
 
   path <- "example.tsms"
 
@@ -422,11 +429,11 @@ test_that("checkCompatibility FALSE banAfter",{
   nameExpected <- "pipeExample"
   alwaysBefore <- list()
   instance$addBanPipes("pipeExample")
-  expect_equal(instance$checkCompatibility(nameExpected, alwaysBefore), FALSE)
-
+  testthat::expect_equal(instance$checkCompatibility(nameExpected, alwaysBefore),
+                         FALSE)
 })
 
-test_that("checkCompatibility namePipe type error",{
+testthat::test_that("checkCompatibility namePipe type error",{
 
   path <- "example.tsms"
 
@@ -435,11 +442,12 @@ test_that("checkCompatibility namePipe type error",{
   nameExpected <- NULL
   alwaysBefore <- list()
 
-  expect_error(instance$checkCompatibility(nameExpected, alwaysBefore),"\\[Instance\\]\\[checkCompatibility\\]\\[Error\\]
-                Checking the type of the variable: namePipe NULL")
+  testthat::expect_error(instance$checkCompatibility(nameExpected, alwaysBefore),
+                         "[Instance][checkCompatibility][Error] Checking the type of the 'namePipe' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("checkCompatibility namePipe type error",{
+testthat::test_that("checkCompatibility namePipe type error",{
 
   path <- "example.tsms"
 
@@ -448,6 +456,7 @@ test_that("checkCompatibility namePipe type error",{
   nameExpected <- "pipeExample"
   alwaysBefore <- NULL
 
-  expect_error(instance$checkCompatibility(nameExpected, alwaysBefore),"\\[Instance\\]\\[checkCompatibility\\]\\[Error\\]
-                Checking the type of the variable: alwaysBefore NULL")
+  testthat::expect_error(instance$checkCompatibility(nameExpected, alwaysBefore),
+                         "[Instance][checkCompatibility][Error] Checking the type of the 'alwaysBefore' variable: NULL",
+                         fixed = TRUE)
 })

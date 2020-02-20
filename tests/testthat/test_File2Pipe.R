@@ -1,47 +1,57 @@
-context("File2Pipe")
+testthat::context("File2Pipe")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
 
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_silent(File2Pipe$new(propertyName,alwaysBeforeDeps,notAfterDeps))
+  testthat::expect_silent(File2Pipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps))
 })
 
-test_that("initialize propertyName type error",{
+testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
 
-  expect_error(File2Pipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[File2Pipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  testthat::expect_error(File2Pipe$new(propertyName,
+                                       alwaysBeforeDeps,
+                                       notAfterDeps),
+                         "[File2Pipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
+testthat::test_that("initialize alwaysBeforeDeps type error",{
 
   propertyName <- "source"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
 
-  expect_error(File2Pipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[File2Pipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  testthat::expect_error(File2Pipe$new(propertyName,
+                                       alwaysBeforeDeps,
+                                       notAfterDeps),
+                         "[File2Pipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
-  skip_if_not_installed("readr")
+testthat::test_that("initialize notAfterDeps type error",{
+  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
 
-  expect_error(File2Pipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[File2Pipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
-
+  testthat::expect_error(File2Pipe$new(propertyName,
+                                       alwaysBeforeDeps,
+                                       notAfterDeps),
+                         "[File2Pipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe",{
-  skip_if_not_installed("readr")
+testthat::test_that("pipe",{
+  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -55,15 +65,15 @@ test_that("pipe",{
   instanceExpected <- ExtractorSms$new(path)
   instanceExpected$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   instanceExpected$setData("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
-  instanceExpected$addFlowPipes("File2Pipe")
   instanceFinal <- pipe$pipe(instance)
-  expect_equal(instanceFinal$getSource(),instanceExpected$getSource())
-  expect_equal(instanceFinal$getData(),instanceExpected$getData())
-  expect_equal(instanceFinal$getFlowPipes(),instanceExpected$getFlowPipes())
+  testthat::expect_equal(instanceFinal$getSource(),
+                         instanceExpected$getSource())
+  testthat::expect_equal(instanceFinal$getData(),
+                         instanceExpected$getData())
 })
 
-test_that("pipe empty source",{
-  skip_if_not_installed("readr")
+testthat::test_that("pipe empty source",{
+  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -74,28 +84,11 @@ test_that("pipe empty source",{
                     "example_File2Pipe_empty.tsms")
 
   instance <- ExtractorSms$new(path)
-  expect_warning(pipe$pipe(instance),"\\[File2Pipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFile2Pipe\\/example_File2Pipe_empty\\.tsms has source empty")
-
+  testthat::expect_warning(pipe$pipe(instance),
+                           "\\[File2Pipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFile2Pipe\\/example_File2Pipe_empty\\.tsms has source empty")
 })
 
-test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("readr")
-  propertyName <- "source"
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
-  pipe <- File2Pipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  path <- file.path("testFiles",
-                    "testFile2Pipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  instance$addBanPipes("pipeExample")
-  expect_error(pipe$pipe(instance),"\\[File2Pipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
-
-})
-
-test_that("pipe instance type error",{
+testthat::test_that("pipe instance type error",{
 
   propertyName <- "source"
   alwaysBeforeDeps <- list()
@@ -104,7 +97,7 @@ test_that("pipe instance type error",{
 
   instance <- NULL
 
-  expect_error(pipe$pipe(instance),"\\[File2Pipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
+  testthat::expect_error(pipe$pipe(instance),
+                         "[File2Pipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
 })

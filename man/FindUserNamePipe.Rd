@@ -18,7 +18,8 @@ Moreover if required, is able to perform inline user nanme removement.
 \preformatted{
 FindUserNamePipe$new(propertyName = "userName",
                      alwaysBeforeDeps = list(),
-                     notAfterDeps = list())
+                     notAfterDeps = list(),
+                     removeUser = TRUE)
 }
 
 \itemize{
@@ -33,6 +34,9 @@ one).
 }
 \item{\strong{notAfterDeps:}}{
 (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
+}
+\item{\strong{removeUser:}}{
+(\emph{logical}) indicates if the users are removed.
 }
 }
 }
@@ -53,7 +57,7 @@ variable are used to identify user names.
 
 \section{Inherit}{
 
-This class inherits from \code{\link{PipeGeneric}} and implements the
+This class inherits from \code{\link{GenericPipe}} and implements the
 \code{pipe} abstract function.
 }
 
@@ -64,7 +68,7 @@ This class inherits from \code{\link{PipeGeneric}} and implements the
 preprocesses the \code{\link{Instance}} to obtain/remove the name users.
 \itemize{
 \item{\emph{Usage:}}{
-\code{pipe(instance, removeUser = TRUE)}
+\code{pipe(instance)}
 }
 \item{\emph{Value:}}{
 the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -73,9 +77,6 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \itemize{
 \item{\strong{instance:}}{
 (\emph{Instance}) \code{\link{Instance}} to preproccess.
-}
-\item{\strong{removeUser:}}{
-(\emph{logical}) indicates if the users are removed.
 }
 }
 }
@@ -131,6 +132,15 @@ the data with name users removed.
 }
 }
 
+\section{Private fields}{
+
+\itemize{
+\item{\bold{removeUser:}}{
+ (\emph{logical}) indicates if the users are removed.
+}
+}
+}
+
 \seealso{
 \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -138,7 +148,7 @@ the data with name users removed.
          \code{\link{FindUrlPipe}}, \code{\link{GuessDatePipe}},
          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-         \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
+         \code{\link{GenericPipe}}, \code{\link{SlangPipe}},
          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
          \code{\link{ToLowerCasePipe}}

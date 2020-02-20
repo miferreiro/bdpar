@@ -1,0 +1,53 @@
+---
+title: "Basic example using bdpar package"
+author: "Miguel Ferreiro Diaz"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Basic example using bdpar package}
+  %\VignetteEngine{knitr::rmarkdown}
+  usepackage[utf8]{inputenc}
+---
+
+# Introduction
+
+<div style = "text-align: justify">
+The goal of this document is to show the launch of a small example of data preprocessing. To achieve this from version 1.0.1, the package brings by default a folder with an example of files that can be used to test the tool. Specifically, they are 20 ham-type SMS files and another 20 spam-type files, which can be viewed by loading the data, called bdparData, associated with the package.
+</div>
+
+# Example
+
+<div style="text-aling:justify">
+First of all, it is necessary to include the package.
+
+```{R, echo = TRUE, results = "hide"}
+library(bdpar)
+```
+
+</div>
+
+## Visualization
+
+<div style="text-aling:justify">
+The data that will be used to show this example can be displayed as follows.  
+
+```{R, echo = TRUE, results = "hide"}
+data(bdparData)
+bdparData
+```
+
+</div>
+
+## Execution
+
+<div style="text-aling:justify">
+For this preprocessing we will use both the default preprocessing flow (DefaultPipeline) and the default way to create the Instances (ExtractorFactory). 
+
+Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
+
+```{R, echo = TRUE, results = "hide", eval = FALSE}
+runPipeline(path = system.file(package = "bdpar", "testFiles"))
+```
+
+This function will generate a csv file in the user's working directory, where you can see the characteristics of the text obtained, such as cleaning the text to be preprocessed.
+</div>

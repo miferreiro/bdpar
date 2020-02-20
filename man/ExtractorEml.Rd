@@ -20,6 +20,11 @@ implements the functions of extracting the text and the date from an eml type fi
 \item{\strong{path:}}{
 (\emph{character}) path of the eml type file.
 }
+\item{\strong{PartSelectedOnMPAlternative:}}{
+(\emph{character}) configuration to read the eml files. If it is NULL, checks
+if is defined in the \strong{"extractorEML.mpaPartSelected"} field of
+\emph{\link{bdpar.Options}} variable.
+}
 }
 }
 }
@@ -28,12 +33,8 @@ implements the functions of extracting the text and the date from an eml type fi
 \section{Details}{
 
 The way to indicate which part to choose in the email, when is a multipart email,
-is through the configuration file which contains the following structure (being
-YourPartSelected, text/plain or text/html):
-
-\strong{[eml]}
-
-PartSelectedOnMPAlternative = YourPartSelected (text/html or text/plain)
+is through the \strong{"extractorEML.mpaPartSelected"}
+field of \emph{\link{bdpar.Options}} variable.
 }
 
 \section{Note}{
@@ -114,6 +115,7 @@ sets of \code{PartSelectedOnMPAlternative} variable.
 }
 
 \seealso{
-\code{\link{ExtractorSms}}, \code{\link{ExtractorTwtid}},
-\code{\link{ExtractorYtbid}}, \code{\link{Instance}}
+\code{\link{bdpar.Options}}, \code{\link{ExtractorSms}},
+\code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
+\code{\link{Instance}}
 }

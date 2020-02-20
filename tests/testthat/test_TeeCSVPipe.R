@@ -1,56 +1,198 @@
-context("TeeCSVPipe")
+testthat::context("TeeCSVPipe")
 
-test_that("initialize",{
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize",{
 
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
 
-  expect_silent(TeeCSVPipe$new(propertyName,alwaysBeforeDeps,notAfterDeps))
+  path <- "output_tsms.csv"
+
+  bdpar.Options$set(key = "teeCSVPipe.output.path",
+                    value = path)
+
+  testthat::expect_silent(TeeCSVPipe$new(propertyName,
+                                         alwaysBeforeDeps,
+                                         notAfterDeps,
+                                         withData,
+                                         withSource,
+                                         outputPath))
 })
 
-test_that("initialize propertyName type error",{
+testthat::teardown(bdpar.Options$reset())
+
+testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
 
-  expect_error(TeeCSVPipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[TeeCSVPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: propertyName NULL")
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize alwaysBeforeDeps type error",{
+testthat::test_that("initialize alwaysBeforeDeps type error",{
 
   propertyName <- ""
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
 
-  expect_error(TeeCSVPipe$new(propertyName,alwaysBeforeDeps,notAfterDeps),"\\[TeeCSVPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: alwaysBeforeDeps NULL")
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("initialize notAfterDeps type error",{
+testthat::test_that("initialize notAfterDeps type error",{
 
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
 
-  expect_error(TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps),"\\[TeeCSVPipe\\]\\[initialize\\]\\[Error\\]
-                Checking the type of the variable: notAfterDeps NULL")
-
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe",{
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rjson")
+testthat::test_that("initialize withData type error",{
+
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  withData <- NULL
+  withSource <- TRUE
+  outputPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testTeeCSVPipe",
-                                              "configurations.ini"))
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'withData' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::test_that("initialize withSource type error",{
+
+  propertyName <- ""
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  withData <- TRUE
+  withSource <- NULL
+  outputPath <- NULL
+
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'withSource' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("initialize resourcesAbbreviationsPath type error",{
+
+  propertyName <- ""
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
+
+  bdpar.Options$set(key = "teeCSVPipe.output.path",
+                    value = NULL)
+
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Path of TeeCSVPipe output is neither defined in initialize or in bdpar.Options",
+                         fixed = TRUE)
+
+  outputPath <- 1
+
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'outputPath' variable: numeric",
+                         fixed = TRUE)
+
+  outputPath <- "example.json"
+
+  testthat::expect_error(TeeCSVPipe$new(propertyName,
+                                        alwaysBeforeDeps,
+                                        notAfterDeps,
+                                        withData,
+                                        withSource,
+                                        outputPath),
+                         "[TeeCSVPipe][initialize][Error] Checking the extension of the file: json",
+                         fixed = TRUE)
+})
+
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe",{
+  testthat::skip_if_not_installed("readr")
+  testthat::skip_if_not_installed("rjson")
+  propertyName <- ""
+  alwaysBeforeDeps <- list()
+  notAfterDeps <- list()
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
+
+  pathOutput <- "output_tsms.csv"
+
+  bdpar.Options$set(key = "teeCSVPipe.output.path",
+                    value = pathOutput)
+
+  pipe <- TeeCSVPipe$new(propertyName,
+                         alwaysBeforeDeps,
+                         notAfterDeps,
+                         withData,
+                         withSource,
+                         outputPath)
+
+  Bdpar$new()
 
   path <- file.path("testFiles",
                     "testTeeCSVPipe",
@@ -58,24 +200,46 @@ test_that("pipe",{
 
   instance <- ExtractorSms$new(path)
 
-  withData <- TRUE
-  withSource <- TRUE
-  expect_equal(pipe$pipe(instance, withData, withSource), instance)
-  expect_equal(file.exists("output_tsms.csv"), TRUE)
+  testthat::expect_equal(pipe$pipe(instance),
+                         instance)
+  testthat::expect_equal(file.exists("output_tsms.csv"),
+                         TRUE)
+  #Checks pipe if the file is already exists
+  testthat::expect_equal(pipe$pipe(instance),
+                         instance)
+
+  testthat::expect_equal(file.exists("output_tsms.csv"),
+                         TRUE)
+
   file.remove("output_tsms.csv")
 })
 
-test_that("pipe instance invalid",{
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rjson")
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("pipe instance invalid",{
+  testthat::skip_if_not_installed("readr")
+  testthat::skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testTeeCSVPipe",
-                                              "configurations.ini"))
+  pathOutput <- "output_tsms.csv"
+
+  bdpar.Options$set(key = "teeCSVPipe.output.path",
+                    value = pathOutput)
+
+  pipe <- TeeCSVPipe$new(propertyName,
+                         alwaysBeforeDeps,
+                         notAfterDeps,
+                         withData,
+                         withSource,
+                         outputPath)
+
+  Bdpar$new()
 
   path <- file.path("testFiles",
                     "testTeeCSVPipe",
@@ -83,104 +247,43 @@ test_that("pipe instance invalid",{
 
   instance <- ExtractorSms$new(path)
 
-  withData <- TRUE
-  withSource <- TRUE
   instance$invalidate()
-  expect_equal(pipe$pipe(instance, withData, withSource), instance)
-  expect_equal(file.exists("output_tsms.csv"), FALSE)
-
+  testthat::expect_equal(pipe$pipe(instance),
+                         instance)
+  testthat::expect_equal(file.exists("output_tsms.csv"),
+                         FALSE)
 })
 
-test_that("pipe Bad compatibility between Pipes.",{
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rjson")
-  propertyName <- ""
-  alwaysBeforeDeps <- list("pipeExample")
-  notAfterDeps <- list()
+testthat::teardown(bdpar.Options$reset())
+testthat::setup(bdpar.Options$reset())
 
-  pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testTeeCSVPipe",
-                                              "configurations.ini"))
-
-  path <- file.path("testFiles",
-                    "testTeeCSVPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-  withData <- TRUE
-  withSource <- TRUE
-  instance$addBanPipes("pipeExample")
-  expect_error(pipe$pipe(instance, withData, withSource),"\\[TeeCSVPipe\\]\\[pipe\\]\\[Error\\] Bad compatibility between Pipes.")
-
-})
-
-test_that("pipe instance type error",{
-  skip_if_not_installed("rjson")
+testthat::test_that("pipe instance type error",{
+  testthat::skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
+  withData <- TRUE
+  withSource <- TRUE
+  outputPath <- NULL
 
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testTeeCSVPipe",
-                                              "configurations.ini"))
+  pathOutput <- "output_tsms.csv"
+
+  bdpar.Options$set(key = "teeCSVPipe.output.path",
+                    value = pathOutput)
+
+  pipe <- TeeCSVPipe$new(propertyName,
+                         alwaysBeforeDeps,
+                         notAfterDeps,
+                         withData,
+                         withSource,
+                         outputPath)
+
+  Bdpar$new()
 
   instance <- NULL
-  withData <- TRUE
-  withSource <- TRUE
-  expect_error(pipe$pipe(instance, withData, withSource),"\\[TeeCSVPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: instance NULL")
-
+  testthat::expect_error(pipe$pipe(instance),
+                         "[TeeCSVPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         fixed = TRUE)
 })
 
-test_that("pipe withData type error",{
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rjson")
-  propertyName <- ""
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testTeeCSVPipe",
-                                              "configurations.ini"))
-
-  path <- file.path("testFiles",
-                    "testTeeCSVPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-
-  withData <- NULL
-  withSource <- TRUE
-  expect_error(pipe$pipe(instance, withData, withSource),"\\[TeeCSVPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: withData NULL")
-
-})
-
-test_that("pipe withSource type error",{
-  skip_if_not_installed("readr")
-  skip_if_not_installed("rjson")
-  propertyName <- ""
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  pipe <- TeeCSVPipe$new(propertyName, alwaysBeforeDeps, notAfterDeps)
-
-  Bdpar$new(configurationFilePath = file.path("testFiles",
-                                              "testTeeCSVPipe",
-                                              "configurations.ini"))
-
-  path <- file.path("testFiles",
-                    "testTeeCSVPipe",
-                    "testFile.tsms")
-
-  instance <- ExtractorSms$new(path)
-
-  withData <- TRUE
-  withSource <- NULL
-  expect_error(pipe$pipe(instance, withData, withSource),"\\[TeeCSVPipe\\]\\[pipe\\]\\[Error\\]
-                Checking the type of the variable: withSource NULL")
-
-})
+testthat::teardown(bdpar.Options$reset())

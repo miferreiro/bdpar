@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -39,7 +39,8 @@
 #' SlangPipe$new(propertyName = "langpropname",
 #'               propertyLanguageName = "language",
 #'               alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'               notAfterDeps = list())
+#'               notAfterDeps = list(),
+#'               replaceSlangs = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -57,6 +58,9 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{replaceSlangs:}}{
+#' (\emph{logical}) indicates if the slangs are replace or not.
+#' }
 #' }
 #' }
 #' }
@@ -67,19 +71,15 @@
 #' the language of the text indicated in the \emph{propertyLanguageName} should
 #' be contained in the resource file name (ie. slang.xxx.json where xxx is the
 #' value defined in the \emph{propertyLanguageName} ). The location of the
-#' resources should defined in the \emph{resourcesPath} section of the
-#' configuration file.
-#'
-#' \strong{[resourcesPath]}
-#'
-#' resourcesSlangsPath = \emph{<<resources_slangs_path>>}
+#' resources should be defined in the \strong{"resources.slangs.path"} field of
+#' \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Note:
 #' \code{\link{SlangPipe}} will automatically invalidate the
 #' \code{\link{Instance}} whenever the obtained data is empty.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -87,11 +87,10 @@
 #' \item{\bold{pipe:}}{
 #' preprocesses the \code{\link{Instance}} to obtain/replace the slangs.
 #' The slangs found in the Pipe are added to the list of properties of the
-#' \code{\link{Instance}} If the \code{replaceSlangs} parameter is TRUE, the \code{\link{Instance}} data will be
-#' modified by replacing the slangs found.
+#' \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, replaceSlangs = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -100,9 +99,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{replaceSlangs:}}{
-#' (\emph{logical}) indicate if the slangs are replace or not.
 #' }
 #' }
 #' }
@@ -209,103 +205,104 @@
 #' \item{\bold{resourcesSlangsPath:}}{
 #'  (\emph{character}) the path where are the resources.
 #' }
+#' \item{\bold{replaceSlangs:}}{
+#'  (\emph{logical}) indicates if the slangs are replace or not.
+#' }
 #' }
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{PipeGeneric}},
-#'          \code{\link{ResourceHandler}}, \code{\link{StopWordPipe}},
-#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-#'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{ResourceHandler}},
+#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+#'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
-#' @import ini pipeR R6 rlist
+#' @import pipeR R6 rlist
 #' @export SlangPipe
 
 SlangPipe <- R6Class(
 
   "SlangPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "langpropname",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
-                          notAfterDeps = list()) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[SlangPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[SlangPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+                          notAfterDeps = list(),
+                          replaceSlangs = TRUE,
+                          resourcesSlangsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[SlangPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[SlangPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[SlangPipe][initialize][Error]
-                Checking the type of the variable: propertyLanguageName ",
-                  class(propertyLanguageName))
+        stop("[SlangPipe][initialize][Error] ",
+             "Checking the type of the 'propertyLanguageName' variable: ",
+             class(propertyLanguageName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[SlangPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[SlangPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[SlangPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[SlangPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(replaceSlangs)) {
+        stop("[SlangPipe][initialize][Error] ",
+             "Checking the type of the 'replaceSlangs' variable: ",
+             class(replaceSlangs))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
 
       private$propertyLanguageName <- propertyLanguageName
 
-      private$resourcesSlangsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resources$pathResourcesSlangsPath
+      if (is.null(resourcesSlangsPath)) {
+        if (any(!bdpar.Options$isSpecificOption("resources.slangs.path"),
+                is.null(bdpar.Options$get("resources.slangs.path")))) {
+          stop("[SlangPipe][initialize][Error] Path of slangs ",
+               "resources is neither defined in initialize or in bdpar.Options")
+        } else {
+          resourcesSlangsPath <- bdpar.Options$get("resources.slangs.path")
+        }
+      }
 
+      if (!"character" %in% class(resourcesSlangsPath)) {
+        stop("[SlangPipe][initialize][Error] ",
+             "Checking the type of the 'resourcesSlangsPath' variable: ",
+             class(resourcesSlangsPath))
+      }
+
+      private$resourcesSlangsPath <- resourcesSlangsPath
+      private$replaceSlangs <- replaceSlangs
     },
 
-    pipe = function(instance, replaceSlangs = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[SlangPipe][pipe][Error]
-               Checking the type of the variable: instance ",
-                class(instance))
+        stop("[SlangPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      if (!"logical" %in% class(replaceSlangs)) {
-        stop("[SlangPipe][pipe][Error]
-                Checking the type of the variable: replaceSlangs ",
-                  class(replaceSlangs))
-      }
-
-      instance$addFlowPipes("SlangPipe")
-
-      if (!instance$checkCompatibility("SlangPipe", self$getAlwaysBeforeDeps())) {
-        stop("[SlangPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       languageInstance <- "Unknown"
 
@@ -320,7 +317,7 @@ SlangPipe <- R6Class(
 
         message <- c( "The file: ", instance$getPath(), " has not language property")
 
-        warning("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message)
 
         return(instance)
       }
@@ -344,7 +341,7 @@ SlangPipe <- R6Class(
             slangsLocated <- list.append(slangsLocated, slang)
           }
 
-          if (replaceSlangs && slang %in% slangsLocated) {
+          if (private$replaceSlangs && slang %in% slangsLocated) {
             instance$getData() %>>%
               {self$replaceSlang(slang, as.character(jsonData[slang]), .)} %>>%
                 textutils::trim() %>>%
@@ -360,8 +357,7 @@ SlangPipe <- R6Class(
 
         message <- c( "The file: ", instance$getPath(), " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
 
-        warning("[SlangPipe][pipe][Warning] ", message, " \n")
-
+        warning("[SlangPipe][pipe][Warning] ", message)
 
         return(instance)
       }
@@ -373,7 +369,7 @@ SlangPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[SlangPipe][pipe][Warning] ", message, " \n")
+        warning("[SlangPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -386,15 +382,15 @@ SlangPipe <- R6Class(
     findSlang = function(data, slang) {
 
       if (!"character" %in% class(data)) {
-        stop("[SlangPipe][findSlang][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[SlangPipe][findSlang][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(slang)) {
-        stop("[SlangPipe][findSlang][Error]
-                Checking the type of the variable: slang ",
-                  class(slang))
+        stop("[SlangPipe][findSlang][Error] ",
+             "Checking the type of the 'slang' variable: ",
+             class(slang))
       }
 
       slangEscaped <- rex::escape(slang)
@@ -410,21 +406,21 @@ SlangPipe <- R6Class(
     replaceSlang = function(slang, extendedSlang, data) {
 
       if (!"character" %in% class(slang)) {
-        stop("[SlangPipe][replaceSlang][Error]
-                Checking the type of the variable: slang ",
-                  class(slang))
+        stop("[SlangPipe][replaceSlang][Error] ",
+             "Checking the type of the 'slang' variable: ",
+             class(slang))
       }
 
       if (!"character" %in% class(extendedSlang)) {
-        stop("[SlangPipe][replaceSlang][Error]
-                Checking the type of the variable: extendedSlang ",
-                  class(extendedSlang))
+        stop("[SlangPipe][replaceSlang][Error] ",
+             "Checking the type of the 'extendedSlang' variable: ",
+             class(extendedSlang))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[SlangPipe][replaceSlang][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[SlangPipe][replaceSlang][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       slangEscaped <- rex::escape(slang)
@@ -452,9 +448,9 @@ SlangPipe <- R6Class(
     setResourcesSlangsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[SlangPipe][setResourcesSlangsPath][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[SlangPipe][setResourcesSlangsPath][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       private$resourcesSlangsPath <- path
@@ -465,6 +461,7 @@ SlangPipe <- R6Class(
 
   private = list(
     propertyLanguageName = "",
-    resourcesSlangsPath = ""
+    resourcesSlangsPath = "",
+    replaceSlangs = TRUE
   )
 )

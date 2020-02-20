@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -38,18 +38,19 @@
 #' \item{\strong{path:}}{
 #' (\emph{character}) path of the eml type file.
 #' }
+#' \item{\strong{PartSelectedOnMPAlternative:}}{
+#' (\emph{character}) configuration to read the eml files. If it is NULL, checks
+#' if is defined in the \strong{"extractorEML.mpaPartSelected"} field of
+#' \emph{\link{bdpar.Options}} variable.
+#' }
 #' }
 #' }
 #' }
 #'
 #' @section Details:
 #' The way to indicate which part to choose in the email, when is a multipart email,
-#' is through the configuration file which contains the following structure (being
-#' YourPartSelected, text/plain or text/html):
-#'
-#' \strong{[eml]}
-#'
-#' PartSelectedOnMPAlternative = YourPartSelected (text/html or text/plain)
+#' is through the \strong{"extractorEML.mpaPartSelected"}
+#' field of \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Note:
 #' To be able to use this class it is necessary to have Python installed.
@@ -120,8 +121,9 @@
 #' }
 #' }
 #'
-#' @seealso \code{\link{ExtractorSms}}, \code{\link{ExtractorTwtid}},
-#' \code{\link{ExtractorYtbid}}, \code{\link{Instance}}
+#' @seealso \code{\link{bdpar.Options}}, \code{\link{ExtractorSms}},
+#' \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
+#' \code{\link{Instance}}
 #'
 #' @keywords NULL
 #'
@@ -136,24 +138,37 @@ ExtractorEml <- R6Class(
 
   public = list(
 
-    initialize = function(path) {
+    initialize = function(path,
+                          PartSelectedOnMPAlternative = NULL) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorEml][initialize][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[ExtractorEml][initialize][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       path %>>%
         super$initialize()
 
-      if (!is.null(Bdpar[["private_fields"]][["configurationFilePath"]])) {
-        read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$eml$PartSelectedOnMPAlternative %>>%
-          self$setPartSelectedOnMPAlternative()
-      } else {
-        "text/plain" %>>%
-          self$setPartSelectedOnMPAlternative()
+
+      if (is.null(PartSelectedOnMPAlternative)) {
+        if (any(!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected"),
+                is.null(bdpar.Options$get("extractorEML.mpaPartSelected")))) {
+          stop("[ExtractorEml][initialize][Error] Part of select on .eml files ",
+               "is neither defined in initialize or in bdpar.Options")
+        } else {
+          PartSelectedOnMPAlternative <- bdpar.Options$get("extractorEML.mpaPartSelected")
+        }
       }
+
+      if (!"character" %in% class(PartSelectedOnMPAlternative)) {
+        stop("[ExtractorEml][initialize][Error] ",
+             "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
+             class(PartSelectedOnMPAlternative))
+      }
+
+      PartSelectedOnMPAlternative %>>%
+        self$setPartSelectedOnMPAlternative()
     },
 
     obtainDate = function() {
@@ -164,7 +179,7 @@ ExtractorEml <- R6Class(
 
         error = function(e) {
           message("[ExtractorEml][obtainDate][Error] Date eml error ",
-                   super$getPath()," ", paste(e), "\n")
+                   super$getPath()," ", paste(e))
         }
       )
 
@@ -177,7 +192,7 @@ ExtractorEml <- R6Class(
         },
         error = function(e) {
           message("[ExtractorEml][obtainDate][Error] Date eml error in
-                   standardized proccess", super$getPath(), " ", paste(e), "\n")
+                   standardized proccess", super$getPath(), " ", paste(e))
         }
       )
 
@@ -194,7 +209,7 @@ ExtractorEml <- R6Class(
 
         error = function(e) {
           message("[ExtractorEml][obtainSource][Error] Source eml error ",
-                   super$getPath()," ", paste(e), "\n")
+                   super$getPath()," ", paste(e))
         }
       )
 
@@ -212,9 +227,9 @@ ExtractorEml <- R6Class(
     setPartSelectedOnMPAlternative = function(PartSelectedOnMPAlternative) {
 
       if (!"character" %in% class(PartSelectedOnMPAlternative)) {
-        stop("[ExtractorEml][setPartSelectedOnMPAlternative][Error]
-                Checking the type of the variable: PartSelectedOnMPAlternative ",
-                  class(PartSelectedOnMPAlternative))
+        stop("[ExtractorEml][setPartSelectedOnMPAlternative][Error] ",
+             "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
+             class(PartSelectedOnMPAlternative))
       }
 
       private$PartSelectedOnMPAlternative <- PartSelectedOnMPAlternative

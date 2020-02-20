@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -58,7 +58,7 @@
 #' \code{\link{Instance}} whenever the obtained source is empty or not in UTF-8 format.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -89,7 +89,7 @@
 #'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
 #'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
 #'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
+#'          \code{\link{GenericPipe}}, \code{\link{SlangPipe}},
 #'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
 #'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
 #'          \code{\link{ToLowerCasePipe}}
@@ -103,7 +103,7 @@ File2Pipe <- R6Class(
 
   "File2Pipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
@@ -112,21 +112,21 @@ File2Pipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[File2Pipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[File2Pipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[File2Pipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[File2Pipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[File2Pipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[File2Pipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -135,18 +135,10 @@ File2Pipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[File2Pipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[File2Pipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      instance$addFlowPipes("File2Pipe")
-
-      if (!instance$checkCompatibility("File2Pipe", self$getAlwaysBeforeDeps())) {
-        stop("[File2Pipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       instance$obtainSource()
 
@@ -155,7 +147,7 @@ File2Pipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[File2Pipe][pipe][Warning] ", message, " \n")
+        warning("[File2Pipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -163,15 +155,12 @@ File2Pipe <- R6Class(
       }
 
       if (!validUTF8(instance$getSource())) {
-        message <- c( "The file: " , instance$getPath() , " is not utf8")
 
-        instance$addProperties(message, "reasonToInvalidate")
+        instance$addProperties(c("The file: " , instance$getPath(), " is not utf8", "reasonToInvalidate"))
 
-        warning("[File2Pipe][pipe][Warning] ", message, " \n")
+        warning("[File2Pipe][pipe][Warning] ", "The file: ", instance$getPath(), " is not utf8")
 
         instance$invalidate()
-
-        return(instance)
       }
 
       return(instance)

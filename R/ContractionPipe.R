@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -38,7 +38,9 @@
 #' ContractionsPipe$new(propertyName = "contractions",
 #'                      propertyLanguageName = "language",
 #'                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                      notAfterDeps = list())
+#'                      notAfterDeps = list(),
+#'                      replaceContractions = TRUE,
+#'                      resourcesContractionsPath = NULL)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -56,6 +58,13 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{replaceContractions:}}{
+#' (\emph{logical}) indicates if the contractions are replace or not.
+#' }
+#' \item{\strong{resourcesContractionsPath:}}{
+#' (\emph{character}) path of resource files (in json format) containing the
+#' correspondence between contractions and meaning.
+#' }
 #' }
 #' }
 #' }
@@ -66,19 +75,15 @@
 #' the language of the text indicated in the \emph{propertyLanguageName} should
 #' be contained in the resource file name (ie. contr.xxx.json where xxx is the
 #' value defined in the \emph{propertyLanguageName} ). The location of the
-#' resources should defined in the \emph{resourcesPath} section of the
-#' configuration file.
-#'
-#' \strong{[resourcesPath]}
-#'
-#' resourcesContractionsPath = \emph{<<resources_contractions_path>>}
+#' resources should be defined in the \strong{"resources.contractions.path"}
+#' field of \emph{\link{bdpar.Options}} variable.
 #'
 #' @section Note:
 #' \code{\link{ContractionPipe}} will automatically invalidate the
 #' \code{\link{Instance}} whenever the obtained data is empty.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -86,11 +91,10 @@
 #' \item{\bold{pipe:}}{
 #' preprocesses the \code{\link{Instance}} to obtain/replace the contractions.
 #' The contractions found in the Pipe are added to the list of properties of
-#' the \code{\link{Instance}} If the \code{replaceContractions} parameter is TRUE,
-#' the \code{\link{Instance}} data will be modified by replacing the contractions found.
+#' the \code{\link{Instance}}.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, replaceContractions = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -99,9 +103,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{replaceContractions:}}{
-#' (\emph{logical}) indicates if the contractions are replace or not.
 #' }
 #' }
 #' }
@@ -202,105 +203,106 @@
 #'  (\emph{character}) the name of property about language.
 #' }
 #' \item{\bold{resourcesContractionsPath:}}{
-#'  (\emph{character}) the path where are the resources.
+#'  (\emph{character}) path of resource files (in json format) containing the
+#' correspondence between contractions and meaning.
+#' }
+#' \item{\bold{replaceContractions:}}{
+#'  (\emph{logical}) indicates if the contractions are replace or not.
 #' }
 #' }
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{File2Pipe}},
-#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
-#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
-#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
-#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
-#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{ResourceHandler}},
-#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-#'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
+#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
+#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
+#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
+#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
+#'          \code{\link{MeasureLengthPipe}}, \code{\link{GenericPipe}},
+#'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
+#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+#'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
-#' @import ini pipeR R6 rlist
+#' @import pipeR R6 rlist
 #' @export ContractionPipe
 
 ContractionPipe <- R6Class(
 
   "ContractionPipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "contractions",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
-                          notAfterDeps = list()) {
-
-      if (!requireNamespace("rex", quietly = TRUE)) {
-        stop("[ContractionPipe][initialize][Error]
-                Package \"rex\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
-      if (!requireNamespace("textutils", quietly = TRUE)) {
-        stop("[ContractionPipe][initialize][Error]
-                Package \"textutils\" needed for this class to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
+                          notAfterDeps = list(),
+                          replaceContractions = TRUE,
+                          resourcesContractionsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[ContractionPipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[ContractionPipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[ContractionPipe][initialize][Error]
-                Checking the type of the variable: propertyLanguageName ",
-                  class(propertyLanguageName))
+        stop("[ContractionPipe][initialize][Error] ",
+             "Checking the type of the 'propertyLanguageName' variable: ",
+             class(propertyLanguageName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[ContractionPipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[ContractionPipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[ContractionPipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
+        stop("[ContractionPipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
+      }
+
+      if (!"logical" %in% class(replaceContractions)) {
+        stop("[ContractionPipe][initialize][Error] ",
+             "Checking the type of the 'replaceContractions' variable: ",
+             class(replaceContractions))
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
 
       private$propertyLanguageName <- propertyLanguageName
 
-      private$resourcesContractionsPath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$resourcesPath$resourcesContractionsPath
+      if (is.null(resourcesContractionsPath)) {
+        if (any(!bdpar.Options$isSpecificOption("resources.contractions.path"),
+                is.null(bdpar.Options$get("resources.contractions.path")))) {
+          stop("[ContractionPipe][initialize][Error] Path of contractions ",
+               "resources is neither defined in initialize or in bdpar.Options")
+        } else {
+          resourcesContractionsPath <- bdpar.Options$get("resources.contractions.path")
+        }
+      }
 
+      if (!"character" %in% class(resourcesContractionsPath)) {
+        stop("[ContractionPipe][initialize][Error] ",
+             "Checking the type of the 'resourcesContractionsPath' variable: ",
+             class(resourcesContractionsPath))
+      }
+
+      private$resourcesContractionsPath <- resourcesContractionsPath
+      private$replaceContractions <- replaceContractions
     },
 
-    pipe = function(instance, replaceContractions = TRUE) {
+    pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[ContractionPipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[ContractionPipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
-
-      if (!"logical" %in% class(replaceContractions)) {
-        stop("[ContractionPipe][pipe][Error]
-                Checking the type of the variable: replaceContractions ",
-                  class(replaceContractions))
-      }
-
-      instance$addFlowPipes("ContractionPipe")
-
-      if (!instance$checkCompatibility("ContractionPipe", self$getAlwaysBeforeDeps())) {
-        stop("[ContractionPipe][pipe][Error] Bad compatibility between Pipes.")
-      }
-
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
 
       languageInstance <- "Unknown"
 
@@ -314,7 +316,7 @@ ContractionPipe <- R6Class(
         instance$addProperties(list(),super$getPropertyName())
 
         warning("[ContractionPipe][pipe][Warning] ",
-                "The file: " , instance$getPath() ," has not language property\n")
+                "The file: " , instance$getPath() ," has not language property")
 
         return(instance)
 
@@ -327,6 +329,7 @@ ContractionPipe <- R6Class(
                         sep = "")
 
       jsonData <- Bdpar[["private_fields"]][["resourceHandler"]]$isLoadResource(JsonFile)
+
       #It is verified that there is a resource associated to the language of the instance
       if (!is.null(jsonData)) {
 
@@ -341,7 +344,8 @@ ContractionPipe <- R6Class(
                                                contraction)
           }
 
-          if (replaceContractions && contraction %in% contractionsLocated) {
+          if (private$replaceContractions &&
+              contraction %in% contractionsLocated) {
 
             instance$getData() %>>%
               {self$replaceContraction(contraction,
@@ -361,7 +365,7 @@ ContractionPipe <- R6Class(
 
         warning("[ContractionPipe][pipe][Warning] ",
                 "The file: " , instance$getPath() , " has not an contractionsJsonFile ",
-                "to apply to the language ->", languageInstance, " \n")
+                "to apply to the language ->", languageInstance)
 
         return(instance)
       }
@@ -374,7 +378,7 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[ContractionPipe][pipe][Warning] ", message, " \n")
+        warning("[ContractionPipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -387,15 +391,15 @@ ContractionPipe <- R6Class(
     findContraction = function(data, contraction) {
 
       if (!"character" %in% class(data)) {
-        stop("[ContractionPipe][findContraction][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[ContractionPipe][findContraction][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       if (!"character" %in% class(contraction)) {
-        stop("[ContractionPipe][findContraction][Error]
-                Checking the type of the variable: contraction ",
-                  class(contraction))
+        stop("[ContractionPipe][findContraction][Error] ",
+             "Checking the type of the 'contraction' variable: ",
+             class(contraction))
       }
 
       contractionEscaped <- rex::escape(contraction)
@@ -411,21 +415,21 @@ ContractionPipe <- R6Class(
     replaceContraction = function(contraction, extendedContraction, data) {
 
       if (!"character" %in% class(contraction)) {
-        stop("[ContractionPipe][replaceContraction][Error]
-                Checking the type of the variable: contraction ",
-                  class(contraction))
+        stop("[ContractionPipe][replaceContraction][Error] ",
+             "Checking the type of the 'contraction' variable: ",
+             class(contraction))
       }
 
       if (!"character" %in% class(extendedContraction)) {
-        stop("[ContractionPipe][replaceContraction][Error]
-                Checking the type of the variable: extendedContraction ",
-                  class(extendedContraction))
+        stop("[ContractionPipe][replaceContraction][Error] ",
+             "Checking the type of the 'extendedContraction' variable: ",
+             class(extendedContraction))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[ContractionPipe][replaceContraction][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[ContractionPipe][replaceContraction][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       contractionEscaped <- rex::escape(contraction)
@@ -452,9 +456,9 @@ ContractionPipe <- R6Class(
     setResourcesContractionsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[ContractionPipe][setResourcesContractionsPath][Error]
-                Checking the type of the variable: path ",
-                  class(path))
+        stop("[ContractionPipe][setResourcesContractionsPath][Error] ",
+             "Checking the type of the 'path' variable: ",
+             class(path))
       }
 
       private$resourcesContractionsPath <- path
@@ -465,6 +469,7 @@ ContractionPipe <- R6Class(
 
   private = list(
     propertyLanguageName = "",
-    resourcesContractionsPath = ""
+    resourcesContractionsPath = "",
+    replaceContractions = TRUE
   )
 )

@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -36,7 +36,8 @@
 #' GuessLanguagePipe$new(propertyName = "language",
 #'                       alwaysBeforeDeps = list("StoreFileExtPipe",
 #'                                               "TargetAssigningPipe"),
-#'                       notAfterDeps = list())
+#'                       notAfterDeps = list(),
+#'                       languageTwitter = TRUE)
 #' }
 #' \itemize{
 #' \item{\emph{Arguments:}}{
@@ -51,20 +52,27 @@
 #' \item{\strong{notAfterDeps:}}{
 #' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
 #' }
+#' \item{\strong{languageTwitter:}}{
+#' (\emph{logical}) indicates whether for the Instances of type twtid the language that
+#' returns the api is obtained or the detector is applied.
+#' }
 #' }
 #' }
 #' }
 #'
 #' @section Details:
 #' To obtain the language of the tweets, it will be verified that there is a
-#' json file with the information stored in memory.
+#' json file with the information stored in memory. On the other hand, it is
+#' necessary define the \strong{"cache.twitter.path"} field of
+#' \emph{\link{bdpar.Options}} variable to know where the
+#' information of tweets are saved.
 #'
 #' @section Note:
 #' The Pipe will invalidate the \code{\link{Instance}} if the language of the data
 #' can not be detect.
 #'
 #' @section Inherit:
-#' This class inherits from \code{\link{PipeGeneric}} and implements the
+#' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
 #' @section Methods:
@@ -73,7 +81,7 @@
 #' preprocesses the \code{\link{Instance}} to obtain the language of the data.
 #' \itemize{
 #' \item{\emph{Usage:}}{
-#' \code{pipe(instance, languageTwitter = TRUE)}
+#' \code{pipe(instance)}
 #' }
 #' \item{\emph{Value:}}{
 #' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
@@ -82,10 +90,6 @@
 #' \itemize{
 #' \item{\strong{instance:}}{
 #' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' \item{\strong{languageTwitter:}}{
-#' (\emph{logical}) indicates whether for the Instances of type twtid the language that
-#' returns the api is obtained or the detector is applied.
 #' }
 #' }
 #' }
@@ -112,96 +116,90 @@
 #' }
 #' }
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{Instance}},
-#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
-#'          \code{\link{PipeGeneric}}, \code{\link{SlangPipe}},
-#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
-#'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
-#'          \code{\link{ToLowerCasePipe}}
+#' @section Private fields:
+#' \itemize{
+#' \item{\bold{languageTwitter:}}{
+#' (\emph{logical}) indicates whether for the Instances of type twtid the language that
+#' returns the api is obtained or the detector is applied.
+#' }
+#' }
+#'
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
+#'          \code{\link{MeasureLengthPipe}}, \code{\link{GenericPipe}},
+#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
+#'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
-#' @import ini pipeR R6
+#' @import pipeR R6
 #' @export GuessLanguagePipe
 
 GuessLanguagePipe <- R6Class(
 
   "GuessLanguagePipe",
 
-  inherit = PipeGeneric,
+  inherit = GenericPipe,
 
   public = list(
 
     initialize = function(propertyName = "language",
                           alwaysBeforeDeps = list("StoreFileExtPipe",
                                                   "TargetAssigningPipe"),
-                          notAfterDeps = list()) {
+                          notAfterDeps = list(),
+                          languageTwitter = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[GuessLanguagePipe][initialize][Error]
-                Checking the type of the variable: propertyName ",
-                  class(propertyName))
+        stop("[GuessLanguagePipe][initialize][Error] ",
+             "Checking the type of the 'propertyName' variable: ",
+             class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[GuessLanguagePipe][initialize][Error]
-                Checking the type of the variable: alwaysBeforeDeps ",
-                  class(alwaysBeforeDeps))
+        stop("[GuessLanguagePipe][initialize][Error] ",
+             "Checking the type of the 'alwaysBeforeDeps' variable: ",
+             class(alwaysBeforeDeps))
       }
+
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[GuessLanguagePipe][initialize][Error]
-                Checking the type of the variable: notAfterDeps ",
-                  class(notAfterDeps))
-      }
-
-      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
-    },
-
-    pipe = function(instance, languageTwitter = TRUE) {
-
-      if (!"Instance" %in% class(instance)) {
-        stop("[GuessLanguagePipe][pipe][Error]
-                Checking the type of the variable: instance ",
-                  class(instance))
+        stop("[GuessLanguagePipe][initialize][Error] ",
+             "Checking the type of the 'notAfterDeps' variable: ",
+             class(notAfterDeps))
       }
 
       if (!"logical" %in% class(languageTwitter)) {
-        stop("[GuessLanguagePipe][pipe][Error]
-                Checking the type of the variable: languageTwitter ",
-                  class(languageTwitter))
+        stop("[GuessLanguagePipe][initialize][Error] ",
+             "Checking the type of the 'languageTwitter' variable: ",
+             class(languageTwitter))
       }
 
-      instance$addFlowPipes("GuessLanguagePipe")
+      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+      private$languageTwitter <- languageTwitter
+    },
 
-      if (!instance$checkCompatibility("GuessLanguagePipe", self$getAlwaysBeforeDeps())) {
-        stop("[GuessLanguagePipe][pipe][Error] Bad compatibility between Pipes.")
+    pipe = function(instance) {
+
+      if (!"Instance" %in% class(instance)) {
+        stop("[GuessLanguagePipe][pipe][Error] ",
+             "Checking the type of the 'instance' variable: ",
+             class(instance))
       }
 
-      instance$addBanPipes(unlist(super$getNotAfterDeps()))
+      if (private$languageTwitter &&
+          instance$getSpecificProperty("extension") %in% "twtid") {
 
-      if (languageTwitter
-            && instance$getSpecificProperty("extension") %in% "twtid") {
-
-        cachePath <- read.ini(Bdpar[["private_fields"]][["configurationFilePath"]])$cache$pathCacheTwtid
-
-        if (file.exists(paste(cachePath, "/_",
-                                  instance$getSpecificProperty("target"),
-                                    "_/",
-                                      instance$getId(),
-                                        ".json",
-                                          sep = ""))) {
-
-          if (!requireNamespace("rjson", quietly = TRUE)) {
-            stop("[GuessLanguagePipe][pipe][Error]
-                    Package \"rjson\" needed for this class to work(extract the
-                    language of the tweets from json file.
-                      Please install it.",
-                        call. = FALSE)
-          }
+        cachePath <- bdpar.Options$get("cache.twitter.path")
+        if (!is.null(cachePath) && file.exists(paste(cachePath, "/_",
+                                                     instance$getSpecificProperty("target"),
+                                                     "_/",
+                                                     instance$getId(),
+                                                     ".json",
+                                                     sep = ""))) {
 
           path <- paste(cachePath,"/_",
                           instance$getSpecificProperty("target"),
@@ -226,7 +224,7 @@ GuessLanguagePipe <- R6Class(
 
               instance$addProperties(message, "reasonToInvalidate")
 
-              warning("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
+              warning("[GuessLanguagePipe][pipe][Warning] ", message)
 
               instance$invalidate()
 
@@ -247,7 +245,7 @@ GuessLanguagePipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[GuessLanguagePipe][pipe][Warning] ", message, " \n")
+        warning("[GuessLanguagePipe][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -259,22 +257,19 @@ GuessLanguagePipe <- R6Class(
 
     getLanguage = function(data) {
 
-      if (!requireNamespace("cld2", quietly = TRUE)) {
-        stop("[GuessLanguagePipe][getLanguage][Error]
-                Package \"cld2\" needed for this function to work.
-                  Please install it.",
-                    call. = FALSE)
-      }
-
       if (!"character" %in% class(data)) {
-        stop("[GuessLanguagePipe][getLanguage][Error]
-                Checking the type of the variable: data ",
-                  class(data))
+        stop("[GuessLanguagePipe][getLanguage][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
       }
 
       langStandardize <- cld2::detect_language(data, plain_text = TRUE)
 
       return(langStandardize)
     }
+  ),
+
+  private = list(
+    languageTwitter = FALSE
   )
 )
