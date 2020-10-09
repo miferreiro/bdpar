@@ -46,7 +46,7 @@ For this preprocessing we will use both the default preprocessing flow (DefaultP
 Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
 
 ```{R, echo = TRUE, results = "hide", eval = FALSE}
-runPipeline(path = system.file(package = "bdpar", "testFiles"))
+runPipeline(path = system.file(package = "bdpar", "example"))
 ```
 
 This function will generate a csv file in the user's working directory, where you can see the characteristics of the text obtained, such as cleaning the text to be preprocessed.

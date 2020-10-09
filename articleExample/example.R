@@ -5,8 +5,7 @@ library("RColorBrewer")
 library("SnowballC")
 set.seed(1234)
 
-runPipeline(path = system.file(file.path("examples",
-                                         "testFiles"),
+runPipeline(path = system.file(file.path("example"),
                                package = "bdpar"))
 
 all <- read.csv(file = "example.csv", header = TRUE, sep = ";", dec = ".",
