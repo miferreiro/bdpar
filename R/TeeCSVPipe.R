@@ -21,85 +21,20 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title Class to handle a CSV with the properties field of the preprocessed Instance
+#' @title Class to handle a CSV with the properties field of the preprocessed
+#' Instance
 #'
-#' @description Complete a CSV with the properties of the preprocessed \code{\link{Instance}}.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' TeeCSVPipe$new(propertyName = "",
-#'                alwaysBeforeDeps = list(),
-#'                notAfterDeps = list(),
-#'                withData = TRUE,
-#'                withSource = TRUE)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{withData:}}{
-#' (\emph{logical}) indicates if the data is added to CSV.
-#' }
-#' \item{\strong{withSource:}}{
-#' (\emph{logical}) indicates if the source is added to CSV.
-#' }
-#' }
-#' }
-#' }
+#' @description Complete a CSV with the properties of the preprocessed
+#' \code{\link{Instance}}.
 #'
 #' @section Details:
 #' The path to save the properties should be defined in the
-#' \strong{"teeCSVPipe.output.path"} field of
-#' \emph{\link{bdpar.Options}} variable.
+#' \strong{"teeCSVPipe.output.path"} field of \emph{\link{bdpar.Options}}
+#' variable.
 #'
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' completes the CSV with the preprocessed \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{withSource:}}{
-#'  (\emph{logical}) indicates if the source is added to CSV.
-#' }
-#' \item{\bold{withData:}}{
-#'  (\emph{logical}) indicates if the data is added to CSV.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
 #'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
@@ -115,7 +50,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import R6 tools utils
+#' @import R6
 #' @export TeeCSVPipe
 
 TeeCSVPipe <- R6Class(
@@ -125,7 +60,25 @@ TeeCSVPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{TeeCSVPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param withData A \code{\link{logical}} value. Indicates if the data is
+    #' added to CSV.
+    #' @param withSource A \code{\link{logical}} value. Indicates if the source
+    #' is added to CSV.
+    #' @param outputPath A \code{\link{character}} value. The path of CSV.
+    #'
+    #' @import tools
+    #'
     initialize = function(propertyName = "",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list(),
@@ -192,8 +145,18 @@ TeeCSVPipe <- R6Class(
 
       private$withSource <- withSource
       private$withData <- withData
-
     },
+    #'
+    #' @description Completes the CSV with the preprocessed
+    #' \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @importFrom utils read.csv
 
     pipe = function(instance) {
 
@@ -247,13 +210,16 @@ TeeCSVPipe <- R6Class(
                   qmethod = c("double"),
                   fileEncoding = "UTF-8")
 
-      return(instance)
+      instance
     }
   ),
 
   private = list(
+    # A (\emph{logical}) value. Indicates if the source is added to CSV.
     withSource = TRUE,
+    # A (\emph{logical}) value. Indicates if the data is added to CSV.
     withData = TRUE,
+    # A (\emph{character}) value. The path of CSV.
     outputPath = ""
   )
 )

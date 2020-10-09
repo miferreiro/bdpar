@@ -70,5 +70,3 @@ getElement = function(filename, PartSelectedOnMPAlternative) {
 
   return(object)
 }
-
-

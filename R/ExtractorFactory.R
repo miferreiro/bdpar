@@ -26,108 +26,13 @@
 #' @description \code{\link{ExtractorFactory}} class builds the appropriate
 #' \code{\link{Instance}} object according to the file extension.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{ExtractorFactory$new()}
-#'
-#' @section Methods:
-#' \itemize{
-#' #' \item{\bold{registerExtractor:}}{
-#' adds an extractor to the list of extensions
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{registerExtractor(extension, extractor)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{extension:}}{
-#' (\emph{character}) the name of the extension option.
-#' }
-#' \item{\strong{extractor:}}{
-#' (\emph{Object}) the extractor of the new extension.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setExtractor:}}{
-#' modifies the extractor of the one extension.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setExtractor(extension, extractor)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{extension:}}{
-#' (\emph{character}) the name of the new extension.
-#' }
-#' \item{\strong{extractor:}}{
-#' (\emph{Instance}) the value of the new extractor.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeExtractor:}}{
-#' removes a specific extractor throught the extension.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeExtractor(extension)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{extension:}}{
-#' (\emph{character}) the name of the extension to remove.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getAllExtractors:}}{
-#' gets the list of extractors.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getAllExtractors()}
-#' }
-#' \item{\emph{Value:}}{
-#' Value of extractors.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{createInstance:}}{
-#' builds the \code{\link{Instance}} object according to the file extension.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{createInstance(path)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} corresponding object according to the file extension.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the file to create an \code{\link{Instance}}.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
 #' @seealso \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
 #' \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
 #' \code{\link{Instance}}
 #'
 #' @keywords NULL
 #'
-#' @import R6 tools
+#' @import R6
 #' @export ExtractorFactory
 
 ExtractorFactory <- R6Class(
@@ -135,14 +40,25 @@ ExtractorFactory <- R6Class(
   "ExtractorFactory",
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ExtractorFactory}} object.
+    #'
     initialize = function() {
       private$extractors <- list("eml" = ExtractorEml,
                                  "tsms" = ExtractorSms,
                                  "twtid" = ExtractorTwtid,
                                  "ytbid" = ExtractorYtbid)
     },
-
+    #'
+    #' @description Adds an extractor to the list of extensions.
+    #'
+    #' @param extension A \code{\link{character}} value. The name of the
+    #' extension option.
+    #' @param extractor A \code{Object} value. The extractor of the new
+    #' extension.
+    #'
+    #' @import rlist
+    #'
     registerExtractor = function(extension, extractor) {
       if (!"character" %in% class(extension)) {
         stop("[ExtractorFactory][registerExtractor][Error] Checking the type of the 'extension' variable: ",
@@ -161,7 +77,14 @@ ExtractorFactory <- R6Class(
         names(private$extractors)[length(private$extractors)] <- extension
       }
     },
-
+    #'
+    #' @description Modifies the extractor of the one extension.
+    #'
+    #' @param extension A \code{\link{character}} value. The name of the
+    #' extension option.
+    #' @param extractor A \code{Object} value. The value of the new
+    #' extractor.
+    #'
     setExtractor = function(extension, extractor) {
       if (!"character" %in% class(extension)) {
         stop("[ExtractorFactory][setExtractor][Error] Checking the type of the 'extension' variable: ",
@@ -178,7 +101,14 @@ ExtractorFactory <- R6Class(
         private$extractors[[extension]] <- extractor
       }
     },
-
+    #'
+    #' @description Removes a specific extractor thought the extension.
+    #'
+    #' @param extension A \code{\link{character}} value. The name of the
+    #' extension to remove.
+    #'
+    #' @import rlist
+    #'
     removeExtractor = function(extension) {
       if (!"character" %in% class(extension)) {
         stop("[ExtractorFactory][removeExtractor][Error] Checking the type of the 'extension' variable: ",
@@ -191,15 +121,37 @@ ExtractorFactory <- R6Class(
         private$extractors <- list.remove(private$extractors, extension)
       }
     },
-
+    #'
+    #' @description Gets the list of extractors.
+    #'
+    #' @return Value of extractors.
+    #'
     getAllExtractors = function() {
       private$extractors
     },
-
+    #'
+    #' @description Checks if exists an extractor for a specific extension.
+    #'
+    #' @param extension A \code{\link{character}} value. The name of the
+    #' extension to check
+    #'
+    #' @return Value of extractors.
+    #'
     isSpecificExtractor = function(extension) {
       extension %in% names(private$extractors)
     },
-
+    #'
+    #' @description Builds the \code{\link{Instance}} object according to the
+    #' file extension.
+    #'
+    #' @param path  A \code{\link{character}} value. Path of the file to create
+    #' an \code{\link{Instance}}.
+    #'
+    #' @return The \code{\link{Instance}} corresponding object according to the
+    #' file extension.
+    #'
+    #' @importFrom tools file_ext
+    #'
     createInstance = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -210,23 +162,27 @@ ExtractorFactory <- R6Class(
 
       if (!tools::file_ext(path) %in% names(private$extractors)) {
         message("[ExtractorFactory][createInstance][Warning] ",
-                "The extension '", tools::file_ext(path), "' is not registered")
+                "The extension '", file_ext(path), "' is not registered")
       } else {
-        extractor <- private$extractors[[tools::file_ext(path)]]
+        extractor <- private$extractors[[file_ext(path)]]
         extractor <- extractor$new(path)
         return(extractor)
       }
-
-      return()
     },
-
+    #'
+    #' @description Resets list of extractor to default state.
+    #'
     reset = function() {
       private$extractors <- list("eml" = ExtractorEml,
                                  "tsms" = ExtractorSms,
                                  "twtid" = ExtractorTwtid,
                                  "ytbid" = ExtractorYtbid)
     },
-
+    #'
+    #' @description Prints pipeline representation. (Override print function)
+    #'
+    #' @param ... Further arguments passed to or from other methods.
+    #'
     print = function(...) {
       print(self$getAllExtractors())
     }

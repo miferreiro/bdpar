@@ -27,13 +27,6 @@
 #' establish the connections and control the number of requests that have been made
 #' with the APIs of Twitter and YouTube.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{Connections$new()}
-#'
 #' @section Details:
 #' The way to indicate the keys of YouTube and Twitter has to be
 #' through fields of \emph{\link{bdpar.Options}} variable:
@@ -57,100 +50,6 @@
 #' @section Note:
 #' Fiels of unused connections will be automatically ignored by the platform.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{getTwitterToken:}}{
-#' gets the Twitter token ID.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getTwitterToken()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of \code{twitterToken}.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{startConnectionWithTwitter:}}{
-#' is responsible of establishing the connection to Twitter.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{startConnectionWithTwitter()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{checkRequestToTwitter}}{
-#' function in charge of handling the connection with Twitter.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{checkRequestToTwitter()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{startConnectionWithYoutube}}{
-#' function able to establish the connection with YouTube.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{startConnectionWithYoutube()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{addNumRequestToYoutube}}{
-#' function that increases in one the number of request to YouTube.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{addNumRequestToYoutube()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{checkRequestToYoutube}}{
-#' handles the connection with YouTube.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{checkRequestToYoutube()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getNumRequestMaxToYoutube}}{
-#' gets the number of maximum requests allowed by YouTube API.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getNumRequestMaxToYoutube()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of number maximun of request to YouTube.
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{keys:}}{
-#'  (\emph{list}) the keys of Twitter and YouTube.
-#' }
-#' \item{\bold{numRequestToYoutube:}}{
-#'  (\emph{numeric}) indicates the number of requests made to YouTube.
-#' }
-#' \item{\bold{numRequestMaxToYoutube:}}{
-#'  (\emph{numeric}) indicates the maximum number of requests with YouTube.
-#' }
-#' \item{\bold{connectionWithYoutube:}}{
-#'  (\emph{logical}) indicates if the connection has been established with YouTube.
-#' }
-#' \item{\bold{connectionWithTwitter:}}{
-#'  (\emph{logical}) indicates if the connection has been established with Twitter.
-#' }
-#' \item{\bold{twitterToken:}}{
-#'  (\emph{Token}) token to establish the connection to Twitter.
-#' }
-#' }
-#'
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{ExtractorTwtid}},
 #'          \code{\link{ExtractorYtbid}}
 #'
@@ -164,17 +63,25 @@ Connections <- R6Class(
   "Connections",
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{Connections}} object.
+    #'
     initialize = function() { },
 
     ######################################################################
     #####                    Twitter connections                    ######
     ######################################################################
+    #'
+    #' @description Gets the Twitter token ID.
+    #'
+    #' @return Value of \code{twitterToken}.
+    #'
     getTwitterToken = function() {
-
-      return(private$twitterToken)
+      private$twitterToken
     },
-
+    #'
+    #' @description Responsible of establishing the connection to Twitter.
+    #'
     startConnectionWithTwitter = function() {
 
       if (!private$connectionWithTwitter) {
@@ -220,9 +127,10 @@ Connections <- R6Class(
                   "connection")
         }
       }
-      return()
     },
-
+    #'
+    #' @description Function in charge of handling the connection with Twitter.
+    #'
     checkRequestToTwitter = function() {
 
       tryCatch(
@@ -253,11 +161,13 @@ Connections <- R6Class(
           Sys.sleep(900)
         }
       )
-      return()
     },
     ######################################################################
     #####                   YouTube connections                     ######
     ######################################################################
+    #'
+    #' @description Function able to establish the connection with YouTube.
+    #'
     startConnectionWithYoutube = function() {
 
       if (!private$connectionWithYoutube) {
@@ -278,17 +188,17 @@ Connections <- R6Class(
         message("[Connections][startConnectionWithYoutube][Info] Youtube: established",
                 "connection")
       }
-
-      return()
-
     },
-
+    #'
+    #' @description Function that increases in one the number of request to YouTube.
+    #'
     addNumRequestToYoutube = function() {
 
       private$numRequestToYoutube <- private$numRequestToYoutube + 1
-      return()
     },
-
+    #'
+    #' @description Handles the connection with YouTube.
+    #'
     checkRequestToYoutube = function() {
 
       if (private$numRequestToYoutube >= self$getNumRequestMaxToYoutube()) {
@@ -298,19 +208,28 @@ Connections <- R6Class(
         private$numRequestToYoutube <- 0
       }
     },
-
+    #'
+    #' @description Gets the number of maximum requests allowed by YouTube API.
+    #'
+    #' @return Value of number maximum of request to YouTube.
+    #'
     getNumRequestMaxToYoutube = function() {
-
-      return(private$numRequestMaxToYoutube)
+      private$numRequestMaxToYoutube
     }
-
   ),
-
   private = list(
+    # A (\emph{numeric}) value. Indicates the number of requests made to YouTube.
     numRequestToYoutube = 0,
+    # A (\emph{numeric}) value. Indicates the maximum number of requests with
+    # YouTube.
     numRequestMaxToYoutube = 900,
+    # A (\emph{numeric}) value. Indicates if the connection has been established
+    # with YouTube.
     connectionWithYoutube = FALSE,
+    # A (\emph{numeric}) value. Indicates if the connection has been established
+    # with Twitter.
     connectionWithTwitter = FALSE,
+    # A (\emph{Token}) value. Token to establish the connection to Twitter.
     twitterToken = NULL
   )
 )

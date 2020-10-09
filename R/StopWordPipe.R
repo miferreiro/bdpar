@@ -29,41 +29,6 @@
 #' \code{\link{Instance}} class. Moreover if needed, is able to perform inline
 #' stop words removement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' StopWordPipe$new(propertyName = "stopWord",
-#'                  propertyLanguageName = "language",
-#'                  alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                  notAfterDeps = list("AbbreviationPipe"),
-#'                  removeStopWords = TRUE)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{propertyLanguageName:}}{
-#' (\emph{character}) name of the language property.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{removeStopWords:}}{
-#' (\emph{logical}) indicates if the stop words are removed or not.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' \code{\link{StopWordPipe}} class requires the resource files (in json format)
 #' containing the list of stop words. To this end, the language of the text
@@ -81,127 +46,6 @@
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/remove the stop words.
-#' The stop words found in the pipe are added to the list of properties of
-#' the \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findStopWord:}}{
-#' checks if the stop word is in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findStopWord(data, stopWord)}
-#' }
-#' \item{\emph{Value:}}{
-#' boolean, depending on whether the stop word is on the data.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where stop words will be searched.
-#' }
-#' \item{\strong{stopWord:}}{
-#' (\emph{character}) Indicates the stop word to find.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeStopWord:}}{
-#' removes the stop word in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeStopWord(stopWord, data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with stop word removed.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{stopWord:}}{
-#' (\emph{character}) indicates the stop word to remove.
-#' }
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where stop words will be removed.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPropertyLanguageName:}}{
-#' gets of name of property language.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getPropertyLanguageName()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of name of property language.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPathResourcesStopWords:}}{
-#' gets of path of stop words resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getPathResourcesStopWords()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of path of stop words resources.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setPathResourcesStopWords:}}{
-#' sets the path of stop words resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setPathResourcesStopWords(path)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) the new value of the path of stop words resources.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{propertyLanguageName:}}{
-#'  (\emph{character}) the name of property about language.
-#' }
-#' \item{\bold{pathResourcesStopWords:}}{
-#'  (\emph{character}) the path where are the resources.
-#' }
-#' \item{\bold{removeStopWords:}}{
-#' (\emph{logical}) indicates if the stop words are removed or not.
-#' }
-#' }
-#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
 #'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
 #'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
@@ -216,7 +60,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export StopWordPipe
 
 StopWordPipe <- R6Class(
@@ -226,7 +70,24 @@ StopWordPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{StopWordPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param removeStopWords A \code{\link{logical}} value. Indicates if
+    #' the stop words are removed or not.
+    #' @param resourcesStopWordsPath A \code{\link{character}} value. Path
+    #' of resource files (in json format) containing the stop words.
+    #'
     initialize = function(propertyName = "stopWord",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
@@ -287,7 +148,19 @@ StopWordPipe <- R6Class(
 
       private$removeStopWords <- removeStopWords
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/remove
+    #' the stop words. The stop words found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR rlist
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -316,7 +189,7 @@ StopWordPipe <- R6Class(
         warning("[StopWordPipe][pipe][Warning] ", message)
 
 
-        return(instance)
+        instance
       }
 
       JsonFile <- paste(self$getResourcesStopWordsPath(),
@@ -383,9 +256,19 @@ StopWordPipe <- R6Class(
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Checks if the stop word is in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where stop word
+    #' will be searched.
+    #' @param stopWord A \code{\link{character}} value. Indicates the
+    #' stop word to find.
+    #'
+    #' @return A \code{\link{logical}} value depending on whether the
+    #' stop word is in the data.
+    #'
     findStopWord = function(data, stopWord) {
 
       if (!"character" %in% class(data)) {
@@ -407,10 +290,20 @@ StopWordPipe <- R6Class(
                                  ")[;:?\"!,.'>-]?(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(grepl(pattern = rex::regex(regularExpresion), x = data , perl = TRUE))
-
+      grepl(pattern = rex::regex(regularExpresion),
+            x = data ,
+            perl = TRUE)
     },
-
+    #'
+    #' @description Removes the \emph{stop word} in the data.
+    #'
+    #' @param stopWord A \code{\link{character}} value. Indicates the
+    #' stop word to remove.
+    #' @param data A \code{\link{character}} value. The text where stop word
+    #' will be removed.
+    #'
+    #' @return The data with the stop words removed.
+    #'
     removeStopWord = function(stopWord, data) {
 
       if (!"character" %in% class(stopWord)) {
@@ -432,19 +325,33 @@ StopWordPipe <- R6Class(
                                  ")[;:?\"!,.'>-]?(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(gsub(rex::regex(regularExpresion),"", data, perl = TRUE))
+      gsub(rex::regex(regularExpresion),
+           "",
+           data,
+           perl = TRUE)
     },
-
+    #'
+    #' @description Gets the name of property language.
+    #'
+    #' @return Value of name of property language.
+    #'
     getPropertyLanguageName = function() {
-
-      return(private$propertyLanguageName)
+      private$propertyLanguageName
     },
-
+    #'
+    #' @description Gets the path of stop words resources.
+    #'
+    #' @return Value of path of stop words resources.
+    #'
     getResourcesStopWordsPath = function() {
-
-      return(private$resourcesStopWordsPath)
+      private$resourcesStopWordsPath
     },
-
+    #'
+    #' @description Sets the path of stop words resources.
+    #'
+    #' @param path A \code{\link{character}} value. The new value of the path of
+    #' stop words resources.
+    #'
     setResourcesStopWordsPath = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -454,14 +361,17 @@ StopWordPipe <- R6Class(
       }
 
       private$resourcesStopWordsPath <- path
-
-      return()
     }
   ),
 
   private = list(
+    # A (\emph{character}) value. The name of property about language.
     propertyLanguageName = "",
+    # A (\emph{character}) value. Path of resource files (in json format)
+    # containing the stop words.
     resourcesStopWordsPath = "",
+    # A (\emph{logical}) value. Indicates if the stop words are removed or
+    # not.
     removeStopWords = TRUE
   )
 )

@@ -224,8 +224,7 @@ devtools::install_github('miferreiro/bdpar')
 ## Build with 🛠️
 
   - [RStudio](https://www.rstudio.com/)
-      - The programming environment was
-    used.
+      - The programming environment was used.
   - [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html)
       - Uses to generate the documentation.
 

@@ -26,33 +26,6 @@
 #' @description Gets the extension of a file. Creates the \strong{extension}
 #' property which indicates extension of the file.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' StoreFileExtPipe$new(propertyName = "extension",
-#'                      alwaysBeforeDeps = list(),
-#'                      notAfterDeps = list())
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Note:
 #' \code{\link{StoreFileExtPipe}} will automatically invalidate the
 #' \code{\link{Instance}} if it is not able to find the
@@ -61,47 +34,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain the extension of \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preprocess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{obtainExtension:}}{
-#' gets of extension of the path.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainExtension(path)}
-#' }
-#' \item{\emph{Value:}}{
-#' extension of the path.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the file to get the extension.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -116,7 +48,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 tools
+#' @import R6
 #' @export StoreFileExtPipe
 
 StoreFileExtPipe <- R6Class(
@@ -126,7 +58,18 @@ StoreFileExtPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{StoreFileExtPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #'
     initialize = function(propertyName = "extension",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list()) {
@@ -151,7 +94,18 @@ StoreFileExtPipe <- R6Class(
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain the
+    #' extension of \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -166,7 +120,7 @@ StoreFileExtPipe <- R6Class(
 
       if (instance$getSpecificProperty("extension") %in% "" ) {
 
-        message <- c( "The file: " , instance$getPath() , " has not an extension")
+        message <- c("The file: " , instance$getPath() , " has not an extension")
 
         instance$addProperties(message, "reasonToInvalidate")
 
@@ -178,9 +132,18 @@ StoreFileExtPipe <- R6Class(
 
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Gets of extension of the path.
+    #'
+    #' @param path A \code{\link{character}} value. The path of the file to get
+    #' the extension.
+    #'
+    #' @return Extension of the path.
+    #'
+    #' @import tools
+    #'
     obtainExtension = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -189,7 +152,7 @@ StoreFileExtPipe <- R6Class(
              class(path))
       }
 
-      return(file_ext(path))
+      file_ext(path)
     }
   )
 )

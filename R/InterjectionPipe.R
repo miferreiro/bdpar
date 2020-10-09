@@ -29,41 +29,6 @@
 #' \code{\link{Instance}} class. Moreover if needed, is able to perform inline
 #' interjections removement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' InterjectionPipe$new(propertyName = "interjection",
-#'                      propertyLanguageName = "language",
-#'                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                      notAfterDeps = list(),
-#'                      removeInterjections = TRUE)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{propertyLanguageName:}}{
-#' (\emph{character}) name of the language property.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{removeInterjections:}}{
-#' (\emph{logical}) indicates if the interjections are removed or not.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' \code{\link{InterjectionPipe}} class requires the resource files (in json format)
 #' containing the list of interjections. To this end, the language of the text
@@ -81,129 +46,6 @@
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe}}{
-#' Preprocesses the \code{\link{Instance}} to obtain/remove the interjections.
-#' The interjections found in the Pipe are added to the list of properties of
-#' the \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#'
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findInterjection:}}{
-#' checks if the interjection is in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findInterjection(data, interjection)}{}
-#' }
-#' \item{\emph{Value:}}{
-#' boolean, depending on whether the interjection is on the data.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where interjection will be replaced.
-#' }
-#' \item{\strong{interjection:}}{
-#' (\emph{character}) indicate the interjection to find.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeInterjection:}}{
-#' removes the interjection in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#'
-#' \code{removeInterjection(interjection, data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with interjection removed.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{interjection:}}{
-#' (\emph{character}) indicates the interjection to remove.
-#' }
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where interjection will be removed.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPropertyLanguageName:}}{
-#' gets of name of property language.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getPropertyLanguageName()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of name of property language.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getResourcesInterjectionsPath:}}{
-#' gets of path of interjections resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getResourcesInterjectionsPath()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of path of interjections resources.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setResourcesInterjectionsPath:}}{
-#' sets the path of interjections resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setResourcesInterjectionsPath(path)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) the new value of the path of interjections resources.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{propertyLanguageName:}}{
-#'  (\emph{character}) the name of property about language.
-#' }
-#' \item{\bold{resourcesInterjectionsPath:}}{
-#'  (\emph{character}) the path where are the resources.
-#' }
-#' \item{\bold{removeInterjections:}}{
-#'  (\emph{logical}) indicates if the interjections are removed or not.
-#' }
-#' }
-#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
 #'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
 #'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
@@ -218,7 +60,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export InterjectionPipe
 
 InterjectionPipe <- R6Class(
@@ -228,7 +70,24 @@ InterjectionPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{InterjectionPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param removeInterjections A \code{\link{logical}} value. Indicates if
+    #' the interjections are removed or not.
+    #' @param resourcesInterjectionsPath A \code{\link{character}} value. Path
+    #' of resource files (in json format) containing the interjections.
+    #'
     initialize = function(propertyName = "interjection",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
@@ -290,7 +149,19 @@ InterjectionPipe <- R6Class(
 
       private$removeInterjections <- removeInterjections
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/remove
+    #' the interjections. The interjections found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR rlist
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -374,9 +245,19 @@ InterjectionPipe <- R6Class(
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Checks if the interjection is in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where interjection
+    #' will be searched.
+    #' @param interjection A \code{\link{character}} value. Indicates the
+    #' interjection to find.
+    #'
+    #' @return A \code{\link{logical}} value depending on whether the
+    #' interjection is in the data.
+    #'
     findInterjection = function(data, interjection) {
 
       if (!"character" %in% class(data)) {
@@ -398,9 +279,20 @@ InterjectionPipe <- R6Class(
                                  ")[!]*)[;:?\"!,.'>-]?(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(grepl(pattern = rex::regex(regularExpresion), x = data, perl = TRUE))
+      grepl(pattern = rex::regex(regularExpresion),
+            x = data,
+            perl = TRUE)
     },
-
+    #'
+    #' @description Removes the \emph{interjection} in the data.
+    #'
+    #' @param interjection A \code{\link{character}} value. Indicates the
+    #' interjection to remove.
+    #' @param data A \code{\link{character}} value. The text where interjection
+    #' will be removed.
+    #'
+    #' @return The data with the interjections removed.
+    #'
     removeInterjection = function(interjection, data) {
 
       if (!"character" %in% class(interjection)) {
@@ -423,20 +315,34 @@ InterjectionPipe <- R6Class(
                                  ")[!]*)[;:?\"!,.'>-]?(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(gsub(rex::regex(regularExpresion), "", data , perl = TRUE))
+      gsub(rex::regex(regularExpresion),
+           "",
+           data ,
+           perl = TRUE)
 
     },
-
+    #'
+    #' @description Gets the name of property language.
+    #'
+    #' @return Value of name of property language.
+    #'
     getPropertyLanguageName = function() {
-
-      return(private$propertyLanguageName)
+      private$propertyLanguageName
     },
-
+    #'
+    #' @description Gets the path of interjections resources.
+    #'
+    #' @return Value of path of interjections resources.
+    #'
     getResourcesInterjectionsPath = function() {
-
-      return(private$resourcesInterjectionsPath)
+      private$resourcesInterjectionsPath
     },
-
+    #'
+    #' @description Sets the path of interjections resources.
+    #'
+    #' @param path A \code{\link{character}} value. The new value of the path of
+    #' interjections resources.
+    #'
     setResourcesInterjectionsPath = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -446,14 +352,17 @@ InterjectionPipe <- R6Class(
       }
 
       private$resourcesInterjectionsPath <- path
-
-      return()
     }
   ),
 
   private = list(
+    # A (\emph{character}) value. The name of property about language.
     propertyLanguageName = "",
+    # A (\emph{character}) value. Path of resource files (in json format)
+    # containing the interjections.
     resourcesInterjectionsPath = "",
+    # A (\emph{logical}) value. Indicates if the interjections are removed or
+    # not.
     removeInterjections = TRUE
   )
 )

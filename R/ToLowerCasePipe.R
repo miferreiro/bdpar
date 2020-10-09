@@ -26,77 +26,9 @@
 #' @description Class to convert the data field of an \code{\link{Instance}}
 #' to lower case.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' ToLowerCasePipe$new(propertyName = "",
-#'                     alwaysBeforeDeps = list(),
-#'                     notAfterDeps = list())
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to convert the data to lower case.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{toLowerCase:}}{
-#' converts the data to lower case.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{toLowerCase(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' data in lower case.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -111,7 +43,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import R6 pipeR
+#' @import R6
 #' @export ToLowerCasePipe
 
 ToLowerCasePipe <- R6Class(
@@ -121,7 +53,18 @@ ToLowerCasePipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ToLowerCasePipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #'
     initialize = function(propertyName = "",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list()) {
@@ -146,7 +89,18 @@ ToLowerCasePipe <- R6Class(
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to convert the
+    #' data to lower case.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -159,9 +113,17 @@ ToLowerCasePipe <- R6Class(
         self$toLowerCase() %>>%
           instance$setData()
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Converts the data to lower case
+    #'
+    #' @param data A \code{\link{character}} value. Text to preprocess.
+    #'
+    #' @return The data in lower case.
+    #'
+    #' @import pipeR
+    #'
     toLowerCase = function(data) {
 
       if (!"character" %in% class(data)) {
@@ -170,7 +132,7 @@ ToLowerCasePipe <- R6Class(
              class(data))
       }
 
-      return(data %>>% tolower())
+      data %>>% tolower()
     }
   )
 )

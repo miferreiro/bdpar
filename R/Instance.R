@@ -23,352 +23,15 @@
 
 #' @title Abstract super class that handles the management of the Instances
 #'
-#' @description Provides the required methods to succesfully handle each
+#' @description Provides the required methods to successfully handle each
 #' \code{\link{Instance}} class.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{Instance$new(path)}
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the file.
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{obtainDate:}}{
-#' abstract function responsible for obtainining the date of the
-#' \code{\link{Instance}}.
-#' }
-#' \item{\bold{obtainSource:}}{
-#' abstract function in charge of determining the source of the
-#' \code{\link{Instance}}.
-#' }
-#' \item{\bold{getDate:}}{
-#' gets of date.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getDate()}
-#' }
-#' \item{\emph{Value:}}{
-#' Value of date.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setDate:}}{
-#' sets of date.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setDate(date)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{date:}}{
-#' (\emph{character}) the new value of date.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getSource:}}{
-#' gets of source.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getSource()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of source.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setSource:}}{
-#' modifies the source value.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setSource(source)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{source:}}{
-#' (\emph{character}) the new value of source.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPath:}}{
-#' gets of path.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getPath()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of path.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getProperties:}}{
-#' gets the list of properties.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getProperties()}
-#' }
-#' \item{\emph{Value:}}{
-#' Value of properties.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setProperties:}}{
-#' modifies the list of properties.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setProperties(properties)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{properties:}}{
-#' (\emph{list}) containing the new properties.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{addProperties:}}{
-#' adds a property to the list of properties.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{addProperties(propertyValue, propertyName)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyValue:}}{
-#' (\emph{Object}) the value of the new property.
-#' }
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) the name of the new property.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getSpecificProperty:}}{
-#' obtains a specific property.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getSpecificProperty(propertyName)}
-#' }
-#' \item{\emph{Value:}}{
-#' the value of the specific property.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) the name of the property to obtain.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{isSpecificProperty:}}{
-#' checks for the existence of an specific property.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{isSpecificProperty(propertyName)}
-#' }
-#' \item{\emph{Value:}}{
-#' A boolean results according to the existence of the specific property in the list of properties.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) the name of the property to check.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setSpecificProperty:}}{
-#' modifies the value of the one property.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setSpecificProperty(propertyName, propertyValue)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{Object}) the new value of the property.
-#' }
-#' \item{\strong{propertyValue:}}{
-#' (\emph{character}) the name of the property.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getNamesOfProperties:}}{
-#' gets of the names of all properties.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getNamesOfProperties()}
-#' }
-#' \item{\emph{Value:}}{
-#' the names of properties.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{isInstanceValid:}}{
-#' checks if the \code{\link{Instance}} is valid.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{isInstanceValid()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of isValid.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{invalidate:}}{
-#' forces the invalidation of an specific \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{invalidate()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getFlowPipes:}}{
-#' gets the list of the flow of Pipes.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getNamesOfProperties()}
-#' }
-#' \item{\emph{Value:}}{
-#' names of the Pipes used.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{addFlowPipes:}}{
-#' adds a new Pipe to the flow of Pipes.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{addFlowPipes(namePipe)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{namePipe:}}{
-#' (\emph{character}) name of the new Pipe to be added in the Pipe flow.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getBanPipes:}}{
-#' gets an array with contaning all the Pipes.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getBanPipes()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of Pipe ban array.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{addBanPipes:}}{
-#' added the name of the Pipe to the array that keeps the track of Pipes having running after restrictions.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{addBanPipes(namePipe)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{namePipe:}}{
-#' (\emph{character}) Pipe name to be introduced into the ban array.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{checkCompatibility:}}{
-#' Check compability between Pipes.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{checkCompatibility(namePipe, alwaysBefore)}
-#' }
-#' \item{\emph{Value:}}{
-#' boolean, depends if the compability between Pipes is correctly or not.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{namePipe:}}{
-#' (\emph{character}) name of the Pipe to check the compatibility.
-#' }
-#' \item{\strong{alwaysBefore:}}{
-#' (\emph{list}) pipes that the \code{Instance} had to go through.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{date:}}{
-#'  (\emph{character}) the date on which the source was generated or sent.
-#' }
-#' \item{\bold{source:}}{
-#'  (\emph{character}) the text of the file without modifications.
-#' }
-#' \item{\bold{path:}}{
-#'  (\emph{character}) identifier of the \code{Instance}, in this case it will be the path of
-#'  the file from which the properties are extracted.
-#' }
-#' \item{\bold{data:}}{
-#'  (\emph{character}) the text of the file with modifications.
-#' }
-#' \item{\bold{properties:}}{
-#'  (\emph{list}) contains a list of properties extracted from the text that is being
-#'  processed.
-#' }
-#' \item{\bold{isValid:}}{
-#'  (\emph{logical}) indicates if the \code{\link{Instance}} is valid or not.
-#' }
-#' \item{\bold{flowPipes:}}{
-#'  (\emph{list}) the list contains the Pipes that the \code{Instance} has passed through.
-#' }
-#' \item{\bold{banPipes:}}{
-#'  (\emph{array}) the list contains the Pipes that can not be executed from that moment.
-#' }
-#' }
+#' @seealso \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
+#' \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}}
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export Instance
 
 Instance <- R6Class(
@@ -376,7 +39,11 @@ Instance <- R6Class(
   "Instance",
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{Instance}} object.
+    #'
+    #' @param path A \code{\link{character}} value. Path of the file.
+    #'
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -388,44 +55,66 @@ Instance <- R6Class(
       private$path <- path
 
       self$addProperties(self$getPath(), "Initial_path")
-
     },
-
+    #'
+    #' @description Abstract function responsible for obtaining the date of the
+    #' \code{\link{Instance}}.
+    #'
     obtainDate = function() {
-
       stop("[Instance][obtainDate][Error] I am an abstract interface method")
     },
-
+    #'
+    #' @description Abstract function responsible for determining the source of
+    #' the \code{\link{Instance}}.
+    #'
     obtainSource = function() {
-
       stop("[Instance][obtainSource][Error] I am an abstract interface method")
     },
-
+    #'
+    #' @description Gets the date.
+    #'
+    #' @return Value of date.
+    #'
     getDate = function() {
-
-      return(private$date)
+      private$date
     },
-
+    #'
+    #' @description Gets the source.
+    #'
+    #' @return Value of source.
+    #'
     getSource = function() {
-
-      return(private$source)
+      private$source
     },
-
+    #'
+    #' @description Gets the path.
+    #'
+    #' @return Value of path.
+    #'
     getPath = function() {
-
-      return(private$path)
+      private$path
     },
-
+    #'
+    #' @description Gets the data.
+    #'
+    #' @return Value of data.
+    #'
     getData = function() {
-
-      return(private$data)
+      private$data
     },
-
+    #'
+    #' @description Gets the properties
+    #'
+    #' @return Value of properties.
+    #'
     getProperties = function() {
-
-      return(private$properties)
+      private$properties
     },
-
+    #'
+    #' @description Modifies the source value.
+    #'
+    #' @param source A \code{\link{character}} value. The new value of source.
+    #'
     setSource = function(source) {
 
       if (!"character" %in% class(source)) {
@@ -435,10 +124,27 @@ Instance <- R6Class(
       }
 
       private$source <- source
-
-      return()
     },
+    #'
+    #' @description Modifies the data value.
+    #'
+    #' @param data A \code{\link{character}} value. The new value of data.
+    #'
+    setData = function(data) {
 
+      if (!"character" %in% class(data)) {
+        stop("[Instance][setData][Error] ",
+             "Checking the type of the 'data' variable: ",
+             class(data))
+      }
+
+      private$data <- data
+    },
+    #'
+    #' @description Modifies the date value.
+    #'
+    #' @param date A \code{\link{character}} value. The new value of date.
+    #'
     setDate = function(date) {
 
       if (!"character" %in% class(date)) {
@@ -448,10 +154,12 @@ Instance <- R6Class(
       }
 
       private$date <- date
-
-      return()
     },
-
+    #'
+    #' @description Modifies the properties value.
+    #'
+    #' @param properties A \code{\link{list}} value. The new list of properties.
+    #'
     setProperties = function(properties) {
 
       if (!"list" %in% class(properties)) {
@@ -461,10 +169,16 @@ Instance <- R6Class(
       }
 
       private$properties <- properties
-
-      return()
     },
-
+    #'
+    #' @description Adds a property to the list of the properties.
+    #'
+    #' @param propertyValue A \code{Object} value. The value of the new property.
+    #' @param propertyName A \code{\link{character}} value. The name of the new
+    #' property.
+    #'
+    #' @import rlist
+    #'
     addProperties = function(propertyValue, propertyName) {
 
       if (!"character" %in% class(propertyName)) {
@@ -476,10 +190,15 @@ Instance <- R6Class(
       private$properties <- list.append(self$getProperties(), propertyValue)
 
       names(private$properties)[length(self$getProperties())] <- propertyName
-
-      return()
     },
-
+    #'
+    #' @description Obtains a specific property.
+    #'
+    #' @param propertyName A \code{\link{character}} value. The name of the
+    #' property to obtain.
+    #'
+    #' @return The value of the specific property.
+    #'
     getSpecificProperty = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
@@ -488,14 +207,27 @@ Instance <- R6Class(
              class(propertyName))
       }
 
-      return(self$getProperties()[[propertyName]])
+      self$getProperties()[[propertyName]]
     },
-
+    #'
+    #' @description Checks for the existence of an specific property.
+    #'
+    #' @param propertyName A \code{\link{character}} value. The name of the
+    #' property to check.
+    #'
+    #' @return A logical results according to the existence of the specific
+    #' property in the list of properties.
+    #'
     isSpecificProperty = function(propertyName) {
-
-      return(propertyName %in% self$getNamesOfProperties())
+      propertyName %in% self$getNamesOfProperties()
     },
-
+    #'
+    #' @description Modifies the value of the one property.
+    #'
+    #' @param propertyValue A \code{Object} value. The new value of the property.
+    #' @param propertyName A \code{\link{character}} value. The name of the
+    #' property.
+    #'
     setSpecificProperty = function(propertyName, propertyValue) {
 
       if (!"character" %in% class(propertyName)) {
@@ -505,45 +237,48 @@ Instance <- R6Class(
       }
 
       private$properties[[propertyName]] <- propertyValue
-
-      return()
     },
-
+    #'
+    #' @description Gets of the names of all properties.
+    #'
+    #' @return The names of properties.
+    #'
+    #' @import pipeR
+    #'
     getNamesOfProperties = function() {
 
-      return(self$getProperties() %>>% names())
+      self$getProperties() %>>% names()
     },
-
-    setData = function(data) {
-
-      if (!"character" %in% class(data)) {
-        stop("[Instance][setData][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
-      }
-
-      private$data <- data
-
-      return()
-    },
-
+    #'
+    #' @description Checks if the \code{\link{Instance}} is valid.
+    #'
+    #' @return Value of isValid flag.
+    #'
     isInstanceValid = function() {
-
-      return(private$isValid)
+      private$isValid
     },
-
+    #'
+    #' @description Forces the invalidation of an specific \code{\link{Instance}}.
+    #'
     invalidate = function() {
-
       private$isValid <- FALSE
-
-      return()
     },
-
+    #'
+    #' @description Gets the list of the flow of \code{\link{GenericPipe}}.
+    #'
+    #' @return Names of the \code{\link{GenericPipe}} used.
+    #'
     getFlowPipes = function() {
-
-      return(private$flowPipes)
+      private$flowPipes
     },
-
+    #'
+    #' @description Gets the list of the flow of \code{\link{GenericPipe}}.
+    #'
+    #' @param namePipe A \code{\link{character}} value. Name of the new
+    #' \code{\link{GenericPipe}} to be added in the \code{\link{GenericPipeline}}.
+    #'
+    #' @import rlist
+    #'
     addFlowPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe)) {
@@ -553,15 +288,23 @@ Instance <- R6Class(
       }
 
       private$flowPipes <- list.append(private$flowPipes, namePipe)
-
-      return()
     },
-
+    #'
+    #' @description Gets an array with containing all the ban
+    #' \code{\link{GenericPipe}}.
+    #'
+    #' @return Value of ban \code{\link{GenericPipe}} array.
+    #'
     getBanPipes = function() {
-
-      return(private$banPipes)
+      private$banPipes
     },
-
+    #'
+    #' @description Added the name of the Pipe to the array that keeps the track
+    #' of \code{\link{GenericPipe}s} having running after restrictions.
+    #'
+    #' @param namePipe A \code{\link{character}} value.
+    #' \code{\link{GenericPipe}} name to be introduced into the ban array.
+    #'
     addBanPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe) & !is.null(namePipe)) {
@@ -573,10 +316,16 @@ Instance <- R6Class(
       if (!is.null(namePipe)) {
         private$banPipes <- c(private$banPipes, namePipe)
       }
-
-      return()
     },
-
+    #'
+    #' @description Check compatibility between \code{\link{GenericPipe}s}.
+    #'
+    #' @param namePipe A \code{\link{character}} value. The name of the
+    #' \code{\link{GenericPipe}} name to check the compatibility.
+    #' @param alwaysBefore A \code{\link{list}} value.
+    #' \code{\link{GenericPipe}s} that the \code{\link{Instance}} had to go
+    #' through.
+    #'
     checkCompatibility = function(namePipe, alwaysBefore) {
 
       if (!"character" %in% class(namePipe)) {
@@ -602,18 +351,31 @@ Instance <- R6Class(
         return(FALSE)
       }
 
-      return(TRUE)
+      TRUE
     }
   ),
 
   private = list(
+    # A (\emph{character}) value. The date on which the source was generated or
+    # sent.
     date = "",
+    # A (\emph{character}) value. The text of the file without modifications.
     source = "",
+    # A (\emph{character}) value. Identifier of the \code{Instance}, in this
+    # case it will be the path of the file from which the properties are extracted.
     path = "",
+    # A (\emph{character}) value. The text of the file with modifications.
     data = "",
+    # A (\emph{list}) value. The text of the file with modifications.
     properties = list(),
+    # A (\emph{logical}) value. Contains a list of properties extracted from the
+    # text that is being processed.
     isValid = TRUE,
+    # A (\emph{list}) value. Indicates if the \code{\link{Instance}} is valid or
+    # not.
     flowPipes = list() ,
+    # A (\emph{array}) value. The array contains the \code{\link{GenericPipe}}
+    # that can not be executed from that moment.
     banPipes = c()
   )
 )

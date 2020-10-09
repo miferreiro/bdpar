@@ -27,39 +27,6 @@
 #' cld2. Creates the \strong{language} property which indicates the idiom text.
 #' Optionally, it is possible to choose the language provided by Twitter.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' GuessLanguagePipe$new(propertyName = "language",
-#'                       alwaysBeforeDeps = list("StoreFileExtPipe",
-#'                                               "TargetAssigningPipe"),
-#'                       notAfterDeps = list(),
-#'                       languageTwitter = TRUE)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{languageTwitter:}}{
-#' (\emph{logical}) indicates whether for the Instances of type twtid the language that
-#' returns the api is obtained or the detector is applied.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' To obtain the language of the tweets, it will be verified that there is a
 #' json file with the information stored in memory. On the other hand, it is
@@ -75,55 +42,6 @@
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain the language of the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getLanguage:}}{
-#' guesses the language of data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getLanguage(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the language guesser. Format: see ISO 639-3:2007.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to guess the language.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{languageTwitter:}}{
-#' (\emph{logical}) indicates whether for the Instances of type twtid the language that
-#' returns the api is obtained or the detector is applied.
-#' }
-#' }
-#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
 #'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
 #'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
@@ -137,7 +55,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import R6
 #' @export GuessLanguagePipe
 
 GuessLanguagePipe <- R6Class(
@@ -147,7 +65,21 @@ GuessLanguagePipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{GuessLanguagePipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param languageTwitter A \code{\link{logical}} value. Indicates whether
+    #' for the \code{\link{Instance}s} of type twtid the language that
+    #' returns the API is obtained or the detector is applied.
+    #'
     initialize = function(propertyName = "language",
                           alwaysBeforeDeps = list("StoreFileExtPipe",
                                                   "TargetAssigningPipe"),
@@ -181,7 +113,18 @@ GuessLanguagePipe <- R6Class(
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
       private$languageTwitter <- languageTwitter
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain the
+    #' language of the data.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -220,7 +163,7 @@ GuessLanguagePipe <- R6Class(
 
             if (is.null(instance$getSpecificProperty("language"))) {
 
-              message <- c( "The file: " , instance$getPath() , " has a NULL twitter language")
+              message <- c("The file: " , instance$getPath() , " has a NULL twitter language")
 
               instance$addProperties(message, "reasonToInvalidate")
 
@@ -241,7 +184,7 @@ GuessLanguagePipe <- R6Class(
           {instance$addProperties(.,super$getPropertyName())}
 
       if (is.na(instance$getSpecificProperty("language"))) {
-        message <- c( "The file: " , instance$getPath() , " has a null language")
+        message <- c("The file: " , instance$getPath() , " has a null language")
 
         instance$addProperties(message, "reasonToInvalidate")
 
@@ -252,9 +195,16 @@ GuessLanguagePipe <- R6Class(
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Guesses the language of data.
+    #'
+    #' @param data A \code{\link{character}} value. The text to guess the ç
+    #' language.
+    #'
+    #' @return The language guesser. Format: see ISO 639-3:2007.
+    #'
     getLanguage = function(data) {
 
       if (!"character" %in% class(data)) {
@@ -263,13 +213,14 @@ GuessLanguagePipe <- R6Class(
              class(data))
       }
 
-      langStandardize <- cld2::detect_language(data, plain_text = TRUE)
-
-      return(langStandardize)
+      cld2::detect_language(data, plain_text = TRUE)
     }
   ),
 
   private = list(
+    # A (\emph{logical}) value. Indicates whether for the Instances of type
+    # twtid the language that returns the api is obtained or the detector is
+    # applied.
     languageTwitter = FALSE
   )
 )

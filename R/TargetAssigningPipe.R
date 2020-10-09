@@ -23,43 +23,8 @@
 
 #' @title Class to get the target field of the Instance
 #'
-#' @description This class allows searching in the path the \strong{target} of the
-#' \code{\link{Instance}}.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' TargetAssigningPipe$new(targets = list("ham","spam"),
-#'                         targetsName = list("_ham_","_spam_"),
-#'                         propertyName = "target",
-#'                         alwaysBeforeDeps = list(),
-#'                         notAfterDeps = list())
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{targets:}}{
-#' (\emph{list}) name of the targets property.
-#' }
-#' \item{\strong{targetsName:}}{
-#' (\emph{list}) the name of folders.
-#' }
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' }
-#' }
-#' }
+#' @description This class allows searching in the path the \strong{target} of
+#' the \code{\link{Instance}}.
 #'
 #' @section Details:
 #' The targets that are searched can be controlled through the
@@ -70,89 +35,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain the target.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' The \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getTarget}}{
-#' gets the target from a path.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#'
-#' \code{getTarget(path)}
-#' }
-#' \item{\emph{Value:}}{
-#' the target of the path.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path to analize.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{checkTarget:}}{
-#' checks if the target is in the path.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{checkTarget(target, path)}
-#' }
-#' \item{\emph{Value:}}{
-#' if the target is found, returns target, else returns "".
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{target:}}{
-#' (\emph{character}) target to find in the path.
-#' }
-#' \item{\strong{path:}}{
-#' (\emph{character}) path to analize.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getTargets:}}{
-#' gets of targets.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getTargets()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of targets.
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{targets:}}{
-#'  (\emph{list}) name of the targets property.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -167,7 +49,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import R6
 #' @export TargetAssigningPipe
 
 TargetAssigningPipe <- R6Class(
@@ -177,12 +59,25 @@ TargetAssigningPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{TargetAssigningPipe}} object.
+    #'
+    #' @param targets A \code{\link{list}} value. Name of the targets property.
+    #' @param targetsName A \code{\link{list}} value. The name of folders.
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #'
     initialize = function(targets = list("ham","spam"),
-                            targetsName = list("_ham_","_spam_"),
-                              propertyName = "target",
-                                alwaysBeforeDeps = list(),
-                                  notAfterDeps = list()) {
+                          targetsName = list("_ham_","_spam_"),
+                          propertyName = "target",
+                          alwaysBeforeDeps = list(),
+                          notAfterDeps = list()) {
 
       if (!"list" %in% class(targets)) {
         stop("[TargetAssigningPipe][initialize][Error] ",
@@ -217,9 +112,19 @@ TargetAssigningPipe <- R6Class(
       names(private$targets) <- targetsName
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
-
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain the
+    #' target.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -245,10 +150,15 @@ TargetAssigningPipe <- R6Class(
         return(instance)
       }
 
-      return(instance)
-
+      instance
     },
-
+    #'
+    #' @description Gets the target from a path.
+    #'
+    #' @param path  A \code{\link{character}} value. The path to analyze.
+    #'
+    #' @return The target of the path.
+    #'
     getTarget = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -265,9 +175,17 @@ TargetAssigningPipe <- R6Class(
         }
       }
 
-      return("unrecognizable")
+      "unrecognizable"
     },
-
+    #'
+    #' @description Checks if the target is in the path.
+    #'
+    #' @param target A \code{\link{character}} value. The target to find in the
+    #' path.
+    #' @param path  A \code{\link{character}} value. The path to analize.
+    #'
+    #' @return if the target is found, returns target, else returns "".
+    #'
     checkTarget = function(target, path) {
 
       if (!"character" %in% class(target)) {
@@ -288,16 +206,20 @@ TargetAssigningPipe <- R6Class(
         selectedTarget <- self$getTargets()[target]
       }
 
-      return(selectedTarget)
+      selectedTarget
     },
-
+    #'
+    #' @description Gets of targets.
+    #'
+    #' @return Value of targets.
+    #'
     getTargets = function() {
-
-      return(private$targets)
+      private$targets
     }
   ),
 
   private = list(
+    # A (\emph{list}) value. Name of the targets property.
     targets = list()
   )
 )

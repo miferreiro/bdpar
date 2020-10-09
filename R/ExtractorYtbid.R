@@ -26,93 +26,19 @@
 #' @description This class inherits from the \code{\link{Instance}} class and
 #' implements the functions of extracting the text and the date of an ytbid type file.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{ExtractorYtbid$new(path,
-#'                          cachePath = NULL)}
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the ytbid type file.
-#' }
-#' \item{\strong{cachePath:}}{
-#' (\emph{character}) path of the cache location. If it is NULL, checks if is
-#' defined in the \strong{"cache.youtube.path"} field of
-#' \emph{\link{bdpar.Options}} variable.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
-#' YouTube conection is handled through the \code{\link{Connections}} class
+#' YouTube connection is handled through the \code{\link{Connections}} class
 #' which loads the YouTube API credentials from the \emph{{bdpar.Options}} object.
-#' Additionally, to increase the processing speed, each youtube query is stored
+#' Additionally, to increase the processing speed, each Youtube query is stored
 #' in a cache to avoid the execution of duplicated queries. To enable this option,
 #' cache location should be in the \strong{"cache.youtube.path"} field of
 #' \emph{\link{bdpar.Options}} variable. This variable has to be the
-#' path to store the comments and it is neccesary that it has two folder named:
+#' path to store the comments and it is necessary that it has two folder named:
 #' "_spam_" and "_ham_"
 #'
 #' @section Inherit:
 #' This class inherits from \code{\link{Instance}} and implements the
 #' \code{obtainSource} and \code{obtainDate} abstracts functions.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{obtainId:}}{
-#' obtains the id of the ytbid. Read the id of the file indicated
-#' in the variable path.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainId()}
-#' }
-#' }
-#' }
-#' \item{\bold{getId:}}{
-#' gets of comment ID.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getId()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of comment ID.
-#' }
-#' }
-#' }
-#' \item{\bold{obtainDate:}}{
-#' obtains the date from a specific comment ID. If the comment has been previously
-#' cached the comment date is loaded from cache path. Otherwise, the request is
-#' perfomed using YouTube API and the date is then formatted to the established
-#' standard.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainDate()}
-#' }
-#' }
-#' }
-#' \item{\bold{obtainSource:}}{
-#' obtains the source from a specific comment ID. If the comment has previously
-#' been cached the source is loaded from cache path. Otherwise, the request is
-#' performed using on YouTube API.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainSource()}
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{id:}}{
-#'  (\emph{character}) ID of comment.
-#' }
-#' }
 #'
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{Connections}},
 #'          \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
@@ -120,7 +46,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import R6
 #' @export ExtractorYtbid
 
 ExtractorYtbid <- R6Class(
@@ -130,7 +56,17 @@ ExtractorYtbid <- R6Class(
   inherit = Instance,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ExtractorYtbid}} object.
+    #'
+    #' @param path A \code{\link{character}} value. Path of the ytbid file.
+    #' @param cachePath A \code{\link{character}} value. Path of the cache
+    #' location. If it is NULL, checks if is defined in the
+    #' \strong{"cache.youtube.path"} field of \code{\link{bdpar.Options}}
+    #' variable.
+    #'
+    #' @import pipeR
+    #'
     initialize = function(path,
                           cachePath = NULL) {
 
@@ -164,22 +100,30 @@ ExtractorYtbid <- R6Class(
       }
 
       private$cachePath <- cachePath
-
-      return()
     },
-
+    #'
+    #' @description Obtains the ID of the specific Youtube's comment. Reads the ID
+    #' of the file indicated in the variable path.
+    #'
     obtainId = function() {
-
       private$id <- readLines(super$getPath(), warn = FALSE, n = 1)
-
-      return()
     },
-
+    #'
+    #' @description Gets the ID of an specific Youtube's comment.
+    #'
+    #' @return Value of Youtube's comment ID.
+    #'
     getId = function() {
-
-      return(private$id)
+      private$id
     },
-
+    #'
+    #' @description Obtains the date from a specific comment ID. If the comment
+    #' has been previously cached the comment date is loaded from cache path.
+    #' Otherwise, the request is perfomed using YouTube API and the date is then
+    #' formatted to the established standard.
+    #'
+    #' @import pipeR
+    #'
     obtainDate = function() {
 
       if (file.exists(
@@ -332,10 +276,14 @@ ExtractorYtbid <- R6Class(
           sep = "\n"
         )
       })
-
-      return()
     },
-
+    #'
+    #' @description Obtains the source from a specific comment ID. If the
+    #' comment has previously been cached the source is loaded from cache path.
+    #' Otherwise, the request is performed using on YouTube API.
+    #'
+    #' @import pipeR
+    #'
     obtainSource = function() {
 
       if (file.exists(
@@ -493,13 +441,15 @@ ExtractorYtbid <- R6Class(
           sep = "\n"
         )
       })
-
-      return()
     }
   ),
 
   private = list(
+    # A \code{\link{character}} value. ID of Youtube's comment.
     id = "",
+    # A \code{\link{character}} value. Path of the cache location. If it is NULL,
+    # checks if is defined in the \strong{"cache.youtube.path"} field of
+    # \emph{\link{bdpar.Options}} variable.
     cachePath = ""
   )
 )

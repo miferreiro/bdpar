@@ -30,41 +30,6 @@
 #' \code{\link{Instance}} class. Moreover if needed, is able to perform inline
 #' slangs replacement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' SlangPipe$new(propertyName = "langpropname",
-#'               propertyLanguageName = "language",
-#'               alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'               notAfterDeps = list(),
-#'               replaceSlangs = TRUE)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{propertyLanguageName:}}{
-#' (\emph{character}) name of the language property.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{replaceSlangs:}}{
-#' (\emph{logical}) indicates if the slangs are replace or not.
-#' }
-#' }
-#' }
-#' }
-
 #' @section Details:
 #' \code{\link{SlangPipe}} class requires the resource files (in json format)
 #' containing the correspondence between slangs and meaning. To this end,
@@ -82,134 +47,6 @@
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/replace the slangs.
-#' The slangs found in the Pipe are added to the list of properties of the
-#' \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findSlang:}}{
-#' checks if the slang is in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findSlang(data, slang)}
-#' }
-#' \item{\emph{Value:}}{
-#' boolean, depending on whether the slang is on the data.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where slang will be searched.
-#' \item{\strong{slang:}}{
-#' (\emph{character}) indicates the slang to find.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{replaceSlang:}}{
-#' replaces the slang in the data for the extendedSlang.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#'
-#' \code{replaceSlang(slang, extendedSlang, data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with slangs replaced.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{slang:}}{
-#' (\emph{character}) indicates the slang to replace.
-#' }
-#' \item{\strong{extendedSlang:}}{
-#' (\emph{character}) indicates the string to replace for the slangs found.
-#' }
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where slang will be replaced.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPropertyLanguageName:}}{
-#' gets of name of property language.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#'
-#' \code{getPropertyLanguageName()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of name of property language.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getResourcesSlangsPath:}}{
-#' gets of path of slangs resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#'
-#' \code{getResourcesSlangsPath()}
-#' }
-#' \item{\emph{Value:}}{
-#'
-#' value of path of slangs resources.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setResourcesSlangsPath:}}{
-#' sets the path of slangs resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setResourcesSlangsPath(path)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) the new value of the path of slangs resources.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{propertyLanguageName:}}{
-#'  (\emph{character}) the name of property about language.
-#' }
-#' \item{\bold{resourcesSlangsPath:}}{
-#'  (\emph{character}) the path where are the resources.
-#' }
-#' \item{\bold{replaceSlangs:}}{
-#'  (\emph{logical}) indicates if the slangs are replace or not.
-#' }
-#' }
-#'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.Options}},
 #'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
 #'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
@@ -224,7 +61,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export SlangPipe
 
 SlangPipe <- R6Class(
@@ -234,7 +71,25 @@ SlangPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{SlangPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param replaceSlangs A \code{\link{logical}} value. Indicates if
+    #' the slangs are replaced or not.
+    #' @param resourcesSlangsPath A \code{\link{character}} value. Path
+    #' of resource files (in json format) containing the correspondence between
+    #' slangs and meaning.
+    #'
     initialize = function(propertyName = "langpropname",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
@@ -295,7 +150,19 @@ SlangPipe <- R6Class(
       private$resourcesSlangsPath <- resourcesSlangsPath
       private$replaceSlangs <- replaceSlangs
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/replace
+    #' the slangs. The slangs found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR rlist
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -376,9 +243,19 @@ SlangPipe <- R6Class(
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Checks if the slang is in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where slang
+    #' will be searched.
+    #' @param slang A \code{\link{character}} value. Indicates the
+    #' slang to find.
+    #'
+    #' @return A \code{\link{logical}} value depending on whether the
+    #' slang is in the data.
+    #'
     findSlang = function(data, slang) {
 
       if (!"character" %in% class(data)) {
@@ -400,9 +277,24 @@ SlangPipe <- R6Class(
                                  ")[;:?\"!,.'>]*(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(grepl(pattern = rex::regex(regularExpresion), x = data, perl = T, ignore.case = TRUE))
+      grepl(pattern = rex::regex(regularExpresion),
+            x = data,
+            perl = T,
+            ignore.case = TRUE)
     },
-
+    #'
+    #' @description Replaces the \emph{slang} in the data for the
+    #' \emph{extendedSlang}.
+    #'
+    #' @param slang A \code{\link{character}} value. Indicates the
+    #' slang to replace.
+    #' @param extendedSlang A \code{\link{character}} value. Indicates the
+    #' string to replace for the slangs found.
+    #' @param data A \code{\link{character}} value. The text where slang
+    #' will be replaced.
+    #'
+    #' @return The data with the slangs replaced.
+    #'
     replaceSlang = function(slang, extendedSlang, data) {
 
       if (!"character" %in% class(slang)) {
@@ -430,21 +322,34 @@ SlangPipe <- R6Class(
                                  ")[;:?\"!,.'>]*(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(gsub(rex::regex(regularExpresion),
-                          paste(" ", extendedSlang, " ", sep = ""), data, perl = T, ignore.case = TRUE))
-
+      gsub(rex::regex(regularExpresion),
+           paste(" ", extendedSlang, " ", sep = ""),
+           data,
+           perl = T,
+           ignore.case = TRUE)
     },
-
+    #'
+    #' @description Gets the name of property language.
+    #'
+    #' @return Value of name of property language.
+    #'
     getPropertyLanguageName = function() {
-
-      return(private$propertyLanguageName)
+      private$propertyLanguageName
     },
-
+    #'
+    #' @description Gets the path of slangs resources.
+    #'
+    #' @return Value of path of slangs resources.
+    #'
     getResourcesSlangsPath = function() {
-
-      return(private$resourcesSlangsPath)
+      private$resourcesSlangsPath
     },
-
+    #'
+    #' @description Sets the path of slangs resources.
+    #'
+    #' @param path A \code{\link{character}} value. The new value of the path of
+    #' slangs resources.
+    #'
     setResourcesSlangsPath = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -454,14 +359,17 @@ SlangPipe <- R6Class(
       }
 
       private$resourcesSlangsPath <- path
-
-      return()
     }
   ),
 
   private = list(
+    # A (\emph{character}) value. The name of property about language.
     propertyLanguageName = "",
+    # A (\emph{character}) value. Path of resource files (in json format)
+    # containing the correspondence between slangs and meaning.
     resourcesSlangsPath = "",
+    # A (\emph{logical}) value. Indicates if the slangs are replaced or
+    # not.
     replaceSlangs = TRUE
   )
 )

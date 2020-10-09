@@ -26,33 +26,6 @@
 #' @description Obtains the \strong{date} using the method which implements the
 #' subclass of \code{\link{Instance}}
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' GuessDatePipe$new(propertyName = "date",
-#'                   alwaysBeforeDeps = list("TargetAssigningPipe"),
-#'                   notAfterDeps = list())
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Inherit:
 #' this class inherit from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
@@ -102,7 +75,18 @@ GuessDatePipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{GuessDatePipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #'
     initialize = function(propertyName = "date",
                           alwaysBeforeDeps = list("TargetAssigningPipe"),
                           notAfterDeps = list()) {
@@ -126,7 +110,15 @@ GuessDatePipe <- R6Class(
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain the date.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -137,7 +129,7 @@ GuessDatePipe <- R6Class(
 
       instance$obtainDate()
 
-      return(instance)
+      instance
     }
   )
 )

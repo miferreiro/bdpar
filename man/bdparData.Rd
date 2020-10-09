@@ -4,11 +4,13 @@
 \name{bdparData}
 \alias{bdparData}
 \title{Example of the content of the files to be preprocessed.}
-\format{A data frame with 20 rows and 2 variables:
+\format{
+A data frame with 20 rows and 2 variables:
 \describe{
   \item{path}{File path.}
   \item{source}{File content.}
-}}
+}
+}
 \usage{
 data(bdparData)
 }

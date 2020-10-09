@@ -52,7 +52,7 @@ Suggests:
     textutils, 
     tuber
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 SystemRequirements: Python (>= 2.7)
 Encoding: UTF-8
 NeedsCompilation: no

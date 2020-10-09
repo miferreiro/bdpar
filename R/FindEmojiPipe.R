@@ -28,38 +28,6 @@
 #' stored inside the \strong{emoji} field of \code{\link{Instance}} class.
 #' Moreover if required, is able to perform inline emoji replacement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' FindEmojiPipe$new(propertyName = "emoji",
-#'                   alwaysBeforeDeps = list(),
-#'                   notAfterDeps = list(),
-#'                   replaceEmojis = TRUE)
-#' }
-#'
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{replaceEmojis:}}{
-#' (\emph{logical}) indicates if the emojis are replaced.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' \code{\link{FindEmojiPipe}} use the emoji list provided by rtweet package.
 #'
@@ -70,82 +38,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/replace the emojis.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findEmoji:}}{
-#' checks for the existence of an specific emoji.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findEmoji(data, emoji)}
-#' }
-#' \item{\emph{Value:}}{
-#' boolean, depending on whether the emoji is on the data.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to search the emoji.
-#' }
-#' \item{\strong{emoji:}}{
-#' (\emph{character}) indicates the emoji to find.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{replaceEmoji:}}{
-#' replaces the emoji in the data for the extendedEmoji.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{replaceEmoji(emoji, extendedEmoji, data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with emoji replaced.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{emoji:}}{
-#' (\emph{character}) indicates the emoji to remove.
-#' }
-#' \item{\strong{extendedEmoji:}}{
-#' (\emph{character}) determines the text source to replace the emoji found.
-#' }
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where emojis will be replaced.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{replaceEmojis:}}{
-#'  (\emph{logical}) indicates if the emojis are replaced.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmoticonPipe}},
@@ -160,7 +52,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export FindEmojiPipe
 
 FindEmojiPipe <- R6Class(
@@ -170,7 +62,22 @@ FindEmojiPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{FindEmojiPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param replaceEmojis A \code{\link{logical}} value. Indicates if the
+    #' emojis are replaced.
+    #'
     initialize = function(propertyName = "Emojis",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list(),
@@ -202,7 +109,19 @@ FindEmojiPipe <- R6Class(
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
       private$replaceEmojis <- replaceEmojis
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/replace
+    #' the emojis. The emojis found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import pipeR rlist
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -234,9 +153,19 @@ FindEmojiPipe <- R6Class(
 
       instance$addProperties(paste(emojisLocated),super$getPropertyName())
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Checks if the emoji is in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where emoji
+    #' will be searched.
+    #' @param emoji A \code{\link{character}} value. Indicates the
+    #' emoji to find.
+    #'
+    #' @return A \code{\link{logical}} value depending on whether the
+    #' emoji is in the data.
+    #'
     findEmoji = function(data, emoji) {
 
       if (!"character" %in% class(data)) {
@@ -251,10 +180,24 @@ FindEmojiPipe <- R6Class(
              class(emoji))
       }
 
-      return(grepl(pattern = rex::escape(emoji), x = data, fixed = TRUE, useBytes = TRUE))
-
+      grepl(pattern = rex::escape(emoji),
+            x = data,
+            fixed = TRUE,
+            useBytes = TRUE)
     },
-
+    #'
+    #' @description Replaces the \emph{emoji} in the data for the
+    #' \emph{extendedEmoji}.
+    #'
+    #' @param emoji A \code{\link{character}} value. Indicates the
+    #' emoji to replace.
+    #' @param extendedEmoji A \code{\link{character}} value. Indicates the
+    #' string to replace for the emojis found.
+    #' @param data A \code{\link{character}} value. The text where emoji
+    #' will be replaced.
+    #'
+    #' @return The data with the emojis replaced.
+    #'
     replaceEmoji = function(emoji, extendedEmoji, data) {
 
       if (!"character" %in% class(data)) {
@@ -275,12 +218,16 @@ FindEmojiPipe <- R6Class(
              class(extendedEmoji))
       }
 
-      return(gsub(rex::escape(emoji),
-                  paste(" ", extendedEmoji, " ", sep = ""), data, perl = TRUE))
+      gsub(rex::escape(emoji),
+           paste(" ", extendedEmoji, " ", sep = ""),
+           data,
+           perl = TRUE)
     }
   ),
 
   private = list(
+    # A (\emph{logical}) value. Indicates if the emojis are replaced or
+    # not.
     replaceEmojis = TRUE
   )
 )

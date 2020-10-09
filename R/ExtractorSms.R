@@ -26,22 +26,6 @@
 #' @description This class that inherits from the \code{\link{Instance}} class and
 #' implements the functions of extracting the text and the date of an tsms type file.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{ExtractorSms$new(path)}
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the tsms type file.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' Due to the fact that the creation date of the message can not be
 #' extracted from the text of an SMS, the date will be initialized to empty.
@@ -50,33 +34,12 @@
 #' This class inherits from \code{\link{Instance}} and implements the
 #' \code{obtainSource} and \code{obtainDate} abstracts functions.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{obtainDate:}}{
-#' function that obtains the date of the SMS file.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainDate()}
-#' }
-#' }
-#' }
-#' \item{\bold{obtainSource:}}{
-#' obtains the source of the SMS file. Reads the file indicated in
-#' the path. In addition, it initializes the data with the initial source.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainSource()}
-#' }
-#' }
-#' }
-#' }
-#'
 #' @seealso \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
 #' \code{\link{ExtractorYtbid}}, \code{\link{Instance}}
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import R6
 #' @export ExtractorSms
 
 ExtractorSms <- R6Class(
@@ -86,7 +49,13 @@ ExtractorSms <- R6Class(
   inherit = Instance,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ExtractorSms}} object.
+    #'
+    #' @param path A \code{\link{character}} value. Path of the tsms file.
+    #'
+    #' @import pipeR
+    #'
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -96,17 +65,23 @@ ExtractorSms <- R6Class(
       }
       path %>>%
         super$initialize()
-
     },
-
+    #'
+    #' @description Obtains the date of the SMS file.
+    #'
+    #' @import pipeR
+    #'
     obtainDate = function() {
-
       "" %>>%
         super$setDate()
-
-      return()
     },
-
+    #'
+    #' @description Obtains the source of the SMS file. Reads the file indicated
+    #' in the path. In addition, it initializes the data field with the initial
+    #' source.
+    #'
+    #' @import pipeR
+    #'
     obtainSource = function() {
 
       super$getPath() %>>%
@@ -115,8 +90,6 @@ ExtractorSms <- R6Class(
 
       super$getSource() %>>%
         super$setData()
-
-      return()
     }
   )
 )
