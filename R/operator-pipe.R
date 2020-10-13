@@ -128,91 +128,56 @@
 # @export freduce
 #
 
-freduce = function(instance, function_list)
-{
-  k <- length(function_list)
+freduce = function(instance, function_list) {
 
-  if (k > 1) {
-    for (i in 1:(k - 1L)) {
+  numPipes <- length(function_list)
 
-      pipeName <- parse(text = paste0("class(",
-                                      substr(deparse(function_list[[i]])[2],
-                                             12,
-                                             nchar(deparse(function_list[[i]])[2]) - 16),
-                                      ")[1]"))
+  cont <- 1
 
-      exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[i]])[2],
-                                                   12,
-                                                   nchar(deparse(function_list[[i]])[2]) - 16),
-                                            "$getAlwaysBeforeDeps()"))
-
-      exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[i]])[2],
-                                                   12,
-                                                   nchar(deparse(function_list[[i]])[2]) - 16),
-                                            "$getNotAfterDeps()"))
-
-      instance$addFlowPipes(eval(pipeName, parent.frame()))
-
-      if (!instance$checkCompatibility(eval(pipeName, parent.frame()), eval(exprAlwBefDeps, parent.frame()))) {
-        message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName, parent.frame()))
-        break
-      }
-
-      instance$addBanPipes(unlist(eval(exprNotAftDeps, parent.frame())))
-
-      instance <- eval(function_list[[i]](instance), parent.frame())
-      if (!instance$isInstanceValid()) {
-        message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
-                " is invalid and will not continue through the flow of pipes")
-        break
-      }
-    }
-  }
-
-  if (instance$isInstanceValid()) {
+  while (instance$isInstanceValid() && cont <= numPipes) {
 
     pipeName <- parse(text = paste0("class(",
-                                    substr(deparse(function_list[[k]])[2],
+                                    substr(deparse(function_list[[cont]])[2],
                                            12,
-                                           nchar(deparse(function_list[[k]])[2]) - 16),
+                                           nchar(deparse(function_list[[cont]])[2]) - 16),
                                     ")[1]"))
 
-    exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[k]])[2],
+    exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[cont]])[2],
                                                  12,
-                                                 nchar(deparse(function_list[[k]])[2]) - 16),
+                                                 nchar(deparse(function_list[[cont]])[2]) - 16),
                                           "$getAlwaysBeforeDeps()"))
 
-    exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[k]])[2],
+    exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[cont]])[2],
                                                  12,
-                                                 nchar(deparse(function_list[[k]])[2]) - 16),
+                                                 nchar(deparse(function_list[[cont]])[2]) - 16),
                                           "$getNotAfterDeps()"))
 
     instance$addFlowPipes(eval(pipeName, parent.frame()))
 
-    if (!instance$checkCompatibility(eval(pipeName, parent.frame()), eval(exprAlwBefDeps, parent.frame()))) {
+    if (!instance$checkCompatibility(eval(pipeName, parent.frame()),
+                                     eval(exprAlwBefDeps, parent.frame()))) {
       message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName, parent.frame()))
-    } else {
-
-      instance$addBanPipes(unlist(eval(exprNotAftDeps, parent.frame())))
-
-      instance <- eval(function_list[[k]](instance), parent.frame())
-
-      if (!instance$isInstanceValid()) {
-        message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
-                " is invalid and will not continue through the flow of pipes")
-      }
-
-      instance <- withVisible(instance)
+      break
     }
-  } else {
-    instance <- withVisible(instance)
+
+    instance$addBanPipes(unlist(eval(exprNotAftDeps, parent.frame())))
+
+    instance <- eval(function_list[[cont]](instance), parent.frame())
+    if (!instance$isInstanceValid()) {
+      message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
+              " is invalid and will not continue through the flow of pipes")
+      break
+    }
+
+    cont <- cont + 1
   }
 
+  instance <- withVisible(instance)
   instance[["value"]]
+
 }
 
-split_chain = function(expr, env)
-{
+split_chain = function(expr, env) {
   rhss <- list()
   pipes <- list()
   i <- 1L
@@ -230,17 +195,14 @@ split_chain = function(expr, env)
   list(rhss = rev(rhss), pipes = rev(pipes), lhs = expr)
 }
 
-is_pipe = function (pipe)
-{
+is_pipe = function (pipe) {
   identical(pipe, quote(`%>|%`))
 }
 
-wrap_function = function (body, pipe, env)
-{
+wrap_function = function (body, pipe, env) {
   eval(call("function", as.pairlist(alist(. = )), body), env, env)
 }
 
-is_placeholder = function (symbol)
-{
+is_placeholder = function (symbol) {
   identical(symbol, quote(.))
 }
