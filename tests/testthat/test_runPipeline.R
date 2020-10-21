@@ -78,6 +78,7 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
   bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("cache", FALSE)
 
   output <- suppressWarnings(runPipeline(path = path,
                                          pipeline = pipeline,

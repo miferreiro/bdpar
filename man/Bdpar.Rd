@@ -60,7 +60,7 @@ objectBdpar$execute(path = path,
 \seealso{
 \code{\link{bdpar.Options}}, \code{\link{Connections}},
          \code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
-         \code{\link{GenericPipeline}},\code{\link{Instance}},
+         \code{\link{GenericPipeline}}, \code{\link{Instance}},
          \code{\link{ExtractorFactory}}, \code{\link{ResourceHandler}},
          \code{\link{runPipeline}}
 }

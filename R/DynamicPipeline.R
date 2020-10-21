@@ -216,7 +216,7 @@ DynamicPipeline <- R6Class(
         instance <- eval(parse(text = call))
         ,
         error = function(e) {
-          message("[DynamicPipeline][pipeAll][Error]", instance$getPath()," :", paste(e))
+          message("[DynamicPipeline][execute][Error] " , instance$getPath()," :", paste(e))
           instance$invalidate()
         }
       )

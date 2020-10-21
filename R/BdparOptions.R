@@ -60,7 +60,9 @@ BdparOptions <- R6Class(
                                     teeCSVPipe.output.path = "teeCSVPipe.output.csv",
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
-                                    cache.youtube.path = NULL)
+                                    cache.youtube.path = NULL,
+                                    cache = FALSE,
+                                    cache.folder = ".cache")
     },
 
     get = function(key) {
@@ -156,11 +158,34 @@ BdparOptions <- R6Class(
                                     teeCSVPipe.output.path = "teeCSVPipe.output.csv",
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
-                                    cache.youtube.path = NULL)
+                                    cache.youtube.path = NULL,
+                                    cache = FALSE,
+                                    cache.folder = ".cache")
     },
 
     isSpecificOption = function(key) {
       key %in% names(private$bdpar.options)
+    },
+
+    cleanCache = function() {
+      if (any(!self$isSpecificOption("cache.folder"),
+              is.null(self$get("cache.folder")))) {
+        stop("[cleanCache][Error] Cache folder ",
+             "is not defined in bdpar.Options")
+      }
+
+      unlink(self$get("cache.folder"),
+             recursive = T)
+
+      if (!dir.exists(self$get("cache.folder"))) {
+        message("[cleanCache][Info] The cache folder \"",
+                self$get("cache.folder"),
+                "\" has been deleted successfully!")
+      } else {
+        stop("[cleanCache][Error] The cache folder \"",
+             self$get("cache.folder"),
+             "\" could not deleted correctly!")
+      }
     },
 
     print = function(...) {

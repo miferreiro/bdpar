@@ -91,6 +91,7 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
   bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("cache", FALSE)
 
   object <- Bdpar$new()
 
@@ -103,8 +104,8 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   extractorFactory <- ExtractorFactory$new()
 
   output <- suppressWarnings(object$execute(path = path,
-                                                   pipeline = pipeline,
-                                                   extractors = extractorFactory))
+                                            pipeline = pipeline,
+                                            extractors = extractorFactory))
   file1 <- output[[1]]
 
   testthat::expect_equal(file1$getDate(), "")

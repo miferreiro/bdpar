@@ -39,6 +39,7 @@ testthat::test_that("execute",{
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
   bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("cache", FALSE)
 
   Bdpar$new()
   instance <- ExtractorSms$new(path)

@@ -30,6 +30,7 @@ Provides the required methods to successfully handle each
 \item \href{#method-setPropertyName}{\code{GenericPipe$setPropertyName()}}
 \item \href{#method-setAlwaysBeforeDeps}{\code{GenericPipe$setAlwaysBeforeDeps()}}
 \item \href{#method-setNotAfterDeps}{\code{GenericPipe$setNotAfterDeps()}}
+\item \href{#method-hash}{\code{GenericPipe$hash()}}
 \item \href{#method-clone}{\code{GenericPipe$clone()}}
 }
 }
@@ -167,6 +168,24 @@ Changes the value of dependencies not after.
 \describe{
 \item{\code{notAfterDeps}}{A \code{\link{list}} value. The new value of the
 dependencies not after.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-hash"></a>}}
+\if{latex}{\out{\hypertarget{method-hash}{}}}
+\subsection{Method \code{hash()}}{
+Generates an identification of pipe based on its fields.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GenericPipe$hash(algo = "md5")}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{algo}}{Algorithm to be applied. Options: "md5", "sha1", "crc32",
+"sha256", "sha512", "xxhash32", "xxhash64", "murmur32", "spookyhash}
 }
 \if{html}{\out{</div>}}
 }

@@ -162,6 +162,32 @@ GenericPipe <- R6Class(
       }
 
       private$notAfterDeps <- notAfterDeps
+    },
+    #'
+    #' @description Generates an identification of pipe based on its fields.
+    #'
+    #' @param algo Algorithm to be applied. Options: "md5", "sha1", "crc32",
+    #' "sha256", "sha512", "xxhash32", "xxhash64", "murmur32", "spookyhash
+    #'
+    #' @importFrom digest digest
+    #'
+    hash = function(algo = "md5") {
+      x <- lapply(ls(private), function(x) {
+        if (class(private[[x]]) != "function") {
+          private[[x]]
+        }
+      })
+      y <- lapply(ls(self), function(x) {
+        if (class(self[[x]]) != "function") {
+          self[[x]]
+        }
+      })
+      l <- append(x,y)
+      names(l) <- c(ls(private), ls(self))
+
+      digest(toString(l),
+             algo = algo,
+             serialize = FALSE)
     }
   ),
 

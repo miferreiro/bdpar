@@ -117,3 +117,59 @@ testthat::test_that("print",{
   options <- BdparOptions$new()
   testthat::expect_output(print(options), "[A-Za-z0-9$/.]+")
 })
+
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("cleanCache works",{
+
+  bdpar.Options$set("cache", TRUE)
+  cache.path <- file.path("testFiles",
+                          "testBdparOptions",
+                          ".cacheTestCleanCache")
+
+  bdpar.Options$set("cache.folder", cache.path)
+
+  pipeline <- DynamicPipeline$new()
+  pipeline$add(list(TargetAssigningPipe$new(),  StoreFileExtPipe$new()),
+               pos = NULL)
+
+  path <- file.path("testFiles",
+                    "testBdparOptions",
+                    "tsms")
+
+  runPipeline(path = path,
+              extractors = ExtractorFactory$new(),
+              pipeline = pipeline)
+
+  testthat::expect_true(dir.exists(cache.path))
+
+  testthat::expect_message(bdpar.Options$cleanCache(),
+                           paste0("[cleanCache][Info] The cache folder \"",
+                                  cache.path,
+                                  "\" has been deleted successfully!"),
+                           fixed = TRUE)
+
+  testthat::expect_true(!dir.exists(cache.path))
+})
+
+testthat::teardown({
+  cache.path <- file.path("testFiles",
+                          "testBdparOptions",
+                          ".cacheTestCleanCache")
+  unlink(cache.path, recursive = T)
+  bdpar.Options$reset()
+})
+
+testthat::setup(bdpar.Options$reset())
+
+testthat::test_that("cleanCache not defined cache.folder field in bdpar.Options variable",{
+
+  cache.path <- NULL
+  bdpar.Options$set("cache.folder", cache.path)
+
+  testthat::expect_error(bdpar.Options$cleanCache(),
+                         "[cleanCache][Error] Cache folder is not defined in bdpar.Options",
+                         fixed = TRUE)
+})
+
+testthat::teardown(bdpar.Options$reset())

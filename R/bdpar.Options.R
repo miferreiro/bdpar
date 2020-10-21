@@ -78,7 +78,24 @@
 #' - \code{bdpar.Options$set("youtube.app.password", <<app_password>>)}
 #'
 #' - \code{bdpar.Options$set("cache.youtube.path", <<cache.path>>)}
-
+#'
+#' \strong{[cache]}
+#'
+#' - \code{bdpar.Options$set("cache", <<status_cache>>)}
+#'
+#' - \code{bdpar.Options$set("cache.folder", <<cache.path>>)}
+#'
+#' @section Cache functionality:
+#'
+#' If the bdpar cache is configured through the "cache" and "cache.folder"
+#' options, the status of the instances will be stored after each pipe. This
+#' allows to avoid rejections of previously executed tasks, if the order and
+#' configuration of the pipe and pipeline is the same as what is stored in the
+#' cache.
+#'
+#' If you want to remove the cache, the \code{cleanCache} method does
+#' this task.
+#'
 #' @section Methods:
 #' \itemize{
 #' \item{\bold{get:}}{
@@ -193,14 +210,24 @@
 #' }
 #' }
 #' }
-#' }
 #'
+#' \item{\bold{cleanCache:}}{
+#' Cleans the cache of executed pipelines. Deletes all files and directories
+#' that are in the path defined in \strong{"cache.folder"} option.
+#' \itemize{
+#' \item{\emph{Usage:}}{
+#' \code{cleanCache()}
+#' }
+#' }
+#' }
+#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{Connections}},
 #'          \code{\link{ContractionPipe}}, \code{\link{ExtractorEml}},
 #'          \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
-#'          \code{\link{GuessLanguagePipe}}, \code{\link{SlangPipe}},
-#'          \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}}
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+#'          \code{\link{TeeCSVPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'

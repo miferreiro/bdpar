@@ -1,6 +1,6 @@
 testthat::context("DynamicPipeline")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
   testthat::expect_silent(DynamicPipeline$new())
 
   testthat::expect_silent(DynamicPipeline$new(list(TargetAssigningPipe$new())))
@@ -214,6 +214,14 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     testthat::expect_error(suppressWarnings(pipeline$execute(instanceInitial)),
                            "[DynamicPipeline][execute][Error] Pipeline is empty",
                            fixed = TRUE)
+
+    pipeline <- DynamicPipeline$new()
+    bdpar.Options$remove("cache")
+    pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new(), GuessDatePipe$new(), File2Pipe$new()))
+    testthat::expect_message(suppressWarnings(pipeline$execute(instanceInitial)),
+                             "[DynamicPipeline][execute][Error] testFiles/testDynamicPipeline/files/_ham_/testFileEmpty.tsms :Error in bdpar.Options$get(\"cache\"): [BdparOptions][get][Error] 'cache' option is not configured",
+                             fixed = TRUE)
+
   })
 
   testthat::teardown(bdpar.Options$reset())

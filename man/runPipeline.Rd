@@ -24,13 +24,13 @@ List of \code{\link{Instance}} that have been preprocessed.
 }
 \description{
 \strong{runPipeline} is responsible for easily initialize
-the pipelining preprocessing proccess.
+the pipelining preprocessing process.
 }
 \section{Details}{
 
 In the case that some pipe, defined on the workflow, needs some type of configuration,
-it can be defined throught \emph{\link{bdpar.Options}} variable
-which have differents methods to support the funcionality of different pipes.
+it can be defined thought \emph{\link{bdpar.Options}} variable
+which have different methods to support the functionality of different pipes.
 }
 
 \examples{
