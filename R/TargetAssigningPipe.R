@@ -80,30 +80,30 @@ TargetAssigningPipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"list" %in% class(targets)) {
-        stop("[TargetAssigningPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'targets' variable: ",
              class(targets))
       }
 
       if (!"list" %in% class(targetsName)) {
-        stop("[TargetAssigningPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'targetsName' variable: ",
              class(targetsName))
       }
 
       if (!"character" %in% class(propertyName)) {
-        stop("[TargetAssigningPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[TargetAssigningPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[TargetAssigningPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
@@ -128,7 +128,7 @@ TargetAssigningPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[TargetAssigningPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -139,11 +139,11 @@ TargetAssigningPipe <- R6Class(
 
       if (instance$getSpecificProperty("target") %in% "unrecognizable") {
 
-        message <- c( "The file: " , instance$getPath() , " has a target unrecognizable")
+        message <- c("The file: ", instance$getPath(), " has a target unrecognizable")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[TargetAssigningPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -162,7 +162,7 @@ TargetAssigningPipe <- R6Class(
     getTarget = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[TargetAssigningPipe][getTarget][Error] ",
+        stop("[", class(self)[1], "][getTarget][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
@@ -189,13 +189,13 @@ TargetAssigningPipe <- R6Class(
     checkTarget = function(target, path) {
 
       if (!"character" %in% class(target)) {
-        stop("[TargetAssigningPipe][checkTarget][Error] ",
+        stop("[", class(self)[1], "][checkTarget][Error] ",
              "Checking the type of the 'target' variable: ",
              class(target))
       }
 
       if (!"character" %in% class(path)) {
-        stop("[TargetAssigningPipe][checkTarget][Error] ",
+        stop("[", class(self)[1], "][checkTarget][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }

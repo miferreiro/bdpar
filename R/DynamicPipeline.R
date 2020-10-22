@@ -57,13 +57,13 @@ DynamicPipeline <- R6Class(
 
       if (!is.null(pipeline)) {
         if (!"list" %in% class(pipeline)) {
-          stop("[DynamicPipeline][initialize][Error] ",
+          stop("[", class(self)[1], "][initialize][Error] ",
                "Checking the type of the 'pipeline' variable: ",
                class(pipeline))
         }
 
         if (!any(sapply(pipeline, inherits, "GenericPipe"))) {
-          stop("[DynamicPipeline][initialize][Error] ",
+          stop("[", class(self)[1], "][initialize][Error] ",
                "Define pipes are not correct. Must be inherit from 'GenericPipe' ",
                "class. Aborting...")
         }
@@ -91,30 +91,30 @@ DynamicPipeline <- R6Class(
       }
 
       if (!any(sapply(pipe, inherits, "GenericPipe"))) {
-        stop("[DynamicPipeline][add][Error] Checking the type of the 'pipe' variable: ",
+        stop("[", class(self)[1], "][add][Error] Checking the type of the 'pipe' variable: ",
              class(pipe))
       }
 
       if (!is.null(pos)) {
 
         if (!"numeric" %in% class(pos)) {
-          stop("[DynamicPipeline][add][Error] Checking the type of the 'pos' variable: ",
+          stop("[", class(self)[1], "][add][Error] Checking the type of the 'pos' variable: ",
                class(pos))
         }
 
         if (length(private$pipeline) == 0) {
-          warning("[DynamicPipeline][add][Warning] Pipeline empty, adding in ",
+          warning("[", class(self)[1], "][add][Warning] Pipeline empty, adding in ",
                   "the first position")
           private$pipeline <- list.flatten(list.append(private$pipeline, pipe))
         } else {
           if (length(private$pipeline) < pos) {
-            warning("[DynamicPipeline][add][Warning] The position exceeds the ",
+            warning("[", class(self)[1], "][add][Warning] The position exceeds the ",
                     "length of the pipeline, adding at the end of it")
             private$pipeline <- list.flatten(list.append(private$pipeline, pipe))
           } else {
 
             if (!all(0 < pos, pos <= length(private$pipeline))) {
-              stop("[DynamicPipeline][add][Error] It can only be added between ",
+              stop("[", class(self)[1], "][add][Error] It can only be added between ",
                    "positions '0' and '", length(private$pipeline), "'")
             }
 
@@ -137,15 +137,15 @@ DynamicPipeline <- R6Class(
     removeByPos = function(pos) {
 
       if (!"numeric" %in% class(pos)) {
-        stop("[DynamicPipeline][removeByPos][Error] Checking the type of the 'pos' variable: ",
+        stop("[", class(self)[1], "][removeByPos][Error] Checking the type of the 'pos' variable: ",
              class(pos))
       }
 
       if (length(private$pipeline) == 0) {
-        warning("[DynamicPipeline][removeByPos][Warning] Pipeline empty. Imposible remove")
+        warning("[", class(self)[1], "][removeByPos][Warning] Pipeline empty. Imposible remove")
       } else {
         if (!any(sapply(pos, function(p) { all(0 < p, p <= length(private$pipeline)) }))) {
-          stop("[DynamicPipeline][removeByPos][Error] It can only be deleted between ",
+          stop("[", class(self)[1], "][removeByPos][Error] It can only be deleted between ",
                "positions '0' and '", length(private$pipeline), "'")
         }
         private$pipeline <- list.remove(private$pipeline, pos)
@@ -167,15 +167,18 @@ DynamicPipeline <- R6Class(
       }
 
       if (!any(sapply(pipe.name, inherits, "character"))) {
-        stop("[DynamicPipeline][removeByPipe][Error] Checking the type of the 'pipe.name' variable (must be a character list)")
+        stop("[", class(self)[1], "][removeByPipe][Error] Checking the type of ",
+             "the 'pipe.name' variable (must be a character list)")
       }
 
       if (length(private$pipeline) == 0) {
-        warning("[DynamicPipeline][removeByPipe][Warning] Pipeline empty. Imposible remove")
+        warning("[", class(self)[1], "][removeByPipe][Warning] Pipeline empty. ",
+                "Imposible remove")
       } else {
         pos <- which(pipe.name %in% lapply(private$pipeline, function(p) class(p)[1]))
         if (length(pos) == 0) {
-          warning("[DynamicPipeline][removeByPipe][Warning] Not found elements to remove")
+          warning("[", class(self)[1], "][removeByPipe][Warning] Not found ",
+                  "elements to remove")
         } else {
           private$pipeline <- list.remove(private$pipeline, pos)
         }
@@ -197,13 +200,13 @@ DynamicPipeline <- R6Class(
     execute = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[DynamicPipeline][execute][Error] ",
+        stop("[", class(self)[1], "][execute][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
 
       if (length(private$pipeline) == 0) {
-        stop("[DynamicPipeline][execute][Error] ",
+        stop("[", class(self)[1], "][execute][Error] ",
              "Pipeline is empty")
       }
 
@@ -216,7 +219,8 @@ DynamicPipeline <- R6Class(
         instance <- eval(parse(text = call))
         ,
         error = function(e) {
-          message("[DynamicPipeline][execute][Error] " , instance$getPath()," :", paste(e))
+          message("[", class(self)[1], "][execute][Error] " ,
+                  instance$getPath()," :", paste(e))
           instance$invalidate()
         }
       )

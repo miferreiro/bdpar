@@ -70,7 +70,7 @@ ExtractorEml <- R6Class(
                           PartSelectedOnMPAlternative = NULL) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorEml][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
@@ -81,7 +81,7 @@ ExtractorEml <- R6Class(
       if (is.null(PartSelectedOnMPAlternative)) {
         if (any(!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected"),
                 is.null(bdpar.Options$get("extractorEML.mpaPartSelected")))) {
-          stop("[ExtractorEml][initialize][Error] Part of select on .eml files ",
+          stop("[", class(self)[1], "][initialize][Error] Part of select on .eml files ",
                "is neither defined in initialize or in bdpar.Options")
         } else {
           PartSelectedOnMPAlternative <- bdpar.Options$get("extractorEML.mpaPartSelected")
@@ -89,7 +89,7 @@ ExtractorEml <- R6Class(
       }
 
       if (!"character" %in% class(PartSelectedOnMPAlternative)) {
-        stop("[ExtractorEml][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
              class(PartSelectedOnMPAlternative))
       }
@@ -122,7 +122,7 @@ ExtractorEml <- R6Class(
           super$setDate()
         },
         error = function(e) {
-          message("[ExtractorEml][obtainDate][Error] Date eml error in
+          message("[", class(self)[1], "][obtainDate][Error] Date eml error in
                    standardized proccess", super$getPath(), " ", paste(e))
         }
       )
@@ -143,7 +143,7 @@ ExtractorEml <- R6Class(
               collapse = " "),
 
         error = function(e) {
-          message("[ExtractorEml][obtainSource][Error] Source eml error ",
+          message("[", class(self)[1], "][obtainSource][Error] Source eml error ",
                    super$getPath()," ", paste(e))
         }
       )
@@ -168,7 +168,7 @@ ExtractorEml <- R6Class(
     setPartSelectedOnMPAlternative = function(PartSelectedOnMPAlternative) {
 
       if (!"character" %in% class(PartSelectedOnMPAlternative)) {
-        stop("[ExtractorEml][setPartSelectedOnMPAlternative][Error] ",
+        stop("[", class(self)[1], "][setPartSelectedOnMPAlternative][Error] ",
              "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
              class(PartSelectedOnMPAlternative))
       }

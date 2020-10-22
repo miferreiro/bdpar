@@ -87,31 +87,31 @@ TeeCSVPipe <- R6Class(
                           outputPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[TeeCSVPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[TeeCSVPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[TeeCSVPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(withSource)) {
-        stop("[TeeCSVPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'withSource' variable: ",
              class(withSource))
       }
 
       if (!"logical" %in% class(withData)) {
-        stop("[TeeCSVPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'withData' variable: ",
              class(withData))
       }
@@ -119,7 +119,7 @@ TeeCSVPipe <- R6Class(
       if (is.null(outputPath)) {
         if (!all(bdpar.Options$isSpecificOption("teeCSVPipe.output.path"),
                  !is.null(bdpar.Options$get("teeCSVPipe.output.path")))) {
-          stop("[TeeCSVPipe][initialize][Error] Path of TeeCSVPipe output ",
+          stop("[", class(self)[1], "][initialize][Error] Path of TeeCSVPipe output ",
                "is neither defined in initialize or in bdpar.Options")
         } else {
           outputPath <- bdpar.Options$get("teeCSVPipe.output.path")
@@ -127,13 +127,13 @@ TeeCSVPipe <- R6Class(
       }
 
       if (!"character" %in% class(outputPath)) {
-        stop("[TeeCSVPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'outputPath' variable: ",
              class(outputPath))
       }
 
       if (!"csv" %in% file_ext(outputPath)) {
-        stop("[TeeCSVPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the extension of the file: ",
              file_ext(outputPath))
       }
@@ -161,7 +161,7 @@ TeeCSVPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[TeeCSVPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }

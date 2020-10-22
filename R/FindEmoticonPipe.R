@@ -85,25 +85,25 @@ FindEmoticonPipe <- R6Class(
                           removeEmoticons = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeEmoticons)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'removeEmoticons' variable: ",
              class(removeEmoticons))
       }
@@ -130,7 +130,7 @@ FindEmoticonPipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindEmoticonPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -152,11 +152,11 @@ FindEmoticonPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c("The file: " , instance$getPath() , " has data empty on pipe Emoticon")
+        message <- c("The file: ", instance$getPath(), " has data empty on pipe Emoticon")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindEmoticonPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -176,7 +176,7 @@ FindEmoticonPipe <- R6Class(
     findEmoticon = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmoticonPipe][findEmoticon][Error] ",
+        stop("[", class(self)[1], "][findEmoticon][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -197,7 +197,7 @@ FindEmoticonPipe <- R6Class(
     removeEmoticon = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmoticonPipe][removeEmoticon][Error] ",
+        stop("[", class(self)[1], "][removeEmoticon][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }

@@ -60,7 +60,7 @@ ResourceHandler <- R6Class(
     isLoadResource = function(pathResource) {
 
       if (!"character" %in% class(pathResource)) {
-        stop("[ResourceHandler][isLoadResource][Error] ",
+        stop("[", class(self)[1], "][isLoadResource][Error] ",
              "Checking the type of the 'pathResource' variable: ",
              class(pathResource))
       }

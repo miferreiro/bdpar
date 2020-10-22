@@ -70,19 +70,19 @@ ToLowerCasePipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[ToLowerCasePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[ToLowerCasePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[ToLowerCasePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
@@ -104,7 +104,7 @@ ToLowerCasePipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-          stop("[ToLowerCasePipe][pipe][Error] ",
+          stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -127,7 +127,7 @@ ToLowerCasePipe <- R6Class(
     toLowerCase = function(data) {
 
       if (!"character" %in% class(data)) {
-          stop("[ToLowerCasePipe][toLowerCase][Error] ",
+          stop("[", class(self)[1], "][toLowerCase][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }

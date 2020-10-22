@@ -115,19 +115,19 @@ Bdpar <- R6Class(
                        pipeline = DefaultPipeline$new()) {
 
       if (!"character" %in% class(path)) {
-        stop("[Bdpar][execute][Error] ",
+        stop("[", class(self)[1], "][execute][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
 
       if (!"ExtractorFactory" %in% class(extractors)) {
-        stop("[Bdpar][execute][Error] ",
+        stop("[", class(self)[1], "][execute][Error] ",
              "Checking the type of the 'extractors' variable: ",
              class(extractors))
       }
 
       if (!inherits(pipeline, c("GenericPipeline"))) {
-        stop("[Bdpar][execute][Error] ",
+        stop("[", class(self)[1], "][execute][Error] ",
              "Checking the type of the 'pipeline' variable: ",
              class(pipeline))
       }
@@ -142,7 +142,7 @@ Bdpar <- R6Class(
                                               return(p))
           }))
       } else {
-        stop("[Bdpar][execute][Error] Path parameter must be an existing ",
+        stop("[", class(self)[1], "][execute][Error] Path parameter must be an existing ",
              "file or directory")
       }
 
@@ -150,7 +150,8 @@ Bdpar <- R6Class(
       # data and a list of properties of the file that is in the indicated path.
       InstancesList <- sapply(files, extractors$createInstance)
 
-      message("[Bdpar][execute][Info] ", "Has been created: ", length(InstancesList)," instances.")
+      message("[", class(self)[1], "][execute][Info] ",
+              "Has been created: ", length(InstancesList), " instances.")
       listInstances <- sapply(InstancesList, pipeline$execute)
 
       listInstances

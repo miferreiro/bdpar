@@ -61,17 +61,17 @@ ExtractorFactory <- R6Class(
     #'
     registerExtractor = function(extension, extractor) {
       if (!"character" %in% class(extension)) {
-        stop("[ExtractorFactory][registerExtractor][Error] Checking the type of the 'extension' variable: ",
-             class(extension))
+        stop("[", class(self)[1], "][registerExtractor][Error] Checking the ",
+             "type of the 'extension' variable: ", class(extension))
       }
 
       if (self$isSpecificExtractor(extension)) {
-        stop("[ExtractorFactory][registerExtractor][Error] '", extension, "' extension is already ",
-             "added")
+        stop("[", class(self)[1], "][registerExtractor][Error] '", extension,
+             "' extension is already added")
       } else {
         if (!"R6ClassGenerator" %in% class(extractor) || extractor$inherit != "Instance") {
-          stop("[ExtractorFactory][registerExtractor][Error] Checking the type of the 'extractor' variable: ",
-               class(extractor))
+          stop("[", class(self)[1], "][registerExtractor][Error] Checking the ",
+               "type of the 'extractor' variable: ", class(extractor))
         }
         private$extractors <- list.append(private$extractors, extractor)
         names(private$extractors)[length(private$extractors)] <- extension
@@ -87,16 +87,18 @@ ExtractorFactory <- R6Class(
     #'
     setExtractor = function(extension, extractor) {
       if (!"character" %in% class(extension)) {
-        stop("[ExtractorFactory][setExtractor][Error] Checking the type of the 'extension' variable: ",
-             class(extension))
+        stop("[", class(self)[1], "][setExtractor][Error] Checking the type of ",
+             "the 'extension' variable: ", class(extension))
       }
 
       if (!self$isSpecificExtractor(extension)) {
-        stop("[ExtractorFactory][setExtractor][Error] '", extension, "' extension is not configured")
+        stop("[", class(self)[1], "][setExtractor][Error] '", extension,
+             "' extension is not configured")
       } else {
-        if (!"R6ClassGenerator" %in% class(extractor) || extractor$inherit != "Instance") {
-          stop("[ExtractorFactory][setExtractor][Error] Checking the type of the 'extractor' variable: ",
-               class(extractor))
+        if (!"R6ClassGenerator" %in% class(extractor) ||
+            extractor$inherit != "Instance") {
+          stop("[", class(self)[1], "][setExtractor][Error] Checking the type ",
+               "of the 'extractor' variable: ", class(extractor))
         }
         private$extractors[[extension]] <- extractor
       }
@@ -111,12 +113,13 @@ ExtractorFactory <- R6Class(
     #'
     removeExtractor = function(extension) {
       if (!"character" %in% class(extension)) {
-        stop("[ExtractorFactory][removeExtractor][Error] Checking the type of the 'extension' variable: ",
-             class(extension))
+        stop("[", class(self)[1], "][removeExtractor][Error] Checking the type ",
+             "of the 'extension' variable: ", class(extension))
       }
 
       if (!self$isSpecificExtractor(extension)) {
-        stop("[ExtractorFactory][removeExtractor][Error] '", extension, "' extension is not configured")
+        stop("[", class(self)[1], "][removeExtractor][Error] '", extension,
+             "' extension is not configured")
       } else {
         private$extractors <- list.remove(private$extractors, extension)
       }
@@ -155,13 +158,13 @@ ExtractorFactory <- R6Class(
     createInstance = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorFactory][createInstance][Error] ",
+        stop("[", class(self)[1], "][createInstance][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
 
       if (!tools::file_ext(path) %in% names(private$extractors)) {
-        message("[ExtractorFactory][createInstance][Warning] ",
+        message("[", class(self)[1], "][createInstance][Warning] ",
                 "The extension '", file_ext(path), "' is not registered")
       } else {
         extractor <- private$extractors[[file_ext(path)]]

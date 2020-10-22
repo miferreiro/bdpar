@@ -89,37 +89,37 @@ FindUrlPipe <- R6Class(
                           namesURLPatterns = list("UrlPattern","EmailPattern")) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindUrlPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindUrlPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindUrlPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeUrls)) {
-        stop("[FindUrlPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'removeUrls' variable: ",
              class(removeUrls))
       }
 
       if (!"list" %in% class(URLPatterns)) {
-        stop("[FindUrlPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'URLPatterns' variable: ",
              class(URLPatterns))
       }
 
       if (!"list" %in% class(namesURLPatterns)) {
-        stop("[FindUrlPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'namesURLPatterns' variable: ",
              class(namesURLPatterns))
       }
@@ -151,7 +151,7 @@ FindUrlPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindUrlPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -175,11 +175,11 @@ FindUrlPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c("The file: " , instance$getPath() , " has data empty on pipe Url")
+        message <- c("The file: ", instance$getPath(), " has data empty on pipe Url")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindUrlPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -199,13 +199,13 @@ FindUrlPipe <- R6Class(
     findUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[FindUrlPipe][findUrl][Error] ",
+        stop("[", class(self)[1], "][findUrl][Error] ",
              "Checking the type of the 'pattern' variable: ",
              class(pattern))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[FindUrlPipe][findUrl][Error] ",
+        stop("[", class(self)[1], "][findUrl][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -230,13 +230,13 @@ FindUrlPipe <- R6Class(
     removeUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[FindUrlPipe][removeUrl][Error] ",
+        stop("[", class(self)[1], "][removeUrl][Error] ",
              "Checking the type of the 'pattern' variable: ",
              class(pattern))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[FindUrlPipe][removeUrl][Error] ",
+        stop("[", class(self)[1], "][removeUrl][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -259,7 +259,7 @@ FindUrlPipe <- R6Class(
     putNamesURLPattern = function(resultOfURLPatterns) {
 
       if (!"list" %in% class(resultOfURLPatterns)) {
-        stop("[FindUrlPipe][putNamesURLPattern][Error] ",
+        stop("[", class(self)[1], "][putNamesURLPattern][Error] ",
              "Checking the type of the 'resultOfURLPatterns' variable: ",
              class(resultOfURLPatterns))
       }
@@ -285,7 +285,7 @@ FindUrlPipe <- R6Class(
     setURLPatterns = function(URLPatterns) {
 
       if (!"list" %in% class(URLPatterns)) {
-        stop("[FindUrlPipe][setURLPatterns][Error] ",
+        stop("[", class(self)[1], "][setURLPatterns][Error] ",
              "Checking the type of the 'URLPatterns' variable: ",
              class(URLPatterns))
       }
@@ -309,7 +309,7 @@ FindUrlPipe <- R6Class(
     setNamesURLPatterns = function(namesURLPatterns) {
 
       if (!"list" %in% class(namesURLPatterns)) {
-        stop("[FindUrlPipe][setNamesURLPatterns][Error] ",
+        stop("[", class(self)[1], "][setNamesURLPatterns][Error] ",
              "Checking the type of the 'namesURLPatterns' variable: ",
              class(namesURLPatterns))
       }

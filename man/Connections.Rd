@@ -32,7 +32,7 @@ through fields of \emph{\link{bdpar.Options}} variable:
 
 \section{Note}{
 
-Fiels of unused connections will be automatically ignored by the platform.
+Fields of unused connections will be automatically ignored by the platform.
 }
 
 \seealso{

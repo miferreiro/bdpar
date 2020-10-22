@@ -60,19 +60,19 @@ GenericPipe <- R6Class(
     initialize = function(propertyName, alwaysBeforeDeps, notAfterDeps) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[GenericPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[GenericPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[GenericPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
@@ -89,7 +89,7 @@ GenericPipe <- R6Class(
     #' @return The preprocessed \code{\link{Instance}}.
     #'
     pipe = function(instance) {
-      stop("I am an abstract interface method")
+      stop("[", class(self)[1], "][pipe][Error] I am an abstract interface method")
     },
     #'
     #' @description Gets of name of property.
@@ -124,7 +124,7 @@ GenericPipe <- R6Class(
     setPropertyName = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[GenericPipe][setPropertyName][Error] ",
+        stop("[", class(self)[1], "][setPropertyName][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
@@ -140,7 +140,7 @@ GenericPipe <- R6Class(
     setAlwaysBeforeDeps = function(alwaysBeforeDeps) {
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[GenericPipe][setAlwaysBeforeDeps][Error] ",
+        stop("[", class(self)[1], "][setAlwaysBeforeDeps][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
@@ -156,7 +156,7 @@ GenericPipe <- R6Class(
     setNotAfterDeps = function(notAfterDeps) {
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[GenericPipe][setNotAfterDeps][Error] ",
+        stop("[", class(self)[1], "][setNotAfterDeps][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }

@@ -97,30 +97,30 @@ ContractionPipe <- R6Class(
                           resourcesContractionsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[ContractionPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[ContractionPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyLanguageName' variable: ",
              class(propertyLanguageName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[ContractionPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[ContractionPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(replaceContractions)) {
-        stop("[ContractionPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'replaceContractions' variable: ",
              class(replaceContractions))
       }
@@ -132,7 +132,7 @@ ContractionPipe <- R6Class(
       if (is.null(resourcesContractionsPath)) {
         if (any(!bdpar.Options$isSpecificOption("resources.contractions.path"),
                 is.null(bdpar.Options$get("resources.contractions.path")))) {
-          stop("[ContractionPipe][initialize][Error] Path of contractions ",
+          stop("[", class(self)[1], "][initialize][Error] Path of contractions ",
                "resources is neither defined in initialize or in bdpar.Options")
         } else {
           resourcesContractionsPath <- bdpar.Options$get("resources.contractions.path")
@@ -140,7 +140,7 @@ ContractionPipe <- R6Class(
       }
 
       if (!"character" %in% class(resourcesContractionsPath)) {
-        stop("[ContractionPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'resourcesContractionsPath' variable: ",
              class(resourcesContractionsPath))
       }
@@ -164,7 +164,7 @@ ContractionPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[ContractionPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -180,8 +180,8 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        warning("[ContractionPipe][pipe][Warning] ",
-                "The file: " , instance$getPath() ," has not language property")
+        warning("[", class(self)[1], "][pipe][Warning] ",
+                "The file: ", instance$getPath(), " has not language property")
 
         return(instance)
 
@@ -228,8 +228,8 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        warning("[ContractionPipe][pipe][Warning] ",
-                "The file: " , instance$getPath() , " has not an contractionsJsonFile ",
+        warning("[", class(self)[1], "][pipe][Warning] ",
+                "The file: ", instance$getPath(), " has not an contractionsJsonFile ",
                 "to apply to the language ->", languageInstance)
 
         return(instance)
@@ -239,11 +239,12 @@ ContractionPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c( "The file: " , instance$getPath() , " has data empty on pipe Contractions")
+        message <- c("The file: ", instance$getPath(),
+                     " has data empty on pipe Contractions")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[ContractionPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -266,13 +267,13 @@ ContractionPipe <- R6Class(
     findContraction = function(data, contraction) {
 
       if (!"character" %in% class(data)) {
-        stop("[ContractionPipe][findContraction][Error] ",
+        stop("[", class(self)[1], "][findContraction][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
 
       if (!"character" %in% class(contraction)) {
-        stop("[ContractionPipe][findContraction][Error] ",
+        stop("[", class(self)[1], "][findContraction][Error] ",
              "Checking the type of the 'contraction' variable: ",
              class(contraction))
       }
@@ -305,19 +306,19 @@ ContractionPipe <- R6Class(
     replaceContraction = function(contraction, extendedContraction, data) {
 
       if (!"character" %in% class(contraction)) {
-        stop("[ContractionPipe][replaceContraction][Error] ",
+        stop("[", class(self)[1], "][replaceContraction][Error] ",
              "Checking the type of the 'contraction' variable: ",
              class(contraction))
       }
 
       if (!"character" %in% class(extendedContraction)) {
-        stop("[ContractionPipe][replaceContraction][Error] ",
+        stop("[", class(self)[1], "][replaceContraction][Error] ",
              "Checking the type of the 'extendedContraction' variable: ",
              class(extendedContraction))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[ContractionPipe][replaceContraction][Error] ",
+        stop("[", class(self)[1], "][replaceContraction][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -360,7 +361,7 @@ ContractionPipe <- R6Class(
     setResourcesContractionsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[ContractionPipe][setResourcesContractionsPath][Error] ",
+        stop("[", class(self)[1], "][setResourcesContractionsPath][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }

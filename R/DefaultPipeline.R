@@ -108,12 +108,12 @@ DefaultPipeline <- R6Class(
     execute = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[DefaultPipeline][execute][Error] ",
+        stop("[", class(self)[1], "][execute][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
 
-      message("[DefaultPipeline][execute][Info] ", instance$getPath())
+      message("[", class(self)[1], "][execute][Info] ", instance$getPath())
 
       tryCatch(
         instance %>|%
@@ -138,7 +138,8 @@ DefaultPipeline <- R6Class(
           TeeCSVPipe$new()
         ,
         error = function(e) {
-          message("[DefaultPipeline][execute][Error]", instance$getPath()," :", paste(e))
+          message("[", class(self)[1], "][execute][Error] ",
+                  instance$getPath()," :", paste(e))
           instance$invalidate()
         }
       )

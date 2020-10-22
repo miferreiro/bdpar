@@ -59,7 +59,7 @@ ExtractorSms <- R6Class(
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorSms][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }

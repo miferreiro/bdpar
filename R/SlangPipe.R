@@ -98,31 +98,31 @@ SlangPipe <- R6Class(
                           resourcesSlangsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[SlangPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[SlangPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyLanguageName' variable: ",
              class(propertyLanguageName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[SlangPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[SlangPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(replaceSlangs)) {
-        stop("[SlangPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'replaceSlangs' variable: ",
              class(replaceSlangs))
       }
@@ -134,7 +134,7 @@ SlangPipe <- R6Class(
       if (is.null(resourcesSlangsPath)) {
         if (any(!bdpar.Options$isSpecificOption("resources.slangs.path"),
                 is.null(bdpar.Options$get("resources.slangs.path")))) {
-          stop("[SlangPipe][initialize][Error] Path of slangs ",
+          stop("[", class(self)[1], "][initialize][Error] Path of slangs ",
                "resources is neither defined in initialize or in bdpar.Options")
         } else {
           resourcesSlangsPath <- bdpar.Options$get("resources.slangs.path")
@@ -142,7 +142,7 @@ SlangPipe <- R6Class(
       }
 
       if (!"character" %in% class(resourcesSlangsPath)) {
-        stop("[SlangPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'resourcesSlangsPath' variable: ",
              class(resourcesSlangsPath))
       }
@@ -166,7 +166,7 @@ SlangPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[SlangPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -182,9 +182,9 @@ SlangPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        message <- c( "The file: ", instance$getPath(), " has not language property")
+        message <- c("The file: ", instance$getPath(), " has not language property")
 
-        warning("[SlangPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         return(instance)
       }
@@ -222,9 +222,10 @@ SlangPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        message <- c( "The file: ", instance$getPath(), " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
+        message <- c("The file: ", instance$getPath(),
+                     " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
 
-        warning("[SlangPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         return(instance)
       }
@@ -232,11 +233,11 @@ SlangPipe <- R6Class(
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c( "The file: ", instance$getPath(), " has data empty on pipe Slang")
+        message <- c("The file: ", instance$getPath(), " has data empty on pipe Slang")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[SlangPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -259,13 +260,13 @@ SlangPipe <- R6Class(
     findSlang = function(data, slang) {
 
       if (!"character" %in% class(data)) {
-        stop("[SlangPipe][findSlang][Error] ",
+        stop("[", class(self)[1], "][findSlang][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
 
       if (!"character" %in% class(slang)) {
-        stop("[SlangPipe][findSlang][Error] ",
+        stop("[", class(self)[1], "][findSlang][Error] ",
              "Checking the type of the 'slang' variable: ",
              class(slang))
       }
@@ -298,19 +299,19 @@ SlangPipe <- R6Class(
     replaceSlang = function(slang, extendedSlang, data) {
 
       if (!"character" %in% class(slang)) {
-        stop("[SlangPipe][replaceSlang][Error] ",
+        stop("[", class(self)[1], "][replaceSlang][Error] ",
              "Checking the type of the 'slang' variable: ",
              class(slang))
       }
 
       if (!"character" %in% class(extendedSlang)) {
-        stop("[SlangPipe][replaceSlang][Error] ",
+        stop("[", class(self)[1], "][replaceSlang][Error] ",
              "Checking the type of the 'extendedSlang' variable: ",
              class(extendedSlang))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[SlangPipe][replaceSlang][Error] ",
+        stop("[", class(self)[1], "][replaceSlang][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -353,7 +354,7 @@ SlangPipe <- R6Class(
     setResourcesSlangsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[SlangPipe][setResourcesSlangsPath][Error] ",
+        stop("[", class(self)[1], "][setResourcesSlangsPath][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }

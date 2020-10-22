@@ -47,7 +47,7 @@ Instance <- R6Class(
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[Instance][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
@@ -61,14 +61,14 @@ Instance <- R6Class(
     #' \code{\link{Instance}}.
     #'
     obtainDate = function() {
-      stop("[Instance][obtainDate][Error] I am an abstract interface method")
+      stop("[", class(self)[1], "][obtainDate][Error] I am an abstract interface method")
     },
     #'
     #' @description Abstract function responsible for determining the source of
     #' the \code{\link{Instance}}.
     #'
     obtainSource = function() {
-      stop("[Instance][obtainSource][Error] I am an abstract interface method")
+      stop("[", class(self)[1], "][obtainSource][Error] I am an abstract interface method")
     },
     #'
     #' @description Gets the date.
@@ -118,7 +118,7 @@ Instance <- R6Class(
     setSource = function(source) {
 
       if (!"character" %in% class(source)) {
-        stop("[Instance][setSource][Error] ",
+        stop("[", class(self)[1], "][setSource][Error] ",
              "Checking the type of the 'source' variable: ",
              class(source))
       }
@@ -133,7 +133,7 @@ Instance <- R6Class(
     setData = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[Instance][setData][Error] ",
+        stop("[", class(self)[1], "][setData][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -148,7 +148,7 @@ Instance <- R6Class(
     setDate = function(date) {
 
       if (!"character" %in% class(date)) {
-        stop("[Instance][setDate][Error] ",
+        stop("[", class(self)[1], "][setDate][Error] ",
              "Checking the type of the 'date' variable: ",
              class(date))
       }
@@ -163,7 +163,7 @@ Instance <- R6Class(
     setProperties = function(properties) {
 
       if (!"list" %in% class(properties)) {
-        stop("[Instance][setProperties][Error] ",
+        stop("[", class(self)[1], "][setProperties][Error] ",
              "Checking the type of the 'properties' variable: ",
              class(properties))
       }
@@ -182,7 +182,7 @@ Instance <- R6Class(
     addProperties = function(propertyValue, propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[Instance][addProperties][Error] ",
+        stop("[", class(self)[1], "][addProperties][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
@@ -202,7 +202,7 @@ Instance <- R6Class(
     getSpecificProperty = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[Instance][getSpecificProperty][Error] ",
+        stop("[", class(self)[1], "][getSpecificProperty][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
@@ -231,7 +231,7 @@ Instance <- R6Class(
     setSpecificProperty = function(propertyName, propertyValue) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[Instance][setSpecificProperty][Error] ",
+        stop("[", class(self)[1], "][setSpecificProperty][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
@@ -282,7 +282,7 @@ Instance <- R6Class(
     addFlowPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe)) {
-        stop("[Instance][addFlowPipes][Error] ",
+        stop("[", class(self)[1], "][addFlowPipes][Error] ",
              "Checking the type of the 'namePipe' variable: ",
              class(namePipe))
       }
@@ -308,7 +308,7 @@ Instance <- R6Class(
     addBanPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe) & !is.null(namePipe)) {
-        stop("[Instance][addBanPipes][Error] ",
+        stop("[", class(self)[1], "][addBanPipes][Error] ",
              "Checking the type of the 'namePipe' variable: ",
              class(namePipe))
       }
@@ -329,13 +329,13 @@ Instance <- R6Class(
     checkCompatibility = function(namePipe, alwaysBefore) {
 
       if (!"character" %in% class(namePipe)) {
-        stop("[Instance][checkCompatibility][Error] ",
+        stop("[", class(self)[1], "][checkCompatibility][Error] ",
              "Checking the type of the 'namePipe' variable: ",
              class(namePipe))
       }
 
       if (!"list" %in% class(alwaysBefore)) {
-        stop("[Instance][checkCompatibility][Error] ",
+        stop("[", class(self)[1], "][checkCompatibility][Error] ",
              "Checking the type of the 'alwaysBefore' variable: ",
              class(alwaysBefore))
       }

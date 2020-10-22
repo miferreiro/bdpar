@@ -74,19 +74,19 @@ File2Pipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[File2Pipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[File2Pipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[File2Pipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
@@ -106,19 +106,21 @@ File2Pipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[File2Pipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
 
       instance$obtainSource()
 
-      if (is.na(instance$getSource()) || all(instance$getSource() == "") || is.null(instance$getSource())) {
-        message <- c("The file: " , instance$getPath() , " has source empty")
+      if (is.na(instance$getSource()) ||
+          all(instance$getSource() == "") ||
+          is.null(instance$getSource())) {
+        message <- c("The file: ", instance$getPath(), " has source empty")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[File2Pipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -127,9 +129,11 @@ File2Pipe <- R6Class(
 
       if (!validUTF8(instance$getSource())) {
 
-        instance$addProperties(c("The file: " , instance$getPath(), " is not utf8", "reasonToInvalidate"))
+        instance$addProperties(c("The file: ", instance$getPath(),
+                                 " is not utf8", "reasonToInvalidate"))
 
-        warning("[File2Pipe][pipe][Warning] ", "The file: ", instance$getPath(), " is not utf8")
+        warning("[", class(self)[1], "][pipe][Warning] ", "The file: ",
+                instance$getPath(), " is not utf8")
 
         instance$invalidate()
       }

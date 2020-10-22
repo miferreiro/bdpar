@@ -73,7 +73,7 @@ ExtractorTwtid <- R6Class(
                           cachePath = NULL) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorTwtid][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
@@ -89,7 +89,7 @@ ExtractorTwtid <- R6Class(
       if (is.null(cachePath)) {
         if (!all(bdpar.Options$isSpecificOption("cache.twitter.path"),
                  !is.null(bdpar.Options$get("cache.twitter.path")))) {
-          stop("[ExtractorTwtid][initialize][Error] Path of tweets cache ",
+          stop("[", class(self)[1], "][initialize][Error] Path of tweets cache ",
                "is neither defined in initialize or in bdpar.Options")
         } else {
           cachePath <- bdpar.Options$get("cache.twitter.path")
@@ -97,7 +97,7 @@ ExtractorTwtid <- R6Class(
       }
 
       if (!"character" %in% class(cachePath)) {
-        stop("[ExtractorTwtid][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'cachePath' variable: ",
              class(cachePath))
       }
@@ -178,7 +178,7 @@ ExtractorTwtid <- R6Class(
               rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
 
           warning = function(w) {
-            warning("[ExtractorTwtid][obtainDate][Warning] Date twtid warning: ",
+            warning("[", class(self)[1], "][obtainDate][Warning] Date twtid warning: ",
                       self$getId(), " ", paste(w))
           },
 
@@ -236,7 +236,7 @@ ExtractorTwtid <- R6Class(
         },
 
         error = function(e) {
-          message("[ExtractorTwtid][obtainDate][Error] exportJSON: ",
+          message("[", class(self)[1], "][obtainDate][Error] exportJSON: ",
                    self$getId(), " " , paste(e))
 
           lista <- list(source = "",
@@ -321,12 +321,12 @@ ExtractorTwtid <- R6Class(
               rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
 
           warning = function(w) {
-            warning("[ExtractorTwtid][obtainSource][Warning] Source twtid warning: ",
+            warning("[", class(self)[1], "][obtainSource][Warning] Source twtid warning: ",
                       self$getId(), " ", paste(w))
           },
 
           error = function(e) {
-            message(paste("[ExtractorTwtid][obtainSource][Error] Source twtid error: ",
+            message(paste("[", class(self)[1], "][obtainSource][Error] Source twtid error: ",
                       self$getId(), " ", paste(e)))
           }
         )
@@ -382,7 +382,7 @@ ExtractorTwtid <- R6Class(
         },
         error = function(e) {
 
-          message("[ExtractorTwtid][obtainSource][Error] exportJSON: ",
+          message("[", class(self)[1], "][obtainSource][Error] exportJSON: ",
                    self$getId(), " " , paste(e))
 
           lista <- list(

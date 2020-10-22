@@ -87,25 +87,25 @@ GuessLanguagePipe <- R6Class(
                           languageTwitter = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[GuessLanguagePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[GuessLanguagePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[GuessLanguagePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(languageTwitter)) {
-        stop("[GuessLanguagePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'languageTwitter' variable: ",
              class(languageTwitter))
       }
@@ -128,7 +128,7 @@ GuessLanguagePipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[GuessLanguagePipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -163,11 +163,11 @@ GuessLanguagePipe <- R6Class(
 
             if (is.null(instance$getSpecificProperty("language"))) {
 
-              message <- c("The file: " , instance$getPath() , " has a NULL twitter language")
+              message <- c("The file: ", instance$getPath(), " has a NULL twitter language")
 
               instance$addProperties(message, "reasonToInvalidate")
 
-              warning("[GuessLanguagePipe][pipe][Warning] ", message)
+              warning("[", class(self)[1], "][pipe][Warning] ", message)
 
               instance$invalidate()
 
@@ -184,11 +184,11 @@ GuessLanguagePipe <- R6Class(
           {instance$addProperties(.,super$getPropertyName())}
 
       if (is.na(instance$getSpecificProperty("language"))) {
-        message <- c("The file: " , instance$getPath() , " has a null language")
+        message <- c("The file: ", instance$getPath(), " has a null language")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[GuessLanguagePipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -208,7 +208,7 @@ GuessLanguagePipe <- R6Class(
     getLanguage = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[GuessLanguagePipe][getLanguage][Error] ",
+        stop("[", class(self)[1], "][getLanguage][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }

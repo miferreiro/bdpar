@@ -85,25 +85,25 @@ FindHashtagPipe <- R6Class(
                           removeHashtags = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeHashtags)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'removeHashtags' variable: ",
              class(removeHashtags))
       }
@@ -130,7 +130,7 @@ FindHashtagPipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindHashtagPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -151,11 +151,11 @@ FindHashtagPipe <- R6Class(
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c("The file: " , instance$getPath() , " has data empty on pipe Hashtag")
+        message <- c("The file: ", instance$getPath(), " has data empty on pipe Hashtag")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindHashtagPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -175,7 +175,7 @@ FindHashtagPipe <- R6Class(
     findHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][findHashtag][Error] ",
+        stop("[", class(self)[1], "][findHashtag][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -196,7 +196,7 @@ FindHashtagPipe <- R6Class(
     removeHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][removeHashtag][Error] ",
+        stop("[", class(self)[1], "][removeHashtag][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }

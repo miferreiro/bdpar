@@ -52,7 +52,7 @@ GenericPipeline <- R6Class(
     #' @return The preprocessed \code{\link{Instance}}.
     #'
     execute = function(instance) {
-      stop("[GenericPipeline][execute][Error] I am an abstract interface method")
+      stop("[", class(self)[1], "][execute][Error] I am an abstract interface method")
     },
     #'
     #' @description Gets a list with containing the set of \code{\link{GenericPipe}s}
@@ -61,7 +61,7 @@ GenericPipeline <- R6Class(
     #' @return The set of \code{\link{GenericPipe}s} containing the pipeline.
     #'
     get = function() {
-      stop("[GenericPipeline][get][Error] I am an abstract interface method")
+      stop("[", class(self)[1], "][get][Error] I am an abstract interface method")
     }
   )
 )

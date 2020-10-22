@@ -75,25 +75,25 @@ MeasureLengthPipe <- R6Class(
                           nchar_conf = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(nchar_conf)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'nchar_conf' variable: ",
              class(nchar_conf))
       }
@@ -116,7 +116,7 @@ MeasureLengthPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-          stop("[MeasureLengthPipe][pipe][Error] ",
+          stop("[", class(self)[1], "][pipe][Error] ",
                "Checking the type of the 'instance' variable: ",
                class(instance))
       }
@@ -143,13 +143,13 @@ MeasureLengthPipe <- R6Class(
     getLength = function(data, nchar_conf = TRUE) {
 
       if (!"character" %in% class(data)) {
-        stop("[MeasureLengthPipe][getLength][Error] ",
+        stop("[", class(self)[1], "][getLength][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
 
       if (!"logical" %in% class(nchar_conf)) {
-        stop("[MeasureLengthPipe][getLength][Error] ",
+        stop("[", class(self)[1], "][getLength][Error] ",
              "Checking the type of the 'nchar_conf' variable: ",
              class(nchar_conf))
       }

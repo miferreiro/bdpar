@@ -96,30 +96,30 @@ StopWordPipe <- R6Class(
                           resourcesStopWordsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[StopWordPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[StopWordPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyLanguageName' variable: ",
              class(propertyLanguageName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[StopWordPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[StopWordPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeStopWords)) {
-        stop("[StopWordPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'removeStopWords' variable: ",
              class(removeStopWords))
       }
@@ -131,7 +131,7 @@ StopWordPipe <- R6Class(
       if (is.null(resourcesStopWordsPath)) {
         if (!all(bdpar.Options$isSpecificOption("resources.stopwords.path"),
                  !is.null(bdpar.Options$get("resources.stopwords.path")))) {
-          stop("[StopWordPipe][initialize][Error] Path of stop words ",
+          stop("[", class(self)[1], "][initialize][Error] Path of stop words ",
                "resources is neither defined in initialize or in bdpar.Options")
         } else {
           resourcesStopWordsPath <- bdpar.Options$get("resources.stopwords.path")
@@ -139,7 +139,7 @@ StopWordPipe <- R6Class(
       }
 
       if (!"character" %in% class(resourcesStopWordsPath)) {
-        stop("[StopWordPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'resourcesStopWordsPath' variable: ",
              class(resourcesStopWordsPath))
       }
@@ -164,7 +164,7 @@ StopWordPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[StopWordPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -186,7 +186,7 @@ StopWordPipe <- R6Class(
                 " has not language property",
                 sep = "")
 
-        warning("[StopWordPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
 
         instance
@@ -236,7 +236,7 @@ StopWordPipe <- R6Class(
             sep = ""
           )
 
-        warning("[StopWordPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         return(instance)
       }
@@ -245,11 +245,11 @@ StopWordPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c( "The file: " , instance$getPath() , " has data empty on pipe StopWord")
+        message <- c("The file: ", instance$getPath(), " has data empty on pipe StopWord")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[StopWordPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -272,13 +272,13 @@ StopWordPipe <- R6Class(
     findStopWord = function(data, stopWord) {
 
       if (!"character" %in% class(data)) {
-        stop("[StopWordPipe][findStopWord][Error] ",
+        stop("[", class(self)[1], "][findStopWord][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
 
       if (!"character" %in% class(stopWord)) {
-        stop("[StopWordPipe][findStopWord][Error] ",
+        stop("[", class(self)[1], "][findStopWord][Error] ",
              "Checking the type of the 'stopWord' variable: ",
              class(stopWord))
       }
@@ -307,13 +307,13 @@ StopWordPipe <- R6Class(
     removeStopWord = function(stopWord, data) {
 
       if (!"character" %in% class(stopWord)) {
-        stop("[StopWordPipe][removeStopWord][Error] ",
+        stop("[", class(self)[1], "][removeStopWord][Error] ",
              "Checking the type of the 'stopWord' variable: ",
              class(stopWord))
       }
 
       if (!"character" %in% class(data)) {
-        stop("[StopWordPipe][removeStopWord][Error] ",
+        stop("[", class(self)[1], "][removeStopWord][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -355,7 +355,7 @@ StopWordPipe <- R6Class(
     setResourcesStopWordsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[StopWordPipe][setResourcesStopWordsPath][Error] ",
+        stop("[", class(self)[1], "][setResourcesStopWordsPath][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }

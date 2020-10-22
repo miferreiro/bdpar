@@ -85,25 +85,25 @@ FindUserNamePipe <- R6Class(
                           removeUser = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
 
       if (!"logical" %in% class(removeUser)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'removeUser' variable: ",
              class(removeUser))
       }
@@ -130,7 +130,7 @@ FindUserNamePipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindUserNamePipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -151,11 +151,11 @@ FindUserNamePipe <- R6Class(
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c("The file: " , instance$getPath() , " has data empty on pipe UserName")
+        message <- c("The file: ", instance$getPath(), " has data empty on pipe UserName")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindUserNamePipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -175,7 +175,7 @@ FindUserNamePipe <- R6Class(
     findUserName = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindUserNamePipe][findUserName][Error] ",
+        stop("[", class(self)[1], "][findUserName][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }
@@ -196,7 +196,7 @@ FindUserNamePipe <- R6Class(
     removeUserName = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindUserNamePipe][removeUserName][Error] ",
+        stop("[", class(self)[1], "][removeUserName][Error] ",
              "Checking the type of the 'data' variable: ",
              class(data))
       }

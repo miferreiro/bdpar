@@ -67,19 +67,19 @@ BdparOptions <- R6Class(
 
     get = function(key) {
       if (!"character" %in% class(key)) {
-        stop("[BdparOptions][get][Error] Checking the type of the 'key' variable: ",
+        stop("[", class(self)[1], "][get][Error] Checking the type of the 'key' variable: ",
              class(key))
       }
 
       if (!key %in% names(private$bdpar.options)) {
-        stop("[BdparOptions][get][Error] '", key, "' option is not configured")
+        stop("[", class(self)[1], "][get][Error] '", key, "' option is not configured")
       }
       private$bdpar.options[[key]]
     },
 
     add = function(key, value) {
       if (!"character" %in% class(key)) {
-        stop("[BdparOptions][add][Error] Checking the type of the 'key' variable: ",
+        stop("[", class(self)[1], "][add][Error] Checking the type of the 'key' variable: ",
              class(key))
       }
 
@@ -94,14 +94,14 @@ BdparOptions <- R6Class(
 
     set = function(key, value) {
       if (!"character" %in% class(key)) {
-        stop("[BdparOptions][set][Error] Checking the type of the 'key' variable: ",
+        stop("[", class(self)[1], "][set][Error] Checking the type of the 'key' variable: ",
              class(key))
       }
 
 
 
       if (!self$isSpecificOption(key)) {
-        stop("[BdparOptions][set][Error] '", key, "' option is not configured")
+        stop("[", class(self)[1], "][set][Error] '", key, "' option is not configured")
       } else {
         if (is.null(value)) {
           private$bdpar.options[key] <- list(value)
@@ -113,12 +113,12 @@ BdparOptions <- R6Class(
 
     remove = function(key) {
       if (!"character" %in% class(key)) {
-        stop("[BdparOptions][remove][Error] Checking the type of the 'key' variable: ",
+        stop("[", class(self)[1], "][remove][Error] Checking the type of the 'key' variable: ",
              class(key))
       }
 
       if (!self$isSpecificOption(key)) {
-        stop("[BdparOptions][remove][Error] '", key, "' option is not configured")
+        stop("[", class(self)[1], "][remove][Error] '", key, "' option is not configured")
       } else {
         private$bdpar.options <- list.remove(private$bdpar.options, key)
       }

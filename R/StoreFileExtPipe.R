@@ -75,19 +75,19 @@ StoreFileExtPipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[StoreFileExtPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'propertyName' variable: ",
              class(propertyName))
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[StoreFileExtPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'alwaysBeforeDeps' variable: ",
              class(alwaysBeforeDeps))
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[StoreFileExtPipe][initialize][Error] ",
+        stop("[", class(self)[1], "][initialize][Error] ",
              "Checking the type of the 'notAfterDeps' variable: ",
              class(notAfterDeps))
       }
@@ -109,7 +109,7 @@ StoreFileExtPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[StoreFileExtPipe][pipe][Error] ",
+        stop("[", class(self)[1], "][pipe][Error] ",
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
@@ -120,11 +120,11 @@ StoreFileExtPipe <- R6Class(
 
       if (instance$getSpecificProperty("extension") %in% "" ) {
 
-        message <- c("The file: " , instance$getPath() , " has not an extension")
+        message <- c("The file: ", instance$getPath(), " has not an extension")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[StoreFileExtPipe][pipe][Warning] ", message)
+        warning("[", class(self)[1], "][pipe][Warning] ", message)
 
         instance$invalidate()
 
@@ -147,7 +147,7 @@ StoreFileExtPipe <- R6Class(
     obtainExtension = function(path) {
 
       if (!"character" %in% class(path)) {
-          stop("[StoreFileExtPipe][obtainExtension][Error] ",
+          stop("[", class(self)[1], "][obtainExtension][Error] ",
              "Checking the type of the 'path' variable: ",
              class(path))
       }
