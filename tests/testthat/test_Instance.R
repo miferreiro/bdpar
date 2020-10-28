@@ -1,14 +1,12 @@
 testthat::context("Instance")
 
-test_that("initialize",{
+testthat::test_that("initialize",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
   testthat::expect_equal(instance$.__enclos_env__$private$path,
                         path)
-  testthat::expect_equal(instance$.__enclos_env__$private$properties,
-                        list(Initial_path = path))
 })
 
 testthat::test_that("initialize path type error",{
@@ -80,7 +78,7 @@ testthat::test_that("getProperties",{
 
   instance <- Instance$new(path)
   testthat::expect_equal(instance$getProperties(),
-                        list(Initial_path = path))
+                        list())
 })
 
 testthat::test_that("setSource",{
@@ -172,7 +170,7 @@ testthat::test_that("addProperties",{
 
   instance$addProperties(valueExpected, nameExpected)
   testthat::expect_equal(instance$getProperties(),
-                         list(Initial_path = path, nameExpected = valueExpected))
+                         list(nameExpected = valueExpected))
 })
 
 testthat::test_that("addProperties propertyName type error",{
@@ -195,10 +193,13 @@ testthat::test_that("getSpecificProperty",{
 
   instance <- Instance$new(path)
 
-  nameExpected <- "Initial_path"
+  valueExpected <- "valueExpected"
+  nameExpected <- "nameExpected"
+
+  instance$addProperties(valueExpected, nameExpected)
 
   testthat::expect_equal(instance$getSpecificProperty(nameExpected),
-                         path)
+                         valueExpected)
 })
 
 testthat::test_that("getSpecificProperty propertyName type error",{
@@ -220,7 +221,10 @@ testthat::test_that("isSpecificProperty TRUE",{
 
   instance <- Instance$new(path)
 
-  nameExpected <- "Initial_path"
+  valueExpected <- "valueExpected"
+  nameExpected <- "nameExpected"
+
+  instance$addProperties(valueExpected, nameExpected)
 
   testthat::expect_equal(instance$isSpecificProperty(nameExpected),
                          TRUE)
@@ -271,8 +275,14 @@ testthat::test_that("getNamesOfProperties",{
   path <- "example.tsms"
 
   instance <- Instance$new(path)
+
+  valueExpected <- "valueExpected"
+  nameExpected <- "nameExpected"
+
+  instance$addProperties(valueExpected, nameExpected)
+
   testthat::expect_equal(instance$getNamesOfProperties(),
-                         c("Initial_path"))
+                         c(nameExpected))
 })
 
 

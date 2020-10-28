@@ -53,8 +53,6 @@ Instance <- R6Class(
       }
 
       private$path <- path
-
-      self$addProperties(self$getPath(), "Initial_path")
     },
     #'
     #' @description Abstract function responsible for obtaining the date of the
