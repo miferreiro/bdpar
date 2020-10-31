@@ -47,9 +47,11 @@ Instance <- R6Class(
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$path <- path
@@ -59,14 +61,20 @@ Instance <- R6Class(
     #' \code{\link{Instance}}.
     #'
     obtainDate = function() {
-      stop("[", class(self)[1], "][obtainDate][Error] I am an abstract interface method")
+      bdpar.log(message = "I am an abstract interface method",
+                level = "FATAL",
+                className = class(self)[1],
+                methodName = "obtainDate")
     },
     #'
     #' @description Abstract function responsible for determining the source of
     #' the \code{\link{Instance}}.
     #'
     obtainSource = function() {
-      stop("[", class(self)[1], "][obtainSource][Error] I am an abstract interface method")
+      bdpar.log(message = "I am an abstract interface method",
+                level = "FATAL",
+                className = class(self)[1],
+                methodName = "obtainSource")
     },
     #'
     #' @description Gets the date.
@@ -116,9 +124,11 @@ Instance <- R6Class(
     setSource = function(source) {
 
       if (!"character" %in% class(source)) {
-        stop("[", class(self)[1], "][setSource][Error] ",
-             "Checking the type of the 'source' variable: ",
-             class(source))
+        bdpar.log(message = paste0("Checking the type of the 'source' variable: ",
+                                   class(source)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setSource")
       }
 
       private$source <- source
@@ -131,9 +141,11 @@ Instance <- R6Class(
     setData = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][setData][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setData")
       }
 
       private$data <- data
@@ -146,9 +158,11 @@ Instance <- R6Class(
     setDate = function(date) {
 
       if (!"character" %in% class(date)) {
-        stop("[", class(self)[1], "][setDate][Error] ",
-             "Checking the type of the 'date' variable: ",
-             class(date))
+        bdpar.log(message = paste0("Checking the type of the 'date' variable: ",
+                                   class(date)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setDate")
       }
 
       private$date <- date
@@ -161,9 +175,11 @@ Instance <- R6Class(
     setProperties = function(properties) {
 
       if (!"list" %in% class(properties)) {
-        stop("[", class(self)[1], "][setProperties][Error] ",
-             "Checking the type of the 'properties' variable: ",
-             class(properties))
+        bdpar.log(message = paste0("Checking the type of the 'properties' variable: ",
+                                   class(properties)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setProperties")
       }
 
       private$properties <- properties
@@ -180,9 +196,11 @@ Instance <- R6Class(
     addProperties = function(propertyValue, propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][addProperties][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "addProperties")
       }
 
       private$properties <- list.append(self$getProperties(), propertyValue)
@@ -200,9 +218,11 @@ Instance <- R6Class(
     getSpecificProperty = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][getSpecificProperty][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "getSpecificProperty")
       }
 
       self$getProperties()[[propertyName]]
@@ -229,9 +249,11 @@ Instance <- R6Class(
     setSpecificProperty = function(propertyName, propertyValue) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][setSpecificProperty][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setSpecificProperty")
       }
 
       private$properties[[propertyName]] <- propertyValue
@@ -244,7 +266,6 @@ Instance <- R6Class(
     #' @import pipeR
     #'
     getNamesOfProperties = function() {
-
       self$getProperties() %>>% names()
     },
     #'
@@ -280,9 +301,11 @@ Instance <- R6Class(
     addFlowPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe)) {
-        stop("[", class(self)[1], "][addFlowPipes][Error] ",
-             "Checking the type of the 'namePipe' variable: ",
-             class(namePipe))
+        bdpar.log(message = paste0("Checking the type of the 'namePipe' variable: ",
+                                   class(namePipe)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "addFlowPipes")
       }
 
       private$flowPipes <- list.append(private$flowPipes, namePipe)
@@ -306,9 +329,11 @@ Instance <- R6Class(
     addBanPipes = function(namePipe) {
 
       if (!"character" %in% class(namePipe) & !is.null(namePipe)) {
-        stop("[", class(self)[1], "][addBanPipes][Error] ",
-             "Checking the type of the 'namePipe' variable: ",
-             class(namePipe))
+        bdpar.log(message = paste0("Checking the type of the 'namePipe' variable: ",
+                                   class(namePipe)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "addBanPipes")
       }
 
       if (!is.null(namePipe)) {
@@ -327,15 +352,19 @@ Instance <- R6Class(
     checkCompatibility = function(namePipe, alwaysBefore) {
 
       if (!"character" %in% class(namePipe)) {
-        stop("[", class(self)[1], "][checkCompatibility][Error] ",
-             "Checking the type of the 'namePipe' variable: ",
-             class(namePipe))
+        bdpar.log(message = paste0("Checking the type of the 'namePipe' variable: ",
+                                   class(namePipe)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "checkCompatibility")
       }
 
       if (!"list" %in% class(alwaysBefore)) {
-        stop("[", class(self)[1], "][checkCompatibility][Error] ",
-             "Checking the type of the 'alwaysBefore' variable: ",
-             class(alwaysBefore))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBefore' variable: ",
+                                   class(alwaysBefore)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "checkCompatibility")
       }
 
       for (depsB in alwaysBefore) {
@@ -350,6 +379,35 @@ Instance <- R6Class(
       }
 
       TRUE
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the instance
+    #'
+    #' @return \code{\link{Instance}} \code{\link{character}} representation
+    #'
+    toString = function() {
+
+      toRet <- paste0("\tPath: ", as.character(private$path),
+                      "\n\tDate: ", as.character(private$date),
+                      "\n\tIsValid: ", as.character(private$isValid),
+                      "\n\tSource: \"", as.character(private$source), "\"",
+                      "\n\tData: \"", as.character(private$data), "\"",
+                      "\n\tFlowPipes: ", paste(as.character(unlist(private$flowPipes)), collapse = " "),
+                      "\n\tBanPipes: ", paste(as.character(unlist(private$banPipes)), collapse = " "),
+                      "\n\tProperties: ")
+
+      properties <- ""
+      if (length(private$properties) != 0) {
+        for (i in 1:length(private$properties)) {
+          property <- paste0("\n\t\t- ", names(private$properties)[i], ": ",
+                             paste(as.character(unlist(private$properties[i])), collapse = " "))
+          properties <- paste0(properties, property)
+        }
+      } else {
+        properties <- "Not located"
+      }
+      toRet <- paste0(toRet, properties, "\n")
+      toRet
     }
   ),
 
@@ -371,7 +429,7 @@ Instance <- R6Class(
     isValid = TRUE,
     # A (\emph{list}) value. Indicates if the \code{\link{Instance}} is valid or
     # not.
-    flowPipes = list() ,
+    flowPipes = list(),
     # A (\emph{array}) value. The array contains the \code{\link{GenericPipe}}
     # that can not be executed from that moment.
     banPipes = c()

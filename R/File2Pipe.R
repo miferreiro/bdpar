@@ -74,21 +74,27 @@ File2Pipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -106,9 +112,11 @@ File2Pipe <- R6Class(
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       instance$obtainSource()
@@ -116,11 +124,14 @@ File2Pipe <- R6Class(
       if (is.na(instance$getSource()) ||
           all(instance$getSource() == "") ||
           is.null(instance$getSource())) {
-        message <- c("The file: ", instance$getPath(), " has source empty")
+        message <- paste0("The file: ", instance$getPath(), " has source empty")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -129,11 +140,14 @@ File2Pipe <- R6Class(
 
       if (!validUTF8(instance$getSource())) {
 
-        instance$addProperties(c("The file: ", instance$getPath(),
-                                 " is not utf8", "reasonToInvalidate"))
+        message <- paste0("The file: ", instance$getPath(), " is not utf8")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", "The file: ",
-                instance$getPath(), " is not utf8")
+        instance$addProperties(message, "reasonToInvalidate")
+
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
       }

@@ -97,32 +97,42 @@ ContractionPipe <- R6Class(
                           resourcesContractionsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyLanguageName' variable: ",
-             class(propertyLanguageName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyLanguageName' variable: ",
+                                   class(propertyLanguageName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(replaceContractions)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'replaceContractions' variable: ",
-             class(replaceContractions))
+        bdpar.log(message = paste0("Checking the type of the 'replaceContractions' variable: ",
+                                   class(replaceContractions)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -132,17 +142,22 @@ ContractionPipe <- R6Class(
       if (is.null(resourcesContractionsPath)) {
         if (any(!bdpar.Options$isSpecificOption("resources.contractions.path"),
                 is.null(bdpar.Options$get("resources.contractions.path")))) {
-          stop("[", class(self)[1], "][initialize][Error] Path of contractions ",
-               "resources is neither defined in initialize or in bdpar.Options")
+          bdpar.log(message = paste0("Path of contractions resources is neither ",
+                                     "defined in initialize or in bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           resourcesContractionsPath <- bdpar.Options$get("resources.contractions.path")
         }
       }
 
       if (!"character" %in% class(resourcesContractionsPath)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'resourcesContractionsPath' variable: ",
-             class(resourcesContractionsPath))
+        bdpar.log(message = paste0("Checking the type of the 'resourcesContractionsPath' variable: ",
+                                   class(resourcesContractionsPath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$resourcesContractionsPath <- resourcesContractionsPath
@@ -164,9 +179,11 @@ ContractionPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       languageInstance <- "Unknown"
@@ -180,8 +197,11 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        warning("[", class(self)[1], "][pipe][Warning] ",
-                "The file: ", instance$getPath(), " has not language property")
+        bdpar.log(message = paste0("The file: ", instance$getPath(),
+                                   " has not language property"),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
 
@@ -228,9 +248,13 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        warning("[", class(self)[1], "][pipe][Warning] ",
-                "The file: ", instance$getPath(), " has not an contractionsJsonFile ",
-                "to apply to the language ->", languageInstance)
+        bdpar.log(message = paste0("The file: ", instance$getPath(),
+                                   " has not an contractionsJsonFile ",
+                                   "to apply to the language ->",
+                                   languageInstance),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -244,7 +268,10 @@ ContractionPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -267,15 +294,19 @@ ContractionPipe <- R6Class(
     findContraction = function(data, contraction) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][findContraction][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findContraction")
       }
 
       if (!"character" %in% class(contraction)) {
-        stop("[", class(self)[1], "][findContraction][Error] ",
-             "Checking the type of the 'contraction' variable: ",
-             class(contraction))
+        bdpar.log(message = paste0("Checking the type of the 'contraction' variable: ",
+                                   class(contraction)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findContraction")
       }
 
       contractionEscaped <- rex::escape(contraction)
@@ -306,21 +337,27 @@ ContractionPipe <- R6Class(
     replaceContraction = function(contraction, extendedContraction, data) {
 
       if (!"character" %in% class(contraction)) {
-        stop("[", class(self)[1], "][replaceContraction][Error] ",
-             "Checking the type of the 'contraction' variable: ",
-             class(contraction))
+        bdpar.log(message = paste0("Checking the type of the 'contraction' variable: ",
+                                   class(contraction)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceContraction")
       }
 
       if (!"character" %in% class(extendedContraction)) {
-        stop("[", class(self)[1], "][replaceContraction][Error] ",
-             "Checking the type of the 'extendedContraction' variable: ",
-             class(extendedContraction))
+        bdpar.log(message = paste0("Checking the type of the 'extendedContraction' variable: ",
+                                   class(extendedContraction)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceContraction")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][replaceContraction][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceContraction")
       }
 
       contractionEscaped <- rex::escape(contraction)
@@ -361,9 +398,11 @@ ContractionPipe <- R6Class(
     setResourcesContractionsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][setResourcesContractionsPath][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setResourcesContractionsPath")
       }
 
       private$resourcesContractionsPath <- path

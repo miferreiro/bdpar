@@ -70,9 +70,11 @@ ExtractorEml <- R6Class(
                           PartSelectedOnMPAlternative = NULL) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       path %>>%
@@ -81,17 +83,23 @@ ExtractorEml <- R6Class(
       if (is.null(PartSelectedOnMPAlternative)) {
         if (any(!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected"),
                 is.null(bdpar.Options$get("extractorEML.mpaPartSelected")))) {
-          stop("[", class(self)[1], "][initialize][Error] Part of select on .eml files ",
-               "is neither defined in initialize or in bdpar.Options")
+          bdpar.log(message = paste0("Part of select on .eml files is neither ",
+                                     "defined in initialize or in bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           PartSelectedOnMPAlternative <- bdpar.Options$get("extractorEML.mpaPartSelected")
         }
       }
 
       if (!"character" %in% class(PartSelectedOnMPAlternative)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
-             class(PartSelectedOnMPAlternative))
+        bdpar.log(message = paste0("Checking the type of the ",
+                                   "'PartSelectedOnMPAlternative' variable: ",
+                                   class(PartSelectedOnMPAlternative)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       self$setPartSelectedOnMPAlternative(PartSelectedOnMPAlternative)
@@ -109,8 +117,11 @@ ExtractorEml <- R6Class(
         read_emails(super$getPath(),self$getPartSelectedOnMPAlternative())["date"],
 
         error = function(e) {
-          message("[ExtractorEml][obtainDate][Error] Date eml error ",
-                   super$getPath()," ", paste(e))
+          bdpar.log(message = paste0("Date eml error ", super$getPath(),
+                                     " ", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainDate")
         }
       )
 
@@ -122,8 +133,11 @@ ExtractorEml <- R6Class(
           super$setDate()
         },
         error = function(e) {
-          message("[", class(self)[1], "][obtainDate][Error] Date eml error in
-                   standardized proccess", super$getPath(), " ", paste(e))
+          bdpar.log(message = paste0("Date eml error in standardized proccess ",
+                                     super$getPath(), " ", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainDate")
         }
       )
     },
@@ -143,8 +157,11 @@ ExtractorEml <- R6Class(
               collapse = " "),
 
         error = function(e) {
-          message("[", class(self)[1], "][obtainSource][Error] Source eml error ",
-                   super$getPath()," ", paste(e))
+          bdpar.log(message = paste0("Source eml error ",
+                                     super$getPath(), " ", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainSource")
         }
       )
 
@@ -168,9 +185,12 @@ ExtractorEml <- R6Class(
     setPartSelectedOnMPAlternative = function(PartSelectedOnMPAlternative) {
 
       if (!"character" %in% class(PartSelectedOnMPAlternative)) {
-        stop("[", class(self)[1], "][setPartSelectedOnMPAlternative][Error] ",
-             "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
-             class(PartSelectedOnMPAlternative))
+        bdpar.log(message = paste0("Checking the type of the ",
+                                   "'PartSelectedOnMPAlternative' variable: ",
+                                   class(PartSelectedOnMPAlternative)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setPartSelectedOnMPAlternative")
       }
 
       private$PartSelectedOnMPAlternative <- PartSelectedOnMPAlternative

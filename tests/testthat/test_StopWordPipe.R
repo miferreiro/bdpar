@@ -1,6 +1,9 @@
 testthat::context("StopWordPipe")
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
@@ -37,8 +40,15 @@ testthat::test_that("initialize",{
                                            resourcesStopWordsPath))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
@@ -64,12 +74,19 @@ testthat::test_that("initialize propertyName type error",{
                                           notAfterDeps,
                                           removeStopWords,
                                           resourcesStopWordsPath),
-                         "[StopWordPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[StopWordPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
@@ -95,12 +112,19 @@ testthat::test_that("initialize propertyLanguageName type error",{
                                           notAfterDeps,
                                           removeStopWords,
                                           resourcesStopWordsPath),
-                         "[StopWordPipe][initialize][Error] Checking the type of the 'propertyLanguageName' variable: NULL",
+                         "[StopWordPipe][initialize][FATAL] Checking the type of the 'propertyLanguageName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -126,12 +150,19 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                           notAfterDeps,
                                           removeStopWords,
                                           resourcesStopWordsPath),
-                         "[StopWordPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[StopWordPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -157,12 +188,19 @@ testthat::test_that("initialize notAfterDeps type error",{
                                           notAfterDeps,
                                           removeStopWords,
                                           resourcesStopWordsPath),
-                         "[StopWordPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[StopWordPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize removeStopWords type error",{
   testthat::skip_if_not_installed("rex")
@@ -188,12 +226,19 @@ testthat::test_that("initialize removeStopWords type error",{
                                           notAfterDeps,
                                           removeStopWords,
                                           resourcesStopWordsPath),
-                         "[StopWordPipe][initialize][Error] Checking the type of the 'removeStopWords' variable: NULL",
+                         "[StopWordPipe][initialize][FATAL] Checking the type of the 'removeStopWords' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize resourcesStopWordsPath type error",{
   testthat::skip_if_not_installed("rex")
@@ -215,7 +260,7 @@ testthat::test_that("initialize resourcesStopWordsPath type error",{
                                           notAfterDeps,
                                           removeStopWords,
                                           resourcesStopWordsPath),
-                         "[StopWordPipe][initialize][Error] Path of stop words resources is neither defined in initialize or in bdpar.Options",
+                         "[StopWordPipe][initialize][FATAL] Path of stop words resources is neither defined in initialize or in bdpar.Options",
                          fixed = TRUE)
 
   resourcesStopWordsPath <- 1
@@ -226,12 +271,19 @@ testthat::test_that("initialize resourcesStopWordsPath type error",{
                                           notAfterDeps,
                                           removeStopWords,
                                           resourcesStopWordsPath),
-                         "[StopWordPipe][initialize][Error] Checking the type of the 'resourcesStopWordsPath' variable: numeric",
+                         "[StopWordPipe][initialize][FATAL] Checking the type of the 'resourcesStopWordsPath' variable: numeric",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
@@ -274,8 +326,15 @@ testthat::test_that("pipe",{
                          c("an","want","you"))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
@@ -314,11 +373,18 @@ testthat::test_that("pipe data empty",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has data empty on pipe StopWord")
+                           "\\[StopWordPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has data empty on pipe StopWord")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
@@ -357,11 +423,18 @@ testthat::test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not an StopWordsJsonFile to apply to the language-> en")
+                           "\\[StopWordPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not an StopWordsJsonFile to apply to the language-> en")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
@@ -399,11 +472,18 @@ testthat::test_that("pipe wihtout language property",{
   instance$setData("you want an apple")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[StopWordPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not language property")
+                           "\\[StopWordPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testStopWordPipe\\/testFile\\.tsms has not language property")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
@@ -436,12 +516,19 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[StopWordPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[StopWordPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findStopWord",{
   testthat::skip_if_not_installed("rex")
@@ -478,8 +565,15 @@ testthat::test_that("findStopWord",{
                          TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findStopWord stopWord type error",{
   testthat::skip_if_not_installed("rex")
@@ -513,12 +607,19 @@ testthat::test_that("findStopWord stopWord type error",{
 
   testthat::expect_error(pipe$findStopWord(data,
                                            stopWord),
-                         "[StopWordPipe][findStopWord][Error] Checking the type of the 'stopWord' variable: NULL",
+                         "[StopWordPipe][findStopWord][FATAL] Checking the type of the 'stopWord' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findStopWord data type error",{
   testthat::skip_if_not_installed("rex")
@@ -552,12 +653,19 @@ testthat::test_that("findStopWord data type error",{
 
   testthat::expect_error(pipe$findStopWord(data,
                                            stopWord),
-                         "[StopWordPipe][findStopWord][Error] Checking the type of the 'data' variable: NULL",
+                         "[StopWordPipe][findStopWord][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("removeStopWord ",{
   testthat::skip_if_not_installed("rex")
@@ -594,8 +702,15 @@ testthat::test_that("removeStopWord ",{
                          " want an apple")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("removeStopWord stopWord type error",{
   testthat::skip_if_not_installed("rex")
@@ -629,12 +744,19 @@ testthat::test_that("removeStopWord stopWord type error",{
 
   testthat::expect_error(pipe$removeStopWord(stopWord,
                                              data),
-                         "[StopWordPipe][removeStopWord][Error] Checking the type of the 'stopWord' variable: NULL",
+                         "[StopWordPipe][removeStopWord][FATAL] Checking the type of the 'stopWord' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("removeStopWord data type error",{
   testthat::skip_if_not_installed("rex")
@@ -668,12 +790,19 @@ testthat::test_that("removeStopWord data type error",{
 
   testthat::expect_error(pipe$removeStopWord(stopWord,
                                              data),
-                         "[StopWordPipe][removeStopWord][Error] Checking the type of the 'data' variable: NULL",
+                         "[StopWordPipe][removeStopWord][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
@@ -706,8 +835,15 @@ testthat::test_that("getPropertyLanguageName",{
                          "language")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getResourcesStopWordsPath",{
   testthat::skip_if_not_installed("rex")
@@ -746,8 +882,15 @@ testthat::test_that("getResourcesStopWordsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesStopWordsPath",{
   testthat::skip_if_not_installed("rex")
@@ -786,8 +929,15 @@ testthat::test_that("setResourcesStopWordsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesStopWordsPath path type error",{
   testthat::skip_if_not_installed("rex")
@@ -819,8 +969,11 @@ testthat::test_that("setResourcesStopWordsPath path type error",{
   path <- NULL
 
   testthat::expect_error(pipe$setResourcesStopWordsPath(path),
-                         "[StopWordPipe][setResourcesStopWordsPath][Error] Checking the type of the 'path' variable: NULL",
+                         "[StopWordPipe][setResourcesStopWordsPath][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

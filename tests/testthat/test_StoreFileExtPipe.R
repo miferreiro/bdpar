@@ -1,5 +1,10 @@
 context("StoreFileExtPipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   propertyName <- "extension"
@@ -11,6 +16,16 @@ testthat::test_that("initialize",{
                                                notAfterDeps))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
@@ -20,8 +35,18 @@ testthat::test_that("initialize propertyName type error",{
   testthat::expect_error(StoreFileExtPipe$new(propertyName,
                                               alwaysBeforeDeps,
                                               notAfterDeps),
-                         "[StoreFileExtPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[StoreFileExtPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -33,8 +58,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::expect_error(StoreFileExtPipe$new(propertyName,
                                               alwaysBeforeDeps,
                                               notAfterDeps),
-                         "[StoreFileExtPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[StoreFileExtPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
@@ -46,8 +81,18 @@ testthat::test_that("initialize notAfterDeps type error",{
   testthat::expect_error(StoreFileExtPipe$new(propertyName,
                                               alwaysBeforeDeps,
                                               notAfterDeps),
-                         "[StoreFileExtPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[StoreFileExtPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe",{
@@ -69,6 +114,16 @@ testthat::test_that("pipe",{
                          "tsms")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe instance type error",{
 
   propertyName <- ""
@@ -80,8 +135,18 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[StoreFileExtPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[StoreFileExtPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe",{
@@ -96,8 +161,18 @@ testthat::test_that("pipe",{
   instance <- ExtractorSms$new(path)
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "[StoreFileExtPipe][pipe][Warning] The file: example/exam has not an extension",
+                           "[StoreFileExtPipe][pipe][WARN] The file: example/exam has not an extension",
                            fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("obtainExtension",{
@@ -114,6 +189,15 @@ testthat::test_that("obtainExtension",{
                          "exe")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("obtainExtension path type error",{
 
@@ -126,6 +210,11 @@ testthat::test_that("obtainExtension path type error",{
 
   path <- NULL
   testthat::expect_error(pipe$obtainExtension(path),
-                         "[StoreFileExtPipe][obtainExtension][Error] Checking the type of the 'path' variable: NULL",
+                         "[StoreFileExtPipe][obtainExtension][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

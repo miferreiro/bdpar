@@ -80,32 +80,43 @@ TargetAssigningPipe <- R6Class(
                           notAfterDeps = list()) {
 
       if (!"list" %in% class(targets)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'targets' variable: ",
-             class(targets))
+        bdpar.log(message = paste0("Checking the type of the 'targets' variable: ",
+                                   class(targets)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(targetsName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'targetsName' variable: ",
-             class(targetsName))
+        bdpar.log(message = paste0("Checking the type of the 'targetsName' variable: ",
+                                   class(targetsName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
+
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$targets <- targets
@@ -128,9 +139,11 @@ TargetAssigningPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       instance$getPath() %>>%
@@ -143,7 +156,10 @@ TargetAssigningPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -162,9 +178,11 @@ TargetAssigningPipe <- R6Class(
     getTarget = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][getTarget][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "getTarget")
       }
 
       for (target in names(self$getTargets())) {
@@ -189,15 +207,19 @@ TargetAssigningPipe <- R6Class(
     checkTarget = function(target, path) {
 
       if (!"character" %in% class(target)) {
-        stop("[", class(self)[1], "][checkTarget][Error] ",
-             "Checking the type of the 'target' variable: ",
-             class(target))
+        bdpar.log(message = paste0("Checking the type of the 'target' variable: ",
+                                   class(target)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "checkTarget")
       }
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][checkTarget][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "checkTarget")
       }
 
       selectedTarget <- ""

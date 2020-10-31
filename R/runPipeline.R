@@ -74,7 +74,7 @@
 #' @keywords NULL
 #' @export runPipeline
 #' @seealso \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
-#'          \code{\link{Connections}},\code{\link{DefaultPipeline}},
+#'          \code{\link{Connections}}, \code{\link{DefaultPipeline}},
 #'          \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
 #'          \code{\link{Instance}}, \code{\link{ExtractorFactory}},
 #'          \code{\link{ResourceHandler}}
@@ -85,21 +85,27 @@ runPipeline = function(path,
                        pipeline = DefaultPipeline$new()) {
 
   if (!"character" %in% class(path)) {
-    stop("[runPipeline][Error] ",
-         "Checking the type of the 'path' variable: ",
-         class(path))
+    bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                               class(path)),
+             level = "FATAL",
+             className = NULL,
+             methodName = "runPipeline")
   }
 
   if (!"ExtractorFactory" %in% class(extractors)) {
-    stop("[runPipeline][Error] ",
-         "Checking the type of the 'extractors' variable: ",
-         class(extractors))
+    bdpar.log(message = paste0("Checking the type of the 'extractors' variable: ",
+                               class(extractors)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
   }
 
   if (!inherits(pipeline, c("GenericPipeline"))) {
-    stop("[runPipeline][Error] ",
-         "Checking the type of the 'pipeline' variable: ",
-         class(pipeline))
+    bdpar.log(message = paste0("Checking the type of the 'pipeline' variable: ",
+                               class(pipeline)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
   }
 
   bdpar_object <- Bdpar$new()

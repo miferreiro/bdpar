@@ -76,9 +76,9 @@
 #' This class inherits from \code{\link{GenericPipeline}} and implements the
 #' \code{execute} abstract function.
 #'
-#' @seealso \code{\link{Instance}}, \code{\link{DynamicPipeline}},
-#'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-#'          \code{\link{\%>|\%}}
+#' @seealso \code{\link{bdpar.log}}, \code{\link{Instance}},
+#'          \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
+#'          \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'
@@ -108,12 +108,17 @@ DefaultPipeline <- R6Class(
     execute = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][execute][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
-      message("[", class(self)[1], "][execute][Info] ", instance$getPath())
+      bdpar.log(message = instance$getPath(),
+                level = "INFO",
+                className = class(self)[1],
+                methodName = "execute")
 
       tryCatch(
         instance %>|%
@@ -138,8 +143,11 @@ DefaultPipeline <- R6Class(
           TeeCSVPipe$new()
         ,
         error = function(e) {
-          message("[", class(self)[1], "][execute][Error] ",
-                  instance$getPath()," :", paste(e))
+          bdpar.log(message = paste0(instance$getPath()," :", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "execute")
+
           instance$invalidate()
         }
       )

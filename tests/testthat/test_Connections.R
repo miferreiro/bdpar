@@ -1,13 +1,28 @@
 testthat::context("Connections")
 
-test_that("startConnectionWithTwitter connectionWithTwitter=FALSE",{
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("startConnectionWithTwitter connectionWithTwitter=FALSE",{
   testthat::skip_if_not_installed("rtweet")
 
   connection <- Connections$new()
 
   testthat::expect_error(connection$startConnectionWithTwitter(),
-                         "[Connections][startConnectionWithTwitter][Error] Twitter API keys are not defined on bdpar.Options",
+                         "[Connections][startConnectionWithTwitter][FATAL] Twitter API keys are not defined on bdpar.Options",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("startConnectionWithTwitter connectionWithTwitter=TRUE",{
@@ -20,14 +35,34 @@ testthat::test_that("startConnectionWithTwitter connectionWithTwitter=TRUE",{
   testthat::expect_null(connection$startConnectionWithTwitter())
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
   testthat::skip_if_not_installed("tuber")
 
   connection <- Connections$new()
 
   testthat::expect_error(connection$startConnectionWithYoutube(),
-                         "[Connections][startConnectionWithYoutube][Error] Youtube API keys are not defined on bdpar.Options",
+                         "[Connections][startConnectionWithYoutube][FATAL] Youtube API keys are not defined on bdpar.Options",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
@@ -40,6 +75,16 @@ testthat::test_that("startConnectionWithYoutube connectionWithYoutube=TRUE",{
   testthat::expect_null(connection$startConnectionWithYoutube())
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("addNumRequestToYoutube",{
   #Path where the configuration file are located
   connection <- Connections$new()
@@ -48,6 +93,16 @@ testthat::test_that("addNumRequestToYoutube",{
 
   testthat::expect_equal(connection$.__enclos_env__$private$numRequestToYoutube,
                          1)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("checkRequestToYoutube numRequest < numRequestMax",{
@@ -61,10 +116,25 @@ testthat::test_that("checkRequestToYoutube numRequest < numRequestMax",{
   testthat::expect_null(connection$checkRequestToYoutube())
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getNumRequestMaxToYoutube",{
   testthat::skip_if_not_installed("tuber")
 
   connection <- Connections$new()
 
   testthat::expect_type(connection$getNumRequestMaxToYoutube(), "double")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

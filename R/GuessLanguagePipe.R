@@ -87,27 +87,35 @@ GuessLanguagePipe <- R6Class(
                           languageTwitter = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(languageTwitter)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'languageTwitter' variable: ",
-             class(languageTwitter))
+        bdpar.log(message = paste0("Checking the type of the 'languageTwitter' variable: ",
+                                   class(languageTwitter)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -128,9 +136,11 @@ GuessLanguagePipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       if (private$languageTwitter &&
@@ -167,7 +177,10 @@ GuessLanguagePipe <- R6Class(
 
               instance$addProperties(message, "reasonToInvalidate")
 
-              warning("[", class(self)[1], "][pipe][Warning] ", message)
+              bdpar.log(message = message,
+                        level = "WARN",
+                        className = class(self)[1],
+                        methodName = "pipe")
 
               instance$invalidate()
 
@@ -188,7 +201,10 @@ GuessLanguagePipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -208,9 +224,11 @@ GuessLanguagePipe <- R6Class(
     getLanguage = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][getLanguage][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "getLanguage")
       }
 
       cld2::detect_language(data, plain_text = TRUE)

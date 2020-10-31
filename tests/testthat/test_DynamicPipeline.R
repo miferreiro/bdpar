@@ -1,19 +1,44 @@
 testthat::context("DynamicPipeline")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::expect_silent(DynamicPipeline$new())
 
   testthat::expect_silent(DynamicPipeline$new(list(TargetAssigningPipe$new())))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize error",{
   testthat::expect_error(DynamicPipeline$new(1),
-                         "[DynamicPipeline][initialize][Error] Checking the type of the 'pipeline' variable: numeric",
+                         "[DynamicPipeline][initialize][FATAL] Checking the type of the 'pipeline' variable: numeric",
                          fixed = TRUE)
 
   testthat::expect_error(DynamicPipeline$new(list(1)),
-                         "[DynamicPipeline][initialize][Error] Define pipes are not correct. Must be inherit from 'GenericPipe' class. Aborting...",
+                         "[DynamicPipeline][initialize][FATAL] Define pipes are not correct. Must be inherit from 'GenericPipe' class. Aborting...",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("add",{
@@ -25,7 +50,7 @@ testthat::test_that("add",{
 
   pipeline <- DynamicPipeline$new()
   testthat::expect_warning(pipeline$add(pipe = File2Pipe$new(), pos = 2),
-                           "[DynamicPipeline][add][Warning] Pipeline empty, adding in the first position",
+                           "[DynamicPipeline][add][WARN] Pipeline empty, adding in the first position",
                            fixed = TRUE)
 
   pipeline <- DynamicPipeline$new()
@@ -34,27 +59,47 @@ testthat::test_that("add",{
   testthat::expect_length(pipeline$get(), 2)
 
   testthat::expect_warning(pipeline$add(pipe = File2Pipe$new(), pos = 3),
-                           "[DynamicPipeline][add][Warning] The position exceeds the length of the pipeline, adding at the end of it",
+                           "[DynamicPipeline][add][WARN] The position exceeds the length of the pipeline, adding at the end of it",
                            fixed = TRUE)
   testthat::expect_length(pipeline$get(), 3)
   pipeline$add(pipe = GuessDatePipe$new(), pos = 3)
   testthat::expect_length(pipeline$get(), 4)
 
   testthat::expect_error(pipeline$add(pipe = GuessDatePipe$new(), pos = -2),
-                         "[DynamicPipeline][add][Error] It can only be added between positions '0' and '4'",
+                         "[DynamicPipeline][add][FATAL] It can only be added between positions '0' and '4'",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("add error",{
 
   pipeline <- DynamicPipeline$new()
   testthat::expect_error(pipeline$add(pipe = 1, pos = NULL),
-                         "[DynamicPipeline][add][Error] Checking the type of the 'pipe' variable: list",
+                         "[DynamicPipeline][add][FATAL] Checking the type of the 'pipe' variable: list",
                          fixed = TRUE)
 
   testthat::expect_error(pipeline$add(pipe = GuessDatePipe$new(), pos = "wrong"),
-                         "[DynamicPipeline][add][Error] Checking the type of the 'pos' variable: character",
+                         "[DynamicPipeline][add][FATAL] Checking the type of the 'pos' variable: character",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("removeByPos",{
@@ -67,21 +112,41 @@ testthat::test_that("removeByPos",{
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("removeByPos error",{
 
   pipeline <- DynamicPipeline$new()
   testthat::expect_warning(pipeline$removeByPos(pos = 1),
-                           "[DynamicPipeline][removeByPos][Warning] Pipeline empty. Imposible remove",
+                           "[DynamicPipeline][removeByPos][WARN] Pipeline empty. Imposible remove",
                            fixed = TRUE)
 
   testthat::expect_error(pipeline$removeByPos(pos = "A"),
-                         "[DynamicPipeline][removeByPos][Error] Checking the type of the 'pos' variable: character",
+                         "[DynamicPipeline][removeByPos][FATAL] Checking the type of the 'pos' variable: character",
                          fixed = TRUE)
 
   pipeline$add(pipe = GuessDatePipe$new())
   testthat::expect_error(pipeline$removeByPos(pos = 3),
-                         "[DynamicPipeline][removeByPos][Error] It can only be deleted between positions '0' and '1'",
+                         "[DynamicPipeline][removeByPos][FATAL] It can only be deleted between positions '0' and '1'",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("removeByPipe",{
@@ -94,34 +159,62 @@ testthat::test_that("removeByPipe",{
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("removeByPipe error",{
 
   pipeline <- DynamicPipeline$new()
   testthat::expect_warning(pipeline$removeByPipe(pipe.name = "TargetAssigningPipe"),
-                           "[DynamicPipeline][removeByPipe][Warning] Pipeline empty. Imposible remove",
+                           "[DynamicPipeline][removeByPipe][WARN] Pipeline empty. Imposible remove",
                            fixed = TRUE)
 
   testthat::expect_error(pipeline$removeByPipe(pipe = 1),
-                         "[DynamicPipeline][removeByPipe][Error] Checking the type of the 'pipe.name' variable (must be a character list)",
+                         "[DynamicPipeline][removeByPipe][FATAL] Checking the type of the 'pipe.name' variable (must be a character list)",
                          fixed = TRUE)
 
   pipeline$add(pipe = GuessDatePipe$new())
   testthat::expect_warning(pipeline$removeByPipe(pipe.name = "a"),
-                           "[DynamicPipeline][removeByPipe][Warning] Not found elements to remove",
+                           "[DynamicPipeline][removeByPipe][WARN] Not found elements to remove",
                            fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("execute instance type error",{
 
   instance <- NULL
   testthat::expect_error(DynamicPipeline$new()$execute(instance),
-                         "[DynamicPipeline][execute][Error] Checking the type of the 'instance' variable: NULL",
+                         "[DynamicPipeline][execute][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 
-  testthat::setup(bdpar.Options$reset())
+  testthat::setup({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
 
   testthat::test_that("execute",{
     testthat::skip_if_not_installed("cld2")
@@ -170,12 +263,18 @@ if (Sys.info()[['sysname']] %in% "Windows") {
                            instance)
   })
 
-  testthat::teardown(bdpar.Options$reset())
+  testthat::teardown({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
 }
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 
-  testthat::setup(bdpar.Options$reset())
+  testthat::setup({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
 
   testthat::test_that("execute error",{
     testthat::skip_if_not_installed("readr")
@@ -207,25 +306,33 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     pipeline <- DynamicPipeline$new()
     pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new(), GuessDatePipe$new(), File2Pipe$new()))
     testthat::expect_message(suppressWarnings(pipeline$execute(instanceInitial)),
-                             "[pipeOperator][freduce][Info] The instance testFiles/testDynamicPipeline/files/_ham_/testFileEmpty.tsms is invalid and will not continue through the flow of pipes",
+                             "[pipeOperator][freduce][INFO] The instance testFiles/testDynamicPipeline/files/_ham_/testFileEmpty.tsms is invalid and will not continue through the flow of pipes",
                              fixed = TRUE)
 
     pipeline <- DynamicPipeline$new()
     testthat::expect_error(suppressWarnings(pipeline$execute(instanceInitial)),
-                           "[DynamicPipeline][execute][Error] Pipeline is empty",
+                           "[DynamicPipeline][execute][FATAL] Pipeline is empty",
                            fixed = TRUE)
 
     pipeline <- DynamicPipeline$new()
     bdpar.Options$remove("cache")
     pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new(), GuessDatePipe$new(), File2Pipe$new()))
     testthat::expect_message(suppressWarnings(pipeline$execute(instanceInitial)),
-                             "[DynamicPipeline][execute][Error] testFiles/testDynamicPipeline/files/_ham_/testFileEmpty.tsms :Error in bdpar.Options$get(\"cache\"): [BdparOptions][get][Error] 'cache' option is not configured",
-                             fixed = TRUE)
+                             "[-\\[\\]:0-9 ]+\\[DynamicPipeline\\]\\[execute\\]\\[ERROR\\] testFiles\\/testDynamicPipeline\\/files\\/_ham_\\/testFileEmpty\\.tsms :Error in bdpar\\.Options\\$get\\(\"cache\"\\): [-\\[\\]:0-9 ]+\\[BdparOptions\\]\\[get\\]\\[FATAL\\] 'cache' option is not configured",
+                             perl = TRUE)
 
   })
 
-  testthat::teardown(bdpar.Options$reset())
+  testthat::teardown({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
 }
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("removeAll",{
 
@@ -238,6 +345,16 @@ testthat::test_that("removeAll",{
   testthat::expect_length(pipeline$get(), 0)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("get",{
   testthat::expect_equal(DynamicPipeline$new()$get(), list())
 
@@ -245,7 +362,22 @@ testthat::test_that("get",{
                          list(TargetAssigningPipe$new()))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("print",{
   pipeline <- DynamicPipeline$new(list(TargetAssigningPipe$new()))
   testthat::expect_output(print(pipeline), "[A-Za-z0-9$/.\\(\\)%>]+")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

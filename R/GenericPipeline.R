@@ -25,8 +25,9 @@
 #'
 #' @description Abstract super class to establish the flow of Pipes.
 #'
-#' @seealso \code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
-#'          \code{\link{Instance}}, \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
+#' @seealso \code{\link{bdpar.log}}, \code{\link{DefaultPipeline}},
+#'          \code{\link{DynamicPipeline}}, \code{\link{Instance}},
+#'          \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'
@@ -52,7 +53,10 @@ GenericPipeline <- R6Class(
     #' @return The preprocessed \code{\link{Instance}}.
     #'
     execute = function(instance) {
-      stop("[", class(self)[1], "][execute][Error] I am an abstract interface method")
+      bdpar.log(message = "I am an abstract interface method",
+                level = "FATAL",
+                className = class(self)[1],
+                methodName = "execute")
     },
     #'
     #' @description Gets a list with containing the set of \code{\link{GenericPipe}s}
@@ -61,7 +65,10 @@ GenericPipeline <- R6Class(
     #' @return The set of \code{\link{GenericPipe}s} containing the pipeline.
     #'
     get = function() {
-      stop("[", class(self)[1], "][get][Error] I am an abstract interface method")
+      bdpar.log(message = "I am an abstract interface method",
+                level = "FATAL",
+                className = class(self)[1],
+                methodName = "get")
     }
   )
 )

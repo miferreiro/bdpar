@@ -18,7 +18,7 @@ By default, the application initializes the object named \code{bdpar.Options}
 of type \code{BdparOptions} which is in charge of initializing the
 options used in the defined pipes.
 
-The default fields on \emph{\link{bdpar.Options}} are initialized, if needed,
+The default fields on \code{\link{bdpar.Options}} are initialized, if needed,
 as shown bellow:
 
 \strong{[eml]}
@@ -79,6 +79,18 @@ cache.
 
 If you want to remove the cache, the \code{cleanCache} method does
 this task.
+}
+
+\section{Log configuration}{
+
+
+The bdpar log is configured through the \code{configureLog} function.
+This system manages both the place to display the messages and the priority
+level of each message showing only the messages with a higher level than
+indicated in the \emph{threshold} variable.
+
+If you want to deactivate the bdpar log, the \code{disableLog}
+method in \code{\link{bdpar.Options}} does this task.
 }
 
 \section{Methods}{
@@ -206,14 +218,57 @@ that are in the path defined in \strong{"cache.folder"} option.
 }
 }
 }
+
+\item{\bold{configureLog:}}{
+Configures the bdpar log.
+\itemize{
+\item{\emph{Usage:}}{
+\code{configureLog(console = TRUE, threshold = "INFO", file = NULL)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{console:}}{
+(\emph{boolean}) Shows the log on console or not.
+}
+\item{\strong{threshold:}}{
+(\emph{character}) The logging threshold level. Messages with a lower
+priority level will be discarded.
+}
+\item{\strong{file:}}{
+(\emph{character}) The file to write messages to. If it is NULL,
+the log in file will not be enabled
+}
+}
+}
+}
+}
+
+\item{\bold{disableLog:}}{
+Deactivates the bdpar log.
+\itemize{
+\item{\emph{Usage:}}{
+\code{disableLog()}
+}
+}
+}
+
+\item{\bold{getLogConfiguration:}}{
+Get the bdpar log configuration.
+\itemize{
+\item{\emph{Usage:}}{
+\code{getLogConfiguration()}
+}
+}
+}
 }
 }
 
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{Connections}},
-         \code{\link{ContractionPipe}}, \code{\link{ExtractorEml}},
-         \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
-         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
-         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-         \code{\link{TeeCSVPipe}}, \code{\link{\%>|\%}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
+         \code{\link{Connections}}, \code{\link{ContractionPipe}},
+         \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
+         \code{\link{ExtractorYtbid}}, \code{\link{GuessLanguagePipe}},
+         \code{\link{Instance}}, \code{\link{SlangPipe}},
+         \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}},
+         \code{\link{\%>|\%}}
 }

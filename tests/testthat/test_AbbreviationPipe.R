@@ -1,6 +1,9 @@
 testthat::context("AbbreviationPipe")
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rjson")
@@ -37,8 +40,15 @@ testthat::test_that("initialize",{
                                                resourcesAbbreviationsPath))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
@@ -64,12 +74,19 @@ testthat::test_that("initialize propertyName type error",{
                                               notAfterDeps,
                                               replaceAbbreviations,
                                               resourcesAbbreviationsPath),
-                         "[AbbreviationPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[AbbreviationPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
@@ -95,12 +112,19 @@ testthat::test_that("initialize propertyLanguageName type error",{
                                               notAfterDeps,
                                               replaceAbbreviations,
                                               resourcesAbbreviationsPath),
-                         "[AbbreviationPipe][initialize][Error] Checking the type of the 'propertyLanguageName' variable: NULL",
+                         "[AbbreviationPipe][initialize][FATAL] Checking the type of the 'propertyLanguageName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -126,12 +150,19 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                               notAfterDeps,
                                               replaceAbbreviations,
                                               resourcesAbbreviationsPath),
-                         "[AbbreviationPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[AbbreviationPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -157,12 +188,19 @@ testthat::test_that("initialize notAfterDeps type error",{
                                               notAfterDeps,
                                               replaceAbbreviations,
                                               resourcesAbbreviationsPath),
-                         "[AbbreviationPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[AbbreviationPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize replaceAbbreviations type error",{
   testthat::skip_if_not_installed("rex")
@@ -188,12 +226,19 @@ testthat::test_that("initialize replaceAbbreviations type error",{
                                               notAfterDeps,
                                               replaceAbbreviations,
                                               resourcesAbbreviationsPath),
-                         "[AbbreviationPipe][initialize][Error] Checking the type of the 'replaceAbbreviations' variable: NULL",
+                         "[AbbreviationPipe][initialize][FATAL] Checking the type of the 'replaceAbbreviations' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize resourcesAbbreviationsPath type error",{
   testthat::skip_if_not_installed("rex")
@@ -214,7 +259,7 @@ testthat::test_that("initialize resourcesAbbreviationsPath type error",{
                                               notAfterDeps,
                                               replaceAbbreviations,
                                               resourcesAbbreviationsPath),
-                         "[AbbreviationPipe][initialize][Error] Path of abbreviations resources is neither defined in initialize or in bdpar.Options",
+                         "[AbbreviationPipe][initialize][FATAL] Path of abbreviations resources is neither defined in initialize or in bdpar.Options",
                          fixed = TRUE)
 
   resourcesAbbreviationsPath <- 1
@@ -225,12 +270,19 @@ testthat::test_that("initialize resourcesAbbreviationsPath type error",{
                                               notAfterDeps,
                                               replaceAbbreviations,
                                               resourcesAbbreviationsPath),
-                         "[AbbreviationPipe][initialize][Error] Checking the type of the 'resourcesAbbreviationsPath' variable: numeric",
+                         "[AbbreviationPipe][initialize][FATAL] Checking the type of the 'resourcesAbbreviationsPath' variable: numeric",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rjson")
@@ -273,8 +325,15 @@ testthat::test_that("pipe",{
                          "Admin.")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rjson")
@@ -312,12 +371,19 @@ testthat::test_that("pipe data empty",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has data empty on pipe Abbreviation")
+                           "\\[AbbreviationPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has data empty on pipe Abbreviation")
 
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rjson")
@@ -355,11 +421,18 @@ testthat::test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has not an abbreviationsJsonFile to apply to the language ->en")
+                           "\\[AbbreviationPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has not an abbreviationsJsonFile to apply to the language ->en")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rjson")
@@ -396,12 +469,19 @@ testthat::test_that("pipe wihtout language property",{
   instance$setData("D. something")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[AbbreviationPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has not language property")
+                           "\\[AbbreviationPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has not language property")
 
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rjson")
@@ -432,12 +512,19 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[AbbreviationPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[AbbreviationPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findAbbreviation",{
   testthat::skip_if_not_installed("rex")
@@ -474,8 +561,15 @@ testthat::test_that("findAbbreviation",{
                          TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findAbbreviation abbreviation type error",{
   testthat::skip_if_not_installed("rjson")
@@ -508,12 +602,19 @@ testthat::test_that("findAbbreviation abbreviation type error",{
 
   testthat::expect_error(pipe$findAbbreviation(data,
                                      abbreviation),
-                         "[AbbreviationPipe][findAbbreviation][Error] Checking the type of the 'abbreviation' variable: NULL",
+                         "[AbbreviationPipe][findAbbreviation][FATAL] Checking the type of the 'abbreviation' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findAbbreviation data type error",{
   testthat::skip_if_not_installed("rjson")
@@ -546,12 +647,19 @@ testthat::test_that("findAbbreviation data type error",{
   data <- NULL
 
   testthat::expect_error(pipe$findAbbreviation(data, abbreviation),
-                         "[AbbreviationPipe][findAbbreviation][Error] Checking the type of the 'data' variable: NULL",
+                         "[AbbreviationPipe][findAbbreviation][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceAbbreviation ",{
   testthat::skip_if_not_installed("rjson")
@@ -590,8 +698,15 @@ testthat::test_that("replaceAbbreviation ",{
                          " Don  something")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceAbbreviation abbreviation type error",{
   testthat::skip_if_not_installed("rjson")
@@ -627,12 +742,19 @@ testthat::test_that("replaceAbbreviation abbreviation type error",{
   testthat::expect_error(pipe$replaceAbbreviation(abbreviation,
                                                   extendedAbbreviation,
                                                   data),
-                         "[AbbreviationPipe][replaceAbbreviation][Error] Checking the type of the 'abbreviation' variable: NULL",
+                         "[AbbreviationPipe][replaceAbbreviation][FATAL] Checking the type of the 'abbreviation' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceAbbreviation extendedAbbreviation type error",{
   testthat::skip_if_not_installed("rjson")
@@ -668,12 +790,19 @@ testthat::test_that("replaceAbbreviation extendedAbbreviation type error",{
   testthat::expect_error(pipe$replaceAbbreviation(abbreviation,
                                                   extendedAbbreviation,
                                                   data),
-                         "[AbbreviationPipe][replaceAbbreviation][Error] Checking the type of the 'extendedAbbreviation' variable: NULL",
+                         "[AbbreviationPipe][replaceAbbreviation][FATAL] Checking the type of the 'extendedAbbreviation' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceAbbreviation data type error",{
   testthat::skip_if_not_installed("rjson")
@@ -709,12 +838,19 @@ testthat::test_that("replaceAbbreviation data type error",{
   testthat::expect_error(pipe$replaceAbbreviation(abbreviation,
                                                   extendedAbbreviation,
                                                   data),
-                         "[AbbreviationPipe][replaceAbbreviation][Error] Checking the type of the 'data' variable: NULL",
+                         "[AbbreviationPipe][replaceAbbreviation][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rjson")
@@ -747,8 +883,15 @@ testthat::test_that("getPropertyLanguageName",{
                          "language")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getResourcesAbbreviationsPath",{
   testthat::skip_if_not_installed("rjson")
@@ -787,8 +930,15 @@ testthat::test_that("getResourcesAbbreviationsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesAbbreviationsPath",{
   testthat::skip_if_not_installed("rjson")
@@ -827,8 +977,15 @@ testthat::test_that("setResourcesAbbreviationsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesAbbreviationsPath path type error",{
   testthat::skip_if_not_installed("rjson")
@@ -860,8 +1017,11 @@ testthat::test_that("setResourcesAbbreviationsPath path type error",{
   path <- NULL
 
   testthat::expect_error(pipe$setResourcesAbbreviationsPath(path),
-                         "[AbbreviationPipe][setResourcesAbbreviationsPath][Error] Checking the type of the 'path' variable: NULL",
+                         "[AbbreviationPipe][setResourcesAbbreviationsPath][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

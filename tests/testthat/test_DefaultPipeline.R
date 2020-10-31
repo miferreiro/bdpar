@@ -1,21 +1,46 @@
 testthat::context("DefaultPipeline")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   testthat::expect_silent(DefaultPipeline$new())
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("execute instance type error",{
 
   instance <- NULL
   testthat::expect_error(DefaultPipeline$new()$execute(instance),
-                         "[DefaultPipeline][execute][Error] Checking the type of the 'instance' variable: NULL",
+                         "[DefaultPipeline][execute][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+
+
 if (Sys.info()[['sysname']] %in% "Windows") {
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("execute",{
   testthat::skip_if_not_installed("cld2")
@@ -95,13 +120,18 @@ testthat::test_that("execute",{
   file.remove("output_tsms.csv")
 })
 
-testthat::teardown(bdpar.Options$reset())
-
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 }
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 
-  testthat::setup(bdpar.Options$reset())
+  testthat::setup({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
 
   testthat::test_that("execute error",{
     testthat::skip_if_not_installed("readr")
@@ -133,15 +163,20 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     instance$addBanPipes(c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
 
     testthat::expect_message(suppressWarnings(DefaultPipeline$new()$execute(instanceInitial)),
-                             "[DefaultPipeline][execute][Error]",
+                             "[DefaultPipeline][execute][INFO]",
                              fixed = TRUE)
   })
 
-  testthat::teardown(bdpar.Options$reset())
-
+  testthat::teardown({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
 }
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("get",{
 
@@ -169,9 +204,22 @@ testthat::test_that("get",{
                               TeeCSVPipe$new()))
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("print",{
   pipeline <- DefaultPipeline$new()
   testthat::expect_output(print(pipeline), "[A-Za-z0-9$/.\\(\\)%>]+")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

@@ -60,9 +60,11 @@ ResourceHandler <- R6Class(
     isLoadResource = function(pathResource) {
 
       if (!"character" %in% class(pathResource)) {
-        stop("[", class(self)[1], "][isLoadResource][Error] ",
-             "Checking the type of the 'pathResource' variable: ",
-             class(pathResource))
+        bdpar.log(message = paste0("Checking the type of the 'pathResource' variable: ",
+                                   class(pathResource)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "isLoadResource")
       }
 
       if (pathResource %in% self$getNamesResources()) {

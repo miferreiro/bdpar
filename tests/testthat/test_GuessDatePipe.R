@@ -1,5 +1,10 @@
 testthat::context("GuessDatePipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   propertyName <- "date"
@@ -11,6 +16,16 @@ testthat::test_that("initialize",{
                                             notAfterDeps))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
@@ -20,8 +35,18 @@ testthat::test_that("initialize propertyName type error",{
   testthat::expect_error(GuessDatePipe$new(propertyName,
                                            alwaysBeforeDeps,
                                            notAfterDeps),
-                         "[GuessDatePipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[GuessDatePipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -33,8 +58,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::expect_error(GuessDatePipe$new(propertyName,
                                            alwaysBeforeDeps,
                                            notAfterDeps),
-                         "[GuessDatePipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[GuessDatePipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
@@ -46,8 +81,18 @@ testthat::test_that("initialize notAfterDeps type error",{
   testthat::expect_error(GuessDatePipe$new(propertyName,
                                            alwaysBeforeDeps,
                                            notAfterDeps),
-                         "[GuessDatePipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[GuessDatePipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe",{
@@ -71,6 +116,16 @@ testthat::test_that("pipe",{
                          instanceExpected)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe instance type error",{
 
   propertyName <- "date"
@@ -81,6 +136,11 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[GuessDatePipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[GuessDatePipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

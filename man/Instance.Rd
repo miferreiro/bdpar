@@ -38,6 +38,7 @@ Provides the required methods to successfully handle each
 \item \href{#method-getBanPipes}{\code{Instance$getBanPipes()}}
 \item \href{#method-addBanPipes}{\code{Instance$addBanPipes()}}
 \item \href{#method-checkCompatibility}{\code{Instance$checkCompatibility()}}
+\item \href{#method-toString}{\code{Instance$toString()}}
 \item \href{#method-clone}{\code{Instance$clone()}}
 }
 }
@@ -416,6 +417,19 @@ Check compatibility between \code{\link{GenericPipe}s}.
 through.}
 }
 \if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-toString}{}}}
+\subsection{Method \code{toString()}}{
+Returns a \code{\link{character}} representing the instance
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Instance$toString()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{\link{Instance}} \code{\link{character}} representation
 }
 }
 \if{html}{\out{<hr>}}

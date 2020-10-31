@@ -1,6 +1,9 @@
 testthat::context("InterjectionPipe")
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
@@ -37,8 +40,15 @@ testthat::test_that("initialize",{
                                                resourcesInterjectionsPath))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
@@ -64,12 +74,19 @@ testthat::test_that("initialize propertyName type error",{
                                               notAfterDeps,
                                               removeInterjections,
                                               resourcesInterjectionsPath),
-                         "[InterjectionPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[InterjectionPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
@@ -95,12 +112,19 @@ testthat::test_that("initialize propertyLanguageName type error",{
                                               notAfterDeps,
                                               removeInterjections,
                                               resourcesInterjectionsPath),
-                         "[InterjectionPipe][initialize][Error] Checking the type of the 'propertyLanguageName' variable: NULL",
+                         "[InterjectionPipe][initialize][FATAL] Checking the type of the 'propertyLanguageName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -126,12 +150,19 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                               notAfterDeps,
                                               removeInterjections,
                                               resourcesInterjectionsPath),
-                         "[InterjectionPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[InterjectionPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -157,12 +188,19 @@ testthat::test_that("initialize notAfterDeps type error",{
                                               notAfterDeps,
                                               removeInterjections,
                                               resourcesInterjectionsPath),
-                         "[InterjectionPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[InterjectionPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize removeInterjections type error",{
   testthat::skip_if_not_installed("rex")
@@ -188,11 +226,19 @@ testthat::test_that("initialize removeInterjections type error",{
                                               notAfterDeps,
                                               removeInterjections,
                                               resourcesInterjectionsPath),
-                         "[InterjectionPipe][initialize][Error] Checking the type of the 'removeInterjections' variable: NULL",
+                         "[InterjectionPipe][initialize][FATAL] Checking the type of the 'removeInterjections' variable: NULL",
                          fixed = TRUE)
 })
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize resourcesInterjectionsPath type error",{
   testthat::skip_if_not_installed("rex")
@@ -214,7 +260,7 @@ testthat::test_that("initialize resourcesInterjectionsPath type error",{
                                               notAfterDeps,
                                               removeInterjections,
                                               resourcesInterjectionsPath),
-                         "[InterjectionPipe][initialize][Error] Path of interjections resources is neither defined in initialize or in bdpar.Options",
+                         "[InterjectionPipe][initialize][FATAL] Path of interjections resources is neither defined in initialize or in bdpar.Options",
                          fixed = TRUE)
 
   resourcesInterjectionsPath <- 1
@@ -225,11 +271,19 @@ testthat::test_that("initialize resourcesInterjectionsPath type error",{
                                               notAfterDeps,
                                               removeInterjections,
                                               resourcesInterjectionsPath),
-                         "[InterjectionPipe][initialize][Error] Checking the type of the 'resourcesInterjectionsPath' variable: numeric",
+                         "[InterjectionPipe][initialize][FATAL] Checking the type of the 'resourcesInterjectionsPath' variable: numeric",
                          fixed = TRUE)
 })
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
@@ -270,8 +324,15 @@ testthat::test_that("pipe",{
   testthat::expect_equal(instance$getSpecificProperty("interjection"), c("yeah", "like"))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
@@ -309,11 +370,18 @@ testthat::test_that("pipe data empty",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has data empty on pipe Interjection")
+                           "\\[InterjectionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has data empty on pipe Interjection")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
@@ -351,11 +419,18 @@ testthat::test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en")
+                           "\\[InterjectionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
@@ -392,11 +467,18 @@ testthat::test_that("pipe wihtout language property",{
   instance$setData("yeah I like it")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[InterjectionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not language property")
+                           "\\[InterjectionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not language property")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
@@ -428,12 +510,19 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[InterjectionPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[InterjectionPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findInterjection",{
   testthat::skip_if_not_installed("rex")
@@ -470,8 +559,15 @@ testthat::test_that("findInterjection",{
                          TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findInterjection interjection type error",{
   testthat::skip_if_not_installed("rex")
@@ -505,12 +601,19 @@ testthat::test_that("findInterjection interjection type error",{
 
   testthat::expect_error(pipe$findInterjection(data,
                                                interjection),
-                         "[InterjectionPipe][findInterjection][Error] Checking the type of the 'interjection' variable: NULL",
+                         "[InterjectionPipe][findInterjection][FATAL] Checking the type of the 'interjection' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findInterjection data type error",{
   testthat::skip_if_not_installed("rex")
@@ -544,12 +647,19 @@ testthat::test_that("findInterjection data type error",{
 
   testthat::expect_error(pipe$findInterjection(data,
                                                interjection),
-                         "[InterjectionPipe][findInterjection][Error] Checking the type of the 'data' variable: NULL",
+                         "[InterjectionPipe][findInterjection][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("removeInterjection ",{
   testthat::skip_if_not_installed("rex")
@@ -586,8 +696,15 @@ testthat::test_that("removeInterjection ",{
                          " I like it")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("removeInterjection abbreviation type error",{
   testthat::skip_if_not_installed("rex")
@@ -621,12 +738,19 @@ testthat::test_that("removeInterjection abbreviation type error",{
 
   testthat::expect_error(pipe$removeInterjection(interjection,
                                                  data),
-                         "[InterjectionPipe][removeInterjection][Error] Checking the type of the 'interjection' variable: NULL",
+                         "[InterjectionPipe][removeInterjection][FATAL] Checking the type of the 'interjection' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("removeInterjection data type error",{
   testthat::skip_if_not_installed("rex")
@@ -660,12 +784,19 @@ testthat::test_that("removeInterjection data type error",{
 
   testthat::expect_error(pipe$removeInterjection(interjection,
                                                  data),
-                         "[InterjectionPipe][removeInterjection][Error] Checking the type of the 'data' variable: NULL",
+                         "[InterjectionPipe][removeInterjection][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
@@ -698,8 +829,15 @@ testthat::test_that("getPropertyLanguageName",{
                          "language")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getResourcesInterjectionsPath",{
   testthat::skip_if_not_installed("rex")
@@ -738,8 +876,15 @@ testthat::test_that("getResourcesInterjectionsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesInterjectionsPath",{
   testthat::skip_if_not_installed("rex")
@@ -778,8 +923,15 @@ testthat::test_that("setResourcesInterjectionsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesInterjectionsPath path type error",{
   testthat::skip_if_not_installed("rex")
@@ -811,8 +963,11 @@ testthat::test_that("setResourcesInterjectionsPath path type error",{
   path <- NULL
 
   testthat::expect_error(pipe$setResourcesInterjectionsPath(path),
-                         "[InterjectionPipe][setResourcesInterjectionsPath][Error] Checking the type of the 'path' variable: NULL",
+                         "[InterjectionPipe][setResourcesInterjectionsPath][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

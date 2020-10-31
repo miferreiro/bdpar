@@ -28,7 +28,7 @@ the \code{\link{Instance}} with the modifications that have occurred in the Pipe
 \item{\emph{Arguments:}}{
 \itemize{
 \item{\strong{instance:}}{
-(\emph{Instance}) \code{\link{Instance}} to preproccess.
+(\emph{Instance}) \code{\link{Instance}} to preprocess.
 }
 }
 }

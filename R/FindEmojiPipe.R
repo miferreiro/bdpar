@@ -84,26 +84,34 @@ FindEmojiPipe <- R6Class(
                           replaceEmojis = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(replaceEmojis)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'replaceEmojis' variable: ",
-             class(replaceEmojis))
+        bdpar.log(message = paste0("Checking the type of the 'replaceEmojis' variable: ",
+                                   class(replaceEmojis)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -125,9 +133,11 @@ FindEmojiPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       emojisLocated <- list()
@@ -169,15 +179,19 @@ FindEmojiPipe <- R6Class(
     findEmoji = function(data, emoji) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][findEmoji][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findEmoji")
       }
 
       if (!"character" %in% class(emoji)) {
-        stop("[", class(self)[1], "][findEmoji][Error] ",
-             "Checking the type of the 'emoji' variable: ",
-             class(emoji))
+        bdpar.log(message = paste0("Checking the type of the 'emoji' variable: ",
+                                   class(emoji)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findEmoji")
       }
 
       grepl(pattern = rex::escape(emoji),
@@ -201,21 +215,27 @@ FindEmojiPipe <- R6Class(
     replaceEmoji = function(emoji, extendedEmoji, data) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][replaceEmoji][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceEmoji")
       }
 
       if (!"character" %in% class(emoji)) {
-        stop("[", class(self)[1], "][replaceEmoji][Error] ",
-             "Checking the type of the 'emoji' variable: ",
-             class(emoji))
+        bdpar.log(message = paste0("Checking the type of the 'emoji' variable: ",
+                                   class(emoji)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceEmoji")
       }
 
       if (!"character" %in% class(extendedEmoji)) {
-        stop("[", class(self)[1], "][replaceEmoji][Error] ",
-             "Checking the type of the 'extendedEmoji' variable: ",
-             class(extendedEmoji))
+        bdpar.log(message = paste0("Checking the type of the 'extendedEmoji' variable: ",
+                                   class(extendedEmoji)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceEmoji")
       }
 
       gsub(rex::escape(emoji),

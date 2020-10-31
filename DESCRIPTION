@@ -32,6 +32,7 @@ Depends:
     R (>= 3.5.0)
 Imports:
     digest,
+    log4r,
     magrittr, 
     pipeR, 
     purrr, 

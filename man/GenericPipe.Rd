@@ -8,16 +8,17 @@ Provides the required methods to successfully handle each
 \code{\link{GenericPipe}} class.
 }
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-         \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-         \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-         \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-         \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-         \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-         \code{\link{MeasureLengthPipe}}, \code{\link{ResourceHandler}},
-         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-         \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-         \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
+         \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+         \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+         \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+         \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+         \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+         \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
+         \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+         \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+         \code{\link{ToLowerCasePipe}}
 }
 \section{Methods}{
 \subsection{Public methods}{

@@ -1,5 +1,10 @@
 testthat::context("Bdpar")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("Bdpar path type error",{
 
   object <- Bdpar$new()
@@ -13,8 +18,18 @@ testthat::test_that("Bdpar path type error",{
   testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][execute][Error] Checking the type of the 'path' variable: NULL",
+                         "[Bdpar][execute][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("Bdpar path does not exists",{
@@ -30,8 +45,18 @@ testthat::test_that("Bdpar path does not exists",{
   testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][execute][Error] Path parameter must be an existing file or directory",
+                         "[Bdpar][execute][FATAL] Path parameter must be an existing file or directory",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("Bdpar pipeline type error",{
@@ -49,8 +74,18 @@ testthat::test_that("Bdpar pipeline type error",{
   testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][execute][Error] Checking the type of the 'pipeline' variable: NULL",
+                         "[Bdpar][execute][FATAL] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("Bdpar extractorFactory type error",{
@@ -69,11 +104,22 @@ testthat::test_that("Bdpar extractorFactory type error",{
   testthat::expect_error(object$execute(path = path,
                                                pipeline = pipeline,
                                                extractors = extractorFactory),
-                         "[Bdpar][execute][Error] Checking the type of the 'extractors' variable: NULL",
+                         "[Bdpar][execute][FATAL] Checking the type of the 'extractors' variable: NULL",
                          fixed = TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 if (Sys.info()[['sysname']] %in% "Windows") {
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   testthat::skip_if_not_installed("cld2")
   testthat::skip_if_not_installed("readr")
@@ -204,5 +250,10 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
                          c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
 
   file.remove("output_tsms.csv")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 }

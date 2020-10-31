@@ -7,8 +7,9 @@
 Abstract super class to establish the flow of Pipes.
 }
 \seealso{
-\code{\link{DefaultPipeline}}, \code{\link{DynamicPipeline}},
-         \code{\link{Instance}}, \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
+\code{\link{bdpar.log}}, \code{\link{DefaultPipeline}},
+         \code{\link{DynamicPipeline}}, \code{\link{Instance}},
+         \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 }
 \section{Methods}{
 \subsection{Public methods}{

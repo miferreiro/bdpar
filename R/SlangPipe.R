@@ -98,33 +98,43 @@ SlangPipe <- R6Class(
                           resourcesSlangsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyLanguageName' variable: ",
-             class(propertyLanguageName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyLanguageName' variable: ",
+                                   class(propertyLanguageName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(replaceSlangs)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'replaceSlangs' variable: ",
-             class(replaceSlangs))
+        bdpar.log(message = paste0("Checking the type of the 'replaceSlangs' variable: ",
+                                   class(replaceSlangs)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -134,17 +144,22 @@ SlangPipe <- R6Class(
       if (is.null(resourcesSlangsPath)) {
         if (any(!bdpar.Options$isSpecificOption("resources.slangs.path"),
                 is.null(bdpar.Options$get("resources.slangs.path")))) {
-          stop("[", class(self)[1], "][initialize][Error] Path of slangs ",
-               "resources is neither defined in initialize or in bdpar.Options")
+          bdpar.log(message = paste0("Path of slangs resources is neither ",
+                                     "defined in initialize or in bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           resourcesSlangsPath <- bdpar.Options$get("resources.slangs.path")
         }
       }
 
       if (!"character" %in% class(resourcesSlangsPath)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'resourcesSlangsPath' variable: ",
-             class(resourcesSlangsPath))
+        bdpar.log(message = paste0("Checking the type of the 'resourcesSlangsPath' variable: ",
+                                   class(resourcesSlangsPath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$resourcesSlangsPath <- resourcesSlangsPath
@@ -166,9 +181,11 @@ SlangPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       languageInstance <- "Unknown"
@@ -184,7 +201,10 @@ SlangPipe <- R6Class(
 
         message <- c("The file: ", instance$getPath(), " has not language property")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -225,7 +245,10 @@ SlangPipe <- R6Class(
         message <- c("The file: ", instance$getPath(),
                      " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -237,7 +260,10 @@ SlangPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -260,15 +286,19 @@ SlangPipe <- R6Class(
     findSlang = function(data, slang) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][findSlang][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findSlang")
       }
 
       if (!"character" %in% class(slang)) {
-        stop("[", class(self)[1], "][findSlang][Error] ",
-             "Checking the type of the 'slang' variable: ",
-             class(slang))
+        bdpar.log(message = paste0("Checking the type of the 'slang' variable: ",
+                                   class(slang)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findSlang")
       }
 
       slangEscaped <- rex::escape(slang)
@@ -299,21 +329,27 @@ SlangPipe <- R6Class(
     replaceSlang = function(slang, extendedSlang, data) {
 
       if (!"character" %in% class(slang)) {
-        stop("[", class(self)[1], "][replaceSlang][Error] ",
-             "Checking the type of the 'slang' variable: ",
-             class(slang))
+        bdpar.log(message = paste0("Checking the type of the 'slang' variable: ",
+                                   class(slang)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceSlang")
       }
 
       if (!"character" %in% class(extendedSlang)) {
-        stop("[", class(self)[1], "][replaceSlang][Error] ",
-             "Checking the type of the 'extendedSlang' variable: ",
-             class(extendedSlang))
+        bdpar.log(message = paste0("Checking the type of the 'extendedSlang' variable: ",
+                                   class(extendedSlang)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceSlang")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][replaceSlang][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceSlang")
       }
 
       slangEscaped <- rex::escape(slang)
@@ -354,9 +390,11 @@ SlangPipe <- R6Class(
     setResourcesSlangsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][setResourcesSlangsPath][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setResourcesSlangsPath")
       }
 
       private$resourcesSlangsPath <- path

@@ -138,8 +138,10 @@ freduce = function(instance, function_list) {
 
   if (any(!bdpar.Options$isSpecificOption("cache"),
           is.null(bdpar.Options$get("cache")))) {
-    stop("[pipeOperator][freduce][Error] Cache status ",
-         "is not defined in bdpar.Options")
+    bdpar.log(message = "Cache status is not defined in bdpar.Options",
+              level = "FATAL",
+              className = "pipeOperator",
+              methodName = "freduce")
   } else {
     cache <- bdpar.Options$get("cache")
     cache.valid <- cache
@@ -185,8 +187,10 @@ freduce = function(instance, function_list) {
 
       if (any(!bdpar.Options$isSpecificOption("cache.folder"),
               is.null(bdpar.Options$get("cache.folder")))) {
-        stop("[pipeOperator][freduce][Error] Cache folder ",
-             "is not defined in bdpar.Options")
+        bdpar.log(message = "Cache folder is not defined in bdpar.Options",
+                  level = "FATAL",
+                  className = "pipeOperator",
+                  methodName = "freduce")
       } else {
         cache.folder <- bdpar.Options$get("cache.folder")
       }
@@ -232,9 +236,14 @@ freduce = function(instance, function_list) {
                                           parent.frame()),
                                      eval(exprAlwBefDeps,
                                           parent.frame()))) {
-      message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ",
-              eval(pipe.name,
-                   parent.frame()))
+
+      bdpar.log(message = paste0("Bad compatibility between Pipes on ",
+                                 eval(pipe.name,
+                                      parent.frame())),
+                level = "ERROR",
+                className = "pipeOperator",
+                methodName = "freduce")
+
       break
     }
 
@@ -244,12 +253,24 @@ freduce = function(instance, function_list) {
     instance <- eval(function_list[[cont]](instance),
                      parent.frame())
 
+    msg <- paste0("Instance_ID:", cont,
+                  " (Last pipe: ", eval(pipe.name,
+                                        parent.frame()), ")\n",
+                  instance$toString())
+
+    bdpar.log(message = msg,
+              level = "DEBUG",
+              className = "pipeOperator",
+              methodName = "freduce")
+
      if (cache) {
 
        if (any(!bdpar.Options$isSpecificOption("cache.folder"),
                is.null(bdpar.Options$get("cache.folder")))) {
-         stop("[pipeOperator][freduce][Error] Cache folder ",
-              "is not defined in bdpar.Options")
+         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
+                   level = "FATAL",
+                   className = "pipeOperator",
+                   methodName = "freduce")
        } else {
          cache.folder <- bdpar.Options$get("cache.folder")
        }
@@ -278,8 +299,11 @@ freduce = function(instance, function_list) {
           dir.create(cache.instance.folder,
                      recursive = TRUE)
           if (!dir.exists(cache.instance.folder)) {
-            stop("[pipeOperator][freduce][Error] Cannot create directory '",
-                 cache.instance.folder, "'")
+            bdpar.log(message = paste0("Cannot create directory '",
+                                       cache.instance.folder, "'"),
+                      level = "FATAL",
+                      className = "pipeOperator",
+                      methodName = "freduce")
           }
         }
 
@@ -291,8 +315,11 @@ freduce = function(instance, function_list) {
      }
 
     if (!instance$isInstanceValid()) {
-      message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
-              " is invalid and will not continue through the flow of pipes")
+      bdpar.log(message = paste0("The instance ", instance$getPath(),
+                                 " is invalid and will not continue through the flow of pipes"),
+                level = "INFO",
+                className = "pipeOperator",
+                methodName = "freduce")
       break
     }
 

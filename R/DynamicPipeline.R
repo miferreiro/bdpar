@@ -31,9 +31,9 @@
 #' This class inherits from \code{\link{GenericPipeline}} and implements the
 #' \code{execute} abstract function.
 #'
-#' @seealso \code{\link{Instance}}, \code{\link{DefaultPipeline}},
-#'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-#'          \code{\link{\%>|\%}}
+#' @seealso \code{\link{bdpar.log}}, \code{\link{Instance}},
+#'          \code{\link{DefaultPipeline}}, \code{\link{GenericPipeline}},
+#'          \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'
@@ -57,15 +57,20 @@ DynamicPipeline <- R6Class(
 
       if (!is.null(pipeline)) {
         if (!"list" %in% class(pipeline)) {
-          stop("[", class(self)[1], "][initialize][Error] ",
-               "Checking the type of the 'pipeline' variable: ",
-               class(pipeline))
+          bdpar.log(message = paste0("Checking the type of the 'pipeline' variable: ",
+                                     class(pipeline)),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         }
 
         if (!any(sapply(pipeline, inherits, "GenericPipe"))) {
-          stop("[", class(self)[1], "][initialize][Error] ",
-               "Define pipes are not correct. Must be inherit from 'GenericPipe' ",
-               "class. Aborting...")
+          bdpar.log(message = paste0("Define pipes are not correct. Must be ",
+                                     "inherit from 'GenericPipe' class. ",
+                                     "Aborting..."),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         }
 
         private$pipeline <- pipeline
@@ -91,31 +96,46 @@ DynamicPipeline <- R6Class(
       }
 
       if (!any(sapply(pipe, inherits, "GenericPipe"))) {
-        stop("[", class(self)[1], "][add][Error] Checking the type of the 'pipe' variable: ",
-             class(pipe))
+        bdpar.log(message = paste0("Checking the type of the 'pipe' variable: ",
+                                   class(pipe)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "add")
       }
 
       if (!is.null(pos)) {
 
         if (!"numeric" %in% class(pos)) {
-          stop("[", class(self)[1], "][add][Error] Checking the type of the 'pos' variable: ",
-               class(pos))
+          bdpar.log(message = paste0("Checking the type of the 'pos' variable: ",
+                                     class(pos)),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "add")
         }
 
         if (length(private$pipeline) == 0) {
-          warning("[", class(self)[1], "][add][Warning] Pipeline empty, adding in ",
-                  "the first position")
+          bdpar.log(message = "Pipeline empty, adding in the first position",
+                    level = "WARN",
+                    className = class(self)[1],
+                    methodName = "add")
           private$pipeline <- list.flatten(list.append(private$pipeline, pipe))
         } else {
           if (length(private$pipeline) < pos) {
-            warning("[", class(self)[1], "][add][Warning] The position exceeds the ",
-                    "length of the pipeline, adding at the end of it")
+            bdpar.log(message = paste0("The position exceeds the length of ",
+                                       "the pipeline, adding at the end of it"),
+                      level = "WARN",
+                      className = class(self)[1],
+                      methodName = "add")
             private$pipeline <- list.flatten(list.append(private$pipeline, pipe))
           } else {
 
             if (!all(0 < pos, pos <= length(private$pipeline))) {
-              stop("[", class(self)[1], "][add][Error] It can only be added between ",
-                   "positions '0' and '", length(private$pipeline), "'")
+              bdpar.log(message = paste0("It can only be added between positions ",
+                                         "'0' and '", length(private$pipeline),
+                                         "'"),
+                        level = "FATAL",
+                        className = class(self)[1],
+                        methodName = "add")
             }
 
             private$pipeline <- list.flatten(list.insert(private$pipeline, pos, pipe))
@@ -137,16 +157,25 @@ DynamicPipeline <- R6Class(
     removeByPos = function(pos) {
 
       if (!"numeric" %in% class(pos)) {
-        stop("[", class(self)[1], "][removeByPos][Error] Checking the type of the 'pos' variable: ",
-             class(pos))
+        bdpar.log(message = paste0("Checking the type of the 'pos' variable: ",
+                                   class(pos)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeByPos")
       }
 
       if (length(private$pipeline) == 0) {
-        warning("[", class(self)[1], "][removeByPos][Warning] Pipeline empty. Imposible remove")
+        bdpar.log(message = "Pipeline empty. Imposible remove",
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "removeByPos")
       } else {
         if (!any(sapply(pos, function(p) { all(0 < p, p <= length(private$pipeline)) }))) {
-          stop("[", class(self)[1], "][removeByPos][Error] It can only be deleted between ",
-               "positions '0' and '", length(private$pipeline), "'")
+          bdpar.log(message = paste0("It can only be deleted between positions ",
+                                     "'0' and '", length(private$pipeline), "'"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "removeByPos")
         }
         private$pipeline <- list.remove(private$pipeline, pos)
       }
@@ -167,18 +196,25 @@ DynamicPipeline <- R6Class(
       }
 
       if (!any(sapply(pipe.name, inherits, "character"))) {
-        stop("[", class(self)[1], "][removeByPipe][Error] Checking the type of ",
-             "the 'pipe.name' variable (must be a character list)")
+        bdpar.log(message = paste0("Checking the type of the 'pipe.name' ",
+                                   "variable (must be a character list)"),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeByPipe")
       }
 
       if (length(private$pipeline) == 0) {
-        warning("[", class(self)[1], "][removeByPipe][Warning] Pipeline empty. ",
-                "Imposible remove")
+        bdpar.log(message = "Pipeline empty. Imposible remove",
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "removeByPipe")
       } else {
         pos <- which(pipe.name %in% lapply(private$pipeline, function(p) class(p)[1]))
         if (length(pos) == 0) {
-          warning("[", class(self)[1], "][removeByPipe][Warning] Not found ",
-                  "elements to remove")
+          bdpar.log(message = "Not found elements to remove",
+                    level = "WARN",
+                    className = class(self)[1],
+                    methodName = "removeByPipe")
         } else {
           private$pipeline <- list.remove(private$pipeline, pos)
         }
@@ -200,14 +236,18 @@ DynamicPipeline <- R6Class(
     execute = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][execute][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       if (length(private$pipeline) == 0) {
-        stop("[", class(self)[1], "][execute][Error] ",
-             "Pipeline is empty")
+        bdpar.log(message = "Pipeline is empty",
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       call <- "instance"
@@ -219,8 +259,11 @@ DynamicPipeline <- R6Class(
         instance <- eval(parse(text = call))
         ,
         error = function(e) {
-          message("[", class(self)[1], "][execute][Error] " ,
-                  instance$getPath()," :", paste(e))
+          bdpar.log(message = paste0(instance$getPath()," :", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "execute")
+
           instance$invalidate()
         }
       )

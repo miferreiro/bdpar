@@ -96,33 +96,43 @@ InterjectionPipe <- R6Class(
                           resourcesInterjectionsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyLanguageName' variable: ",
-             class(propertyLanguageName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyLanguageName' variable: ",
+                                   class(propertyLanguageName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(removeInterjections)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'removeInterjections' variable: ",
-             class(removeInterjections))
+        bdpar.log(message = paste0("Checking the type of the 'removeInterjections' variable: ",
+                                   class(removeInterjections)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -132,17 +142,23 @@ InterjectionPipe <- R6Class(
       if (is.null(resourcesInterjectionsPath)) {
         if (any(!bdpar.Options$isSpecificOption("resources.interjections.path"),
                 is.null(bdpar.Options$get("resources.interjections.path")))) {
-          stop("[", class(self)[1], "][initialize][Error] Path of interjections ",
-               "resources is neither defined in initialize or in bdpar.Options")
+          bdpar.log(message = paste0("Path of interjections resources is ",
+                                     "neither defined in initialize or in ",
+                                     "bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           resourcesInterjectionsPath <- bdpar.Options$get("resources.interjections.path")
         }
       }
 
       if (!"character" %in% class(resourcesInterjectionsPath)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'resourcesInterjectionsPath' variable: ",
-             class(resourcesInterjectionsPath))
+        bdpar.log(message = paste0("Checking the type of the 'resourcesInterjectionsPath' variable: ",
+                                   class(resourcesInterjectionsPath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$resourcesInterjectionsPath <- resourcesInterjectionsPath
@@ -165,9 +181,11 @@ InterjectionPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       languageInstance <- "Unknown"
@@ -183,7 +201,10 @@ InterjectionPipe <- R6Class(
 
         message <- c("The file: ", instance$getPath(), " has not language property")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -223,9 +244,13 @@ InterjectionPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        warning("[", class(self)[1], "][pipe][Warning] ",
-                "The file: ", instance$getPath(), " has not an interjectionsJsonFile ",
-                "to apply to the language ->", languageInstance)
+        bdpar.log(message = paste0("The file: ", instance$getPath(),
+                                   " has not an interjectionsJsonFile ",
+                                   "to apply to the language ->",
+                                   languageInstance),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -239,7 +264,10 @@ InterjectionPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -262,15 +290,19 @@ InterjectionPipe <- R6Class(
     findInterjection = function(data, interjection) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][findInterjection][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findInterjection")
       }
 
       if (!"character" %in% class(interjection)) {
-        stop("[", class(self)[1], "][findInterjection][Error] ",
-             "Checking the type of the 'interjection' variable: ",
-             class(interjection))
+        bdpar.log(message = paste0("Checking the type of the 'interjection' variable: ",
+                                   class(interjection)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findInterjection")
       }
 
       interjectionEscaped <- rex::escape(interjection)
@@ -297,16 +329,20 @@ InterjectionPipe <- R6Class(
     removeInterjection = function(interjection, data) {
 
       if (!"character" %in% class(interjection)) {
-        stop("[", class(self)[1], "][removeInterjection][Error] ",
-             "Checking the type of the 'interjection' variable: ",
-             class(interjection))
+        bdpar.log(message = paste0("Checking the type of the 'interjection' variable: ",
+                                   class(interjection)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeInterjection")
       }
 
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][removeInterjection][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeInterjection")
       }
 
       interjectionEscaped <- rex::escape(interjection)
@@ -320,7 +356,6 @@ InterjectionPipe <- R6Class(
            "",
            data ,
            perl = TRUE)
-
     },
     #'
     #' @description Gets the name of property language.
@@ -347,9 +382,11 @@ InterjectionPipe <- R6Class(
     setResourcesInterjectionsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][setResourcesInterjectionsPath][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setResourcesInterjectionsPath")
       }
 
       private$resourcesInterjectionsPath <- path

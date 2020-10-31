@@ -34,10 +34,13 @@ Twitter.
 \examples{
 \dontrun{
 
-#If it is necessary to indicate any existing configuration key, do it through:
+#If it is necessary to indicate any configuration, do it through:
 #bdpar.Options$set(key, value)
 #If the key is not initialized, do it through:
 #bdpar.Options$add(key, value)
+
+#If it is necessary to change the behavior of the log, do it through:
+#bdpar.Options$configureLog(console = TRUE, threshold = "INFO", file = NULL)
 
 #Folder with the files to preprocess
 path <- system.file(file.path("example"),

@@ -1,8 +1,11 @@
 testthat::context("ContractionPipe")
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
-test_that("initialize",{
+testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
@@ -37,8 +40,15 @@ test_that("initialize",{
                                               resourcesContractionsPath))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
@@ -64,12 +74,19 @@ testthat::test_that("initialize propertyName type error",{
                                              notAfterDeps,
                                              replaceAbbreviations,
                                              resourcesAbbreviationsPath),
-                         "[ContractionPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[ContractionPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
@@ -95,12 +112,19 @@ testthat::test_that("initialize propertyLanguageName type error",{
                                              notAfterDeps,
                                              replaceContractions,
                                              resourcesContractionsPath),
-                         "[ContractionPipe][initialize][Error] Checking the type of the 'propertyLanguageName' variable: NULL",
+                         "[ContractionPipe][initialize][FATAL] Checking the type of the 'propertyLanguageName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -126,12 +150,19 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                              notAfterDeps,
                                              replaceContractions,
                                              resourcesContractionsPath),
-                         "[ContractionPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[ContractionPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
@@ -157,12 +188,19 @@ testthat::test_that("initialize notAfterDeps type error",{
                                              notAfterDeps,
                                              replaceContractions,
                                              resourcesContractionsPath),
-                         "[ContractionPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[ContractionPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize replaceContractions type error",{
   testthat::skip_if_not_installed("rex")
@@ -188,12 +226,19 @@ testthat::test_that("initialize replaceContractions type error",{
                                              notAfterDeps,
                                              replaceContractions,
                                              resourcesContractionsPath),
-                         "[ContractionPipe][initialize][Error] Checking the type of the 'replaceContractions' variable: NULL",
+                         "[ContractionPipe][initialize][FATAL] Checking the type of the 'replaceContractions' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize resourcesContractionsPath type error",{
   testthat::skip_if_not_installed("rex")
@@ -215,7 +260,7 @@ testthat::test_that("initialize resourcesContractionsPath type error",{
                                              notAfterDeps,
                                              replaceContractions,
                                              resourcesContractionsPath),
-                         "[ContractionPipe][initialize][Error] Path of contractions resources is neither defined in initialize or in bdpar.Options",
+                         "[ContractionPipe][initialize][FATAL] Path of contractions resources is neither defined in initialize or in bdpar.Options",
                          fixed = TRUE)
 
   resourcesContractionsPath <- 1
@@ -226,12 +271,19 @@ testthat::test_that("initialize resourcesContractionsPath type error",{
                                              notAfterDeps,
                                              replaceContractions,
                                              resourcesContractionsPath),
-                         "[ContractionPipe][initialize][Error] Checking the type of the 'resourcesContractionsPath' variable: numeric",
+                         "[ContractionPipe][initialize][FATAL] Checking the type of the 'resourcesContractionsPath' variable: numeric",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
@@ -273,8 +325,15 @@ testthat::test_that("pipe",{
   testthat::expect_equal(instance$getSpecificProperty("contractions"),"I'm")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
@@ -312,12 +371,19 @@ testthat::test_that("pipe data empty",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has data empty on pipe Contractions")
+                           "\\[ContractionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has data empty on pipe Contractions")
 
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
@@ -355,11 +421,18 @@ testthat::test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not an contractionsJsonFile to apply to the language ->en")
+                           "\\[ContractionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not an contractionsJsonFile to apply to the language ->en")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
@@ -396,11 +469,18 @@ testthat::test_that("pipe wihtout language property",{
   instance$setData("I'm tall")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[ContractionPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not language property")
+                           "\\[ContractionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not language property")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
@@ -432,12 +512,19 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[ContractionPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[ContractionPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findContraction",{
   testthat::skip_if_not_installed("rex")
@@ -475,8 +562,15 @@ testthat::test_that("findContraction",{
 
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findContraction abbreviation type error",{
   testthat::skip_if_not_installed("rex")
@@ -510,12 +604,19 @@ testthat::test_that("findContraction abbreviation type error",{
 
   testthat::expect_error(pipe$findContraction(data,
                                               contraction),
-                         "[ContractionPipe][findContraction][Error] Checking the type of the 'contraction' variable: NULL",
+                         "[ContractionPipe][findContraction][FATAL] Checking the type of the 'contraction' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findContraction data type error",{
   testthat::skip_if_not_installed("rex")
@@ -548,12 +649,19 @@ testthat::test_that("findContraction data type error",{
   data <- NULL
 
   testthat::expect_error(pipe$findContraction(data, contraction),
-                         "[ContractionPipe][findContraction][Error] Checking the type of the 'data' variable: NULL",
+                         "[ContractionPipe][findContraction][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceContraction ",{
   testthat::skip_if_not_installed("rex")
@@ -592,8 +700,15 @@ testthat::test_that("replaceContraction ",{
                          " I am  tall")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceContraction contraction type error",{
   testthat::skip_if_not_installed("rex")
@@ -629,12 +744,19 @@ testthat::test_that("replaceContraction contraction type error",{
   testthat::expect_error(pipe$replaceContraction(contraction,
                                                  extendedContraction,
                                                  data),
-                         "[ContractionPipe][replaceContraction][Error] Checking the type of the 'contraction' variable: NULL",
+                         "[ContractionPipe][replaceContraction][FATAL] Checking the type of the 'contraction' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceContraction extendedContraction type error",{
   testthat::skip_if_not_installed("rex")
@@ -670,12 +792,19 @@ testthat::test_that("replaceContraction extendedContraction type error",{
   testthat::expect_error(pipe$replaceContraction(contraction,
                                                  extendedContraction,
                                                  data),
-                         "[ContractionPipe][replaceContraction][Error] Checking the type of the 'extendedContraction' variable: NULL",
+                         "[ContractionPipe][replaceContraction][FATAL] Checking the type of the 'extendedContraction' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceContraction data type error",{
   testthat::skip_if_not_installed("rex")
@@ -711,12 +840,19 @@ testthat::test_that("replaceContraction data type error",{
   testthat::expect_error(pipe$replaceContraction(contraction,
                                                  extendedContraction,
                                                  data),
-                         "[ContractionPipe][replaceContraction][Error] Checking the type of the 'data' variable: NULL",
+                         "[ContractionPipe][replaceContraction][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
@@ -749,8 +885,15 @@ testthat::test_that("getPropertyLanguageName",{
                          "language")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getResourcesContractionsPath",{
   testthat::skip_if_not_installed("rex")
@@ -789,8 +932,15 @@ testthat::test_that("getResourcesContractionsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesContractionsPath",{
   testthat::skip_if_not_installed("rex")
@@ -829,8 +979,15 @@ testthat::test_that("setResourcesContractionsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesContractionsPath path type error",{
   testthat::skip_if_not_installed("rex")
@@ -862,8 +1019,11 @@ testthat::test_that("setResourcesContractionsPath path type error",{
   path <- NULL
 
   testthat::expect_error(pipe$setResourcesContractionsPath(path),
-                         "[ContractionPipe][setResourcesContractionsPath][Error] Checking the type of the 'path' variable: NULL",
+                         "[ContractionPipe][setResourcesContractionsPath][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

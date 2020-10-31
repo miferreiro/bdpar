@@ -61,17 +61,25 @@ ExtractorFactory <- R6Class(
     #'
     registerExtractor = function(extension, extractor) {
       if (!"character" %in% class(extension)) {
-        stop("[", class(self)[1], "][registerExtractor][Error] Checking the ",
-             "type of the 'extension' variable: ", class(extension))
+        bdpar.log(message = paste0("Checking the type of the 'extension' variable: ",
+                                   class(extension)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "registerExtractor")
       }
 
       if (self$isSpecificExtractor(extension)) {
-        stop("[", class(self)[1], "][registerExtractor][Error] '", extension,
-             "' extension is already added")
+        bdpar.log(message = paste0("'", extension, "' extension is already added"),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "registerExtractor")
       } else {
         if (!"R6ClassGenerator" %in% class(extractor) || extractor$inherit != "Instance") {
-          stop("[", class(self)[1], "][registerExtractor][Error] Checking the ",
-               "type of the 'extractor' variable: ", class(extractor))
+          bdpar.log(message = paste0("Checking the type of the 'extractor' ",
+                                     "variable: ", class(extractor)),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "registerExtractor")
         }
         private$extractors <- list.append(private$extractors, extractor)
         names(private$extractors)[length(private$extractors)] <- extension
@@ -87,18 +95,27 @@ ExtractorFactory <- R6Class(
     #'
     setExtractor = function(extension, extractor) {
       if (!"character" %in% class(extension)) {
-        stop("[", class(self)[1], "][setExtractor][Error] Checking the type of ",
-             "the 'extension' variable: ", class(extension))
+        bdpar.log(message = paste0("Checking the type of the 'extension' ",
+                                   "variable: ", class(extension)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setExtractor")
       }
 
       if (!self$isSpecificExtractor(extension)) {
-        stop("[", class(self)[1], "][setExtractor][Error] '", extension,
-             "' extension is not configured")
+        bdpar.log(message = paste0("'", extension,
+                                   "' extension is not configured"),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setExtractor")
       } else {
         if (!"R6ClassGenerator" %in% class(extractor) ||
             extractor$inherit != "Instance") {
-          stop("[", class(self)[1], "][setExtractor][Error] Checking the type ",
-               "of the 'extractor' variable: ", class(extractor))
+          bdpar.log(message = paste0("Checking the type of the 'extractor' ",
+                                     "variable: ", class(extractor)),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "setExtractor")
         }
         private$extractors[[extension]] <- extractor
       }
@@ -113,13 +130,18 @@ ExtractorFactory <- R6Class(
     #'
     removeExtractor = function(extension) {
       if (!"character" %in% class(extension)) {
-        stop("[", class(self)[1], "][removeExtractor][Error] Checking the type ",
-             "of the 'extension' variable: ", class(extension))
+        bdpar.log(message = paste0("Checking the type of the 'extension' ",
+                                   "variable: ", class(extension)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeExtractor")
       }
 
       if (!self$isSpecificExtractor(extension)) {
-        stop("[", class(self)[1], "][removeExtractor][Error] '", extension,
-             "' extension is not configured")
+        bdpar.log(message = paste0("'", extension, "' extension is not configured"),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeExtractor")
       } else {
         private$extractors <- list.remove(private$extractors, extension)
       }
@@ -158,14 +180,19 @@ ExtractorFactory <- R6Class(
     createInstance = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][createInstance][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "createInstance")
       }
 
       if (!tools::file_ext(path) %in% names(private$extractors)) {
-        message("[", class(self)[1], "][createInstance][Warning] ",
-                "The extension '", file_ext(path), "' is not registered")
+        bdpar.log(message = paste0("The extension '", file_ext(path),
+                                   "' is not registered"),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "createInstance")
       } else {
         extractor <- private$extractors[[file_ext(path)]]
         extractor <- extractor$new(path)

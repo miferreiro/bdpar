@@ -59,9 +59,11 @@ ExtractorSms <- R6Class(
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
       path %>>%
         super$initialize()

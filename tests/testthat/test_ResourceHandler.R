@@ -1,8 +1,23 @@
 testthat::context("ResourceHandler")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rjson")
   testthat::expect_silent(ResourceHandler$new())
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("isLoadResource loaded",{
@@ -14,12 +29,32 @@ testthat::test_that("isLoadResource loaded",{
                          list("aa","bb"))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("isLoadResource file not exists",{
   testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
 
   testthat::expect_equal(resourceHandler$isLoadResource("example"),
                          NULL)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("isLoadResource file exists",{
@@ -35,14 +70,34 @@ testthat::test_that("isLoadResource file exists",{
                           6)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("isLoadResource pathResource type error",{
   testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
   pathResource <- NULL
 
   testthat::expect_error(resourceHandler$isLoadResource(pathResource),
-                         "[ResourceHandler][isLoadResource][Error] Checking the type of the 'pathResource' variable: NULL",
+                         "[ResourceHandler][isLoadResource][FATAL] Checking the type of the 'pathResource' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getResources",{
@@ -51,6 +106,16 @@ testthat::test_that("getResources",{
 
   testthat::expect_equal(resourceHandler$getResources(),
                          list())
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setResources",{
@@ -62,6 +127,16 @@ testthat::test_that("setResources",{
                          list(exampleResource = list("aa","bb")))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getNamesResources",{
   testthat::skip_if_not_installed("rjson")
   resourceHandler <- ResourceHandler$new()
@@ -69,4 +144,9 @@ testthat::test_that("getNamesResources",{
 
   testthat::expect_equal(resourceHandler$getNamesResources(),
                          c("exampleResource"))
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

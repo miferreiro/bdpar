@@ -1,5 +1,10 @@
 testthat::context("GuessLanguagePipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   propertyName <- "language"
@@ -13,6 +18,16 @@ testthat::test_that("initialize",{
                                                 languageTwitter))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
@@ -24,8 +39,18 @@ testthat::test_that("initialize propertyName type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                languageTwitter),
-                         "[GuessLanguagePipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -39,8 +64,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                languageTwitter),
-                         "[GuessLanguagePipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
@@ -54,8 +89,18 @@ testthat::test_that("initialize notAfterDeps type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                languageTwitter),
-                         "[GuessLanguagePipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize languageTwitter type error",{
@@ -69,8 +114,18 @@ testthat::test_that("initialize languageTwitter type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                languageTwitter),
-                         "[GuessLanguagePipe][initialize][Error] Checking the type of the 'languageTwitter' variable: NULL",
+                         "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'languageTwitter' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe",{
@@ -103,6 +158,16 @@ testthat::test_that("pipe",{
                          "en")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe no detect language",{
   testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("cld2")
@@ -125,8 +190,18 @@ testthat::test_that("pipe no detect language",{
   instance$setData("try")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[GuessLanguagePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testGuessLanguagePipe\\/testFile\\.tsms has a null language")
+                           "\\[GuessLanguagePipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testGuessLanguagePipe\\/testFile\\.tsms has a null language")
 
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe instance type error",{
@@ -142,8 +217,18 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[GuessLanguagePipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[GuessLanguagePipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getLanguage",{
@@ -165,6 +250,16 @@ testthat::test_that("getLanguage",{
                          "en")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getLanguage data input error",{
   testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("cld2")
@@ -181,6 +276,11 @@ testthat::test_that("getLanguage data input error",{
   data <- NULL
 
   testthat::expect_error(pipe$getLanguage(data),
-                         "[GuessLanguagePipe][getLanguage][Error] Checking the type of the 'data' variable: NULL",
+                         "[GuessLanguagePipe][getLanguage][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

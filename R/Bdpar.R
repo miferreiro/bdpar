@@ -55,10 +55,13 @@
 #' @examples
 #' \dontrun{
 #'
-#' #If it is necessary to indicate any existing configuration key, do it through:
+#' #If it is necessary to indicate any configuration, do it through:
 #' #bdpar.Options$set(key, value)
 #' #If the key is not initialized, do it through:
 #' #bdpar.Options$add(key, value)
+#'
+#' #If it is necessary to change the behavior of the log, do it through:
+#' #bdpar.Options$configureLog(console = TRUE, threshold = "INFO", file = NULL)
 #'
 #' #Folder with the files to preprocess
 #' path <- system.file(file.path("example"),
@@ -115,21 +118,27 @@ Bdpar <- R6Class(
                        pipeline = DefaultPipeline$new()) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][execute][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       if (!"ExtractorFactory" %in% class(extractors)) {
-        stop("[", class(self)[1], "][execute][Error] ",
-             "Checking the type of the 'extractors' variable: ",
-             class(extractors))
+        bdpar.log(message = paste0("Checking the type of the 'extractors' variable: ",
+                                   class(extractors)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       if (!inherits(pipeline, c("GenericPipeline"))) {
-        stop("[", class(self)[1], "][execute][Error] ",
-             "Checking the type of the 'pipeline' variable: ",
-             class(pipeline))
+        bdpar.log(message = paste0("Checking the type of the 'pipeline' variable: ",
+                                   class(pipeline)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       if (all(sapply(path, function(p) file.exists(p) || dir.exists(p)))) {
@@ -142,16 +151,23 @@ Bdpar <- R6Class(
                                               return(p))
           }))
       } else {
-        stop("[", class(self)[1], "][execute][Error] Path parameter must be an existing ",
-             "file or directory")
+        bdpar.log(message = paste0("Path parameter must be an existing file ",
+                                   "or directory"),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       # Create the list of instances, which will contain the date, source, path,
       # data and a list of properties of the file that is in the indicated path.
       InstancesList <- sapply(files, extractors$createInstance)
 
-      message("[", class(self)[1], "][execute][Info] ",
-              "Has been created: ", length(InstancesList), " instances.")
+      bdpar.log(message = paste0("Has been created: ", length(InstancesList),
+                                 " instances."),
+                level = "INFO",
+                className = class(self)[1],
+                methodName = "execute")
+
       listInstances <- sapply(InstancesList, pipeline$execute)
 
       listInstances

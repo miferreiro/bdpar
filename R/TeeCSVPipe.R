@@ -87,55 +87,73 @@ TeeCSVPipe <- R6Class(
                           outputPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(withSource)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'withSource' variable: ",
-             class(withSource))
+        bdpar.log(message = paste0("Checking the type of the 'withSource' variable: ",
+                                   class(withSource)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(withData)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'withData' variable: ",
-             class(withData))
+        bdpar.log(message = paste0("Checking the type of the 'withData' variable: ",
+                                   class(withData)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (is.null(outputPath)) {
         if (!all(bdpar.Options$isSpecificOption("teeCSVPipe.output.path"),
                  !is.null(bdpar.Options$get("teeCSVPipe.output.path")))) {
-          stop("[", class(self)[1], "][initialize][Error] Path of TeeCSVPipe output ",
-               "is neither defined in initialize or in bdpar.Options")
+          bdpar.log(message = paste0("Path of TeeCSVPipe output is neither ",
+                                     "defined in initialize or in bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
+
         } else {
           outputPath <- bdpar.Options$get("teeCSVPipe.output.path")
         }
       }
 
       if (!"character" %in% class(outputPath)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'outputPath' variable: ",
-             class(outputPath))
+        bdpar.log(message = paste0("Checking the type of the 'outputPath' variable: ",
+                                   class(outputPath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"csv" %in% file_ext(outputPath)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the extension of the file: ",
-             file_ext(outputPath))
+        bdpar.log(message = paste0("Checking the extension of the file: ",
+                                   file_ext(outputPath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$outputPath <- outputPath
@@ -161,9 +179,11 @@ TeeCSVPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       if (!instance$isInstanceValid()) {

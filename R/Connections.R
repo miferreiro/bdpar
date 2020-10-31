@@ -94,8 +94,11 @@ Connections <- R6Class(
                   is.null(bdpar.Options$get("twitter.consumer.secret")),
                   is.null(bdpar.Options$get("twitter.access.token")),
                   is.null(bdpar.Options$get("twitter.access.token.secret")))) {
-            stop("[", class(self)[1], "][startConnectionWithTwitter][Error] ",
-                 "Twitter API keys are not defined on bdpar.Options")
+
+            bdpar.log(message = "Twitter API keys are not defined on bdpar.Options",
+                      level = "FATAL",
+                      className = class(self)[1],
+                      methodName = "startConnectionWithTwitter")
           }
           tryCatch(
             {
@@ -110,21 +113,27 @@ Connections <- R6Class(
                       file = file.path(Sys.getenv("HOME"),".rtweet_token.rds"))
               private$connectionWithTwitter <- TRUE
 
-              message("[", class(self)[1], "][startConectionWithTwitter][Info] ",
-                      "Twitter: established connection")
+              bdpar.log(message = "Twitter: established connection",
+                        level = "INFO",
+                        className = class(self)[1],
+                        methodName = "startConnectionWithTwitter")
             }
             ,
             error = function(e) {
-              message("[", class(self)[1], "][startConnectionWithTwitter][Error] ",
-                      "Error on create_token: ", paste(e))
+              bdpar.log(message = paste0("Error on create_token: ", paste(e)),
+                        level = "ERROR",
+                        className = class(self)[1],
+                        methodName = "startConnectionWithTwitter")
             })
         } else {
           private$twitterToken <- readRDS(file.path(Sys.getenv("HOME"),
                                                     ".rtweet_token.rds"))
           private$connectionWithTwitter <- TRUE
 
-          message("[", class(self)[1], "][startConectionWithTwitter][Info] ",
-                  "Twitter: established connection")
+          bdpar.log(message = "Twitter: established connection",
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "startConnectionWithTwitter")
         }
       }
     },
@@ -136,27 +145,44 @@ Connections <- R6Class(
       tryCatch(
       {
         if (rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]] == 0) {
-          message("[", class(self)[1], "][checkRequestToTwitter][Info] ", paste(Sys.time()))
 
-          message("[", class(self)[1], "][checkRequestToTwitter][Info] ",
-                  "Waiting 15 min to be able to make new requests from twitter...")
+          bdpar.log(message = paste(Sys.time()),
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
+
+          bdpar.log(message = "Waiting 15 min to be able to make new requests from twitter...",
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
           Sys.sleep(900)
         } else{
-          message("[", class(self)[1], "][checkRequestToTwitter][Info] ",
-                    "There are ", rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]],
-                      " twitter requests to be consumed")
+          bdpar.log(message = paste0("There are ",
+                                     rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]],
+                                     " twitter requests to be consumed"),
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
         }
       }
       ,
         warning = function(w) {
 
-          warning("[", class(self)[1], "][checkRequestToTwitter][Warning]", paste(w))
+          bdpar.log(message = paste(w),
+                    level = "WARN",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
-          message("[", class(self)[1], "][checkRequestToTwitter][Info] ", paste(Sys.time()))
+          bdpar.log(message = paste(Sys.time()),
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
-          message("[", class(self)[1], "][checkRequestToTwitter][Info] ",
-                  "Waiting 15 min to be able to make new requests from twitter...")
+          bdpar.log(message = "Waiting 15 min to be able to make new requests from twitter...",
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
           Sys.sleep(900)
         }
@@ -176,8 +202,10 @@ Connections <- R6Class(
                 !bdpar.Options$isSpecificOption("youtube.app.password"),
                 is.null(bdpar.Options$get("youtube.app.id")),
                 is.null(bdpar.Options$get("youtube.app.password")))) {
-          stop("[", class(self)[1], "][startConnectionWithYoutube][Error] ",
-               "Youtube API keys are not defined on bdpar.Options")
+          bdpar.log(message = "Youtube API keys are not defined on bdpar.Options",
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "startConnectionWithYoutube")
         }
 
         tuber::yt_oauth(bdpar.Options$get("youtube.app.id"),
@@ -185,8 +213,10 @@ Connections <- R6Class(
 
         private$connectionWithYoutube <- TRUE
 
-        message("[", class(self)[1], "][startConnectionWithYoutube][Info] ",
-                "Youtube: established connection")
+        bdpar.log(message = "Youtube: established connection",
+                  level = "INFO",
+                  className = class(self)[1],
+                  methodName = "startConnectionWithYoutube")
       }
     },
     #'
@@ -202,8 +232,12 @@ Connections <- R6Class(
     checkRequestToYoutube = function() {
 
       if (private$numRequestToYoutube >= self$getNumRequestMaxToYoutube()) {
-        message("[", class(self)[1], "][checkRequestToYoutube][Info] ",
-                "Waiting 15 min to be able to make new requests from youtube...")
+
+        bdpar.log(message = "Waiting 15 min to be able to make new requests from youtube...",
+                  level = "INFO",
+                  className = class(self)[1],
+                  methodName = "checkRequestToYoutube")
+
         Sys.sleep(900)
         private$numRequestToYoutube <- 0
       }

@@ -1,5 +1,10 @@
 testthat::context("ToLowerCasePipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   propertyName <- ""
@@ -11,6 +16,16 @@ testthat::test_that("initialize",{
                                               notAfterDeps))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
@@ -20,8 +35,18 @@ testthat::test_that("initialize propertyName type error",{
   testthat::expect_error(ToLowerCasePipe$new(propertyName,
                                              alwaysBeforeDeps,
                                              notAfterDeps),
-                         "[ToLowerCasePipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[ToLowerCasePipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -33,8 +58,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::expect_error(ToLowerCasePipe$new(propertyName,
                                              alwaysBeforeDeps,
                                              notAfterDeps),
-                         "[ToLowerCasePipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[ToLowerCasePipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
@@ -46,9 +81,19 @@ testthat::test_that("initialize notAfterDeps type error",{
   testthat::expect_error(ToLowerCasePipe$new(propertyName,
                                              alwaysBeforeDeps,
                                              notAfterDeps),
-                         "[ToLowerCasePipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[ToLowerCasePipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe",{
@@ -69,6 +114,16 @@ testthat::test_that("pipe",{
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe instance type error",{
 
   propertyName <- ""
@@ -78,11 +133,20 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[ToLowerCasePipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[ToLowerCasePipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("toLowerCase",{
 
@@ -96,6 +160,16 @@ testthat::test_that("toLowerCase",{
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("toLowerCase data type error",{
 
   propertyName <- ""
@@ -105,7 +179,12 @@ testthat::test_that("toLowerCase data type error",{
 
   data <- NULL
   testthat::expect_error(pipe$toLowerCase(data),
-                         "[ToLowerCasePipe][toLowerCase][Error] Checking the type of the 'data' variable: NULL",
+                         "[ToLowerCasePipe][toLowerCase][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

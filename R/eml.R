@@ -25,7 +25,11 @@
 read_emails <- function(email_file, PartSelectedOnMPAlternative){
 
   if (class(email_file) != "character") {
-    stop("email_files must be a character vector containing file paths to email txt files..." )
+    bdpar.log(message = paste0("email_files must be a character vector ",
+                               "containing file paths to email txt files..."),
+              level = "FATAL",
+              className = NULL,
+              methodName = "read_emails")
   }
 
   emails <- data.frame(message = "",

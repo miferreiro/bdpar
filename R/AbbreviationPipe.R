@@ -97,33 +97,43 @@ AbbreviationPipe <- R6Class(
                           resourcesAbbreviationsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyLanguageName' variable: ",
-             class(propertyLanguageName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyLanguageName' variable: ",
+                                   class(propertyLanguageName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(replaceAbbreviations)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'replaceAbbreviations' variable: ",
-             class(replaceAbbreviations))
+        bdpar.log(message = paste0("Checking the type of the 'replaceAbbreviations' variable: ",
+                                   class(replaceAbbreviations)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -133,17 +143,23 @@ AbbreviationPipe <- R6Class(
       if (is.null(resourcesAbbreviationsPath)) {
         if (any(!bdpar.Options$isSpecificOption("resources.abbreviations.path"),
                 is.null(bdpar.Options$get("resources.abbreviations.path")))) {
-          stop("[", class(self)[1], "][initialize][Error] Path of abbreviations ",
-               "resources is neither defined in initialize or in bdpar.Options")
+          bdpar.log(message = paste0("Path of abbreviations resources is ",
+                                     "neither defined in initialize or in ",
+                                     "bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           resourcesAbbreviationsPath <- bdpar.Options$get("resources.abbreviations.path")
         }
       }
 
       if (!"character" %in% class(resourcesAbbreviationsPath)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'resourcesAbbreviationsPath' variable: ",
-             class(resourcesAbbreviationsPath))
+        bdpar.log(message = paste0("Checking the type of the 'resourcesAbbreviationsPath' variable: ",
+                                   class(resourcesAbbreviationsPath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$resourcesAbbreviationsPath <- resourcesAbbreviationsPath
@@ -165,9 +181,11 @@ AbbreviationPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       languageInstance <- "Unknown"
@@ -181,8 +199,11 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        warning("[", class(self)[1], "][pipe][Warning] ",
-                "The file: ", instance$getPath(), " has not language property")
+        bdpar.log(message = paste0("The file: ", instance$getPath(),
+                                   " has not language property"),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -226,9 +247,13 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        warning("[", class(self)[1], "][pipe][Warning] ",
-                "The file: ", instance$getPath(), " has not an abbreviationsJsonFile ",
-                "to apply to the language ->", languageInstance)
+        bdpar.log(message = paste0("The file: ", instance$getPath(),
+                                   " has not an abbreviationsJsonFile ",
+                                   "to apply to the language ->",
+                                   languageInstance),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -241,7 +266,10 @@ AbbreviationPipe <- R6Class(
                      " has data empty on pipe Abbreviation")
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -264,15 +292,19 @@ AbbreviationPipe <- R6Class(
     findAbbreviation = function(data, abbreviation) {
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][findAbbreviation][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findAbbreviation")
       }
 
       if (!"character" %in% class(abbreviation)) {
-        stop("[", class(self)[1], "][findAbbreviation][Error] ",
-             "Checking the type of the 'abbreviation' variable: ",
-             class(abbreviation))
+        bdpar.log(message = paste0("Checking the type of the 'abbreviation' variable: ",
+                                   class(abbreviation)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findAbbreviation")
       }
 
       abbreviationEscaped <- rex::escape(abbreviation)
@@ -302,21 +334,27 @@ AbbreviationPipe <- R6Class(
     replaceAbbreviation = function(abbreviation, extendedAbbreviation, data) {
 
       if (!"character" %in% class(abbreviation)) {
-        stop("[", class(self)[1], "][replaceAbbreviation][Error] ",
-             "Checking the type of the 'abbreviation' variable: ",
-             class(abbreviation))
+        bdpar.log(message = paste0("Checking the type of the 'abbreviation' variable: ",
+                                   class(abbreviation)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceAbbreviation")
       }
 
       if (!"character" %in% class(extendedAbbreviation)) {
-        stop("[", class(self)[1], "][replaceAbbreviation][Error] ",
-             "Checking the type of the 'extendedAbbreviation' variable: ",
-             class(extendedAbbreviation))
+        bdpar.log(message = paste0("Checking the type of the 'extendedAbbreviation' variable: ",
+                                   class(extendedAbbreviation)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceAbbreviation")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][replaceAbbreviation][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceAbbreviation")
       }
 
       abbreviationEscaped <- rex::escape(abbreviation)
@@ -356,9 +394,11 @@ AbbreviationPipe <- R6Class(
     setResourcesAbbreviationsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[", class(self)[1], "][setResourcesAbbreviationsPath][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setResourcesAbbreviationsPath")
       }
 
       private$resourcesAbbreviationsPath <- path

@@ -16,9 +16,9 @@ This class inherits from \code{\link{GenericPipeline}} and implements the
 }
 
 \seealso{
-\code{\link{Instance}}, \code{\link{DefaultPipeline}},
-         \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-         \code{\link{\%>|\%}}
+\code{\link{bdpar.log}}, \code{\link{Instance}},
+         \code{\link{DefaultPipeline}}, \code{\link{GenericPipeline}},
+         \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 }
 \section{Super class}{
 \code{\link[bdpar:GenericPipeline]{bdpar::GenericPipeline}} -> \code{DynamicPipeline}

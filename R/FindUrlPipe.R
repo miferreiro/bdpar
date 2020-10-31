@@ -89,39 +89,51 @@ FindUrlPipe <- R6Class(
                           namesURLPatterns = list("UrlPattern","EmailPattern")) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(removeUrls)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'removeUrls' variable: ",
-             class(removeUrls))
+        bdpar.log(message = paste0("Checking the type of the 'removeUrls' variable: ",
+                                   class(removeUrls)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(URLPatterns)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'URLPatterns' variable: ",
-             class(URLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'URLPatterns' variable: ",
+                                   class(URLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(namesURLPatterns)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'namesURLPatterns' variable: ",
-             class(namesURLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'namesURLPatterns' variable: ",
+                                   class(namesURLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -151,9 +163,11 @@ FindUrlPipe <- R6Class(
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[", class(self)[1], "][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       instance$getData() %>>%
@@ -179,7 +193,10 @@ FindUrlPipe <- R6Class(
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[", class(self)[1], "][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -199,15 +216,19 @@ FindUrlPipe <- R6Class(
     findUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[", class(self)[1], "][findUrl][Error] ",
-             "Checking the type of the 'pattern' variable: ",
-             class(pattern))
+        bdpar.log(message = paste0("Checking the type of the 'pattern' variable: ",
+                                   class(pattern)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findUrl")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][findUrl][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findUrl")
       }
 
       unlist(
@@ -230,15 +251,19 @@ FindUrlPipe <- R6Class(
     removeUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[", class(self)[1], "][removeUrl][Error] ",
-             "Checking the type of the 'pattern' variable: ",
-             class(pattern))
+        bdpar.log(message = paste0("Checking the type of the 'pattern' variable: ",
+                                   class(pattern)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeUrl")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[", class(self)[1], "][removeUrl][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeUrl")
       }
 
       stringr::str_replace_all(data,
@@ -259,9 +284,11 @@ FindUrlPipe <- R6Class(
     putNamesURLPattern = function(resultOfURLPatterns) {
 
       if (!"list" %in% class(resultOfURLPatterns)) {
-        stop("[", class(self)[1], "][putNamesURLPattern][Error] ",
-             "Checking the type of the 'resultOfURLPatterns' variable: ",
-             class(resultOfURLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'resultOfURLPatterns' variable: ",
+                                   class(resultOfURLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "putNamesURLPattern")
       }
 
       names(resultOfURLPatterns) <- self$getNamesURLPatterns()
@@ -285,9 +312,11 @@ FindUrlPipe <- R6Class(
     setURLPatterns = function(URLPatterns) {
 
       if (!"list" %in% class(URLPatterns)) {
-        stop("[", class(self)[1], "][setURLPatterns][Error] ",
-             "Checking the type of the 'URLPatterns' variable: ",
-             class(URLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'URLPatterns' variable: ",
+                                   class(URLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setURLPatterns")
       }
 
       private$URLPatterns <- URLPatterns
@@ -309,9 +338,11 @@ FindUrlPipe <- R6Class(
     setNamesURLPatterns = function(namesURLPatterns) {
 
       if (!"list" %in% class(namesURLPatterns)) {
-        stop("[", class(self)[1], "][setNamesURLPatterns][Error] ",
-             "Checking the type of the 'namesURLPatterns' variable: ",
-             class(namesURLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'namesURLPatterns' variable: ",
+                                   class(namesURLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setNamesURLPatterns")
       }
 
       private$namesURLPatterns <- namesURLPatterns

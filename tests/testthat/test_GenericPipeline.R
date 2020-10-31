@@ -1,7 +1,22 @@
 testthat::context("GenericPipeline")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::expect_silent(GenericPipeline$new())
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("execute",{
@@ -9,8 +24,18 @@ testthat::test_that("execute",{
   generic <- GenericPipeline$new()
 
   testthat::expect_error(generic$execute(),
-                         "[GenericPipeline][execute][Error] I am an abstract interface method",
+                         "[GenericPipeline][execute][FATAL] I am an abstract interface method",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("get",{
@@ -18,6 +43,11 @@ testthat::test_that("get",{
   generic <- GenericPipeline$new()
 
   testthat::expect_error(generic$get(),
-                         "[GenericPipeline][get][Error] I am an abstract interface method",
+                         "[GenericPipeline][get][FATAL] I am an abstract interface method",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

@@ -1,5 +1,10 @@
 testthat::context("runPipeline")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("runPipeline path type error",{
 
   path <- NULL
@@ -11,8 +16,18 @@ testthat::test_that("runPipeline path type error",{
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
                                      extractors = extractorFactory),
-                         "[runPipeline][Error] Checking the type of the 'path' variable: NULL",
+                         "[runPipeline][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("runPipeline pipeline type error",{
@@ -28,8 +43,18 @@ testthat::test_that("runPipeline pipeline type error",{
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
                                      extractors = extractorFactory),
-                         "[runPipeline][Error] Checking the type of the 'pipeline' variable: NULL",
+                         "[runPipeline][FATAL] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("runPipeline extractorFactory type error",{
@@ -45,13 +70,21 @@ testthat::test_that("runPipeline extractorFactory type error",{
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
                                      extractors = extractorFactory),
-                         "[runPipeline][Error] Checking the type of the 'extractors' variable: NULL",
+                         "[runPipeline][FATAL] Checking the type of the 'extractors' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("runPipeline default flow of pipes with the examples files tsms",{
   testthat::skip_if_not_installed("cld2")
@@ -181,6 +214,8 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
   file.remove("output_tsms.csv")
 })
 
-testthat::teardown(bdpar.Options$reset())
-
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 }

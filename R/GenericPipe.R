@@ -26,16 +26,17 @@
 #' @description Provides the required methods to successfully handle each
 #' \code{\link{GenericPipe}} class.
 #'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{ResourceHandler}},
-#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-#'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+#'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
+#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+#'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
@@ -60,21 +61,27 @@ GenericPipe <- R6Class(
     initialize = function(propertyName, alwaysBeforeDeps, notAfterDeps) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
       private$propertyName <- propertyName
       private$alwaysBeforeDeps <- alwaysBeforeDeps
@@ -89,7 +96,10 @@ GenericPipe <- R6Class(
     #' @return The preprocessed \code{\link{Instance}}.
     #'
     pipe = function(instance) {
-      stop("[", class(self)[1], "][pipe][Error] I am an abstract interface method")
+      bdpar.log(message = "I am an abstract interface method",
+                level = "FATAL",
+                className = class(self)[1],
+                methodName = "pipe")
     },
     #'
     #' @description Gets of name of property.
@@ -124,9 +134,11 @@ GenericPipe <- R6Class(
     setPropertyName = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[", class(self)[1], "][setPropertyName][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setPropertyName")
       }
 
       private$propertyName <- propertyName
@@ -140,9 +152,11 @@ GenericPipe <- R6Class(
     setAlwaysBeforeDeps = function(alwaysBeforeDeps) {
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[", class(self)[1], "][setAlwaysBeforeDeps][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setAlwaysBeforeDeps")
       }
 
       private$alwaysBeforeDeps <- alwaysBeforeDeps
@@ -156,9 +170,11 @@ GenericPipe <- R6Class(
     setNotAfterDeps = function(notAfterDeps) {
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[", class(self)[1], "][setNotAfterDeps][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setNotAfterDeps")
       }
 
       private$notAfterDeps <- notAfterDeps
