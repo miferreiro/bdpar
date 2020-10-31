@@ -385,7 +385,7 @@ ExtractorTwtid <- R6Class(
         tryCatch({
 
           exportJSON <- rjson::toJSON(lista)
-          message(
+          cat(
             exportJSON,
             file = paste(
               private$cachePath,
