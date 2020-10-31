@@ -72,13 +72,13 @@ testthat::test_that("execute",{
 
   instance$setDate("")
 
-  instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+  instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
 
   instance$setData("wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   instance$setSpecificProperty("target", "ham")
   instance$setSpecificProperty("extension", "tsms")
 
-  instance$setSpecificProperty("length_before_cleaning_text", 132)
+  instance$setSpecificProperty("length_before_cleaning_text", 130)
 
   instance$setSpecificProperty("userName", as.character(c()))
   instance$setSpecificProperty("hashtag", as.character(c()))

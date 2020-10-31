@@ -245,9 +245,9 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
     instance$setDate("")
 
-    instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+    instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
 
-    instance$setData("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+    instance$setData("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
     instance$setSpecificProperty("target", "ham")
     instance$setSpecificProperty("extension", "tsms")
 

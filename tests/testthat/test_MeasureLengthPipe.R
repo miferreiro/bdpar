@@ -146,7 +146,7 @@ testthat::test_that("pipe",{
   instance <- pipe$pipe(instance)
 
   testthat::expect_equal(instance$getSpecificProperty("length"),
-                         132)
+                         130)
 })
 
 testthat::teardown({

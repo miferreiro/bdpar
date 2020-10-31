@@ -156,13 +156,13 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
 
   testthat::expect_equal(file1$getDate(), "")
 
-  testthat::expect_equal(file1$getSource(), "Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+  testthat::expect_equal(file1$getSource(), "Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
 
   testthat::expect_equal(file1$getData(), "wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   testthat::expect_equal(file1$getSpecificProperty("target"), "ham")
   testthat::expect_equal(file1$getSpecificProperty("extension"), "tsms")
 
-  testthat::expect_equal(file1$getSpecificProperty("length_before_cleaning_text"), 132)
+  testthat::expect_equal(file1$getSpecificProperty("length_before_cleaning_text"), 130)
 
   testthat::expect_equal(file1$getSpecificProperty("userName"), as.character(c()))
   testthat::expect_equal(file1$getSpecificProperty("hashtag"), as.character(c()))
@@ -205,14 +205,14 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
 
   testthat::expect_equal(file2$getDate(),"")
 
-  testthat::expect_equal(file2$getSource(),"Guess what! Somebody you know secretly fancies you! Wanna find out who it is? Give us a call on 09065394514 From Landline DATEBox1282EssexCM61XN 150p/min 18\r\n")
+  testthat::expect_equal(file2$getSource(),"Guess what! Somebody you know secretly fancies you! Wanna find out who it is? Give us a call on 09065394514 From Landline DATEBox1282EssexCM61XN 150p/min 18")
 
 
   testthat::expect_equal(file2$getData(),"guess what! somebody you know secretly fancies you! wanna find out who it is? give us a call on 09065394514 from landline datebox1282essexcm61xn 150p/min 18")
   testthat::expect_equal(file2$getSpecificProperty("target"), "spam")
   testthat::expect_equal(file2$getSpecificProperty("extension"), "tsms")
 
-  testthat::expect_equal(file2$getSpecificProperty("length_before_cleaning_text"), 158)
+  testthat::expect_equal(file2$getSpecificProperty("length_before_cleaning_text"), 156)
 
   testthat::expect_equal(file2$getSpecificProperty("userName"), as.character(c()))
   testthat::expect_equal(file2$getSpecificProperty("hashtag"), as.character(c()))
