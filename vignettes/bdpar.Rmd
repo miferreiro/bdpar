@@ -79,7 +79,6 @@ This example shows how a new type of *Instance* (named *ExtractorTytb*) is be cr
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
 library(pipeR)
-library(readr)
 ExtractorTytb <- R6Class(
   classname = "ExtractorTytb",
   inherit = Instance,
@@ -101,7 +100,7 @@ ExtractorTytb <- R6Class(
     },
     obtainSource = function() {
       super$getPath() %>>%
-      read_file() %>>%
+      readLines(warn = FALSE) %>>%
       super$setSource()
         
       super$getSource() %>>%

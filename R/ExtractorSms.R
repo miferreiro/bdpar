@@ -87,7 +87,7 @@ ExtractorSms <- R6Class(
     obtainSource = function() {
 
       super$getPath() %>>%
-        readr::read_file() %>>%
+        readLines(warn = FALSE) %>>%
           super$setSource()
 
       super$getSource() %>>%

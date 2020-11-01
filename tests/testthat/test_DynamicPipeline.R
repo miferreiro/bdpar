@@ -218,7 +218,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
   testthat::test_that("execute",{
     testthat::skip_if_not_installed("cld2")
-    testthat::skip_if_not_installed("readr")
     testthat::skip_if_not_installed("rex")
     testthat::skip_if_not_installed("rjson")
     testthat::skip_if_not_installed("rtweet")
@@ -277,7 +276,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   })
 
   testthat::test_that("execute error",{
-    testthat::skip_if_not_installed("readr")
+    
     path <- file.path("testFiles",
                       "testDynamicPipeline",
                       "files",

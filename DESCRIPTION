@@ -43,7 +43,6 @@ Imports:
 Suggests: 
     cld2,
     knitr,
-    readr, 
     rex,
     rjson, 
     rmarkdown,

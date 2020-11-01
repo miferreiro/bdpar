@@ -97,7 +97,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe",{
-  skip_if_not_installed("readr")
   propertyName <- ""
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -111,7 +110,6 @@ testthat::test_that("pipe",{
   instance$setData("eXaMpLe")
   instance <- pipe$pipe(instance)
   testthat::expect_equal(instance$getData(),"example")
-
 })
 
 testthat::teardown({

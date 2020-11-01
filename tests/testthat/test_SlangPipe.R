@@ -344,7 +344,6 @@ testthat::setup({
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -401,7 +400,6 @@ testthat::setup({
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -452,7 +450,6 @@ testthat::setup({
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -502,7 +499,6 @@ testthat::setup({
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"

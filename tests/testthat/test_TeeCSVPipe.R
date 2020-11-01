@@ -237,7 +237,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
@@ -291,7 +290,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe instance invalid",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()

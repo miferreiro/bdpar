@@ -73,7 +73,6 @@ testthat::setup({
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -96,7 +95,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -128,7 +126,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe empty source",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

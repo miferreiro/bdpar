@@ -167,7 +167,6 @@ testthat::setup({
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("stringi")
-  testthat::skip_if_not_installed("readr")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -204,7 +203,6 @@ testthat::setup({
 
 testthat::test_that("pipe unrecognizable target",{
   testthat::skip_if_not_installed("stringi")
-  testthat::skip_if_not_installed("readr")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"

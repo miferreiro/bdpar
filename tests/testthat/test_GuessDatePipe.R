@@ -96,7 +96,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "date"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

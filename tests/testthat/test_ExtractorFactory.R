@@ -59,12 +59,10 @@ testthat::setup({
 })
 
 testthat::test_that("createInstance tsms",{
-  testthat::skip_if_not_installed("readr")
   factory <- ExtractorFactory$new()
 
   testthat::expect_equal(class(factory$createInstance("example.tsms")),
                          c("ExtractorSms","Instance","R6"))
-
 })
 
 testthat::teardown({

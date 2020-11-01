@@ -6,7 +6,6 @@ testthat::setup({
 })
 
 testthat::test_that("initialize",{
-  testthat::skip_if_not_installed("readr")
   path <- "testFile.tsms"
   testthat::expect_silent(ExtractorSms$new(path))
 })
@@ -21,8 +20,7 @@ testthat::setup({
   bdpar.Options$configureLog()
 })
 
-testthat::test_that("initialize path type error",{
-  testthat::skip_if_not_installed("readr")
+testthat::test_that("initialize path type error",{  
   path <- NULL
 
   testthat::expect_error(ExtractorSms$new(path),
@@ -41,7 +39,6 @@ testthat::setup({
 })
 
 testthat::test_that("obtainDate",{
-  testthat::skip_if_not_installed("readr")
   path <- file.path("testFiles",
                     "testExtractorSms",
                     "testFile.tsms")
@@ -49,7 +46,6 @@ testthat::test_that("obtainDate",{
   instance <- ExtractorSms$new(path)
   instance$obtainDate()
   testthat::expect_equal(instance$getDate(),"")
-
 })
 
 testthat::teardown({
@@ -63,7 +59,6 @@ testthat::setup({
 })
 
 testthat::test_that("obtainSource",{
-  testthat::skip_if_not_installed("readr")
   path <- file.path("testFiles",
                     "testExtractorSms",
                     "testFile.tsms")

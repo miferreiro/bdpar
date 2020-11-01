@@ -129,7 +129,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
@@ -169,7 +168,6 @@ testthat::setup({
 })
 
 testthat::test_that("pipe no detect language",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
@@ -232,7 +230,6 @@ testthat::setup({
 })
 
 testthat::test_that("getLanguage",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
@@ -261,7 +258,6 @@ testthat::setup({
 })
 
 testthat::test_that("getLanguage data input error",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("cld2")
   propertyName <- "language"
   alwaysBeforeDeps <- list()
