@@ -51,3 +51,22 @@ testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
 })
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("toString",{
+
+  generic <- GenericPipeline$new()
+
+  testthat::expect_warning(generic$toString(),
+                           "[GenericPipeline][get][WARN] Character representation of the pipeline not implemented",
+                           fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

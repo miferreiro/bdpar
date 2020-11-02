@@ -34,6 +34,7 @@ This class inherits from \code{\link{GenericPipeline}} and implements the
 \item \href{#method-execute}{\code{DynamicPipeline$execute()}}
 \item \href{#method-get}{\code{DynamicPipeline$get()}}
 \item \href{#method-print}{\code{DynamicPipeline$print()}}
+\item \href{#method-toString}{\code{DynamicPipeline$toString()}}
 \item \href{#method-clone}{\code{DynamicPipeline$clone()}}
 }
 }
@@ -178,6 +179,19 @@ Prints pipeline representation. (Override print function)
 \item{\code{...}}{Further arguments passed to or from other methods.}
 }
 \if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-toString}{}}}
+\subsection{Method \code{toString()}}{
+Returns a \code{\link{character}} representing the pipeline
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{DynamicPipeline$toString()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{\link{DynamicPipeline}} \code{\link{character}} representation
 }
 }
 \if{html}{\out{<hr>}}

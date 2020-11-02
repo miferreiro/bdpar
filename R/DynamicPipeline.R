@@ -288,10 +288,22 @@ DynamicPipeline <- R6Class(
 
       call <- "instance"
       for (pipe in private$pipeline) {
-        call <- paste(call, "%>|%", class(pipe)[1])
+        call <- paste(call, "%>|%\n\t", class(pipe)[1])
       }
-
-      print(call)
+      call <- paste0(call, '\n')
+      cat(call)
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the pipeline
+    #'
+    #' @return \code{\link{DynamicPipeline}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      call <- "instance"
+      for (pipe in private$pipeline) {
+        call <- paste(call, "%>|%\n\t", class(pipe)[1])
+      }
+      call
     }
   ),
 

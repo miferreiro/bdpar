@@ -17,6 +17,7 @@ Abstract super class to establish the flow of Pipes.
 \item \href{#method-new}{\code{GenericPipeline$new()}}
 \item \href{#method-execute}{\code{GenericPipeline$execute()}}
 \item \href{#method-get}{\code{GenericPipeline$get()}}
+\item \href{#method-toString}{\code{GenericPipeline$toString()}}
 \item \href{#method-clone}{\code{GenericPipeline$clone()}}
 }
 }
@@ -64,6 +65,24 @@ Gets a list with containing the set of \code{\link{GenericPipe}s}
 
 \subsection{Returns}{
 The set of \code{\link{GenericPipe}s} containing the pipeline.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-toString}{}}}
+\subsection{Method \code{toString()}}{
+Returns a \code{\link{character}} representing the pipeline.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{GenericPipeline$toString()}\if{html}{\out{</div>}}
+}
+
+\subsection{Details}{
+This function allows to set a place to define a \code{\link{character}}
+representation of the structure of a pipeline.
+}
+
+\subsection{Returns}{
+\code{\link{GenericPipeline}} \code{\link{character}} representation
 }
 }
 \if{html}{\out{<hr>}}

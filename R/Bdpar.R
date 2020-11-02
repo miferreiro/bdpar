@@ -170,6 +170,14 @@ Bdpar <- R6Class(
 
       listInstances <- sapply(InstancesList, pipeline$execute)
 
+      bdpar.log(message = "The pipeline execution has been finished!",
+                level = "INFO",
+                className = class(self)[1],
+                methodName = "execute")
+
+      private$summary(pipeline = pipeline,
+                      listInstances = listInstances)
+
       listInstances
     }
   ),
@@ -179,6 +187,86 @@ Bdpar <- R6Class(
     # Youtube and Twitter
     connections = NULL,
     # Object that handles the json resources files.
-    resourceHandler = NULL
+    resourceHandler = NULL,
+
+    summary = function(pipeline, listInstances) {
+      if (!inherits(pipeline, c("GenericPipeline"))) {
+        bdpar.log(message = paste("Checking the type of the 'pipeline' variable:",
+                                   class(pipeline)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "summary")
+      }
+
+      if (is.null(listInstances) || !is.list(listInstances) ||
+          !all(sapply(listInstances, function(instance) {
+            inherits(instance, "Instance")
+          }))) {
+        bdpar.log(message = paste("List of intances parameter must be a",
+                                  "list comprised of 'Instance' objects.",
+                                  "Aborting..."),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "summary")
+      }
+
+      contValid <- sum(sapply(listInstances, function(instance){
+        ifelse(instance$isInstanceValid(), 1, 0)
+      }))
+
+      contInvalid <- sum(sapply(listInstances, function(instance){
+        ifelse(instance$isInstanceValid(), 0, 1)
+      }))
+
+      properties <- unique(unlist(lapply(listInstances, function(instance) {
+        as.vector(instance$getNamesOfProperties())
+      })))
+
+      output <- "Summary after bdpar execution"
+
+      pipelineOutput <- gsub("\\\t", "\\\t\\\t\\\t", pipeline$toString())
+
+      output <- paste0(output, "\n\tPipeline executed: ",
+                       "\n\t\t", pipelineOutput)
+
+      output <- paste0(output,
+                       "\n\tValid instances: ", contValid,
+                       "\n\tInvalid instances: ", contInvalid)
+
+      if (length(listInstances) > 0 && contInvalid > 0) {
+        invalidInfo <- ""
+        for(i in 1:length(listInstances)) {
+          instance <- listInstances[[i]]
+          if (!instance$isInstanceValid()) {
+            if (instance$isSpecificProperty("reasonToInvalidate")) {
+              invalidInfo <- paste0(invalidInfo, "\n\t\t- ",
+                                    instance$getPath(), " : ",
+                                    instance$getSpecificProperty("reasonToInvalidate"))
+            } else {
+              invalidInfo <- paste0(invalidInfo, "\n\t\t- ",
+                                    instance$getPath(), " : ",
+                                    "Reason Unknow")
+            }
+          }
+        }
+
+        output <- paste0(output, invalidInfo)
+      }
+
+      output <- paste0(output,
+                       "\n\tAll the possible properties obtained in the ",
+                       "different instances: ", length(properties))
+
+      if (length(properties) > 0) {
+        for (i in 1:length(properties)) {
+          output <- paste0(output, "\n\t\t- ", properties[i])
+        }
+      }
+
+      bdpar.log(message = output,
+                level = "INFO",
+                className = class(self)[1],
+                methodName = "summary")
+    }
   )
 )

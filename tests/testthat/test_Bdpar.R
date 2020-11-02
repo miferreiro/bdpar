@@ -256,3 +256,193 @@ testthat::teardown({
   bdpar.Options$configureLog()
 })
 }
+
+
+if (Sys.info()[['sysname']] %in% "Windows") {
+
+  testthat::setup({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
+
+  testthat::test_that("Bdpar summary works",{
+    testthat::skip_if_not_installed("cld2")
+    testthat::skip_if_not_installed("rex")
+    testthat::skip_if_not_installed("rjson")
+    testthat::skip_if_not_installed("rtweet")
+    testthat::skip_if_not_installed("stringi")
+    testthat::skip_if_not_installed("stringr")
+    testthat::skip_if_not_installed("textutils")
+
+    bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
+    bdpar.Options$set("resources.abbreviations.path", "resourcesFiles/testResources/abbreviations-json")
+    bdpar.Options$set("resources.contractions.path", "resourcesFiles/testResources/contractions-json")
+    bdpar.Options$set("resources.interjections.path", "resourcesFiles/testResources/interjections-json")
+    bdpar.Options$set("resources.slangs.path", "resourcesFiles/testResources/slangs-json")
+    bdpar.Options$set("resources.stopwords.path", "resourcesFiles/testResources/stopwords-json")
+    bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+    bdpar.Options$set("cache", FALSE)
+
+    object <- Bdpar$new()
+
+    path <- file.path("testFiles",
+                      "testBdpar",
+                      "tsms")
+
+    pipeline <- DefaultPipeline$new()
+
+    extractorFactory <- ExtractorFactory$new()
+
+    messageOutputExpected <-
+      paste0("\\[Bdpar]\\[summary\\]\\[INFO\\] ",
+             "Summary after bdpar execution\n\tPipeline executed: ",
+             "\n\t\tinstance %>\\|%",
+             "\n\t\t\tTargetAssigningPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tStoreFileExtPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tGuessDatePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFile2Pipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tMeasureLengthPipe\\$new\\(propertyName = \"length_before_cleaning_text\"\\) %>\\|%",
+             "\n\t\t\tFindUserNamePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindHashtagPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindUrlPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindEmoticonPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindEmojiPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tGuessLanguagePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tContractionPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tAbbreviationPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tSlangPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tToLowerCasePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tInterjectionPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tStopWordPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tMeasureLengthPipe\\$new\\(propertyName = \"length_after_cleaning_text\"\\) %>\\|%",
+             "\n\t\t\tTeeCSVPipe\\$new\\(\\)",
+             "\n\tValid instances: 2",
+             "\n\tInvalid instances: 0",
+             "\n\tAll the possible properties obtained in the different instances: 15",
+             "\n\t\t- target",
+             "\n\t\t- extension",
+             "\n\t\t- length_before_cleaning_text",
+             "\n\t\t- userName",
+             "\n\t\t- hashtag",
+             "\n\t\t- URLs",
+             "\n\t\t- emoticon",
+             "\n\t\t- Emojis",
+             "\n\t\t- language",
+             "\n\t\t- contractions",
+             "\n\t\t- abbreviation",
+             "\n\t\t- langpropname",
+             "\n\t\t- interjection",
+             "\n\t\t- stopWord",
+             "\n\t\t- length_after_cleaning_text")
+
+
+    output <- testthat::expect_message(object$execute(path = path,
+                                                      pipeline = pipeline,
+                                                      extractors = extractorFactory),
+                                       messageOutputExpected,
+                                       perl = TRUE)
+
+    file.remove("output_tsms.csv")
+  })
+
+  testthat::teardown({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
+}
+
+if (Sys.info()[['sysname']] %in% "Windows") {
+
+  testthat::setup({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
+
+  testthat::test_that("Bdpar summary works with invalid instance",{
+    testthat::skip_if_not_installed("cld2")
+    testthat::skip_if_not_installed("rex")
+    testthat::skip_if_not_installed("rjson")
+    testthat::skip_if_not_installed("rtweet")
+    testthat::skip_if_not_installed("stringi")
+    testthat::skip_if_not_installed("stringr")
+    testthat::skip_if_not_installed("textutils")
+
+    bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
+    bdpar.Options$set("resources.abbreviations.path", "resourcesFiles/testResources/abbreviations-json")
+    bdpar.Options$set("resources.contractions.path", "resourcesFiles/testResources/contractions-json")
+    bdpar.Options$set("resources.interjections.path", "resourcesFiles/testResources/interjections-json")
+    bdpar.Options$set("resources.slangs.path", "resourcesFiles/testResources/slangs-json")
+    bdpar.Options$set("resources.stopwords.path", "resourcesFiles/testResources/stopwords-json")
+    bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+    bdpar.Options$set("cache", FALSE)
+
+    object <- Bdpar$new()
+
+    path <- file.path("testFiles",
+                      "testBdpar",
+                      "tsms-1fileInvalid")
+
+    pipeline <- DefaultPipeline$new()
+
+    extractorFactory <- ExtractorFactory$new()
+
+    messageOutputExpected <-
+      paste0("\\[Bdpar]\\[summary\\]\\[INFO\\] ",
+             "Summary after bdpar execution\n\tPipeline executed: ",
+             "\n\t\tinstance %>\\|%",
+             "\n\t\t\tTargetAssigningPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tStoreFileExtPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tGuessDatePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFile2Pipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tMeasureLengthPipe\\$new\\(propertyName = \"length_before_cleaning_text\"\\) %>\\|%",
+             "\n\t\t\tFindUserNamePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindHashtagPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindUrlPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindEmoticonPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tFindEmojiPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tGuessLanguagePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tContractionPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tAbbreviationPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tSlangPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tToLowerCasePipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tInterjectionPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tStopWordPipe\\$new\\(\\) %>\\|%",
+             "\n\t\t\tMeasureLengthPipe\\$new\\(propertyName = \"length_after_cleaning_text\"\\) %>\\|%",
+             "\n\t\t\tTeeCSVPipe\\$new\\(\\)",
+             "\n\tValid instances: 1",
+             "\n\tInvalid instances: 1",
+             "\n\t\t- testFiles\\/testBdpar\\/tsms-1fileInvalid\\/_ham_\\/30\\.tsms : The file: testFiles\\/testBdpar\\/tsms-1fileInvalid\\/_ham_\\/30\\.tsms has source empty",
+             "\n\tAll the possible properties obtained in the different instances: 16",
+             "\n\t\t- target",
+             "\n\t\t- extension",
+             "\n\t\t- reasonToInvalidate",
+             "\n\t\t- length_before_cleaning_text",
+             "\n\t\t- userName",
+             "\n\t\t- hashtag",
+             "\n\t\t- URLs",
+             "\n\t\t- emoticon",
+             "\n\t\t- Emojis",
+             "\n\t\t- language",
+             "\n\t\t- contractions",
+             "\n\t\t- abbreviation",
+             "\n\t\t- langpropname",
+             "\n\t\t- interjection",
+             "\n\t\t- stopWord",
+             "\n\t\t- length_after_cleaning_text")
+
+
+    output <- testthat::expect_message(suppressWarnings(object$execute(path = path,
+                                                                       pipeline = pipeline,
+                                                                       extractors = extractorFactory)),
+                                       messageOutputExpected,
+                                       perl = TRUE)
+
+    file.remove("output_tsms.csv")
+  })
+
+  testthat::teardown({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
+}
+

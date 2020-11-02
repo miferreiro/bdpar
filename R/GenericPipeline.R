@@ -69,6 +69,20 @@ GenericPipeline <- R6Class(
                 level = "FATAL",
                 className = class(self)[1],
                 methodName = "get")
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the pipeline.
+    #'
+    #' @details This function allows to set a place to define a \code{\link{character}}
+    #' representation of the structure of a pipeline.
+    #'
+    #' @return \code{\link{GenericPipeline}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      bdpar.log(message = "Character representation of the pipeline not implemented",
+                level = "WARN",
+                className = class(self)[1],
+                methodName = "get")
     }
   )
 )

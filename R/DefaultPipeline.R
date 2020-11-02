@@ -205,7 +205,35 @@ DefaultPipeline <- R6Class(
           InterjectionPipe$new() %>|%
           StopWordPipe$new() %>|%
           MeasureLengthPipe$new(propertyName = \"length_after_cleaning_text\") %>|%
-          TeeCSVPipe$new()")
+          TeeCSVPipe$new()\n")
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the pipeline
+    #'
+    #' @return \code{\link{DefaultPipeline}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      toRet <- paste0("instance %>|%",
+          "\n\tTargetAssigningPipe$new() %>|%",
+          "\n\tStoreFileExtPipe$new() %>|%",
+          "\n\tGuessDatePipe$new() %>|%",
+          "\n\tFile2Pipe$new() %>|%",
+          "\n\tMeasureLengthPipe$new(propertyName = \"length_before_cleaning_text\") %>|%",
+          "\n\tFindUserNamePipe$new() %>|%",
+          "\n\tFindHashtagPipe$new() %>|%",
+          "\n\tFindUrlPipe$new() %>|%",
+          "\n\tFindEmoticonPipe$new() %>|%",
+          "\n\tFindEmojiPipe$new() %>|%",
+          "\n\tGuessLanguagePipe$new() %>|%",
+          "\n\tContractionPipe$new() %>|%",
+          "\n\tAbbreviationPipe$new() %>|%",
+          "\n\tSlangPipe$new() %>|%",
+          "\n\tToLowerCasePipe$new() %>|%",
+          "\n\tInterjectionPipe$new() %>|%",
+          "\n\tStopWordPipe$new() %>|%",
+          "\n\tMeasureLengthPipe$new(propertyName = \"length_after_cleaning_text\") %>|%",
+          "\n\tTeeCSVPipe$new()")
+      toRet
     }
   )
 )

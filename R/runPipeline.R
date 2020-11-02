@@ -80,7 +80,7 @@
 #'          \code{\link{ResourceHandler}}
 #'
 
-runPipeline = function(path,
+runPipeline <- function(path,
                        extractors = ExtractorFactory$new(),
                        pipeline = DefaultPipeline$new()) {
 
