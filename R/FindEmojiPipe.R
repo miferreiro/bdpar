@@ -128,7 +128,7 @@ FindEmojiPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance) {
 
@@ -153,11 +153,9 @@ FindEmojiPipe <- R6Class(
         }
 
         if (private$replaceEmojis && emoji %in% emojisLocated) {
-
-          instance$getData() %>>%
-            {self$replaceEmoji(emoji, emojisList[[emoji]], .)} %>>%
-              textutils::trim() %>>%
-                instance$setData()
+          instance$setData(textutils::trim(self$replaceEmoji(emoji,
+                                                             emojisList[[emoji]],
+                                                             instance$getData())))
         }
       }
 

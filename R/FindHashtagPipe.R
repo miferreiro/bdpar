@@ -133,7 +133,7 @@ FindHashtagPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance){
 
@@ -145,17 +145,12 @@ FindHashtagPipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$findHashtag() %>>%
-          unique() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(unique(
+        self$findHashtag(instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeHashtags) {
-          instance$getData()  %>>%
-            self$removeHashtag() %>>%
-              textutils::trim() %>>%
-                {instance$setData(.)}
+        instance$setData(textutils::trim(self$removeHashtag(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||

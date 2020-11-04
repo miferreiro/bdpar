@@ -133,7 +133,7 @@ FindEmoticonPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance){
 
@@ -145,17 +145,12 @@ FindEmoticonPipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$findEmoticon() %>>%
-          unique() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(unique(
+        self$findEmoticon(instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeEmoticons) {
-          instance$getData()  %>>%
-            self$removeEmoticon() %>>%
-              textutils::trim() %>>%
-                instance$setData()
+        instance$setData(textutils::trim(self$removeEmoticon(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||

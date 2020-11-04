@@ -147,9 +147,8 @@ On the other hand, the types of the files which are implemented by default are:
   
 |           | R Libraries | 
 |:---------:|:-----------:|:------:|
-| magrittr  | pipeR       | purrr  | 
-| R6        | rlist       | tools  | 
-| utils     |             |        |
+| magrittr  | purrr       | R6     | 
+| rlist     | tools       | utils  | 
 
   - **Suggests**:
 

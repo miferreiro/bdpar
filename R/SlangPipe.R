@@ -176,7 +176,7 @@ SlangPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance) {
 
@@ -229,10 +229,9 @@ SlangPipe <- R6Class(
           }
 
           if (private$replaceSlangs && slang %in% slangsLocated) {
-            instance$getData() %>>%
-              {self$replaceSlang(slang, as.character(jsonData[slang]), .)} %>>%
-                textutils::trim() %>>%
-                  instance$setData()
+            instance$setData(textutils::trim(self$replaceSlang(slang,
+                                                               as.character(jsonData[slang]),
+                                                               instance$getData())))
           }
         }
 

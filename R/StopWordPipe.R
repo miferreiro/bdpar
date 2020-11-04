@@ -175,7 +175,7 @@ StopWordPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance) {
 
@@ -232,11 +232,8 @@ StopWordPipe <- R6Class(
           }
 
           if (private$removeStopWords && stopWord %in% stopWordLocated) {
-
-            instance$getData() %>>%
-              {self$removeStopWord(stopWord, .)} %>>%
-                textutils::trim() %>>%
-                  instance$setData()
+            instance$setData(textutils::trim(self$removeStopWord(stopWord,
+                                                                 instance$getData())))
           }
         }
 

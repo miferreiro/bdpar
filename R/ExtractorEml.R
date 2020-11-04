@@ -64,8 +64,6 @@ ExtractorEml <- R6Class(
     #' \strong{"extractorEML.mpaPartSelected"} field of \emph{\link{bdpar.Options}}
     #' variable.
     #'
-    #' @import pipeR
-    #'
     initialize = function(path,
                           PartSelectedOnMPAlternative = NULL) {
 
@@ -77,8 +75,7 @@ ExtractorEml <- R6Class(
                   methodName = "initialize")
       }
 
-      path %>>%
-        super$initialize()
+      super$initialize(path)
 
       if (is.null(PartSelectedOnMPAlternative)) {
         if (any(!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected"),
@@ -129,8 +126,8 @@ ExtractorEml <- R6Class(
         formatDateEml <- "%a, %d %b %Y %H:%M:%S %z"
         StandardizedDate <- as.POSIXct(dateEml[[1]], format = formatDateEml)
         formatDateGeneric <- "%a %b %d %H:%M:%S %Z %Y"
-        format(StandardizedDate, formatDateGeneric) %>>%
-          super$setDate()
+        super$setDate(format(StandardizedDate,
+                             formatDateGeneric))
         },
         error = function(e) {
           bdpar.log(message = paste0("Date eml error in standardized proccess ",
@@ -145,8 +142,6 @@ ExtractorEml <- R6Class(
     #' @description Obtains the source of the eml file. Calls the function
     #' \emph{read_emails} and obtains the source of the file indicated in the
     #' path. In addition, it initializes the data with the initial source.
-    #'
-    #' @import pipeR
     #'
     obtainSource = function() {
 
@@ -165,8 +160,7 @@ ExtractorEml <- R6Class(
         }
       )
 
-      super$getSource() %>>%
-        super$setData()
+      super$setData(super$getSource())
     },
     #'
     #' @description Gets of \emph{PartSelectedOnMPAlternative} variable.

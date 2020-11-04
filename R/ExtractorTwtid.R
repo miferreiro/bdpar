@@ -67,8 +67,6 @@ ExtractorTwtid <- R6Class(
     #' \strong{"cache.twitter.path"} field of \code{\link{bdpar.Options}}
     #' variable.
     #'
-    #' @import pipeR
-    #'
     initialize = function(path,
                           cachePath = NULL) {
 
@@ -80,8 +78,7 @@ ExtractorTwtid <- R6Class(
                   methodName = "initialize")
       }
 
-      path %>>%
-        super$initialize()
+      super$initialize(path)
 
       self$obtainId()
       #Singleton
@@ -132,8 +129,6 @@ ExtractorTwtid <- R6Class(
     #' the request is performed using Twitter API and the date is automatically
     #' formatted to "%a %b %d %H:%M:%S %Z %Y" (i.e. "Thu May 02 06:52:36 UTC 2013").
     #'
-    #' @import pipeR
-    #'
     obtainDate = function() {
 
       if (file.exists(
@@ -163,8 +158,7 @@ ExtractorTwtid <- R6Class(
               !is.null(dataFromJsonFile[["date"]]) &&
                 dataFromJsonFile[["date"]] != "") {
 
-          dataFromJsonFile[["date"]] %>>%
-            super$setDate()
+          super$setDate(dataFromJsonFile[["date"]])
 
           return()
         }
@@ -180,9 +174,8 @@ ExtractorTwtid <- R6Class(
 
         lookup <- tryCatch(
 
-          self$getId() %>>%
-            as.character() %>>%
-              rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
+          rtweet::lookup_tweets(as.character(self$getId()),
+                                p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
 
           warning = function(w) {
             bdpar.log(message = paste0("Date twtid warning: ", self$getId(), " ", paste(w)),
@@ -217,9 +210,7 @@ ExtractorTwtid <- R6Class(
           as.POSIXct(dateTwtid, format = formatDateTwtid)
         formatDateGeneric <- "%a %b %d %H:%M:%S %Z %Y"
 
-        format(StandardizedDate, formatDateGeneric) %>>%
-          as.character() %>>%
-              super$setDate()
+        super$setDate(as.character(format(StandardizedDate, formatDateGeneric)))
 
         lista <- list(
           source = sourceTwtid,
@@ -279,8 +270,6 @@ ExtractorTwtid <- R6Class(
     #' has previously been cached the source is loaded from cache path.
     #' Otherwise, the request is performed using on Twitter API.
     #'
-    #' @import pipeR
-    #'
     obtainSource = function() {
 
       if (file.exists(
@@ -311,11 +300,9 @@ ExtractorTwtid <- R6Class(
               !is.null(dataFromJsonFile[["source"]]) &&
                 dataFromJsonFile[["source"]] != "") {
 
-          dataFromJsonFile[["source"]] %>>%
-              super$setSource()
+          super$setSource(dataFromJsonFile[["source"]])
 
-          super$getSource() %>>%
-            super$setData()
+          super$setData(super$getSource())
 
           return()
         }
@@ -329,9 +316,8 @@ ExtractorTwtid <- R6Class(
         Bdpar[["private_fields"]][["connections"]]$checkRequestToTwitter()
 
         lookup <- tryCatch(
-          self$getId() %>>%
-            as.character() %>>%
-              rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
+          rtweet::lookup_tweets(as.character(self$getId()),
+                                p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
 
           warning = function(w) {
             bdpar.log(message = paste0("Source twtid warning: ", self$getId(),
@@ -363,11 +349,9 @@ ExtractorTwtid <- R6Class(
           langTwtid <- ""
         }
 
-        sourceTwtid %>>%
-          super$setSource()
+        super$setSource(sourceTwtid)
 
-        super$getSource() %>>%
-          super$setData()
+        super$setData(super$getSource())
 
         formatDateTwtid <- "%Y-%m-%d %H:%M:%S %Z"
         StandardizedDate <-

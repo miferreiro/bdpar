@@ -158,8 +158,6 @@ FindUrlPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR
-    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -170,18 +168,16 @@ FindUrlPipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        {lapply(private$URLPatterns, self$findUrl,.)} %>>%
-          self$putNamesURLPattern() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(
+        self$putNamesURLPattern(lapply(private$URLPatterns,
+                                       self$findUrl,
+                                       instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeUrls) {
         for (pattern in self$getURLPatterns()) {
-          instance$getData() %>>%
-            {self$removeUrl(pattern,.)} %>>%
-              textutils::trim() %>>%
-                instance$setData()
+          instance$setData(textutils::trim(self$removeUrl(pattern,
+                                                          instance$getData())))
         }
       }
 

@@ -188,9 +188,8 @@ process](additional-material/PipelineExample.png)
 
 |          | R Libraries |       |
 | :------: | :---------: | :---: |
-| magrittr |    pipeR    | purrr |
-|    R6    |    rlist    | tools |
-|  utils   |             |       |
+| magrittr |    purrr    |  R6   |
+|  rlist   |    tools    | utils |
 
   - **Suggests**:
 

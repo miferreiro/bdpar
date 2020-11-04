@@ -263,10 +263,8 @@ Instance <- R6Class(
     #'
     #' @return The names of properties.
     #'
-    #' @import pipeR
-    #'
     getNamesOfProperties = function() {
-      self$getProperties() %>>% names()
+       names(self$getProperties())
     },
     #'
     #' @description Checks if the \code{\link{Instance}} is valid.

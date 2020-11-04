@@ -176,7 +176,7 @@ InterjectionPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance) {
 
@@ -230,11 +230,8 @@ InterjectionPipe <- R6Class(
 
           if (private$removeInterjections &&
               interjection %in% interjectionsLocated) {
-
-            instance$getData() %>>%
-              {self$removeInterjection(interjection, .)} %>>%
-                textutils::trim() %>>%
-                  instance$setData()
+            instance$setData(textutils::trim(self$removeInterjection(interjection,
+                                                                     instance$getData())))
           }
         }
 

@@ -105,8 +105,6 @@ ToLowerCasePipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR
-    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -117,9 +115,7 @@ ToLowerCasePipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$toLowerCase() %>>%
-          instance$setData()
+      instance$setData(self$toLowerCase(instance$getData()))
 
       instance
     },
@@ -129,8 +125,6 @@ ToLowerCasePipe <- R6Class(
     #' @param data A \code{\link{character}} value. Text to preprocess.
     #'
     #' @return The data in lower case.
-    #'
-    #' @import pipeR
     #'
     toLowerCase = function(data) {
 
@@ -142,7 +136,7 @@ ToLowerCasePipe <- R6Class(
                   methodName = "toLowerCase")
       }
 
-      data %>>% tolower()
+      tolower(data)
     }
   )
 )

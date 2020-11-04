@@ -54,8 +54,6 @@ ExtractorSms <- R6Class(
     #'
     #' @param path A \code{\link{character}} value. Path of the tsms file.
     #'
-    #' @import pipeR
-    #'
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
@@ -65,33 +63,24 @@ ExtractorSms <- R6Class(
                   className = class(self)[1],
                   methodName = "initialize")
       }
-      path %>>%
-        super$initialize()
+      super$initialize(path)
     },
     #'
     #' @description Obtains the date of the SMS file.
     #'
-    #' @import pipeR
-    #'
     obtainDate = function() {
-      "" %>>%
-        super$setDate()
+      super$setDate("")
     },
     #'
     #' @description Obtains the source of the SMS file. Reads the file indicated
     #' in the path. In addition, it initializes the data field with the initial
     #' source.
     #'
-    #' @import pipeR
-    #'
     obtainSource = function() {
 
-      super$getPath() %>>%
-        readLines(warn = FALSE) %>>%
-          super$setSource()
+      super$setSource(readLines(super$getPath(), warn = FALSE))
 
-      super$getSource() %>>%
-        super$setData()
+      super$setData(super$getSource())
     }
   )
 )

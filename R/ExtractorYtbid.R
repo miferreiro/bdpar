@@ -65,8 +65,6 @@ ExtractorYtbid <- R6Class(
     #' \strong{"cache.youtube.path"} field of \code{\link{bdpar.Options}}
     #' variable.
     #'
-    #' @import pipeR
-    #'
     initialize = function(path,
                           cachePath = NULL) {
 
@@ -78,8 +76,7 @@ ExtractorYtbid <- R6Class(
                   methodName = "initialize")
       }
 
-      path %>>%
-        super$initialize()
+      super$initialize(path)
 
       self$obtainId()
       #Singleton
@@ -128,8 +125,6 @@ ExtractorYtbid <- R6Class(
     #' has been previously cached the comment date is loaded from cache path.
     #' Otherwise, the request is perfomed using YouTube API and the date is then
     #' formatted to the established standard.
-    #'
-    #' @import pipeR
     #'
     obtainDate = function() {
 
@@ -240,9 +235,8 @@ ExtractorYtbid <- R6Class(
         )
 
         formatDateGeneric <- "%a %b %d %H:%M:%S %Z %Y"
-        format(StandardizedDate, formatDateGeneric) %>>%
-          as.character() %>>%
-            super$setDate()
+        super$setDate(as.character(format(StandardizedDate,
+                                          formatDateGeneric)))
 
       } else {
         super$setDate("")
@@ -304,8 +298,6 @@ ExtractorYtbid <- R6Class(
     #' comment has previously been cached the source is loaded from cache path.
     #' Otherwise, the request is performed using on YouTube API.
     #'
-    #' @import pipeR
-    #'
     obtainSource = function() {
 
       if (file.exists(
@@ -338,11 +330,9 @@ ExtractorYtbid <- R6Class(
               !is.null(dataFromJsonFile[["source"]]) &&
                 dataFromJsonFile[["source"]] != "") {
 
-          dataFromJsonFile[["source"]] %>>%
-            super$setSource()
+          super$setSource(dataFromJsonFile[["source"]])
 
-          super$getSource() %>>%
-            super$setData()
+          super$setData(super$getSource())
 
           return()
         }
@@ -421,15 +411,14 @@ ExtractorYtbid <- R6Class(
 
         formatDateGeneric <- "%a %b %d %H:%M:%S %Z %Y"
 
-        dateYtbid <- as.character(format(StandardizedDate, formatDateGeneric))
+        dateYtbid <- as.character(format(StandardizedDate,
+                                         formatDateGeneric))
 
       }
 
-      sourceYtbid %>>%
-          super$setSource()
+      super$setSource(sourceYtbid)
 
-      super$getSource() %>>%
-        super$setData()
+      super$setData(super$getSource())
 
       lista <- list(source = super$getSource(),
                     date = dateYtbid)

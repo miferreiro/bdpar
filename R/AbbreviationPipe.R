@@ -176,7 +176,7 @@ AbbreviationPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance) {
 
@@ -231,13 +231,11 @@ AbbreviationPipe <- R6Class(
 
           if (private$replaceAbbreviations &&
               abbreviation %in% abbreviationsLocated) {
-
-              instance$getData() %>>%
-                {self$replaceAbbreviation(abbreviation,
-                                            as.character(jsonData[abbreviation]),
-                                              .)} %>>%
-                textutils::trim() %>>%
-                    instance$setData()
+            instance$setData(
+              textutils::trim(
+                self$replaceAbbreviation(abbreviation,
+                                         as.character(jsonData[abbreviation]),
+                                         instance$getData())))
           }
         }
 

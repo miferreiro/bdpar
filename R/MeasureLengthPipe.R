@@ -119,8 +119,6 @@ MeasureLengthPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR
-    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -131,9 +129,9 @@ MeasureLengthPipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        {self$getLength(.,private$nchar_conf)} %>>%
-          {instance$addProperties(.,private$propertyName)}
+      instance$addProperties(self$getLength(instance$getData(),
+                                            private$nchar_conf),
+                             private$propertyName)
 
       instance
     },

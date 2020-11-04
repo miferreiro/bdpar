@@ -110,8 +110,6 @@ StoreFileExtPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR
-    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -122,9 +120,8 @@ StoreFileExtPipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getPath() %>>%
-        self$obtainExtension() %>>%
-          {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(self$obtainExtension(instance$getPath()),
+                             super$getPropertyName())
 
       if (instance$getSpecificProperty("extension") %in% "" ) {
 

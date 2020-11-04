@@ -174,7 +174,7 @@ ContractionPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance) {
 
@@ -231,13 +231,11 @@ ContractionPipe <- R6Class(
 
           if (private$replaceContractions &&
               contraction %in% contractionsLocated) {
-
-            instance$getData() %>>%
-              {self$replaceContraction(contraction,
+            instance$setData(
+              textutils::trim(
+                self$replaceContraction(contraction,
                                         as.character(jsonData[contraction]),
-                                        .)} %>>%
-                textutils::trim() %>>%
-                  instance$setData()
+                                        instance$getData())))
           }
         }
 

@@ -131,8 +131,6 @@ GuessLanguagePipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR
-    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -192,9 +190,8 @@ GuessLanguagePipe <- R6Class(
         }
       }
 
-      instance$getData() %>>%
-        self$getLanguage() %>>%
-          {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(self$getLanguage(instance$getData()),
+                             super$getPropertyName())
 
       if (is.na(instance$getSpecificProperty("language"))) {
         message <- c("The file: ", instance$getPath(), " has a null language")

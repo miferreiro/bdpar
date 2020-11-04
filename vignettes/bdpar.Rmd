@@ -78,7 +78,6 @@ This example shows how a new type of *Instance* (named *ExtractorTytb*) is be cr
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
-library(pipeR)
 ExtractorTytb <- R6Class(
   classname = "ExtractorTytb",
   inherit = Instance,
@@ -89,28 +88,18 @@ ExtractorTytb <- R6Class(
              "Checking the type of the variable: path ",
              class(path))
       }
-      path %>>%
-        super$initialize()
+      super$initialize(path)
     },
     obtainDate = function() {
-      super$getPath() %>>%
-      file.info()[["ctime"]] %>>%
-      super$setDate()
-      return()
+      super$setDate(file.info(super$getPath())[["ctime"]])
     },
     obtainSource = function() {
-      super$getPath() %>>%
-      readLines(warn = FALSE) %>>%
-      super$setSource()
-        
-      super$getSource() %>>%
-        super$setData()
-    
-      return()
+      super$setSource(readLines(super$getPath(), 
+                                warn = FALSE))
+      super$setData(super$getSource())
     }
   )
 )
-
 ```
 
 ### Enabling a new Instance.
@@ -240,7 +229,6 @@ Additionally, in order to improve the customization capabilities, bdpar allows t
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
-library(pipeR)
 library(stringr)
 RemovesWhiteSpaces <- R6Class(
   "RemovesWhiteSpaces",
@@ -272,10 +260,7 @@ RemovesWhiteSpaces <- R6Class(
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
-      instance$getData() %>>%
-        stringr::str_trim() %>>%
-        stringr::str_squish() %>>%
-        instance$setData()
+      instance$setData(stringr::str_squish(stringr::str_trim(instance$getData())))
       
       if (length(instance$getData()) == 0) {
         instance$invalidate()

@@ -133,7 +133,7 @@ FindUserNamePipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR rlist
+    #' @import rlist
     #'
     pipe = function(instance){
 
@@ -145,17 +145,12 @@ FindUserNamePipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$findUserName() %>>%
-          unique() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(unique(
+        self$findUserName(instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeUser) {
-        instance$getData()  %>>%
-          self$removeUserName() %>>%
-            textutils::trim() %>>%
-              instance$setData()
+        instance$setData(textutils::trim(self$removeUserName(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||

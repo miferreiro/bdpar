@@ -134,8 +134,6 @@ TargetAssigningPipe <- R6Class(
     #' @return The \code{\link{Instance}} with the modifications that have
     #' occurred in the pipe.
     #'
-    #' @import pipeR
-    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
@@ -146,9 +144,8 @@ TargetAssigningPipe <- R6Class(
                   methodName = "pipe")
       }
 
-      instance$getPath() %>>%
-        self$getTarget() %>>%
-          {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(self$getTarget(instance$getPath()),
+                            super$getPropertyName())
 
       if (instance$getSpecificProperty("target") %in% "unrecognizable") {
 
