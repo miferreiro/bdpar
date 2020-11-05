@@ -240,15 +240,19 @@ freduce = function(instance, function_list) {
     instance <- eval(function_list[[cont]](instance),
                      parent.frame())
 
-    msg <- paste0("Instance_ID:", cont,
-                  " (Last pipe: ", eval(pipe.name,
-                                        parent.frame()), ")\n",
-                  instance$toString())
+    # To avoid building the status message of an instance
+    # when the log level is debug
+    if (bdpar.Options$.__enclos_env__$private$bdpar.logger$threshold <= 1) {
+      msg <- paste0("Instance_ID:", cont,
+                    " (Last pipe: ", eval(pipe.name,
+                                          parent.frame()), ")\n",
+                    instance$toString())
 
-    bdpar.log(message = msg,
-              level = "DEBUG",
-              className = "pipeOperator",
-              methodName = "freduce")
+      bdpar.log(message = msg,
+                level = "DEBUG",
+                className = "pipeOperator",
+                methodName = "freduce")
+    }
 
     if (cache) {
 
