@@ -24,33 +24,11 @@
 #' @title Class to obtain the date field of an Instance
 #'
 #' @description Obtains the \strong{date} using the method which implements the
-#' subclass of \code{\link{Instance}}
+#' subclass of \code{\link{Instance}}.
 #'
 #' @section Inherit:
-#' this class inherit from \code{\link{GenericPipe}} and implements the
+#' This class inherit from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain the date.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preprocess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
