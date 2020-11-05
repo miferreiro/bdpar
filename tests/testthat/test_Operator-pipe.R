@@ -102,7 +102,7 @@ testthat::setup({
   }
 })
 
-testthat::test_that("'cache' field error",{
+testthat::test_that("'cache' functionality works",{
 
   testthat::skip_if_not_installed("stringi")
 
@@ -131,13 +131,13 @@ testthat::test_that("'cache' field error",{
                                               "testOperator-pipe",
                                               ".cache",
                                               "7ca200ced299",
-                                              "1-e0cd002c1193-101e954308b7.z")))
+                                              "1-0935fceb2d55-101e954308b7.z")))
 
   testthat::expect_true(file.exists(file.path("testFiles",
                                               "testOperator-pipe",
                                               ".cache",
                                               "7ca200ced299",
-                                              "2-70a218fe10a5-039d3e4f119b.z")))
+                                              "2-397465549696-039d3e4f119b.z")))
 
 })
 

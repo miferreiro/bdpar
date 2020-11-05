@@ -150,18 +150,7 @@ freduce = function(instance, function_list) {
   numPipes <- length(function_list)
   cont <- 1
   pipes.executed <- ""
-  pipeline.character <- ""
   algo <- "md5"
-
-  for (i in 1:numPipes) {
-    pipeline.character <- paste(pipeline.character,
-                                eval(parse(text = paste0("class(",
-                                                         substr(deparse(function_list[[i]])[2],
-                                                                12,
-                                                                nchar(deparse(function_list[[i]])[2]) - 16),
-                                                         ")[1]")),
-                                     parent.frame()))
-  }
 
   while (instance$isInstanceValid() && cont <= numPipes) {
 
@@ -171,10 +160,6 @@ freduce = function(instance, function_list) {
                                            nchar(deparse(function_list[[cont]])[2]) - 16),
                                     ")[1]"))
 
-    pipes.executed <- paste(pipes.executed,
-                            eval(pipe.name,
-                                 parent.frame()))
-
     pipe.id <- substr(eval(parse(text = paste0(substr(deparse(function_list[[cont]])[2],
                                                       12,
                                                       nchar(deparse(function_list[[cont]])[2]) - 16),
@@ -182,6 +167,8 @@ freduce = function(instance, function_list) {
                            parent.frame()),
                       0,
                       12)
+
+    pipes.executed <- paste(pipes.executed, pipe.id)
 
     if (cache && cache.valid) {
 
@@ -263,35 +250,35 @@ freduce = function(instance, function_list) {
               className = "pipeOperator",
               methodName = "freduce")
 
-     if (cache) {
+    if (cache) {
 
-       if (any(!bdpar.Options$isSpecificOption("cache.folder"),
-               is.null(bdpar.Options$get("cache.folder")))) {
-         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
-                   level = "FATAL",
-                   className = "pipeOperator",
-                   methodName = "freduce")
-       } else {
-         cache.folder <- bdpar.Options$get("cache.folder")
-       }
+      if (any(!bdpar.Options$isSpecificOption("cache.folder"),
+             is.null(bdpar.Options$get("cache.folder")))) {
+        bdpar.log(message = "Cache folder is not defined in bdpar.Options",
+                  level = "FATAL",
+                  className = "pipeOperator",
+                  methodName = "freduce")
+      } else {
+        cache.folder <- bdpar.Options$get("cache.folder")
+      }
 
-       cache.instance.folder <- file.path(cache.folder,
-                                          substr(digest(object = readLines(con = instance$getPath(),
-                                                                           warn = FALSE),
+      cache.instance.folder <- file.path(cache.folder,
+                                         substr(digest(object = readLines(con = instance$getPath(),
+                                                                          warn = FALSE),
                                                         algo = algo),
-                                                 0,
-                                                 12))
+                                                0,
+                                                12))
 
-       new.cache.instance.path <- file.path(cache.instance.folder,
-                                            paste0(cont,
-                                                   "-",
-                                                   substr(digest(object = pipes.executed,
-                                                                 algo = algo),
-                                                          0,
-                                                          12),
-                                                   "-",
-                                                   pipe.id,
-                                                   ".z"))
+      new.cache.instance.path <- file.path(cache.instance.folder,
+                                           paste0(cont,
+                                                  "-",
+                                                  substr(digest(object = pipes.executed,
+                                                                algo = algo),
+                                                         0,
+                                                         12),
+                                                  "-",
+                                                  pipe.id,
+                                                  ".z"))
 
       if (cache && !file.exists(new.cache.instance.path)) {
 
@@ -312,7 +299,7 @@ freduce = function(instance, function_list) {
         save(srlz,
              file = new.cache.instance.path)
       }
-     }
+    }
 
     if (!instance$isInstanceValid()) {
       bdpar.log(message = paste0("The instance ", instance$getPath(),
