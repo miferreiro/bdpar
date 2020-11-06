@@ -150,7 +150,7 @@ FindUserNamePipe <- R6Class(
         super$getPropertyName())
 
       if (private$removeUser) {
-        instance$setData(textutils::trim(self$removeUserName(instance$getData())))
+        instance$setData(trimws(x = self$removeUserName(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||

@@ -49,7 +49,6 @@ testthat::test_that("execute",{
   testthat::skip_if_not_installed("rtweet")
   testthat::skip_if_not_installed("stringi")
   testthat::skip_if_not_installed("stringr")
-  testthat::skip_if_not_installed("textutils")
   path <- file.path("testFiles",
                     "testDefaultPipeline",
                     "files",

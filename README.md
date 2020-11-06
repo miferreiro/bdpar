@@ -198,7 +198,7 @@ process](additional-material/PipelineExample.png)
 |   cld2   |    knitr    |   readr   |
 |   rex    |    rjson    | rmarkdown |
 |  rtweet  |   stringi   |  stringr  |
-| testthat |  textutils  |   tuber   |
+| testthat |    tuber    |           |
 
 ##### Suggested configuration for not USA people
 

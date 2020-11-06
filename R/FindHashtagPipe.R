@@ -150,7 +150,7 @@ FindHashtagPipe <- R6Class(
         super$getPropertyName())
 
       if (private$removeHashtags) {
-        instance$setData(textutils::trim(self$removeHashtag(instance$getData())))
+        instance$setData(trimws(x = self$removeHashtag(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||

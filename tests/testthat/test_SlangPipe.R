@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -52,7 +51,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
@@ -90,7 +88,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- NULL
@@ -128,7 +125,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -166,7 +162,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -204,7 +199,6 @@ testthat::setup({
 
 testthat::test_that("initialize replaceSlangs type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -242,7 +236,6 @@ testthat::setup({
 
 testthat::test_that("initialize resourcesSlangsPath type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -287,7 +280,6 @@ testthat::setup({
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -343,7 +335,6 @@ testthat::setup({
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -399,7 +390,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -449,7 +439,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -498,7 +487,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -542,7 +530,6 @@ testthat::setup({
 
 testthat::test_that("findSlang",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -587,7 +574,6 @@ testthat::setup({
 
 testthat::test_that("findSlang slang type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -633,7 +619,6 @@ testthat::setup({
 
 testthat::test_that("findSlang data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -679,7 +664,6 @@ testthat::setup({
 
 testthat::test_that("replaceSlang ",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -726,7 +710,6 @@ testthat::setup({
 
 testthat::test_that("replaceSlang slang type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -774,7 +757,6 @@ testthat::setup({
 
 testthat::test_that("replaceSlang extendedSlang type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -822,7 +804,6 @@ testthat::setup({
 
 testthat::test_that("replaceSlang data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -870,7 +851,6 @@ testthat::setup({
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -911,7 +891,6 @@ testthat::setup({
 
 testthat::test_that("getResourcesSlangsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -958,7 +937,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesSlangsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -1006,7 +984,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesSlangsPath path type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"

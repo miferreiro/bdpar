@@ -223,7 +223,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     testthat::skip_if_not_installed("rtweet")
     testthat::skip_if_not_installed("stringi")
     testthat::skip_if_not_installed("stringr")
-    testthat::skip_if_not_installed("textutils")
     path <- file.path("testFiles",
                       "testDynamicPipeline",
                       "files",
@@ -276,7 +275,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   })
 
   testthat::test_that("execute error",{
-    
+
     path <- file.path("testFiles",
                       "testDynamicPipeline",
                       "files",

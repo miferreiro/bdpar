@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -32,7 +31,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
@@ -59,7 +57,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- NULL
@@ -86,7 +83,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -113,7 +109,6 @@ testthat::setup({
 
 testthat::test_that("initialize removeEmoticons type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -140,7 +135,6 @@ testthat::setup({
 
 testthat::test_that("pipe removeEmoticons <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -178,7 +172,6 @@ testthat::setup({
 
 testthat::test_that("pipe removeEmoticons <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -215,7 +208,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -245,7 +237,6 @@ testthat::setup({
 
 testthat::test_that("pipe empty data",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -283,7 +274,6 @@ testthat::setup({
 
 testthat::test_that("findEmoticon",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -313,7 +303,6 @@ testthat::setup({
 
 testthat::test_that("findEmoticon data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -344,7 +333,6 @@ testthat::setup({
 
 testthat::test_that("removeEmoticons",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -374,7 +362,6 @@ testthat::setup({
 
 testthat::test_that("removeEmoticons data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()

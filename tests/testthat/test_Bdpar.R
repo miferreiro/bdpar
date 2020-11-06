@@ -127,7 +127,6 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   testthat::skip_if_not_installed("rtweet")
   testthat::skip_if_not_installed("stringi")
   testthat::skip_if_not_installed("stringr")
-  testthat::skip_if_not_installed("textutils")
 
   bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
   bdpar.Options$set("resources.abbreviations.path", "")
@@ -272,7 +271,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     testthat::skip_if_not_installed("rtweet")
     testthat::skip_if_not_installed("stringi")
     testthat::skip_if_not_installed("stringr")
-    testthat::skip_if_not_installed("textutils")
+
 
     bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
     bdpar.Options$set("resources.abbreviations.path", "resourcesFiles/testResources/abbreviations-json")
@@ -365,7 +364,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     testthat::skip_if_not_installed("rtweet")
     testthat::skip_if_not_installed("stringi")
     testthat::skip_if_not_installed("stringr")
-    testthat::skip_if_not_installed("textutils")
 
     bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
     bdpar.Options$set("resources.abbreviations.path", "resourcesFiles/testResources/abbreviations-json")

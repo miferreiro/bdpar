@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -52,7 +51,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
@@ -90,7 +88,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- NULL
@@ -128,7 +125,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -166,7 +162,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -204,7 +199,6 @@ testthat::setup({
 
 testthat::test_that("initialize replaceContractions type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -242,7 +236,6 @@ testthat::setup({
 
 testthat::test_that("initialize resourcesContractionsPath type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -287,7 +280,6 @@ testthat::setup({
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -337,7 +329,6 @@ testthat::setup({
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -387,7 +378,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -436,7 +426,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -484,7 +473,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -528,7 +516,6 @@ testthat::setup({
 
 testthat::test_that("findContraction",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -574,7 +561,6 @@ testthat::setup({
 
 testthat::test_that("findContraction abbreviation type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -620,7 +606,6 @@ testthat::setup({
 
 testthat::test_that("findContraction data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -665,7 +650,6 @@ testthat::setup({
 
 testthat::test_that("replaceContraction ",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -712,7 +696,6 @@ testthat::setup({
 
 testthat::test_that("replaceContraction contraction type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -760,7 +743,6 @@ testthat::setup({
 
 testthat::test_that("replaceContraction extendedContraction type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -808,7 +790,6 @@ testthat::setup({
 
 testthat::test_that("replaceContraction data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -856,7 +837,6 @@ testthat::setup({
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -897,7 +877,6 @@ testthat::setup({
 
 testthat::test_that("getResourcesContractionsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -944,7 +923,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesContractionsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"
@@ -991,7 +969,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesContractionsPath path type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "contractions"
   propertyLanguageName <- "language"

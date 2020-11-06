@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -37,7 +36,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
@@ -69,7 +67,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- NULL
@@ -101,7 +98,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -134,7 +130,6 @@ testthat::setup({
 
 testthat::test_that("initialize removeUrls type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -166,7 +161,6 @@ testthat::setup({
 
 testthat::test_that("initialize URLPatterns type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -197,7 +191,6 @@ testthat::setup({
 
 testthat::test_that("initialize namesURLPatterns type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -229,7 +222,6 @@ testthat::setup({
 
 testthat::test_that("pipe removeUrl <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -271,7 +263,6 @@ testthat::setup({
 
 testthat::test_that("pipe removeUrl <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -313,7 +304,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -353,7 +343,6 @@ testthat::setup({
 
 testthat::test_that("pipe empty data",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -396,7 +385,6 @@ testthat::setup({
 
 testthat::test_that("findUrl",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -427,7 +415,6 @@ testthat::setup({
 
 testthat::test_that("findUrl pattern type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -464,7 +451,6 @@ testthat::setup({
 
 testthat::test_that("findUrl data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -502,7 +488,6 @@ testthat::setup({
 
 testthat::test_that("removeUrl",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -539,7 +524,6 @@ testthat::setup({
 
 testthat::test_that("removeUrl pattern type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -577,7 +561,6 @@ testthat::setup({
 
 testthat::test_that("removeUrl data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -614,7 +597,6 @@ testthat::setup({
 
 testthat::test_that("putNamesURLPattern",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -649,7 +631,6 @@ testthat::setup({
 
 testthat::test_that("putNamesURLPattern resultOfURLPatterns input error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -685,7 +666,6 @@ testthat::setup({
 
 testthat::test_that("getURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -718,7 +698,6 @@ testthat::setup({
 
 testthat::test_that("setURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -755,7 +734,6 @@ testthat::setup({
 
 testthat::test_that("setURLPatterns namesURLPatterns input error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -791,7 +769,6 @@ testthat::setup({
 
 testthat::test_that("getNamesURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -824,7 +801,6 @@ testthat::setup({
 
 testthat::test_that("setNamesURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -861,7 +837,6 @@ testthat::setup({
 
 testthat::test_that("setNamesURLPatterns namesURLPatterns input error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()

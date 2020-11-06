@@ -232,10 +232,9 @@ AbbreviationPipe <- R6Class(
           if (private$replaceAbbreviations &&
               abbreviation %in% abbreviationsLocated) {
             instance$setData(
-              textutils::trim(
-                self$replaceAbbreviation(abbreviation,
-                                         as.character(jsonData[abbreviation]),
-                                         instance$getData())))
+              trimws(x = self$replaceAbbreviation(abbreviation,
+                                                  as.character(jsonData[abbreviation]),
+                                                  instance$getData())))
           }
         }
 

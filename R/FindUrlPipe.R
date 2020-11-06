@@ -176,8 +176,8 @@ FindUrlPipe <- R6Class(
 
       if (private$removeUrls) {
         for (pattern in self$getURLPatterns()) {
-          instance$setData(textutils::trim(self$removeUrl(pattern,
-                                                          instance$getData())))
+          instance$setData(trimws(x = self$removeUrl(pattern,
+                                                     instance$getData())))
         }
       }
 

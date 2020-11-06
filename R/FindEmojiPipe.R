@@ -153,9 +153,9 @@ FindEmojiPipe <- R6Class(
         }
 
         if (private$replaceEmojis && emoji %in% emojisLocated) {
-          instance$setData(textutils::trim(self$replaceEmoji(emoji,
-                                                             emojisList[[emoji]],
-                                                             instance$getData())))
+          instance$setData(trimws(x = self$replaceEmoji(emoji,
+                                                        emojisList[[emoji]],
+                                                        instance$getData())))
         }
       }
 

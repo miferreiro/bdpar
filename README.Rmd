@@ -157,7 +157,7 @@ On the other hand, the types of the files which are implemented by default are:
 | cld2      | knitr       | readr     | 
 | rex       | rjson       | rmarkdown |
 | rtweet    | stringi     | stringr   |
-| testthat  | textutils   | tuber     |
+| testthat  | tuber       |           |
 
 ##### Suggested configuration for not USA people
 

@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -52,7 +51,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
@@ -90,7 +88,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- NULL
@@ -128,7 +125,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -166,7 +162,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -204,7 +199,6 @@ testthat::setup({
 
 testthat::test_that("initialize removeStopWords type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -242,7 +236,6 @@ testthat::setup({
 
 testthat::test_that("initialize resourcesStopWordsPath type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -287,7 +280,6 @@ testthat::setup({
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -337,7 +329,6 @@ testthat::setup({
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -386,7 +377,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -435,7 +425,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -483,7 +472,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -527,7 +515,6 @@ testthat::setup({
 
 testthat::test_that("findStopWord",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -572,7 +559,6 @@ testthat::setup({
 
 testthat::test_that("findStopWord stopWord type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -618,7 +604,6 @@ testthat::setup({
 
 testthat::test_that("findStopWord data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -664,7 +649,6 @@ testthat::setup({
 
 testthat::test_that("removeStopWord ",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -709,7 +693,6 @@ testthat::setup({
 
 testthat::test_that("removeStopWord stopWord type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -755,7 +738,6 @@ testthat::setup({
 
 testthat::test_that("removeStopWord data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -801,7 +783,6 @@ testthat::setup({
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -842,7 +823,6 @@ testthat::setup({
 
 testthat::test_that("getResourcesStopWordsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -889,7 +869,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesStopWordsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"
@@ -936,7 +915,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesStopWordsPath path type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "stopWord"
   propertyLanguageName <- "language"

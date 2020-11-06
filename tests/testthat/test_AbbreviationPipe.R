@@ -8,7 +8,6 @@ testthat::setup({
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -52,7 +51,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
@@ -90,7 +88,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "abbreviation"
   propertyLanguageName <- NULL
@@ -128,7 +125,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
@@ -166,7 +162,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
@@ -204,7 +199,6 @@ testthat::setup({
 
 testthat::test_that("initialize replaceAbbreviations type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
@@ -242,7 +236,6 @@ testthat::setup({
 
 testthat::test_that("initialize resourcesAbbreviationsPath type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
@@ -287,7 +280,6 @@ testthat::setup({
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -338,7 +330,6 @@ testthat::setup({
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -388,7 +379,6 @@ testthat::setup({
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -437,7 +427,6 @@ testthat::setup({
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -486,7 +475,6 @@ testthat::setup({
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -529,7 +517,6 @@ testthat::setup({
 testthat::test_that("findAbbreviation",{
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("rjson")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -574,7 +561,6 @@ testthat::setup({
 testthat::test_that("findAbbreviation abbreviation type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -619,7 +605,6 @@ testthat::setup({
 testthat::test_that("findAbbreviation data type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -664,7 +649,6 @@ testthat::setup({
 testthat::test_that("replaceAbbreviation ",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -711,7 +695,6 @@ testthat::setup({
 testthat::test_that("replaceAbbreviation abbreviation type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -759,7 +742,6 @@ testthat::setup({
 testthat::test_that("replaceAbbreviation extendedAbbreviation type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -807,7 +789,6 @@ testthat::setup({
 testthat::test_that("replaceAbbreviation data type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -855,7 +836,6 @@ testthat::setup({
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -896,7 +876,6 @@ testthat::setup({
 testthat::test_that("getResourcesAbbreviationsPath",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -943,7 +922,6 @@ testthat::setup({
 testthat::test_that("setResourcesAbbreviationsPath",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()
@@ -990,7 +968,6 @@ testthat::setup({
 testthat::test_that("setResourcesAbbreviationsPath path type error",{
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   propertyName <- "abbreviation"
   propertyLanguageName <- "language"
   alwaysBeforeDeps <- list()

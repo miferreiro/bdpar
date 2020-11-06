@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -32,7 +31,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
@@ -59,7 +57,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- NULL
@@ -86,7 +83,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -113,7 +109,6 @@ testthat::setup({
 
 testthat::test_that("initialize removeUser type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -140,7 +135,6 @@ testthat::setup({
 
 testthat::test_that("pipe removeUser <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -177,7 +171,6 @@ testthat::setup({
 
 testthat::test_that("pipe removeUser <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -214,7 +207,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -244,7 +236,6 @@ testthat::setup({
 
 testthat::test_that("pipe empty data",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -281,7 +272,6 @@ testthat::setup({
 
 testthat::test_that("findUserName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -310,7 +300,6 @@ testthat::setup({
 
 testthat::test_that("findUserName data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -341,7 +330,6 @@ testthat::setup({
 
 testthat::test_that("removeUserName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -371,7 +359,6 @@ testthat::setup({
 
 testthat::test_that("removeUserName data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()

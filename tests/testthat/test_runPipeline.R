@@ -93,7 +93,6 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
   testthat::skip_if_not_installed("rtweet")
   testthat::skip_if_not_installed("stringi")
   testthat::skip_if_not_installed("stringr")
-  testthat::skip_if_not_installed("textutils")
 
   path <- file.path("testFiles",
                     "testRunPipeline",

@@ -230,8 +230,8 @@ InterjectionPipe <- R6Class(
 
           if (private$removeInterjections &&
               interjection %in% interjectionsLocated) {
-            instance$setData(textutils::trim(self$removeInterjection(interjection,
-                                                                     instance$getData())))
+            instance$setData(trimws(x = self$removeInterjection(interjection,
+                                                                instance$getData())))
           }
         }
 

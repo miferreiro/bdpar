@@ -150,7 +150,7 @@ FindEmoticonPipe <- R6Class(
         super$getPropertyName())
 
       if (private$removeEmoticons) {
-        instance$setData(textutils::trim(self$removeEmoticon(instance$getData())))
+        instance$setData(trimws(x = self$removeEmoticon(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||

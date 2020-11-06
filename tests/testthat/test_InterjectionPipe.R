@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -52,7 +51,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
@@ -90,7 +88,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- NULL
@@ -128,7 +125,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -166,7 +162,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -204,7 +199,6 @@ testthat::setup({
 
 testthat::test_that("initialize removeInterjections type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -242,7 +236,6 @@ testthat::setup({
 
 testthat::test_that("initialize resourcesInterjectionsPath type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -287,7 +280,6 @@ testthat::setup({
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -336,7 +328,6 @@ testthat::setup({
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -385,7 +376,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -434,7 +424,6 @@ testthat::setup({
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -482,7 +471,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -526,7 +514,6 @@ testthat::setup({
 
 testthat::test_that("findInterjection",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -571,7 +558,6 @@ testthat::setup({
 
 testthat::test_that("findInterjection interjection type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -617,7 +603,6 @@ testthat::setup({
 
 testthat::test_that("findInterjection data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -663,7 +648,6 @@ testthat::setup({
 
 testthat::test_that("removeInterjection ",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -708,7 +692,6 @@ testthat::setup({
 
 testthat::test_that("removeInterjection abbreviation type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -754,7 +737,6 @@ testthat::setup({
 
 testthat::test_that("removeInterjection data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -800,7 +782,6 @@ testthat::setup({
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -841,7 +822,6 @@ testthat::setup({
 
 testthat::test_that("getResourcesInterjectionsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -888,7 +868,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesInterjectionsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"
@@ -935,7 +914,6 @@ testthat::setup({
 
 testthat::test_that("setResourcesInterjectionsPath path type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "interjection"
   propertyLanguageName <- "language"

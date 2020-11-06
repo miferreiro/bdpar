@@ -232,10 +232,9 @@ ContractionPipe <- R6Class(
           if (private$replaceContractions &&
               contraction %in% contractionsLocated) {
             instance$setData(
-              textutils::trim(
-                self$replaceContraction(contraction,
-                                        as.character(jsonData[contraction]),
-                                        instance$getData())))
+              trimws(x = self$replaceContraction(contraction,
+                                                 as.character(jsonData[contraction]),
+                                                 instance$getData())))
           }
         }
 

@@ -232,8 +232,8 @@ StopWordPipe <- R6Class(
           }
 
           if (private$removeStopWords && stopWord %in% stopWordLocated) {
-            instance$setData(textutils::trim(self$removeStopWord(stopWord,
-                                                                 instance$getData())))
+            instance$setData(trimws(x = self$removeStopWord(stopWord,
+                                                            instance$getData())))
           }
         }
 

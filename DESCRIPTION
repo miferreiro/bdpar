@@ -43,13 +43,12 @@ Suggests:
     cld2,
     knitr,
     rex,
-    rjson, 
+    rjson,
     rmarkdown,
     rtweet,
-    stringi, 
+    stringi,
     stringr,
-    testthat (>= 2.3.1), 
-    textutils, 
+    testthat (>= 2.3.1),
     tuber
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1

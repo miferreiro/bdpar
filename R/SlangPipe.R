@@ -229,9 +229,9 @@ SlangPipe <- R6Class(
           }
 
           if (private$replaceSlangs && slang %in% slangsLocated) {
-            instance$setData(textutils::trim(self$replaceSlang(slang,
-                                                               as.character(jsonData[slang]),
-                                                               instance$getData())))
+            instance$setData(trimws(x = self$replaceSlang(slang,
+                                                          as.character(jsonData[slang]),
+                                                          instance$getData())))
           }
         }
 
