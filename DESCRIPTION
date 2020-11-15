@@ -33,7 +33,6 @@ Depends:
 Imports:
     digest,
     log4r,
-    magrittr, 
     purrr, 
     R6, 
     rlist,

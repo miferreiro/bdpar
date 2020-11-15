@@ -69,7 +69,6 @@
 #'
 #' @keywords NULL
 #'
-#' @import magrittr
 #' @importFrom purrr is_function
 #' @export
 #' @name operator-pipe
@@ -96,18 +95,12 @@
 
   env[["freduce"]] <- freduce
 
-  if (is_placeholder(lhs)) {
-    env[["_fseq"]]
-  } else {
 
-    env[["_lhs"]] <- eval(lhs, parent, parent)
+  env[["_lhs"]] <- eval(lhs, parent, parent)
 
-    result <- withVisible(eval(expr = quote(`_fseq`(`_lhs`)),envir = env,
-                               enclos = env))
+  result <- withVisible(eval(expr = quote(`_fseq`(`_lhs`)), envir = env, enclos = env))
 
-
-      result[["value"]]
-  }
+  result[["value"]]
 }
 #
 # @title Apply to the list of functions sequentially and control if the
@@ -126,7 +119,6 @@
 # @return The result after applying each function in turn.
 #
 # @seealso \code{\link{Instance}}
-#' @import magrittr
 #' @importFrom digest digest
 # @export freduce
 #
@@ -139,9 +131,7 @@ freduce = function(instance, function_list) {
   if (any(!bdpar.Options$isSpecificOption("cache"),
           is.null(bdpar.Options$get("cache")))) {
     bdpar.log(message = "Cache status is not defined in bdpar.Options",
-              level = "FATAL",
-              className = "pipeOperator",
-              methodName = "freduce")
+              level = "FATAL", className = "pipeOperator", methodName = "freduce")
   } else {
     cache <- bdpar.Options$get("cache")
     cache.valid <- cache
@@ -175,9 +165,7 @@ freduce = function(instance, function_list) {
       if (any(!bdpar.Options$isSpecificOption("cache.folder"),
               is.null(bdpar.Options$get("cache.folder")))) {
         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
-                  level = "FATAL",
-                  className = "pipeOperator",
-                  methodName = "freduce")
+                  level = "FATAL", className = "pipeOperator", methodName = "freduce")
       } else {
         cache.folder <- bdpar.Options$get("cache.folder")
       }
@@ -227,9 +215,7 @@ freduce = function(instance, function_list) {
       bdpar.log(message = paste0("Bad compatibility between Pipes on ",
                                  eval(pipe.name,
                                       parent.frame())),
-                level = "ERROR",
-                className = "pipeOperator",
-                methodName = "freduce")
+                level = "ERROR", className = "pipeOperator", methodName = "freduce")
 
       break
     }
@@ -243,15 +229,12 @@ freduce = function(instance, function_list) {
     # To avoid building the status message of an instance
     # when the log level is debug
     if (bdpar.Options$.__enclos_env__$private$bdpar.logger$threshold <= 1) {
-      msg <- paste0("Instance_ID:", cont,
-                    " (Last pipe: ", eval(pipe.name,
-                                          parent.frame()), ")\n",
-                    instance$toString())
 
-      bdpar.log(message = msg,
-                level = "DEBUG",
-                className = "pipeOperator",
-                methodName = "freduce")
+      bdpar.log(message = paste0("Instance_ID:", cont,
+                                 " (Last pipe: ", eval(pipe.name,
+                                                       parent.frame()), ")\n",
+                                 instance$toString()),
+                level = "DEBUG", className = "pipeOperator", methodName = "freduce")
     }
 
     if (cache) {
@@ -259,9 +242,7 @@ freduce = function(instance, function_list) {
       if (any(!bdpar.Options$isSpecificOption("cache.folder"),
              is.null(bdpar.Options$get("cache.folder")))) {
         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
-                  level = "FATAL",
-                  className = "pipeOperator",
-                  methodName = "freduce")
+                  level = "FATAL", className = "pipeOperator", methodName = "freduce")
       } else {
         cache.folder <- bdpar.Options$get("cache.folder")
       }
@@ -292,9 +273,7 @@ freduce = function(instance, function_list) {
           if (!dir.exists(cache.instance.folder)) {
             bdpar.log(message = paste0("Cannot create directory '",
                                        cache.instance.folder, "'"),
-                      level = "FATAL",
-                      className = "pipeOperator",
-                      methodName = "freduce")
+                      level = "FATAL", className = "pipeOperator", methodName = "freduce")
           }
         }
 
@@ -308,9 +287,7 @@ freduce = function(instance, function_list) {
     if (!instance$isInstanceValid()) {
       bdpar.log(message = paste0("The instance ", instance$getPath(),
                                  " is invalid and will not continue through the flow of pipes"),
-                level = "INFO",
-                className = "pipeOperator",
-                methodName = "freduce")
+                level = "INFO", className = "pipeOperator", methodName = "freduce")
       break
     }
 
@@ -345,8 +322,4 @@ is_pipe = function (pipe) {
 
 wrap_function = function (body, pipe, env) {
   eval(call("function", as.pairlist(alist(. = )), body), env, env)
-}
-
-is_placeholder = function (symbol) {
-  identical(symbol, quote(.))
 }
