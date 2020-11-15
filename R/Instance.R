@@ -384,28 +384,7 @@ Instance <- R6Class(
     #' @return \code{\link{Instance}} \code{\link{character}} representation
     #'
     toString = function() {
-
-      toRet <- paste0("\tPath: ", as.character(private$path),
-                      "\n\tDate: ", as.character(private$date),
-                      "\n\tIsValid: ", as.character(private$isValid),
-                      "\n\tSource: \"", as.character(private$source), "\"",
-                      "\n\tData: \"", as.character(private$data), "\"",
-                      "\n\tFlowPipes: ", paste(as.character(unlist(private$flowPipes)), collapse = " "),
-                      "\n\tBanPipes: ", paste(as.character(unlist(private$banPipes)), collapse = " "),
-                      "\n\tProperties: ")
-
-      properties <- ""
-      if (length(private$properties) != 0) {
-        for (i in 1:length(private$properties)) {
-          property <- paste0("\n\t\t- ", names(private$properties)[i], ": ",
-                             paste(as.character(unlist(private$properties[i])), collapse = " "))
-          properties <- paste0(properties, property)
-        }
-      } else {
-        properties <- "Not located"
-      }
-      toRet <- paste0(toRet, properties, "\n")
-      toRet
+      ""
     }
   ),
 

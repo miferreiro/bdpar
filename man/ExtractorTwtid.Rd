@@ -43,6 +43,7 @@ This class inherits from \code{\link{Instance}} and implements the
 \item \href{#method-getId}{\code{ExtractorTwtid$getId()}}
 \item \href{#method-obtainDate}{\code{ExtractorTwtid$obtainDate()}}
 \item \href{#method-obtainSource}{\code{ExtractorTwtid$obtainSource()}}
+\item \href{#method-toString}{\code{ExtractorTwtid$toString()}}
 \item \href{#method-clone}{\code{ExtractorTwtid$clone()}}
 }
 }
@@ -70,7 +71,6 @@ This class inherits from \code{\link{Instance}} and implements the
 \item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setProperties">}\href{../../bdpar/html/Instance.html#method-setProperties}{\code{bdpar::Instance$setProperties()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSource">}\href{../../bdpar/html/Instance.html#method-setSource}{\code{bdpar::Instance$setSource()}}\out{</span>}
 \item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSpecificProperty">}\href{../../bdpar/html/Instance.html#method-setSpecificProperty}{\code{bdpar::Instance$setSpecificProperty()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="toString">}\href{../../bdpar/html/Instance.html#method-toString}{\code{bdpar::Instance$toString()}}\out{</span>}
 }
 \out{</details>}
 }
@@ -144,6 +144,19 @@ Otherwise, the request is performed using on Twitter API.
 \if{html}{\out{<div class="r">}}\preformatted{ExtractorTwtid$obtainSource()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-toString}{}}}
+\subsection{Method \code{toString()}}{
+Returns a \code{\link{character}} representing the instance
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExtractorTwtid$toString()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+\code{\link{Instance}} \code{\link{character}} representation
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-clone"></a>}}

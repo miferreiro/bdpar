@@ -870,11 +870,8 @@ testthat::test_that("toString basic works",{
 
   instance <- Instance$new(path)
 
-  nameExpected <- "pipeExample"
-  alwaysBefore <- NULL
-
   testthat::expect_equal(instance$toString(),
-                         "\tPath: example.tsms\n\tDate: \n\tIsValid: TRUE\n\tSource: \"\"\n\tData: \"\"\n\tFlowPipes: \n\tBanPipes: \n\tProperties: Not located\n",
+                         "",
                          fixed = TRUE)
 })
 
@@ -882,4 +879,3 @@ testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
 })
-

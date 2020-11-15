@@ -156,3 +156,51 @@ testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
 })
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("toString basic works",{
+
+  path <- "example.eml"
+  PartSelectedOnMPAlternative <- NULL
+
+  instance <- ExtractorEml$new(path = path,
+                               PartSelectedOnMPAlternative = PartSelectedOnMPAlternative)
+
+  testthat::expect_equal(instance$toString(),
+                         "\tPath: example.eml\n\tDate: \n\tIsValid: TRUE\n\tSource: \"\"\n\tData: \"\"\n\tFlowPipes: \n\tBanPipes: \n\tProperties: Not located\n",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("toString works with properties",{
+
+  path <- "example.eml"
+  PartSelectedOnMPAlternative <- NULL
+
+  instance <- ExtractorEml$new(path = path,
+                               PartSelectedOnMPAlternative = PartSelectedOnMPAlternative)
+
+  instance$addProperties("valueExample", "propertyExample")
+
+  testthat::expect_equal(instance$toString(),
+                         "\tPath: example.eml\n\tDate: \n\tIsValid: TRUE\n\tSource: \"\"\n\tData: \"\"\n\tFlowPipes: \n\tBanPipes: \n\tProperties: \n\t\t- propertyExample: valueExample\n",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

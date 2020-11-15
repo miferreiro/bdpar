@@ -188,6 +188,32 @@ ExtractorEml <- R6Class(
       }
 
       private$PartSelectedOnMPAlternative <- PartSelectedOnMPAlternative
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the instance
+    #'
+    #' @return \code{\link{Instance}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      toRet <- paste0("\tPath: ", as.character(private$path),
+                      "\n\tDate: ", as.character(private$date),
+                      "\n\tIsValid: ", as.character(private$isValid),
+                      "\n\tSource: \"", as.character(private$source), "\"",
+                      "\n\tData: \"", as.character(private$data), "\"",
+                      "\n\tFlowPipes: ", paste(as.character(unlist(private$flowPipes)), collapse = " "),
+                      "\n\tBanPipes: ", paste(as.character(unlist(private$banPipes)), collapse = " "),
+                      "\n\tProperties: ")
+
+      properties <- ""
+      if (length(private$properties) != 0) {
+        properties <- paste0("\n\t\t- ", names(private$properties), ": ",
+                             as.character(unlist(private$properties)),
+                             collapse = "")
+      } else {
+        properties <- "Not located"
+      }
+      toRet <- paste0(toRet, properties, "\n")
+      toRet
     }
   ),
 
