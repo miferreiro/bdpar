@@ -24,7 +24,9 @@
 #' @title Class to handle the creation of Instance types
 #'
 #' @description \code{\link{ExtractorFactory}} class builds the appropriate
-#' \code{\link{Instance}} object according to the file extension.
+#' \code{\link{Instance}} object according to the file extension. In the case
+#' of not finding the registered extension, the default extractor will be used
+#' if it has been previously configured.
 #'
 #' @seealso \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
 #' \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
@@ -48,42 +50,50 @@ ExtractorFactory <- R6Class(
                                  "tsms" = ExtractorSms,
                                  "twtid" = ExtractorTwtid,
                                  "ytbid" = ExtractorYtbid)
+      private$defaultExtractor <- NULL
     },
     #'
-    #' @description Adds an extractor to the list of extensions.
+    #' @description Adds an extractor to the list of extensions. If the extension
+    #' is an empty string (""), the indicated extractor will be the default
+    #' when there is no extractor associated with an extension.
     #'
-    #' @param extension A \code{\link{character}} value. The name of the
+    #' @param extensions A \code{\link{character}} array. The names of the
     #' extension option.
     #' @param extractor A \code{Object} value. The extractor of the new
     #' extension.
     #'
     #' @import rlist
     #'
-    registerExtractor = function(extension, extractor) {
-      if (!"character" %in% class(extension)) {
-        bdpar.log(message = paste0("Checking the type of the 'extension' variable: ",
-                                   class(extension)),
+    registerExtractor = function(extensions, extractor) {
+      if (!"character" %in% class(extensions)) {
+        bdpar.log(message = paste0("Checking the type of the 'extensions' variable: ",
+                                   class(extensions)),
                   level = "FATAL",
                   className = class(self)[1],
                   methodName = "registerExtractor")
       }
 
-      if (self$isSpecificExtractor(extension)) {
-        bdpar.log(message = paste0("'", extension, "' extension is already added"),
+      if (!"R6ClassGenerator" %in% class(extractor) || extractor$inherit != "Instance") {
+        bdpar.log(message = paste0("Checking the type of the 'extractor' ",
+                                   "variable: ", class(extractor)),
                   level = "FATAL",
                   className = class(self)[1],
                   methodName = "registerExtractor")
-      } else {
-        if (!"R6ClassGenerator" %in% class(extractor) || extractor$inherit != "Instance") {
-          bdpar.log(message = paste0("Checking the type of the 'extractor' ",
-                                     "variable: ", class(extractor)),
+      }
+
+      lapply(extensions, function(extension) {
+        if (self$isSpecificExtractor(extension)) {
+          bdpar.log(message = paste0("'", extension, "' extension is already added"),
                     level = "FATAL",
                     className = class(self)[1],
                     methodName = "registerExtractor")
         }
+      })
+
+      invisible(lapply(extensions, function(extension, extractor) {
         private$extractors <- list.append(private$extractors, extractor)
         names(private$extractors)[length(private$extractors)] <- extension
-      }
+      }, extractor))
     },
     #'
     #' @description Modifies the extractor of the one extension.
@@ -121,6 +131,28 @@ ExtractorFactory <- R6Class(
       }
     },
     #'
+    #' @description Modifies the extractor of the one extension. Assign NULL
+    #' value to disable the default extractor.
+    #'
+    #' @param defaultExtractor A \code{Object} value. The value of the default
+    #' extractor.
+    #'
+    setDefaultExtractor = function(defaultExtractor) {
+
+      if (!is.null(defaultExtractor)) {
+        if (!"R6ClassGenerator" %in% class(defaultExtractor) ||
+            is.null(defaultExtractor$inherit) ||
+            defaultExtractor$inherit != "Instance") {
+          bdpar.log(message = paste0("Checking the type of the 'defaultExtractor' ",
+                                     "variable: ", class(defaultExtractor)),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "setDefaultExtractor")
+        }
+      }
+      private$defaultExtractor <- defaultExtractor
+    },
+    #'
     #' @description Removes a specific extractor thought the extension.
     #'
     #' @param extension A \code{\link{character}} value. The name of the
@@ -155,6 +187,14 @@ ExtractorFactory <- R6Class(
       private$extractors
     },
     #'
+    #' @description Gets the default extractor.
+    #'
+    #' @return Value of default extractor.
+    #'
+    getDefaultExtractor = function() {
+      private$defaultExtractor
+    },
+    #'
     #' @description Checks if exists an extractor for a specific extension.
     #'
     #' @param extension A \code{\link{character}} value. The name of the
@@ -167,7 +207,8 @@ ExtractorFactory <- R6Class(
     },
     #'
     #' @description Builds the \code{\link{Instance}} object according to the
-    #' file extension.
+    #' file extension. In the case of not finding the registered extension, the
+    #' default extractor will be used if it has been previously configured.
     #'
     #' @param path  A \code{\link{character}} value. Path of the file to create
     #' an \code{\link{Instance}}.
@@ -188,15 +229,21 @@ ExtractorFactory <- R6Class(
       }
 
       if (!tools::file_ext(path) %in% names(private$extractors)) {
-        bdpar.log(message = paste0("The extension '", file_ext(path),
-                                   "' is not registered"),
-                  level = "WARN",
-                  className = class(self)[1],
-                  methodName = "createInstance")
+
+        if (!is.null(self$getDefaultExtractor())) {
+          extractor <- private$defaultExtractor$new(path)
+          extractor
+        } else {
+          bdpar.log(message = paste0("The extension '", file_ext(path),
+                                     "' is not registered"),
+                    level = "WARN",
+                    className = class(self)[1],
+                    methodName = "createInstance")
+        }
       } else {
         extractor <- private$extractors[[file_ext(path)]]
         extractor <- extractor$new(path)
-        return(extractor)
+        extractor
       }
     },
     #'
@@ -219,6 +266,7 @@ ExtractorFactory <- R6Class(
   ),
 
   private = list(
-    extractors = list()
+    extractors = list(),
+    defaultExtractor = NULL
   )
 )

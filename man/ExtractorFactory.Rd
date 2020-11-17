@@ -5,7 +5,9 @@
 \title{Class to handle the creation of Instance types}
 \description{
 \code{\link{ExtractorFactory}} class builds the appropriate
-\code{\link{Instance}} object according to the file extension.
+\code{\link{Instance}} object according to the file extension. In the case
+of not finding the registered extension, the default extractor will be used
+if it has been previously configured.
 }
 \seealso{
 \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
@@ -18,8 +20,10 @@
 \item \href{#method-new}{\code{ExtractorFactory$new()}}
 \item \href{#method-registerExtractor}{\code{ExtractorFactory$registerExtractor()}}
 \item \href{#method-setExtractor}{\code{ExtractorFactory$setExtractor()}}
+\item \href{#method-setDefaultExtractor}{\code{ExtractorFactory$setDefaultExtractor()}}
 \item \href{#method-removeExtractor}{\code{ExtractorFactory$removeExtractor()}}
 \item \href{#method-getAllExtractors}{\code{ExtractorFactory$getAllExtractors()}}
+\item \href{#method-getDefaultExtractor}{\code{ExtractorFactory$getDefaultExtractor()}}
 \item \href{#method-isSpecificExtractor}{\code{ExtractorFactory$isSpecificExtractor()}}
 \item \href{#method-createInstance}{\code{ExtractorFactory$createInstance()}}
 \item \href{#method-reset}{\code{ExtractorFactory$reset()}}
@@ -41,15 +45,17 @@ Creates a \code{\link{ExtractorFactory}} object.
 \if{html}{\out{<a id="method-registerExtractor"></a>}}
 \if{latex}{\out{\hypertarget{method-registerExtractor}{}}}
 \subsection{Method \code{registerExtractor()}}{
-Adds an extractor to the list of extensions.
+Adds an extractor to the list of extensions. If the extension
+is an empty string (""), the indicated extractor will be the default
+when there is no extractor associated with an extension.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ExtractorFactory$registerExtractor(extension, extractor)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ExtractorFactory$registerExtractor(extensions, extractor)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{extension}}{A \code{\link{character}} value. The name of the
+\item{\code{extensions}}{A \code{\link{character}} array. The names of the
 extension option.}
 
 \item{\code{extractor}}{A \code{Object} value. The extractor of the new
@@ -74,6 +80,25 @@ Modifies the extractor of the one extension.
 extension option.}
 
 \item{\code{extractor}}{A \code{Object} value. The value of the new
+extractor.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-setDefaultExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-setDefaultExtractor}{}}}
+\subsection{Method \code{setDefaultExtractor()}}{
+Modifies the extractor of the one extension. Assign NULL
+value to disable the default extractor.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExtractorFactory$setDefaultExtractor(defaultExtractor)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{defaultExtractor}}{A \code{Object} value. The value of the default
 extractor.}
 }
 \if{html}{\out{</div>}}
@@ -111,6 +136,19 @@ Value of extractors.
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-getDefaultExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-getDefaultExtractor}{}}}
+\subsection{Method \code{getDefaultExtractor()}}{
+Gets the default extractor.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ExtractorFactory$getDefaultExtractor()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Value of default extractor.
+}
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-isSpecificExtractor"></a>}}
 \if{latex}{\out{\hypertarget{method-isSpecificExtractor}{}}}
 \subsection{Method \code{isSpecificExtractor()}}{
@@ -136,7 +174,8 @@ Value of extractors.
 \if{latex}{\out{\hypertarget{method-createInstance}{}}}
 \subsection{Method \code{createInstance()}}{
 Builds the \code{\link{Instance}} object according to the
-file extension.
+file extension. In the case of not finding the registered extension, the
+default extractor will be used if it has been previously configured.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{ExtractorFactory$createInstance(path)}\if{html}{\out{</div>}}
 }
