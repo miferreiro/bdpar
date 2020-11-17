@@ -215,7 +215,7 @@ InterjectionPipe <- R6Class(
                         ".json",
                         sep = "")
 
-      jsonData <- Bdpar[["private_fields"]][["resourceHandler"]]$isLoadResource(JsonFile)
+      jsonData <- Bdpar[["private_methods"]][["resourceHandler"]]()$isLoadResource(JsonFile)
 
       if (!is.null(jsonData)) {
 

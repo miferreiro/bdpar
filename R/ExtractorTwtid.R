@@ -82,7 +82,7 @@ ExtractorTwtid <- R6Class(
 
       self$obtainId()
       #Singleton
-      Bdpar[["private_fields"]][["connections"]]$startConnectionWithTwitter()
+      Bdpar[["private_methods"]][["connections"]]()$startConnectionWithTwitter()
 
 
       if (is.null(cachePath)) {
@@ -170,12 +170,12 @@ ExtractorTwtid <- R6Class(
         sourceTwtid <- ""
         langTwtid <- ""
 
-        Bdpar[["private_fields"]][["connections"]]$checkRequestToTwitter()
+        Bdpar[["private_methods"]][["connections"]]()$checkRequestToTwitter()
 
         lookup <- tryCatch(
 
           rtweet::lookup_tweets(as.character(self$getId()),
-                                p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
+                                p = Bdpar[["private_methods"]][["connections"]]()$getTwitterToken()),
 
           warning = function(w) {
             bdpar.log(message = paste0("Date twtid warning: ", self$getId(), " ", paste(w)),
@@ -313,11 +313,11 @@ ExtractorTwtid <- R6Class(
         sourceTwtid <- ""
         langTwtid <- ""
 
-        Bdpar[["private_fields"]][["connections"]]$checkRequestToTwitter()
+        Bdpar[["private_methods"]][["connections"]]()$checkRequestToTwitter()
 
         lookup <- tryCatch(
           rtweet::lookup_tweets(as.character(self$getId()),
-                                p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
+                                p = Bdpar[["private_methods"]][["connections"]]()$getTwitterToken()),
 
           warning = function(w) {
             bdpar.log(message = paste0("Source twtid warning: ", self$getId(),

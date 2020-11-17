@@ -80,7 +80,7 @@ ExtractorYtbid <- R6Class(
 
       self$obtainId()
       #Singleton
-      Bdpar[["private_fields"]][["connections"]]$startConnectionWithYoutube()
+      Bdpar[["private_methods"]][["connections"]]()$startConnectionWithYoutube()
 
       if (is.null(cachePath)) {
         if (!all(bdpar.Options$isSpecificOption("cache.youtube.path"),
@@ -168,7 +168,7 @@ ExtractorYtbid <- R6Class(
         dateYtbid <- ""
         sourceYtbid <- ""
 
-        Bdpar[["private_fields"]][["connections"]]$checkRequestToYoutube()
+        Bdpar[["private_methods"]][["connections"]]()$checkRequestToYoutube()
 
         comment <- tryCatch(
 
@@ -195,7 +195,7 @@ ExtractorYtbid <- R6Class(
         )
       }
 
-      Bdpar[["private_fields"]][["connections"]]$addNumRequestToYoutube()
+      Bdpar[["private_methods"]][["connections"]]()$addNumRequestToYoutube()
 
       if (!is.null(comment) && is.data.frame(comment)) {
 
@@ -343,7 +343,7 @@ ExtractorYtbid <- R6Class(
         dateYtbid <- ""
         sourceYtbid <- ""
 
-        Bdpar[["private_fields"]][["connections"]]$checkRequestToYoutube()
+        Bdpar[["private_methods"]][["connections"]]()$checkRequestToYoutube()
 
         comment <- tryCatch(
 
@@ -370,7 +370,7 @@ ExtractorYtbid <- R6Class(
         )
       }
 
-      Bdpar[["private_fields"]][["connections"]]$addNumRequestToYoutube()
+      Bdpar[["private_methods"]][["connections"]]()$addNumRequestToYoutube()
 
       if (!is.null(comment) && is.data.frame(comment)) {
 

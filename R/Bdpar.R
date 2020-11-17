@@ -96,8 +96,8 @@ Bdpar <- R6Class(
     #'
     initialize = function() {
 
-      Bdpar[["private_fields"]][["connections"]] <- Connections$new()
-      Bdpar[["private_fields"]][["resourceHandler"]] <- ResourceHandler$new()
+      Bdpar[["private_methods"]][["connections"]] <- function() { Connections$new() }
+      Bdpar[["private_methods"]][["resourceHandler"]] <- function() { ResourceHandler$new() }
     },
     #'
     #' @description Preprocess files through the indicated flow of pipes.
@@ -185,9 +185,9 @@ Bdpar <- R6Class(
   private = list(
     # Initialize the object that handles the different types of connections with
     # Youtube and Twitter
-    connections = NULL,
+    connections = function() { Connections$new() },
     # Object that handles the json resources files.
-    resourceHandler = NULL,
+    resourceHandler = function() { ResourceHandler$new() },
 
     summary = function(pipeline, listInstances) {
       if (!inherits(pipeline, c("GenericPipeline"))) {

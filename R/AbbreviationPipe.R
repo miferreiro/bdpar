@@ -214,7 +214,7 @@ AbbreviationPipe <- R6Class(
                         ".json",
                         sep = "")
 
-      jsonData <- Bdpar[["private_fields"]][["resourceHandler"]]$isLoadResource(JsonFile)
+      jsonData <- Bdpar[["private_methods"]][["resourceHandler"]]()$isLoadResource(JsonFile)
 
       #It is verified that there is a resource associated to the language of the instance
       if (!is.null(jsonData)) {

@@ -5,6 +5,31 @@ testthat::setup({
   bdpar.Options$configureLog()
 })
 
+testthat::test_that("Bdpar initialize static variables",{
+
+  testthat::expect_equal(class(Bdpar[["private_methods"]][["connections"]]()),
+                         c("Connections", "R6"))
+  testthat::expect_equal(class(Bdpar[["private_methods"]][["resourceHandler"]]()),
+                         c("ResourceHandler", "R6"))
+
+  object <- Bdpar$new()
+
+  testthat::expect_equal(class(object$.__enclos_env__$private$connections()),
+                         c("Connections", "R6"))
+  testthat::expect_equal(class(object$.__enclos_env__$private$resourceHandler()),
+                         c("ResourceHandler", "R6"))
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("Bdpar path type error",{
 
   object <- Bdpar$new()
