@@ -69,7 +69,6 @@
 #'
 #' @keywords NULL
 #'
-#' @importFrom purrr is_function
 #' @export
 #' @name operator-pipe
 
