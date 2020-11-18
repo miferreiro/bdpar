@@ -149,7 +149,7 @@ TargetAssigningPipe <- R6Class(
 
       if (instance$getSpecificProperty("target") %in% "unrecognizable") {
 
-        message <- c("The file: ", instance$getPath(), " has a target unrecognizable")
+        message <- paste0("The file: ", instance$getPath(), " has a target unrecognizable")
 
         instance$addProperties(message, "reasonToInvalidate")
 

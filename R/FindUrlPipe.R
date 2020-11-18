@@ -185,7 +185,7 @@ FindUrlPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c("The file: ", instance$getPath(), " has data empty on pipe Url")
+        message <- paste0("The file: ", instance$getPath(), " has data empty on pipe Url")
 
         instance$addProperties(message, "reasonToInvalidate")
 

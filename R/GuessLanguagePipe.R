@@ -145,19 +145,15 @@ GuessLanguagePipe <- R6Class(
           instance$getSpecificProperty("extension") %in% "twtid") {
 
         cachePath <- bdpar.Options$get("cache.twitter.path")
-        if (!is.null(cachePath) && file.exists(paste(cachePath, "/_",
-                                                     instance$getSpecificProperty("target"),
-                                                     "_/",
-                                                     instance$getId(),
-                                                     ".json",
-                                                     sep = ""))) {
+        if (!is.null(cachePath) && file.exists(paste0(cachePath, "/_",
+                                                      instance$getSpecificProperty("target"),
+                                                      "_/",
+                                                      instance$getId(),
+                                                      ".json"))) {
 
-          path <- paste(cachePath,"/_",
-                          instance$getSpecificProperty("target"),
-                            "_/",
-                              instance$getId(),
-                                ".json",
-                                  sep = "")
+          path <- paste0(cachePath,"/_",
+                         instance$getSpecificProperty("target"),
+                         "_/", instance$getId(), ".json")
 
           dataFromJsonFile <- rjson::fromJSON(file = path)
 
@@ -171,7 +167,7 @@ GuessLanguagePipe <- R6Class(
 
             if (is.null(instance$getSpecificProperty("language"))) {
 
-              message <- c("The file: ", instance$getPath(), " has a NULL twitter language")
+              message <- paste0("The file: ", instance$getPath(), " has a NULL twitter language")
 
               instance$addProperties(message, "reasonToInvalidate")
 
@@ -194,7 +190,7 @@ GuessLanguagePipe <- R6Class(
                              super$getPropertyName())
 
       if (is.na(instance$getSpecificProperty("language"))) {
-        message <- c("The file: ", instance$getPath(), " has a null language")
+        message <- paste0("The file: ", instance$getPath(), " has a null language")
 
         instance$addProperties(message, "reasonToInvalidate")
 

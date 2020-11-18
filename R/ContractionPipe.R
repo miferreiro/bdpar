@@ -207,11 +207,10 @@ ContractionPipe <- R6Class(
 
       }
 
-      JsonFile <- paste(self$getResourcesContractionsPath(),
-                        "/contr.",
-                        languageInstance,
-                        ".json",
-                        sep = "")
+      JsonFile <- paste0(self$getResourcesContractionsPath(),
+                         "/contr.",
+                         languageInstance,
+                         ".json")
 
       jsonData <- Bdpar[["private_methods"]][["resourceHandler"]]()$isLoadResource(JsonFile)
 
@@ -260,8 +259,8 @@ ContractionPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c("The file: ", instance$getPath(),
-                     " has data empty on pipe Contractions")
+        message <- paste0("The file: ", instance$getPath(),
+                          " has data empty on pipe Contractions")
 
         instance$addProperties(message, "reasonToInvalidate")
 

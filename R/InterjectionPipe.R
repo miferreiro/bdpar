@@ -199,7 +199,7 @@ InterjectionPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        message <- c("The file: ", instance$getPath(), " has not language property")
+        message <- paste0("The file: ", instance$getPath(), " has not language property")
 
         bdpar.log(message = message,
                   level = "WARN",
@@ -209,11 +209,10 @@ InterjectionPipe <- R6Class(
         return(instance)
       }
 
-      JsonFile <- paste(self$getResourcesInterjectionsPath(),
-                        "/interj.",
-                        languageInstance,
-                        ".json",
-                        sep = "")
+      JsonFile <- paste0(self$getResourcesInterjectionsPath(),
+                         "/interj.",
+                         languageInstance,
+                         ".json")
 
       jsonData <- Bdpar[["private_methods"]][["resourceHandler"]]()$isLoadResource(JsonFile)
 
@@ -256,8 +255,8 @@ InterjectionPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c("The file: ", instance$getPath(),
-                     " has data empty on pipe Interjection")
+        message <- paste0("The file: ", instance$getPath(),
+                          " has data empty on pipe Interjection")
 
         instance$addProperties(message, "reasonToInvalidate")
 

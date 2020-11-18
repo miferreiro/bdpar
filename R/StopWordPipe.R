@@ -198,11 +198,8 @@ StopWordPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        message <-
-          paste("The file: " ,
-                instance$getPath() ,
-                " has not language property",
-                sep = "")
+        message <- paste0("The file: " , instance$getPath() ,
+                          " has not language property")
 
         bdpar.log(message = message,
                   level = "WARN",
@@ -212,11 +209,10 @@ StopWordPipe <- R6Class(
         instance
       }
 
-      JsonFile <- paste(self$getResourcesStopWordsPath(),
-                        "/",
-                        languageInstance,
-                        ".json",
-                        sep = "")
+      JsonFile <- paste0(self$getResourcesStopWordsPath(),
+                         "/",
+                         languageInstance,
+                         ".json")
 
       jsonData <- Bdpar[["private_methods"]][["resourceHandler"]]()$isLoadResource(JsonFile)
 
@@ -244,14 +240,9 @@ StopWordPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        message <-
-          paste(
-            "The file: " ,
-            instance$getPath() ,
-            " has not an StopWordsJsonFile to apply to the language-> ",
-            languageInstance,
-            sep = ""
-          )
+        message <- paste0("The file: " , instance$getPath(),
+                          " has not an StopWordsJsonFile to apply to the language-> ",
+                          languageInstance)
 
         bdpar.log(message = message,
                   level = "WARN",
@@ -265,7 +256,7 @@ StopWordPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c("The file: ", instance$getPath(), " has data empty on pipe StopWord")
+        message <- paste0("The file: ", instance$getPath(), " has data empty on pipe StopWord")
 
         instance$addProperties(message, "reasonToInvalidate")
 

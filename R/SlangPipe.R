@@ -199,7 +199,7 @@ SlangPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        message <- c("The file: ", instance$getPath(), " has not language property")
+        message <- paste0("The file: ", instance$getPath(), " has not language property")
 
         bdpar.log(message = message,
                   level = "WARN",
@@ -209,11 +209,10 @@ SlangPipe <- R6Class(
         return(instance)
       }
 
-      JsonFile <- paste(self$getResourcesSlangsPath(),
-                        "/slang.",
-                        languageInstance,
-                        ".json",
-                        sep = "")
+      JsonFile <- paste0(self$getResourcesSlangsPath(),
+                         "/slang.",
+                         languageInstance,
+                         ".json")
 
       jsonData <- Bdpar[["private_methods"]][["resourceHandler"]]()$isLoadResource(JsonFile)
 
@@ -241,8 +240,8 @@ SlangPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        message <- c("The file: ", instance$getPath(),
-                     " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
+        message <- paste0("The file: ", instance$getPath(),
+                          " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
 
         bdpar.log(message = message,
                   level = "WARN",
@@ -255,7 +254,7 @@ SlangPipe <- R6Class(
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c("The file: ", instance$getPath(), " has data empty on pipe Slang")
+        message <- paste0("The file: ", instance$getPath(), " has data empty on pipe Slang")
 
         instance$addProperties(message, "reasonToInvalidate")
 

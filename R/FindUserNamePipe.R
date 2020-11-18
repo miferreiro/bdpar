@@ -156,7 +156,7 @@ FindUserNamePipe <- R6Class(
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c("The file: ", instance$getPath(), " has data empty on pipe UserName")
+        message <- paste0("The file: ", instance$getPath(), " has data empty on pipe UserName")
 
         instance$addProperties(message, "reasonToInvalidate")
 

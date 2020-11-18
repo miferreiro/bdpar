@@ -259,8 +259,8 @@ AbbreviationPipe <- R6Class(
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c("The file: ", instance$getPath(),
-                     " has data empty on pipe Abbreviation")
+        message <- paste0("The file: ", instance$getPath(),
+                          " has data empty on pipe Abbreviation")
         instance$addProperties(message, "reasonToInvalidate")
 
         bdpar.log(message = message,
