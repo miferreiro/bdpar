@@ -60,7 +60,8 @@ objectBdpar <- Bdpar$new()
 #Starting file preprocessing...
 objectBdpar$execute(path = path,
                     extractors = extractors,
-                    pipeline = pipeline)
+                    pipeline = pipeline,
+                    summary = TRUE)
 }
 }
 \seealso{
@@ -98,7 +99,8 @@ Preprocess files through the indicated flow of pipes.
 \if{html}{\out{<div class="r">}}\preformatted{Bdpar$execute(
   path,
   extractors = ExtractorFactory$new(),
-  pipeline = DefaultPipeline$new()
+  pipeline = DefaultPipeline$new(),
+  summary = FALSE
 )}\if{html}{\out{</div>}}
 }
 
@@ -115,6 +117,9 @@ implements the \code{createInstance} method to choose which type of
 \item{\code{pipeline}}{A \code{\link{GenericPipeline}} value. Subclass of
 \code{\link{GenericPipeline}}, which implements the \code{execute} method.
 By default, it is the \code{\link{DefaultPipeline}} pipeline.}
+
+\item{\code{summary}}{(\emph{logical}) flag indicating if a summary of the
+pipeline execution is provided or not.}
 }
 \if{html}{\out{</div>}}
 }

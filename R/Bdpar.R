@@ -81,7 +81,8 @@
 #' #Starting file preprocessing...
 #' objectBdpar$execute(path = path,
 #'                     extractors = extractors,
-#'                     pipeline = pipeline)
+#'                     pipeline = pipeline,
+#'                     summary = TRUE)
 #' }
 #' @keywords NULL
 #'
@@ -116,6 +117,8 @@ Bdpar <- R6Class(
     #' @param pipeline A \code{\link{GenericPipeline}} value. Subclass of
     #' \code{\link{GenericPipeline}}, which implements the \code{execute} method.
     #' By default, it is the \code{\link{DefaultPipeline}} pipeline.
+    #' @param summary (\emph{logical}) flag indicating if a summary of the
+    #' pipeline execution is provided or not.
     #'
     #' @return The list of \code{Instances} that have been preprocessed.
     #'
@@ -123,7 +126,8 @@ Bdpar <- R6Class(
     #'
     execute = function(path,
                        extractors = ExtractorFactory$new(),
-                       pipeline = DefaultPipeline$new()) {
+                       pipeline = DefaultPipeline$new(),
+                       summary = FALSE) {
 
       if (!"character" %in% class(path)) {
         bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
@@ -144,6 +148,14 @@ Bdpar <- R6Class(
       if (!inherits(pipeline, c("GenericPipeline"))) {
         bdpar.log(message = paste0("Checking the type of the 'pipeline' variable: ",
                                    class(pipeline)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
+      }
+
+      if (!"logical" %in% class(summary)) {
+        bdpar.log(message = paste0("Checking the type of the 'summary' variable: ",
+                                   class(summary)),
                   level = "FATAL",
                   className = class(self)[1],
                   methodName = "execute")
@@ -220,8 +232,10 @@ Bdpar <- R6Class(
                 className = class(self)[1],
                 methodName = "execute")
 
-      private$summary(pipeline = pipeline,
-                      listInstances = listInstances)
+      if (summary) {
+        private$summary(pipeline = pipeline,
+                        listInstances = listInstances)
+      }
 
       listInstances
     }

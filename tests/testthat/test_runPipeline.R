@@ -13,9 +13,12 @@ testthat::test_that("runPipeline path type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
-                                     extractors = extractorFactory),
+                                     extractors = extractorFactory,
+                                     summary = summary),
                          "[runPipeline][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
@@ -40,9 +43,12 @@ testthat::test_that("runPipeline pipeline type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
-                                     extractors = extractorFactory),
+                                     extractors = extractorFactory,
+                                     summary = summary),
                          "[runPipeline][FATAL] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
 })
@@ -67,10 +73,43 @@ testthat::test_that("runPipeline extractorFactory type error",{
 
   extractorFactory <- NULL
 
+  summary <- FALSE
+
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
-                                     extractors = extractorFactory),
+                                     extractors = extractorFactory,
+                                     summary = summary),
                          "[runPipeline][FATAL] Checking the type of the 'extractors' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("runPipeline summary type error",{
+
+  path <- file.path("testFiles",
+                    "testRunPipeline",
+                    "tsms")
+
+  pipeline <- DefaultPipeline$new()
+
+  extractorFactory <- ExtractorFactory$new()
+
+  summary <- NULL
+
+  testthat::expect_error(runPipeline(path = path,
+                                     pipeline = pipeline,
+                                     extractors = extractorFactory,
+                                     summary = summary),
+                         "[runPipeline][FATAL] Checking the type of the 'summary' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -102,6 +141,8 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
   bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
   bdpar.Options$set("resources.abbreviations.path", "")
   bdpar.Options$set("resources.contractions.path", "")
@@ -113,7 +154,8 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
 
   output <- suppressWarnings(runPipeline(path = path,
                                          pipeline = pipeline,
-                                         extractors = extractorFactory))
+                                         extractors = extractorFactory,
+                                         summary = summary))
   file1 <- output[[1]]
 
   testthat::expect_equal(file1$getDate(),"")
@@ -235,6 +277,8 @@ testthat::test_that("runPipeline DEBUG mode works",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
   pipeline <- DynamicPipeline$new()
   pipeline$add(list(TargetAssigningPipe$new()), pos = NULL)
 
@@ -242,7 +286,8 @@ testthat::test_that("runPipeline DEBUG mode works",{
 
   testthat::expect_message(runPipeline(path = path,
                                        pipeline = pipeline,
-                                       extractors = extractorFactory),
+                                       extractors = extractorFactory,
+                                       summary = summary),
                            '[-\\[\\]:0-9 ]+\\[pipeOperator\\]\\[freduce\\]\\[DEBUG\\] Instance_ID:1 \\(Last pipe: TargetAssigningPipe\\)\n\tPath: testFiles\\/testRunPipeline\\/tsms\\/_ham_\\/30\\.tsms\n\tDate: \n\tIsValid: TRUE\n\tSource: ""\n\tData: ""\n\tFlowPipes: TargetAssigningPipe\n\tBanPipes: \n\tProperties: \n\t\t- target: ham\n',
                            perl = TRUE)
 })

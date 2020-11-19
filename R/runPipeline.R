@@ -31,7 +31,7 @@
 #' @format NULL
 #'
 #' @usage runPipeline(path, extractors = ExtractorFactory$new(),
-#' pipeline = DefaultPipeline$new())
+#' pipeline = DefaultPipeline$new(), summary = FALSE)
 #'
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
@@ -40,6 +40,8 @@
 #' is created.
 #' @param pipeline (\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 #' implements the whole pipeling process.
+#' @param summary (\emph{logical}) flag indicating if a summary of the
+#' pipeline execution is provided or not.
 #'
 #' @section Details:
 #' In the case that some pipe, defined on the workflow, needs some type of configuration,
@@ -75,7 +77,8 @@
 #' #Starting file preprocessing...
 #' runPipeline(path = path,
 #'             extractors = extractors,
-#'             pipeline = pipeline)
+#'             pipeline = pipeline,
+#'             summary = TRUE)
 #' }
 #' @keywords NULL
 #' @export runPipeline
@@ -87,8 +90,9 @@
 #'
 
 runPipeline <- function(path,
-                       extractors = ExtractorFactory$new(),
-                       pipeline = DefaultPipeline$new()) {
+                        extractors = ExtractorFactory$new(),
+                        pipeline = DefaultPipeline$new(),
+                        summary = FALSE) {
 
   if (!"character" %in% class(path)) {
     bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
@@ -114,6 +118,14 @@ runPipeline <- function(path,
               methodName = "runPipeline")
   }
 
+  if (!"logical" %in% class(summary)) {
+    bdpar.log(message = paste0("Checking the type of the 'summary' variable: ",
+                               class(summary)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
+  }
+
   bdpar_object <- Bdpar$new()
-  bdpar_object$execute(path, extractors, pipeline)
+  bdpar_object$execute(path, extractors, pipeline, summary)
 }

@@ -6,7 +6,7 @@
 \title{Initiates the pipelining process}
 \usage{
 runPipeline(path, extractors = ExtractorFactory$new(),
-pipeline = DefaultPipeline$new())
+pipeline = DefaultPipeline$new(), summary = FALSE)
 }
 \arguments{
 \item{path}{(\emph{character}) path where the files to be preprocessed
@@ -18,6 +18,9 @@ is created.}
 
 \item{pipeline}{(\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 implements the whole pipeling process.}
+
+\item{summary}{(\emph{logical}) flag indicating if a summary of the
+pipeline execution is provided or not.}
 }
 \value{
 List of \code{\link{Instance}} that have been preprocessed.
@@ -60,7 +63,8 @@ pipeline <- DefaultPipeline$new()
 #Starting file preprocessing...
 runPipeline(path = path,
             extractors = extractors,
-            pipeline = pipeline)
+            pipeline = pipeline,
+            summary = TRUE)
 }
 }
 \seealso{

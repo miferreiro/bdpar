@@ -32,17 +32,20 @@ testthat::setup({
 
 testthat::test_that("Bdpar path type error",{
 
-  object <- Bdpar$new()
-
   path <- NULL
 
   pipeline <- DefaultPipeline$new()
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
+  object <- Bdpar$new()
+
   testthat::expect_error(object$execute(path = path,
-                                               pipeline = pipeline,
-                                               extractors = extractorFactory),
+                                        pipeline = pipeline,
+                                        extractors = extractorFactory,
+                                        summary = summary),
                          "[Bdpar][execute][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
@@ -59,17 +62,20 @@ testthat::setup({
 
 testthat::test_that("Bdpar path does not exists",{
 
-  object <- Bdpar$new()
-
   path <- "wrong.tsms"
 
   pipeline <- DefaultPipeline$new()
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
+  object <- Bdpar$new()
+
   testthat::expect_error(object$execute(path = path,
-                                               pipeline = pipeline,
-                                               extractors = extractorFactory),
+                                        pipeline = pipeline,
+                                        extractors = extractorFactory,
+                                        summary = summary),
                          "[Bdpar][execute][FATAL] Path parameter must be an existing file or directory",
                          fixed = TRUE)
 })
@@ -86,8 +92,6 @@ testthat::setup({
 
 testthat::test_that("Bdpar pipeline type error",{
 
-  object <- Bdpar$new()
-
   path <- file.path("testFiles",
                     "testBdpar",
                     "tsms")
@@ -96,9 +100,14 @@ testthat::test_that("Bdpar pipeline type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
+  object <- Bdpar$new()
+
   testthat::expect_error(object$execute(path = path,
-                                               pipeline = pipeline,
-                                               extractors = extractorFactory),
+                                        pipeline = pipeline,
+                                        extractors = extractorFactory,
+                                        summary = summary),
                          "[Bdpar][execute][FATAL] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
 })
@@ -114,9 +123,6 @@ testthat::setup({
 })
 
 testthat::test_that("Bdpar extractorFactory type error",{
-  testthat::skip_if_not_installed("rjson")
-
-  object <- Bdpar$new()
 
   path <- file.path("testFiles",
                     "testBdpar",
@@ -126,10 +132,47 @@ testthat::test_that("Bdpar extractorFactory type error",{
 
   extractorFactory <- NULL
 
+  summary <- FALSE
+
+  object <- Bdpar$new()
+
   testthat::expect_error(object$execute(path = path,
-                                               pipeline = pipeline,
-                                               extractors = extractorFactory),
+                                        pipeline = pipeline,
+                                        extractors = extractorFactory,
+                                        summary = summary),
                          "[Bdpar][execute][FATAL] Checking the type of the 'extractors' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("Bdpar summary type error",{
+
+  path <- file.path("testFiles",
+                    "testBdpar",
+                    "tsms")
+
+  pipeline <- DefaultPipeline$new()
+
+  extractorFactory <- ExtractorFactory$new()
+
+  summary <- NULL
+
+  object <- Bdpar$new()
+
+  testthat::expect_error(object$execute(path = path,
+                                        pipeline = pipeline,
+                                        extractors = extractorFactory,
+                                        summary = summary),
+                         "[Bdpar][execute][FATAL] Checking the type of the 'summary' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -162,8 +205,6 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
   bdpar.Options$set("cache", FALSE)
 
-  object <- Bdpar$new()
-
   path <- file.path("testFiles",
                     "testBdpar",
                     "tsms")
@@ -172,9 +213,14 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
+  object <- Bdpar$new()
+
   output <- suppressWarnings(object$execute(path = path,
                                             pipeline = pipeline,
-                                            extractors = extractorFactory))
+                                            extractors = extractorFactory,
+                                            summary = summary))
   file1 <- output[[1]]
 
   testthat::expect_equal(file1$getDate(), "")
@@ -222,7 +268,6 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
 
   testthat::expect_equal(file1$getBanPipes(),
                          c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
-
 
   file2 <- output[[2]]
 
@@ -306,8 +351,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
     bdpar.Options$set("cache", FALSE)
 
-    object <- Bdpar$new()
-
     path <- file.path("testFiles",
                       "testBdpar",
                       "tsms")
@@ -315,6 +358,10 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     pipeline <- DefaultPipeline$new()
 
     extractorFactory <- ExtractorFactory$new()
+
+    summary <- TRUE
+
+    object <- Bdpar$new()
 
     messageOutputExpected <-
       paste0("\\[Bdpar]\\[summary\\]\\[INFO\\] ",
@@ -361,7 +408,8 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
     output <- testthat::expect_message(object$execute(path = path,
                                                       pipeline = pipeline,
-                                                      extractors = extractorFactory),
+                                                      extractors = extractorFactory,
+                                                      summary = summary),
                                        messageOutputExpected,
                                        perl = TRUE)
 
@@ -398,8 +446,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
     bdpar.Options$set("cache", FALSE)
 
-    object <- Bdpar$new()
-
     path <- file.path("testFiles",
                       "testBdpar",
                       "tsms-1fileInvalid")
@@ -407,6 +453,10 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     pipeline <- DefaultPipeline$new()
 
     extractorFactory <- ExtractorFactory$new()
+
+    summary <- TRUE
+
+    object <- Bdpar$new()
 
     messageOutputExpected <-
       paste0("[-\\[\\]:0-9 ]+\\[Bdpar]\\[summary\\]\\[INFO\\] ",
@@ -455,7 +505,8 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 
     output <- testthat::expect_message(suppressWarnings(object$execute(path = path,
                                                                        pipeline = pipeline,
-                                                                       extractors = extractorFactory)),
+                                                                       extractors = extractorFactory,
+                                                                       summary = summary)),
                                        messageOutputExpected,
                                        perl = TRUE)
 
@@ -508,11 +559,14 @@ testthat::test_that("Bdpar parallel works",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
   object <- Bdpar$new()
 
   output <- testthat::expect_message(object$execute(path = path,
                                                     pipeline = pipeline,
-                                                    extractors = extractorFactory),
+                                                    extractors = extractorFactory,
+                                                    summary = summary),
                                      "[-\\[\\]:0-9 ]+\\[Bdpar\\]\\[makeCluster\\]\\[DEBUG\\] Initiating cluster with 2 threads",
                                      perl = TRUE)
   file1 <- output[[1]]
@@ -670,6 +724,8 @@ testthat::test_that("Bdpar parallel works with more files than cores",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- TRUE
+
   object <- Bdpar$new()
 
   messageOutputExpected <-
@@ -716,7 +772,8 @@ testthat::test_that("Bdpar parallel works with more files than cores",{
 
   output <- testthat::expect_message(object$execute(path = path,
                                                     pipeline = pipeline,
-                                                    extractors = extractorFactory),
+                                                    extractors = extractorFactory,
+                                                    summary = summary),
                                      messageOutputExpected,
                                      perl = TRUE)
 })
@@ -779,6 +836,8 @@ testthat::test_that("Bdpar parallel works with invalid instances",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- TRUE
+
   object <- Bdpar$new()
 
   messageOutputExpected <-
@@ -827,7 +886,8 @@ testthat::test_that("Bdpar parallel works with invalid instances",{
 
   output <- testthat::expect_message(object$execute(path = path,
                                                     pipeline = pipeline,
-                                                    extractors = extractorFactory),
+                                                    extractors = extractorFactory,
+                                                    summary = summary),
                                      messageOutputExpected,
                                      perl = TRUE)
 })
@@ -879,13 +939,16 @@ testthat::test_that("Bdpar parallel invalid number of cores",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  summary <- FALSE
+
   object <- Bdpar$new()
 
   bdpar.Options$set("numCores", -2)
 
   output <- testthat::expect_error(object$execute(path = path,
                                                   pipeline = pipeline,
-                                                  extractors = extractorFactory),
+                                                  extractors = extractorFactory,
+                                                  summary = summary),
                                    "[-\\[\\]:0-9 ]+\\[Bdpar\\]\\[execute\\]\\[FATAL\\] The number of cores to be used is incorrectly set \\(min: 1\\)",
                                    perl = TRUE)
 
@@ -893,10 +956,10 @@ testthat::test_that("Bdpar parallel invalid number of cores",{
 
   output <- testthat::expect_error(object$execute(path = path,
                                                   pipeline = pipeline,
-                                                  extractors = extractorFactory),
+                                                  extractors = extractorFactory,
+                                                  summary = summary),
                                    "[-\\[\\]:0-9 ]+\\[Bdpar\\]\\[execute\\]\\[FATAL\\] The number of cores to be used is incorrectly set \\(max: [0-9]+\\)",
                                    perl = TRUE)
-
 })
 
 testthat::teardown({
@@ -917,4 +980,3 @@ testthat::teardown({
                           "output_tsms.csv"))
   }
 })
-
