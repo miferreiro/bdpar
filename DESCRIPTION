@@ -32,7 +32,8 @@ Depends:
     R (>= 3.5.0)
 Imports:
     digest,
-    log4r,
+    parallel,
+    methods,
     R6, 
     rlist,
     tools, 
@@ -53,3 +54,44 @@ RoxygenNote: 7.1.1
 SystemRequirements: Python (>= 2.7)
 Encoding: UTF-8
 NeedsCompilation: no
+Collate: 
+    'AbbreviationPipe.R'
+    'bdpar.log.R'
+    'wrapper.R'
+    'Bdpar.R'
+    'BdparOptions.R'
+    'Connections.R'
+    'ContractionPipe.R'
+    'DefaultPipeline.R'
+    'DynamicPipeline.R'
+    'ExtractorEml.R'
+    'ExtractorFactory.R'
+    'ExtractorSms.R'
+    'ExtractorTwtid.R'
+    'ExtractorYtbid.R'
+    'File2Pipe.R'
+    'FindEmojiPipe.R'
+    'FindEmoticonPipe.R'
+    'FindHashtagPipe.R'
+    'FindUrlPipe.R'
+    'FindUserNamePipe.R'
+    'GenericPipe.R'
+    'GenericPipeline.R'
+    'GuessDatePipe.R'
+    'GuessLanguagePipe.R'
+    'Instance.R'
+    'InterjectionPipe.R'
+    'MeasureLengthPipe.R'
+    'ResourceHandler.R'
+    'SlangPipe.R'
+    'StopWordPipe.R'
+    'StoreFileExtPipe.R'
+    'TargetAssigningPipe.R'
+    'TeeCSVPipe.R'
+    'ToLowerCasePipe.R'
+    'bdpar.Options.R'
+    'bdparData.R'
+    'eml.R'
+    'operator-pipe.R'
+    'runPipeline.R'
+    'zzz.R'

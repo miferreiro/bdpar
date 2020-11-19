@@ -56,6 +56,12 @@
 #' #If the key is not initialized, do it through:
 #' #bdpar.Options$add(key, value)
 #'
+#' #If it is neccesary parallelize, do it through:
+#' #bdpar.Options$set("numCores", numCores)
+#'
+#' #If it is necessary to change the behavior of the log, do it through:
+#' #bdpar.Options$configureLog(console = TRUE, threshold = "INFO", file = NULL)
+#'
 #' #Folder with the files to preprocess
 #' path <- system.file(file.path("example"),
 #'                     package = "bdpar")

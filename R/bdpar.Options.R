@@ -85,6 +85,10 @@
 #'
 #' - \code{bdpar.Options$set("cache.folder", <<cache.path>>)}
 #'
+#' \strong{[parallel]}
+#'
+#' - \code{bdpar.Options$set("numCores", <<num_cores>>)}
+#'
 #' @section Cache functionality:
 #'
 #' If the bdpar cache is configured through the "cache" and "cache.folder"
@@ -95,6 +99,14 @@
 #'
 #' If you want to remove the cache, the \code{cleanCache} method does
 #' this task.
+#'
+#' @section Parallel functionality:
+#'
+#' The parallelization of instances is configured through the "numCores" option,
+#' which indicates the number of cores that will be used in the processing.
+#'
+#' In the case of parallelisation, only the log by file will work to allow
+#' collecting all the information produced by the cores.
 #'
 #' @section Log configuration:
 #'
@@ -232,7 +244,8 @@
 #' }
 #'
 #' \item{\bold{configureLog:}}{
-#' Configures the bdpar log.
+#' Configures the bdpar log. In the case of parallelisation, only the log by
+#' file will work.
 #' \itemize{
 #' \item{\emph{Usage:}}{
 #' \code{configureLog(console = TRUE, threshold = "INFO", file = NULL)}
@@ -248,7 +261,7 @@
 #' }
 #' \item{\strong{file:}}{
 #' (\emph{character}) The file to write messages to. If it is NULL,
-#' the log in file will not be enabled
+#' the log in file will not be enabled.
 #' }
 #' }
 #' }
@@ -265,7 +278,7 @@
 #' }
 #'
 #' \item{\bold{getLogConfiguration:}}{
-#' Get the bdpar log configuration.
+#' Print the bdpar log configuration.
 #' \itemize{
 #' \item{\emph{Usage:}}{
 #' \code{getLogConfiguration()}

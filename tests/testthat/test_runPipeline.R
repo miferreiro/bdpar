@@ -217,3 +217,37 @@ testthat::teardown({
   bdpar.Options$configureLog()
 })
 }
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("runPipeline DEBUG mode works",{
+
+  path <- file.path("testFiles",
+                    "testRunPipeline",
+                    "tsms",
+                    "_ham_",
+                    "30.tsms")
+
+  pipeline <- DefaultPipeline$new()
+
+  extractorFactory <- ExtractorFactory$new()
+
+  pipeline <- DynamicPipeline$new()
+  pipeline$add(list(TargetAssigningPipe$new()), pos = NULL)
+
+  bdpar.Options$configureLog(console = TRUE, threshold = "DEBUG")
+
+  testthat::expect_message(runPipeline(path = path,
+                                       pipeline = pipeline,
+                                       extractors = extractorFactory),
+                           '[-\\[\\]:0-9 ]+\\[pipeOperator\\]\\[freduce\\]\\[DEBUG\\] Instance_ID:1 \\(Last pipe: TargetAssigningPipe\\)\n\tPath: testFiles\\/testRunPipeline\\/tsms\\/_ham_\\/30\\.tsms\n\tDate: \n\tIsValid: TRUE\n\tSource: ""\n\tData: ""\n\tFlowPipes: TargetAssigningPipe\n\tBanPipes: \n\tProperties: \n\t\t- target: ham\n',
+                           perl = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

@@ -39,6 +39,9 @@ Twitter.
 #If the key is not initialized, do it through:
 #bdpar.Options$add(key, value)
 
+#If it is neccesary parallelize, do it through:
+#bdpar.Options$set("numCores", numCores)
+
 #If it is necessary to change the behavior of the log, do it through:
 #bdpar.Options$configureLog(console = TRUE, threshold = "INFO", file = NULL)
 
@@ -115,6 +118,11 @@ By default, it is the \code{\link{DefaultPipeline}} pipeline.}
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Details}{
+In case of wanting to parallelize, it is necessary to indicate
+the number of cores to be used through bdpar.Options$set("numCores", numCores)
+}
+
 \subsection{Returns}{
 The list of \code{Instances} that have been preprocessed.
 }

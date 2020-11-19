@@ -25,6 +25,9 @@ If the value is NULL, this field is not shown in the log.}
 \code{bdpar.log} is responsible for managing the messages to
 show on the log.
 }
+\note{
+In the case of multithreading, the log will only be by file.
+}
 \section{Details}{
 
 The format output is as following:

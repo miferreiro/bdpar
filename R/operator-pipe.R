@@ -227,7 +227,7 @@ freduce = function(instance, function_list) {
 
     # To avoid building the status message of an instance
     # when the log level is debug
-    if (bdpar.Options$.__enclos_env__$private$bdpar.logger$threshold <= 1) {
+    if (bdpar.Options$.__enclos_env__$private$threshold == "DEBUG") {
 
       bdpar.log(message = paste0("Instance_ID:", cont,
                                  " (Last pipe: ", eval(pipe.name,

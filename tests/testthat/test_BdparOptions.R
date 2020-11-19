@@ -289,7 +289,7 @@ testthat::test_that("disableLog works",{
 
   testthat::expect_message(options$getLogConfiguration(),
                            "[BdparOptions][getLogConfiguration][INFO] Log configuration:
-	- Threshold: Not configured
+	- Threshold: INFO
 	- Console log status: Disabled
 	- File log status: Disabled",
                            fixed = TRUE)

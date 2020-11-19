@@ -52,6 +52,8 @@
 #'
 #' - The \strong{FATAL} level returns a text using the \code{\link{stop}} function.
 #'
+#' @note In the case of multithreading, the log will only be by file.
+#'
 #' @examples
 #' \dontrun{
 #'
@@ -78,18 +80,11 @@
 #'
 #' @keywords NULL
 #'
-#' @import log4r
 #' @export bdpar.log
 #' @seealso \code{\link{bdpar.Options}}
+#' @include wrapper.R
 
 bdpar.log <- function(message, level = "INFO", className = NULL, methodName = NULL) {
-
-  logger <- bdpar.Options$.__enclos_env__$private$bdpar.logger
-
-  if (is.null(logger)) {
-    stop("[", format(Sys.time()), "]","[bdpar.log][FATAL] Logger is not ",
-         "configured. Use bdpar.options$configureLog to configure its behavior")
-  }
 
   if (is.null(level) ||
       !is.character(level) ||
@@ -98,11 +93,16 @@ bdpar.log <- function(message, level = "INFO", className = NULL, methodName = NU
          "must be between these values: FATAL, ERROR, WARN, INFO or DEBUG")
   }
 
-  switch (level,
-    "DEBUG" = log4r::debug(logger, list(className, methodName, message)),
-    "INFO" = log4r::info(logger, list(className, methodName, message)),
-    "WARN" = log4r::warn(logger, list(className, methodName, message)),
-    "ERROR" = log4r::error(logger, list(className, methodName, message)),
-    "FATAL" = log4r::fatal(logger, list(className, methodName, message))
-  )
+  settings <- .getLoggerSettings()
+
+  if (is.null(settings$loggers)) {
+    stop("[", format(Sys.time()), "]","[bdpar.log][FATAL] Logger is not ",
+         "configured. Use bdpar.options$configureLog to configure its behavior")
+  }
+
+  for (logger in settings$loggers) {
+    if (.levelToInt(level) >= .levelToInt(logger$threshold)) {
+      logger$.logFunction(this = logger, level = level, message = list(className, methodName, message))
+    }
+  }
 }

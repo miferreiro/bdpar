@@ -21,7 +21,8 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @import log4r R6 rlist
+#' @import R6 rlist
+#' @include wrapper.R
 
 BdparOptions <- R6Class(
 
@@ -62,36 +63,43 @@ BdparOptions <- R6Class(
                                     youtube.app.password = NULL,
                                     cache.youtube.path = NULL,
                                     cache = FALSE,
-                                    cache.folder = ".cache")
+                                    cache.folder = ".cache",
+                                    numCores = 1)
 
       private$bdpar.log.layout.console <- function(level, ...) {
 
-        dots <- list(...)
-        className <- ""
-        methodName <- ""
+        if (any(!bdpar.Options$isSpecificOption("numCores"),
+                is.null(bdpar.Options$get("numCores")),
+                bdpar.Options$get("numCores") <= 1,
+                is.null(getOption("threadNumber")))) {
 
-        if (!is.null(dots[[1]][[1]])) {
-          className <- paste0("[", dots[[1]][[1]], "]")
-        }
-        if (!is.null(dots[[1]][[2]])) {
-          methodName <- paste0("[", dots[[1]][[2]], "]")
-        }
+          dots <- list(...)
+          className <- ""
+          methodName <- ""
 
-        message <- dots[[1]][[3]]
+          if (!is.null(dots[[1]][[1]])) {
+            className <- paste0("[", dots[[1]][[1]], "]")
+          }
+          if (!is.null(dots[[1]][[2]])) {
+            methodName <- paste0("[", dots[[1]][[2]], "]")
+          }
 
-        if (identical(level, "DEBUG") ||
-            identical(level, "INFO") ||
-            identical(level, "ERROR")) {
-          message("[", format(Sys.time()), "]", className, methodName,
-                  "[", level, "] ", message)
-        } else {
-          if (identical(level, "WARN")) {
-            warning("[", format(Sys.time()), "]", className, methodName,
-                    "[", level, "] ", message, call. = FALSE)
+          message <- dots[[1]][[3]]
+
+          if (identical(level, "DEBUG") ||
+              identical(level, "INFO") ||
+              identical(level, "ERROR")) {
+            message("[", format(Sys.time()), "]", className, methodName,
+                    "[", level, "] ", message)
           } else {
-            if (identical(level, "FATAL")) {
-             stop("[", format(Sys.time()), "]", className, methodName,
-                  "[", level, "] ", message, call. = FALSE)
+            if (identical(level, "WARN")) {
+              warning("[", format(Sys.time()), "]", className, methodName,
+                      "[", level, "] ", message, call. = FALSE)
+            } else {
+              if (identical(level, "FATAL")) {
+               stop("[", format(Sys.time()), "]", className, methodName,
+                    "[", level, "] ", message, call. = FALSE)
+              }
             }
           }
         }
@@ -111,15 +119,33 @@ BdparOptions <- R6Class(
         }
         message <- dots[[1]][[3]]
 
-        paste0("[", format(Sys.time()), "]", className, methodName,
-               "[", level, "] ", message, "\n", collapse = "")
+        if (any(!bdpar.Options$isSpecificOption("numCores"),
+                is.null(bdpar.Options$get("numCores")),
+                bdpar.Options$get("numCores") <= 1)) {
+          paste0("[", format(Sys.time()), "]", className, methodName,
+                 "[", level, "] ", message, collapse = "")
+        } else {
+
+          threadNumber <- getOption("threadNumber")
+          if (is.null(threadNumber)) {
+            threadLabel <- "[Main thread]"
+          } else {
+            threadLabel <- paste0("[Thread", threadNumber, "]")
+          }
+
+          paste0("[", format(Sys.time()), "]", threadLabel, className, methodName,
+                 "[", level, "] ", message, collapse = "")
+        }
       }
 
-      threshold <- "INFO"
-      appenders <- c(private$console_appender_bdpar(layout = private$bdpar.log.layout.console))
+      private$threshold <- "INFO"
+      appenders <- list(private$console_appender_bdpar(layout = private$bdpar.log.layout.console))
 
-      private$bdpar.logger <- log4r::logger(threshold = threshold,
-                                            appenders = appenders)
+      .clearLoggers()
+      logger <- private$createLoggerCustom(name = "SIMPLE",
+                                           threshold = private$threshold,
+                                           appenders = appenders)
+      .registerLogger(logger)
       private$bdpar.log.console <-  TRUE
     },
 
@@ -227,7 +253,8 @@ BdparOptions <- R6Class(
                                     youtube.app.password = NULL,
                                     cache.youtube.path = NULL,
                                     cache = FALSE,
-                                    cache.folder = ".cache")
+                                    cache.folder = ".cache",
+                                    numCores = 1)
     },
 
     isSpecificOption = function(key) {
@@ -275,48 +302,58 @@ BdparOptions <- R6Class(
              class(console))
       }
 
-      appenders <- c()
+      private$threshold <- threshold
+      .clearLoggers()
 
       if (!is.null(file) &&
           is.character(file)) {
-        appenders <- append(appenders,
-                            private$file_appender_bdpar(file = file,
-                                                        append = TRUE,
-                                                        layout  = private$bdpar.log.layout.file))
+        appenders <- list(private$file_appender_bdpar(layout  = private$bdpar.log.layout.file,
+                                                      fileName = file))
+
+        logger <- private$createLoggerCustom(name = "file_logger",
+                                             threshold = threshold,
+                                             appenders = appenders)
+        .registerLogger(logger)
+
         private$bdpar.log.file <- file
       } else {
         private$bdpar.log.file <- FALSE
       }
 
       if (console) {
-        appenders <- append(appenders,
-                            private$console_appender_bdpar(layout = private$bdpar.log.layout.console))
+        appenders <- list(private$console_appender_bdpar(layout = private$bdpar.log.layout.console))
+
+        logger <- private$createLoggerCustom(name = "console_logger",
+                                             threshold = threshold,
+                                             appenders = appenders)
+        .registerLogger(logger)
+
         private$bdpar.log.console <- TRUE
       } else {
         private$bdpar.log.console <- FALSE
       }
 
-      if (length(appenders) == 0) {
-        appenders <- private$empty_appender_bdpar()
+      if (all(isFALSE(private$bdpar.log.file),
+              isFALSE(private$bdpar.log.console))) {
+        .clearLoggers()
       }
-
-      private$bdpar.logger <- log4r::logger(threshold = threshold,
-                                            appenders = appenders)
     },
 
     disableLog = function() {
-      private$bdpar.logger <- NULL
+      .clearLoggers()
       private$bdpar.log.console <- FALSE
       private$bdpar.log.file <- FALSE
+      private$threshold <- "INFO"
     },
 
     getLogConfiguration = function() {
       message("[", format(Sys.time()), "][", class(self)[1], "]",
               "[getLogConfiguration][INFO] Log configuration:\n",
               "\t- Threshold: ",
-              ifelse(is.null(private$bdpar.logger),
+              ifelse(all(!private$bdpar.log.console,
+                         is.null(private$bdpar.log.file)),
                      "Not configured",
-                     as.character(private$bdpar.logger$threshold)), "\n",
+                     as.character(private$threshold)), "\n",
               "\t- Console log status: ",
               ifelse(private$bdpar.log.console,
                      "Actived",
@@ -325,7 +362,8 @@ BdparOptions <- R6Class(
               ifelse(!isFALSE(private$bdpar.log.file),
                      paste0("Actived. File asociated: ", private$bdpar.log.file),
                      "Disabled"))
-    },
+    }
+    ,
 
     print = function(...) {
       print(self$getAll())
@@ -334,28 +372,50 @@ BdparOptions <- R6Class(
 
   private = list(
     bdpar.options = list(),
-    bdpar.logger = NULL,
+    threshold = "",
     bdpar.log.layout.console = NULL,
     bdpar.log.layout.file = NULL,
     bdpar.log.console = FALSE,
     bdpar.log.file = FALSE,
     console_appender_bdpar = function(layout = private$bdpar.log.layout.console) {
-      stopifnot(is.function(layout))
-      layout <- compiler::cmpfun(layout)
+      .appendFunction <- function(this, level, message) { }
+      appender <- list(.appendFunction = .appendFunction,
+                       layout = layout)
+      class(appender) <- "Appender"
+      appender
     },
 
-    file_appender_bdpar = function(file, append = TRUE, layout = private$bdpar.log.layout.file) {
-      stopifnot(is.function(layout))
-      layout <- compiler::cmpfun(layout)
-      force(file)
-      force(append)
-      function(level, ...) {
-        msg <- layout(level, ...)
-        cat(msg, file = file, sep = "", append = append)
+    file_appender_bdpar = function(layout = private$bdpar.log.layout.file, fileName) {
+      .appendFunction <- function(this, level, message) {
+        con <- file(fileName, open = "at", blocking = FALSE)
+        writeLines(text = message, con = con)
+        flush(con)
+        close(con)
       }
+      appender <- list(.appendFunction = .appendFunction,
+                       layout = layout,
+                       fileName = fileName)
+      class(appender) <- "Appender"
+      appender
     },
-    empty_appender_bdpar = function() {
-      compiler::cmpfun(function(level, ...) {invisible(NULL)})
+
+    createLoggerCustom = function(name = "SIMPLE",
+                                   threshold = "INFO",
+                                   appenders) {
+
+      .logFunction <- function(this, level, message) {
+        for (appender in this$appenders) {
+          formatted <- appender$layout(level, message)
+          appender$.appendFunction(appender, level, formatted)
+        }
+      }
+
+      logger <- list(name = name,
+                     .logFunction = .logFunction,
+                     threshold = threshold,
+                     appenders = appenders)
+      class(logger) <- "Logger"
+      logger
     }
   )
 )

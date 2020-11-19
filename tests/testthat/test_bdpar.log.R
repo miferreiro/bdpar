@@ -5,7 +5,7 @@ testthat::setup({
   bdpar.Options$configureLog()
 })
 
-testthat::test_that("bdpar.log error:logger not configured",{
+testthat::test_that("bdpar.log logger not configured",{
 
   message <- "exampleMessage"
   level <- "INFO"
@@ -13,6 +13,31 @@ testthat::test_that("bdpar.log error:logger not configured",{
   methodName <- "exampleMethodName"
 
   bdpar.Options$disableLog()
+
+  testthat::expect_silent(bdpar.log(message = message,
+                                    level = level,
+                                    className = className,
+                                    methodName = methodName))
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("bdpar.log logger NULL",{
+
+  message <- "exampleMessage"
+  level <- "INFO"
+  className <- "exampleClassName"
+  methodName <- "exampleMethodName"
+
+  bdpar:::.setLoggerSettings(settings = NULL)
 
   testthat::expect_error(bdpar.log(message = message,
                                    level = level,
