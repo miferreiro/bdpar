@@ -122,15 +122,6 @@ Instance <- R6Class(
     #' @param source A \code{\link{character}} value. The new value of source.
     #'
     setSource = function(source) {
-
-      if (!"character" %in% class(source)) {
-        bdpar.log(message = paste0("Checking the type of the 'source' variable: ",
-                                   class(source)),
-                  level = "FATAL",
-                  className = class(self)[1],
-                  methodName = "setSource")
-      }
-
       private$source <- source
     },
     #'
@@ -139,15 +130,6 @@ Instance <- R6Class(
     #' @param data A \code{\link{character}} value. The new value of data.
     #'
     setData = function(data) {
-
-      if (!"character" %in% class(data)) {
-        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
-                                   class(data)),
-                  level = "FATAL",
-                  className = class(self)[1],
-                  methodName = "setData")
-      }
-
       private$data <- data
     },
     #'

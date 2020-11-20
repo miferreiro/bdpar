@@ -1,0 +1,153 @@
+---
+title: "Image processing example using bdpar package"
+author: "Miguel Ferreiro Diaz"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Image processing example using bdpar package}
+  %\VignetteEngine{knitr::rmarkdown}
+  usepackage[utf8]{inputenc}
+---
+
+# Introduction
+
+<div style = "text-align: justify">
+The goal of this document is to show an example of a processing flow using images. The steps to be followed to build new image processing pipes and how the new flow would be defined are described below. The script for this example can be found at the Github repository: 
+
+[github.com/miferreiro/bdpar/articleExample/exampleImage](https://github.com/miferreiro/bdpar/articleExample/exampleImage)
+
+</div>
+
+# Example
+
+<div style="text-aling:justify">
+First of all, it is necessary to include the *bdpar* package and the *imager* package, which will be used to read and transform the images.
+
+```{R, echo = TRUE, results = "hide", eval = FALSE}
+library(bdpar)
+library(imager)
+```
+
+</div>
+
+## Preparation
+
+### Extractor
+
+<div style="text-aling:justify">
+First it is necessary to create the extractor that will allow reading the images to be processed.
+
+```{R, echo = TRUE, results = "hide", eval = FALSE}
+library(R6)
+ExtractorImage <- R6Class(
+
+  classname = "ExtractorImage",
+
+  inherit = Instance,
+
+  public = list(
+    initialize = function(path) {
+      super$initialize(path)
+    },
+    obtainSource = function() {
+      source <- imager::load.image(super$getPath())
+      super$setSource(source)
+      super$setData(source)
+    }
+  )
+)
+```
+
+Secondly, it is necessary to indicate to bdpar with which extension the created extractor is associated, in this case, .png.
+
+```{R, echo = TRUE, results = "hide", eval = FALSE}
+extractors <- ExtractorFactory$new()
+extractors$registerExtractor(extension = "png", extractor = ExtractorImage)
+```
+</div>
+
+### Creation of pipes
+
+<div style="text-aling:justify">
+For this example, four pipes have been developed to treat the images. It should be noted that the first pipe is necessary to read the image with the extractor created previously and the next pipes manage the changes of the image.
+
+```{R, echo = TRUE, results = "hide", eval = FALSE}
+library(R6)
+Image2Pipe <- R6Class(
+  "Image2Pipe",
+  inherit = GenericPipe,
+  public = list(
+    initialize = function(propertyName = "",
+                          alwaysBeforeDeps = list(),
+                          notAfterDeps = list()) {
+      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+    },
+    pipe = function(instance) {
+      instance$obtainSource()
+      instance
+    }
+  )
+)
+
+ImageCroppingPipe <- R6Class(
+  "ImageCroppingPipe",
+  inherit = GenericPipe,
+  public = list(
+    initialize = function(propertyName = "",
+                          alwaysBeforeDeps = list(),
+                          notAfterDeps = list()) {
+      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+    },
+    pipe = function(instance) {
+      data <- instance$getData()
+      data <- imager::imsub(data, x > height/2)
+      instance$setData(data)
+      instance
+    }
+  )
+)
+
+ImageResizePipe <- R6Class(
+  "ImageResizePipe",
+  inherit = GenericPipe,
+  public = list(
+    initialize = function(propertyName = "",
+                          alwaysBeforeDeps = list(),
+                          notAfterDeps = list()) {
+      super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
+    },
+    pipe = function(instance) {
+      data <- instance$getData()
+      data <- imager::imrotate(data, 30)
+      instance$setData(data)
+      instance
+    }
+  )
+)
+
+```
+
+Once the pipes to be used have been created, it is time to build the flow of pipes to be used using the DynamicPipeline class.
+
+```{R, echo = TRUE, results = "hide", eval = FALSE}
+pipeline <- DynamicPipeline$new(pipeline = list(Image2Pipe$new(),
+                                                ImageCroppingPipe$new(),
+                                                ImageResizePipe$new()))
+```
+</div>
+
+
+## Execution
+
+<div style="text-aling:justify">
+
+Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
+
+```{R, echo = TRUE, results = "hide", eval = FALSE}
+runPipeline(path = "imageExample/parrots.png",
+            extractors = extractors,
+            pipeline = pipeline,
+            summary = FALSE)
+
+```
+</div>

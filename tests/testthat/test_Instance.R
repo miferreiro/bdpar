@@ -199,29 +199,6 @@ testthat::setup({
   bdpar.Options$configureLog()
 })
 
-testthat::test_that("setSource source type error",{
-
-  path <- "example.tsms"
-
-  instance <- Instance$new(path)
-
-  sourceExpected <- NULL
-
-  testthat::expect_error(instance$setSource(sourceExpected),
-                         "[Instance][setSource][FATAL] Checking the type of the 'source' variable: NULL",
-                         fixed = TRUE)
-})
-
-testthat::teardown({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::setup({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
 testthat::test_that("setDate",{
 
   path <- "example.tsms"
@@ -541,29 +518,6 @@ testthat::test_that("setData",{
   instance$setData(dataExpected)
   testthat::expect_equal(instance$getData(),
                          dataExpected)
-})
-
-testthat::teardown({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::setup({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::test_that("setData source type error",{
-
-  path <- "example.tsms"
-
-  instance <- Instance$new(path)
-
-  dataExpected <- NULL
-
-  testthat::expect_error(instance$setData(dataExpected),
-                         "[Instance][setData][FATAL] Checking the type of the 'data' variable: NULL",
-                         fixed = TRUE)
 })
 
 testthat::teardown({
