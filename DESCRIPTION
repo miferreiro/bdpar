@@ -51,7 +51,7 @@ Suggests:
     tuber
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
-SystemRequirements: Python (>= 2.7)
+SystemRequirements: Python (>= 2.7 or >= 3.6)
 Encoding: UTF-8
 NeedsCompilation: no
 Collate: 
