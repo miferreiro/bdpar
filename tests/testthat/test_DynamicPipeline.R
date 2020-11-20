@@ -304,7 +304,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     pipeline <- DynamicPipeline$new()
     pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new(), GuessDatePipe$new(), File2Pipe$new()))
     testthat::expect_message(suppressWarnings(pipeline$execute(instanceInitial)),
-                             "[pipeOperator][freduce][INFO] The instance testFiles/testDynamicPipeline/files/_ham_/testFileEmpty.tsms is invalid and will not continue through the flow of pipes",
+                             "[pipeOperator][INFO] The instance testFiles/testDynamicPipeline/files/_ham_/testFileEmpty.tsms is invalid and will not continue through the flow of pipes",
                              fixed = TRUE)
 
     pipeline <- DynamicPipeline$new()

@@ -288,7 +288,7 @@ testthat::test_that("runPipeline DEBUG mode works",{
                                        pipeline = pipeline,
                                        extractors = extractorFactory,
                                        summary = summary),
-                           '[-\\[\\]:0-9 ]+\\[pipeOperator\\]\\[freduce\\]\\[DEBUG\\] Instance_ID:1 \\(Last pipe: TargetAssigningPipe\\)\n\tPath: testFiles\\/testRunPipeline\\/tsms\\/_ham_\\/30\\.tsms\n\tDate: \n\tIsValid: TRUE\n\tSource: ""\n\tData: ""\n\tFlowPipes: TargetAssigningPipe\n\tBanPipes: \n\tProperties: \n\t\t- target: ham\n',
+                           '[-\\[\\]:0-9 ]+\\[DEBUG\\] Instance_ID:1 \\(Last pipe: TargetAssigningPipe\\)\n\tPath: testFiles\\/testRunPipeline\\/tsms\\/_ham_\\/30\\.tsms\n\tDate: \n\tIsValid: TRUE\n\tSource: ""\n\tData: ""\n\tFlowPipes: TargetAssigningPipe\n\tBanPipes: \n\tProperties: \n\t\t- target: ham\n',
                            perl = TRUE)
 })
 

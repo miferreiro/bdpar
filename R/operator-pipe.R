@@ -130,7 +130,7 @@ freduce = function(instance, function_list) {
   if (any(!bdpar.Options$isSpecificOption("cache"),
           is.null(bdpar.Options$get("cache")))) {
     bdpar.log(message = "Cache status is not defined in bdpar.Options",
-              level = "FATAL", className = "pipeOperator", methodName = "freduce")
+              level = "FATAL", className = NULL, methodName = NULL)
   } else {
     cache <- bdpar.Options$get("cache")
     cache.valid <- cache
@@ -164,7 +164,7 @@ freduce = function(instance, function_list) {
       if (any(!bdpar.Options$isSpecificOption("cache.folder"),
               is.null(bdpar.Options$get("cache.folder")))) {
         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
-                  level = "FATAL", className = "pipeOperator", methodName = "freduce")
+                  level = "FATAL", className = NULL, methodName = NULL)
       } else {
         cache.folder <- bdpar.Options$get("cache.folder")
       }
@@ -214,7 +214,7 @@ freduce = function(instance, function_list) {
       bdpar.log(message = paste0("Bad compatibility between Pipes on ",
                                  eval(pipe.name,
                                       parent.frame())),
-                level = "ERROR", className = "pipeOperator", methodName = "freduce")
+                level = "ERROR", className = "pipeOperator", methodName = NULL)
 
       break
     }
@@ -233,7 +233,7 @@ freduce = function(instance, function_list) {
                                  " (Last pipe: ", eval(pipe.name,
                                                        parent.frame()), ")\n",
                                  instance$toString()),
-                level = "DEBUG", className = "pipeOperator", methodName = "freduce")
+                level = "DEBUG", className = NULL, methodName = NULL)
     }
 
     if (cache) {
@@ -241,7 +241,7 @@ freduce = function(instance, function_list) {
       if (any(!bdpar.Options$isSpecificOption("cache.folder"),
              is.null(bdpar.Options$get("cache.folder")))) {
         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
-                  level = "FATAL", className = "pipeOperator", methodName = "freduce")
+                  level = "FATAL", className = NULL, methodName = NULL)
       } else {
         cache.folder <- bdpar.Options$get("cache.folder")
       }
@@ -272,7 +272,7 @@ freduce = function(instance, function_list) {
           if (!dir.exists(cache.instance.folder)) {
             bdpar.log(message = paste0("Cannot create directory '",
                                        cache.instance.folder, "'"),
-                      level = "FATAL", className = "pipeOperator", methodName = "freduce")
+                      level = "FATAL", className = NULL, methodName = NULL)
           }
         }
 
@@ -286,7 +286,7 @@ freduce = function(instance, function_list) {
     if (!instance$isInstanceValid()) {
       bdpar.log(message = paste0("The instance ", instance$getPath(),
                                  " is invalid and will not continue through the flow of pipes"),
-                level = "INFO", className = "pipeOperator", methodName = "freduce")
+                level = "INFO", className = "pipeOperator", methodName = NULL)
       break
     }
 

@@ -20,7 +20,7 @@ testthat::test_that("'cache.folder' field error",{
   pipeline <- DynamicPipeline$new()
   pipeline$add(list(File2Pipe$new()))
   testthat::expect_message(pipeline$execute(instance),
-                           "[pipeOperator][freduce][ERROR] Bad compatibility between Pipes on File2Pipe",
+                           "[pipeOperator][ERROR] Bad compatibility between Pipes on File2Pipe",
                            fixed = TRUE)
 })
 
@@ -50,7 +50,7 @@ testthat::test_that("'cache' field error",{
   pipeline <- DynamicPipeline$new()
   pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new()))
   testthat::expect_message(pipeline$execute(instance),
-                         "[-\\[\\]:0-9 ]+\\[DynamicPipeline\\]\\[execute\\]\\[ERROR\\] testFiles\\/testOperator-pipe\\/files\\/_ham_\\/testFile\\.tsms :Error: [-\\[\\]:0-9 ]+\\[pipeOperator\\]\\[freduce\\]\\[FATAL\\] Cache status is not defined in bdpar\\.Options",
+                         "[-\\[\\]:0-9 ]+\\[DynamicPipeline\\]\\[execute\\]\\[ERROR\\] testFiles\\/testOperator-pipe\\/files\\/_ham_\\/testFile\\.tsms :Error: [-\\[\\]:0-9 ]+\\[FATAL\\] Cache status is not defined in bdpar\\.Options",
                          perl = TRUE)
 })
 
@@ -80,7 +80,7 @@ testthat::test_that("'cache.folder' field error",{
   pipeline <- DynamicPipeline$new()
   pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new()))
   testthat::expect_message(pipeline$execute(instance),
-                           "[-\\[\\]:0-9 ]+\\[DynamicPipeline\\]\\[execute\\]\\[ERROR\\] testFiles\\/testOperator-pipe\\/files\\/_ham_\\/testFile\\.tsms :Error: [-\\[\\]:0-9 ]+\\[pipeOperator\\]\\[freduce\\]\\[FATAL\\] Cache folder is not defined in bdpar.Options",
+                           "[-\\[\\]:0-9 ]+\\[DynamicPipeline\\]\\[execute\\]\\[ERROR\\] testFiles\\/testOperator-pipe\\/files\\/_ham_\\/testFile\\.tsms :Error: [-\\[\\]:0-9 ]+\\[FATAL\\] Cache folder is not defined in bdpar.Options",
                            perl = TRUE)
 })
 
