@@ -433,11 +433,12 @@ ExtractorTwtid <- R6Class(
 
       properties <- ""
       if (length(private$properties) != 0) {
-        for (i in 1:length(private$properties)) {
-          property <- paste0("\n\t\t- ", names(private$properties)[i], ": ",
-                             paste(as.character(unlist(private$properties[i])), collapse = " "))
-          properties <- paste0(properties, property)
-        }
+        properties <- "\n\t\t"
+        properties <- paste0(properties, paste0(lapply(names(private$properties), function(propertyName) {
+          paste0("- ", propertyName, ": ",
+                 paste(as.character(unlist(private$properties[[propertyName]])), collapse = " "),
+                 collapse = "")
+        }), collapse = "\n\t\t"))
       } else {
         properties <- "Not located"
       }

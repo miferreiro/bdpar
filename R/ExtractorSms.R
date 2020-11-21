@@ -99,9 +99,12 @@ ExtractorSms <- R6Class(
 
       properties <- ""
       if (length(private$properties) != 0) {
-        properties <- paste0("\n\t\t- ", names(private$properties), ": ",
-                             as.character(unlist(private$properties)),
-                             collapse = "")
+        properties <- "\n\t\t"
+        properties <- paste0(properties, paste0(lapply(names(private$properties), function(propertyName) {
+          paste0("- ", propertyName, ": ",
+                 paste(as.character(unlist(private$properties[[propertyName]])), collapse = " "),
+                 collapse = "")
+        }), collapse = "\n\t\t"))
       } else {
         properties <- "Not located"
       }
