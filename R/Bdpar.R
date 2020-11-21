@@ -202,8 +202,8 @@ Bdpar <- R6Class(
 
           numCores <- bdpar.Options$get("numCores")
 
-          if (parallel::detectCores() - 1 <  numCores) {
-            bdpar.log(message = paste0("The number of cores to be used is incorrectly set (max: ", parallel::detectCores(), ")") ,
+          if (parallel::detectCores() - 2 <  numCores) {
+            bdpar.log(message = paste0("The number of cores to be used is incorrectly set (max: ", parallel::detectCores() - 2 , ")") ,
                       level = "FATAL",
                       className = class(self)[1],
                       methodName = "execute")
