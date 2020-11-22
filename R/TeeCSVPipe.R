@@ -127,8 +127,8 @@ TeeCSVPipe <- R6Class(
       }
 
       if (is.null(outputPath)) {
-        if (!all(bdpar.Options$isSpecificOption("teeCSVPipe.output.path"),
-                 !is.null(bdpar.Options$get("teeCSVPipe.output.path")))) {
+        if (!bdpar.Options$isSpecificOption("teeCSVPipe.output.path") ||
+            is.null(bdpar.Options$get("teeCSVPipe.output.path"))) {
           bdpar.log(message = paste0("Path of TeeCSVPipe output is neither ",
                                      "defined in initialize or in bdpar.Options"),
                     level = "FATAL",

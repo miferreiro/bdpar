@@ -188,9 +188,9 @@ Bdpar <- R6Class(
                 className = class(self)[1],
                 methodName = "execute")
 
-      if (any(!bdpar.Options$isSpecificOption("numCores"),
-              is.null(bdpar.Options$get("numCores")),
-              bdpar.Options$get("numCores") < 1)) {
+      if (!bdpar.Options$isSpecificOption("numCores") ||
+          is.null(bdpar.Options$get("numCores")) ||
+          bdpar.Options$get("numCores") < 1) {
         bdpar.log(message = "The number of cores to be used is incorrectly set (min: 1)",
                   level = "FATAL",
                   className = class(self)[1],

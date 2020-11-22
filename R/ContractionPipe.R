@@ -140,8 +140,8 @@ ContractionPipe <- R6Class(
       private$propertyLanguageName <- propertyLanguageName
 
       if (is.null(resourcesContractionsPath)) {
-        if (any(!bdpar.Options$isSpecificOption("resources.contractions.path"),
-                is.null(bdpar.Options$get("resources.contractions.path")))) {
+        if (!bdpar.Options$isSpecificOption("resources.contractions.path") ||
+            is.null(bdpar.Options$get("resources.contractions.path"))) {
           bdpar.log(message = paste0("Path of contractions resources is neither ",
                                      "defined in initialize or in bdpar.Options"),
                     level = "FATAL",

@@ -141,8 +141,8 @@ AbbreviationPipe <- R6Class(
       private$propertyLanguageName <- propertyLanguageName
 
       if (is.null(resourcesAbbreviationsPath)) {
-        if (any(!bdpar.Options$isSpecificOption("resources.abbreviations.path"),
-                is.null(bdpar.Options$get("resources.abbreviations.path")))) {
+        if (!bdpar.Options$isSpecificOption("resources.abbreviations.path") ||
+            is.null(bdpar.Options$get("resources.abbreviations.path"))) {
           bdpar.log(message = paste0("Path of abbreviations resources is ",
                                      "neither defined in initialize or in ",
                                      "bdpar.Options"),

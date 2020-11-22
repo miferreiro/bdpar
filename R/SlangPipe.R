@@ -142,8 +142,8 @@ SlangPipe <- R6Class(
       private$propertyLanguageName <- propertyLanguageName
 
       if (is.null(resourcesSlangsPath)) {
-        if (any(!bdpar.Options$isSpecificOption("resources.slangs.path"),
-                is.null(bdpar.Options$get("resources.slangs.path")))) {
+        if (!bdpar.Options$isSpecificOption("resources.slangs.path") ||
+            is.null(bdpar.Options$get("resources.slangs.path"))) {
           bdpar.log(message = paste0("Path of slangs resources is neither ",
                                      "defined in initialize or in bdpar.Options"),
                     level = "FATAL",

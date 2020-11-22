@@ -86,14 +86,14 @@ Connections <- R6Class(
 
       if (!private$connectionWithTwitter) {
         if (!file.exists(file.path(Sys.getenv("HOME"), ".rtweet_token.rds"))) {
-          if (any(!bdpar.Options$isSpecificOption("twitter.consumer.key"),
-                  !bdpar.Options$isSpecificOption("twitter.consumer.secret"),
-                  !bdpar.Options$isSpecificOption("twitter.access.token"),
-                  !bdpar.Options$isSpecificOption("twitter.access.token.secret"),
-                  is.null(bdpar.Options$get("twitter.consumer.key")),
-                  is.null(bdpar.Options$get("twitter.consumer.secret")),
-                  is.null(bdpar.Options$get("twitter.access.token")),
-                  is.null(bdpar.Options$get("twitter.access.token.secret")))) {
+          if (!bdpar.Options$isSpecificOption("twitter.consumer.key") ||
+              !bdpar.Options$isSpecificOption("twitter.consumer.secret") ||
+              !bdpar.Options$isSpecificOption("twitter.access.token") ||
+              !bdpar.Options$isSpecificOption("twitter.access.token.secret") ||
+              is.null(bdpar.Options$get("twitter.consumer.key")) ||
+              is.null(bdpar.Options$get("twitter.consumer.secret")) ||
+              is.null(bdpar.Options$get("twitter.access.token")) ||
+              is.null(bdpar.Options$get("twitter.access.token.secret"))) {
 
             bdpar.log(message = "Twitter API keys are not defined on bdpar.Options",
                       level = "FATAL",
@@ -198,10 +198,10 @@ Connections <- R6Class(
 
       if (!private$connectionWithYoutube) {
 
-        if (any(!bdpar.Options$isSpecificOption("youtube.app.id"),
-                !bdpar.Options$isSpecificOption("youtube.app.password"),
-                is.null(bdpar.Options$get("youtube.app.id")),
-                is.null(bdpar.Options$get("youtube.app.password")))) {
+        if (!bdpar.Options$isSpecificOption("youtube.app.id") ||
+            !bdpar.Options$isSpecificOption("youtube.app.password") ||
+            is.null(bdpar.Options$get("youtube.app.id")) ||
+            is.null(bdpar.Options$get("youtube.app.password"))) {
           bdpar.log(message = "Youtube API keys are not defined on bdpar.Options",
                     level = "FATAL",
                     className = class(self)[1],

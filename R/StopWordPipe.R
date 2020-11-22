@@ -139,8 +139,8 @@ StopWordPipe <- R6Class(
       private$propertyLanguageName <- propertyLanguageName
 
       if (is.null(resourcesStopWordsPath)) {
-        if (!all(bdpar.Options$isSpecificOption("resources.stopwords.path"),
-                 !is.null(bdpar.Options$get("resources.stopwords.path")))) {
+        if (!bdpar.Options$isSpecificOption("resources.stopwords.path") ||
+            is.null(bdpar.Options$get("resources.stopwords.path"))) {
           bdpar.log(message = paste0("Path of stop words resources is neither ",
                                      "defined in initialize or in bdpar.Options"),
                     level = "FATAL",

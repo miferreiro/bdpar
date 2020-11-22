@@ -86,8 +86,8 @@ ExtractorTwtid <- R6Class(
 
 
       if (is.null(cachePath)) {
-        if (!all(bdpar.Options$isSpecificOption("cache.twitter.path"),
-                 !is.null(bdpar.Options$get("cache.twitter.path")))) {
+        if (!bdpar.Options$isSpecificOption("cache.twitter.path") ||
+            is.null(bdpar.Options$get("cache.twitter.path"))) {
           bdpar.log(message = paste0("Path of tweets cache is neither defined ",
                                      "in initialize or in bdpar.Options"),
                     level = "FATAL",

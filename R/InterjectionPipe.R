@@ -140,8 +140,8 @@ InterjectionPipe <- R6Class(
       private$propertyLanguageName <- propertyLanguageName
 
       if (is.null(resourcesInterjectionsPath)) {
-        if (any(!bdpar.Options$isSpecificOption("resources.interjections.path"),
-                is.null(bdpar.Options$get("resources.interjections.path")))) {
+        if (!bdpar.Options$isSpecificOption("resources.interjections.path") ||
+            is.null(bdpar.Options$get("resources.interjections.path"))) {
           bdpar.log(message = paste0("Path of interjections resources is ",
                                      "neither defined in initialize or in ",
                                      "bdpar.Options"),

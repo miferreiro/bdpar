@@ -316,7 +316,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     bdpar.Options$remove("cache")
     pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new(), GuessDatePipe$new(), File2Pipe$new()))
     testthat::expect_message(suppressWarnings(pipeline$execute(instanceInitial)),
-                             "[-\\[\\]:0-9 ]+\\[DynamicPipeline\\]\\[execute\\]\\[ERROR\\] testFiles\\/testDynamicPipeline\\/files\\/_ham_\\/testFileEmpty\\.tsms :Error in bdpar\\.Options\\$get\\(\"cache\"\\): [-\\[\\]:0-9 ]+\\[BdparOptions\\]\\[get\\]\\[FATAL\\] 'cache' option is not configured",
+                             "[-\\[\\]:0-9 ]+\\[DynamicPipeline\\]\\[execute\\]\\[ERROR\\] testFiles\\/testDynamicPipeline\\/files\\/_ham_\\/testFileEmpty\\.tsms :Error: [-\\[\\]:0-9 ]+\\[FATAL\\] Cache status is not defined in bdpar.Options",
                              perl = TRUE)
 
   })

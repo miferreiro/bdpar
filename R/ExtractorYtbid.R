@@ -83,8 +83,8 @@ ExtractorYtbid <- R6Class(
       Bdpar[["private_methods"]][["connections"]]()$startConnectionWithYoutube()
 
       if (is.null(cachePath)) {
-        if (!all(bdpar.Options$isSpecificOption("cache.youtube.path"),
-                 !is.null(bdpar.Options$get("cache.youtube.path")))) {
+        if (!bdpar.Options$isSpecificOption("cache.youtube.path") ||
+            is.null(bdpar.Options$get("cache.youtube.path"))) {
           bdpar.log(message = paste0("Path of YouTube comments' cache is ",
                                      "neither defined in initialize or in bdpar.Options"),
                     level = "FATAL",

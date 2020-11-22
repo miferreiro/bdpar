@@ -127,8 +127,8 @@ freduce = function(instance, function_list) {
   cache <- FALSE
   cache.valid <- FALSE
 
-  if (any(!bdpar.Options$isSpecificOption("cache"),
-          is.null(bdpar.Options$get("cache")))) {
+  if (!bdpar.Options$isSpecificOption("cache") ||
+      is.null(bdpar.Options$get("cache"))) {
     bdpar.log(message = "Cache status is not defined in bdpar.Options",
               level = "FATAL", className = NULL, methodName = NULL)
   } else {
@@ -161,8 +161,8 @@ freduce = function(instance, function_list) {
 
     if (cache && cache.valid) {
 
-      if (any(!bdpar.Options$isSpecificOption("cache.folder"),
-              is.null(bdpar.Options$get("cache.folder")))) {
+      if (!bdpar.Options$isSpecificOption("cache.folder") ||
+          is.null(bdpar.Options$get("cache.folder"))) {
         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
                   level = "FATAL", className = NULL, methodName = NULL)
       } else {
@@ -238,8 +238,8 @@ freduce = function(instance, function_list) {
 
     if (cache) {
 
-      if (any(!bdpar.Options$isSpecificOption("cache.folder"),
-             is.null(bdpar.Options$get("cache.folder")))) {
+      if (!bdpar.Options$isSpecificOption("cache.folder") ||
+          is.null(bdpar.Options$get("cache.folder"))) {
         bdpar.log(message = "Cache folder is not defined in bdpar.Options",
                   level = "FATAL", className = NULL, methodName = NULL)
       } else {

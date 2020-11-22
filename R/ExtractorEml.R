@@ -78,8 +78,8 @@ ExtractorEml <- R6Class(
       super$initialize(path)
 
       if (is.null(PartSelectedOnMPAlternative)) {
-        if (any(!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected"),
-                is.null(bdpar.Options$get("extractorEML.mpaPartSelected")))) {
+        if (!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected") ||
+            is.null(bdpar.Options$get("extractorEML.mpaPartSelected"))) {
           bdpar.log(message = paste0("Part of select on .eml files is neither ",
                                      "defined in initialize or in bdpar.Options"),
                     level = "FATAL",

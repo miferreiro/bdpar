@@ -68,10 +68,10 @@ BdparOptions <- R6Class(
 
       private$bdpar.log.layout.console <- function(level, ...) {
 
-        if (any(!bdpar.Options$isSpecificOption("numCores"),
-                is.null(bdpar.Options$get("numCores")),
-                bdpar.Options$get("numCores") <= 1,
-                is.null(getOption("threadNumber")))) {
+        if (!bdpar.Options$isSpecificOption("numCores") ||
+            is.null(bdpar.Options$get("numCores")) ||
+            bdpar.Options$get("numCores") <= 1 ||
+            is.null(getOption("threadNumber"))) {
 
           dots <- list(...)
           className <- ""
@@ -119,9 +119,9 @@ BdparOptions <- R6Class(
         }
         message <- dots[[1]][[3]]
 
-        if (any(!bdpar.Options$isSpecificOption("numCores"),
-                is.null(bdpar.Options$get("numCores")),
-                bdpar.Options$get("numCores") <= 1)) {
+        if (!bdpar.Options$isSpecificOption("numCores") ||
+            is.null(bdpar.Options$get("numCores")) ||
+            bdpar.Options$get("numCores") <= 1) {
           paste0("[", format(Sys.time()), "]", className, methodName,
                  "[", level, "] ", message, collapse = "")
         } else {
@@ -262,8 +262,8 @@ BdparOptions <- R6Class(
     },
 
     cleanCache = function() {
-      if (any(!self$isSpecificOption("cache.folder"),
-              is.null(self$get("cache.folder")))) {
+      if (!self$isSpecificOption("cache.folder") ||
+          is.null(self$get("cache.folder"))) {
         stop("[", format(Sys.time()), "][", class(self)[1], "]",
              "[cleanCache][Error] Cache folder ",
              "is not defined in bdpar.Options")
