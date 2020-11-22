@@ -363,7 +363,6 @@ testthat::test_that("pipe data empty",{
 
   testthat::expect_warning(pipe$pipe(instance),
                            "\\[AbbreviationPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has data empty on pipe Abbreviation")
-
 })
 
 testthat::teardown({
@@ -459,7 +458,6 @@ testthat::test_that("pipe wihtout language property",{
 
   testthat::expect_warning(pipe$pipe(instance),
                            "\\[AbbreviationPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testAbbreviationPipe\\/testFile\\.tsms has not language property")
-
 })
 
 testthat::teardown({

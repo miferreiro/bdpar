@@ -138,7 +138,6 @@ testthat::test_that("'cache' functionality works",{
                                               ".cache",
                                               "7ca200ced299",
                                               "2-397465549696-039d3e4f119b.z")))
-
 })
 
 testthat::teardown({

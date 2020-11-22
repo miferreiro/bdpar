@@ -14,7 +14,9 @@ testthat::test_that("initialize",{
   withSource <- TRUE
   outputPath <- NULL
 
-  path <- "output_tsms.csv"
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = path)
@@ -245,7 +247,9 @@ testthat::test_that("pipe",{
   withSource <- TRUE
   outputPath <- NULL
 
-  pathOutput <- "output_tsms.csv"
+  pathOutput <- file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = pathOutput)
@@ -267,21 +271,30 @@ testthat::test_that("pipe",{
 
   testthat::expect_equal(pipe$pipe(instance),
                          instance)
-  testthat::expect_equal(file.exists("output_tsms.csv"),
+  testthat::expect_equal(file.exists(pathOutput),
                          TRUE)
   #Checks pipe if the file is already exists
   testthat::expect_equal(pipe$pipe(instance),
                          instance)
 
-  testthat::expect_equal(file.exists("output_tsms.csv"),
+  testthat::expect_equal(file.exists(pathOutput),
                          TRUE)
 
-  file.remove("output_tsms.csv")
+  file.remove(file.path("testFiles",
+                        "testTeeCSVPipe",
+                        "output_tsms.csv"))
 })
 
 testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+  if (file.exists(file.path("testFiles",
+                            "testTeeCSVPipe",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv"))
+  }
 })
 
 testthat::setup({
@@ -298,7 +311,9 @@ testthat::test_that("pipe instance invalid",{
   withSource <- TRUE
   outputPath <- NULL
 
-  pathOutput <- "output_tsms.csv"
+  pathOutput <- file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = pathOutput)
@@ -321,13 +336,20 @@ testthat::test_that("pipe instance invalid",{
   instance$invalidate()
   testthat::expect_equal(pipe$pipe(instance),
                          instance)
-  testthat::expect_equal(file.exists("output_tsms.csv"),
+  testthat::expect_equal(file.exists(pathOutput),
                          FALSE)
 })
 
 testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+  if (file.exists(file.path("testFiles",
+                            "testTeeCSVPipe",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv"))
+  }
 })
 
 testthat::setup({
@@ -344,7 +366,9 @@ testthat::test_that("pipe instance type error",{
   withSource <- TRUE
   outputPath <- NULL
 
-  pathOutput <- "output_tsms.csv"
+  pathOutput <- file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = pathOutput)

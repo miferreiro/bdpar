@@ -61,7 +61,9 @@ testthat::test_that("execute",{
   bdpar.Options$set("resources.interjections.path", "")
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
-  bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("teeCSVPipe.output.path", file.path("testFiles",
+                                                        "testDefaultPipeline",
+                                                        "output_tsms.csv"))
   bdpar.Options$set("cache", FALSE)
 
   Bdpar$new()
@@ -115,12 +117,21 @@ testthat::test_that("execute",{
   testthat::expect_equal(instanceInitial,
                          instance)
 
-  file.remove("output_tsms.csv")
+  file.remove(file.path("testFiles",
+                        "testDefaultPipeline",
+                        "output_tsms.csv"))
 })
 
 testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+  if (file.exists(file.path("testFiles",
+                            "testDefaultPipeline",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testDefaultPipeline",
+                          "output_tsms.csv"))
+  }
 })
 }
 

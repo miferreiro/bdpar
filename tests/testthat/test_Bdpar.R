@@ -186,6 +186,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+  bdpar.Options$set("cache", FALSE)
 })
 
 testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
@@ -202,7 +203,9 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   bdpar.Options$set("resources.interjections.path", "")
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
-  bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("teeCSVPipe.output.path", file.path("testFiles",
+                                                        "testBdpar",
+                                                        "output_tsms.csv"))
   bdpar.Options$set("cache", FALSE)
 
   path <- file.path("testFiles",
@@ -317,12 +320,21 @@ testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
   testthat::expect_equal(file2$getBanPipes(),
                          c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
 
-  file.remove("output_tsms.csv")
+  file.remove(file.path("testFiles",
+                        "testBdpar",
+                        "output_tsms.csv"))
 })
 
 testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+  if (file.exists(file.path("testFiles",
+                            "testBdpar",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testBdpar",
+                          "output_tsms.csv"))
+  }
 })
 }
 
@@ -348,7 +360,9 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     bdpar.Options$set("resources.interjections.path", "resourcesFiles/testResources/interjections-json")
     bdpar.Options$set("resources.slangs.path", "resourcesFiles/testResources/slangs-json")
     bdpar.Options$set("resources.stopwords.path", "resourcesFiles/testResources/stopwords-json")
-    bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+    bdpar.Options$set("teeCSVPipe.output.path", file.path("testFiles",
+                                                          "testBdpar",
+                                                          "output_tsms.csv"))
     bdpar.Options$set("cache", FALSE)
 
     path <- file.path("testFiles",
@@ -413,12 +427,21 @@ if (Sys.info()[['sysname']] %in% "Windows") {
                                        messageOutputExpected,
                                        perl = TRUE)
 
-    file.remove("output_tsms.csv")
+    file.remove(file.path("testFiles",
+                          "testBdpar",
+                          "output_tsms.csv"))
   })
 
   testthat::teardown({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
+    if (file.exists(file.path("testFiles",
+                              "testBdpar",
+                              "output_tsms.csv"))) {
+      file.remove(file.path("testFiles",
+                            "testBdpar",
+                            "output_tsms.csv"))
+    }
   })
 }
 
@@ -443,7 +466,9 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     bdpar.Options$set("resources.interjections.path", "resourcesFiles/testResources/interjections-json")
     bdpar.Options$set("resources.slangs.path", "resourcesFiles/testResources/slangs-json")
     bdpar.Options$set("resources.stopwords.path", "resourcesFiles/testResources/stopwords-json")
-    bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+    bdpar.Options$set("teeCSVPipe.output.path", file.path("testFiles",
+                                                          "testBdpar",
+                                                          "output_tsms.csv"))
     bdpar.Options$set("cache", FALSE)
 
     path <- file.path("testFiles",
@@ -510,12 +535,21 @@ if (Sys.info()[['sysname']] %in% "Windows") {
                                        messageOutputExpected,
                                        perl = TRUE)
 
-    file.remove("output_tsms.csv")
+    file.remove(file.path("testFiles",
+                          "testBdpar",
+                          "output_tsms.csv"))
   })
 
   testthat::teardown({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
+    if (file.exists(file.path("testFiles",
+                              "testBdpar",
+                              "output_tsms.csv"))) {
+      file.remove(file.path("testFiles",
+                            "testBdpar",
+                            "output_tsms.csv"))
+    }
   })
 }
 
@@ -911,7 +945,6 @@ testthat::teardown({
   }
 })
 
-
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
@@ -971,12 +1004,5 @@ testthat::teardown({
     file.remove(file.path("testFiles",
                           "testBdpar",
                           "log_parallel_error.txt"))
-  }
-  if (file.exists(file.path("testFiles",
-                            "testBdpar",
-                            "output_tsms.csv"))) {
-    file.remove(file.path("testFiles",
-                          "testBdpar",
-                          "output_tsms.csv"))
   }
 })

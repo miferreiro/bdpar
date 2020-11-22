@@ -149,7 +149,9 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
   bdpar.Options$set("resources.interjections.path", "")
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
-  bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("teeCSVPipe.output.path", file.path("testFiles",
+                                                        "testRunPipeline",
+                                                        "output_tsms.csv"))
   bdpar.Options$set("cache", FALSE)
 
   output <- suppressWarnings(runPipeline(path = path,
@@ -250,13 +252,19 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
                                                    "TeeCSVPipe"))
   testthat::expect_equal(file2$getBanPipes(),
                          c("FindUrlPipe","FindHashtagPipe","AbbreviationPipe"))
-
-  file.remove("output_tsms.csv")
 })
 
 testthat::teardown({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+
+  if (file.exists(file.path("testFiles",
+                            "testRunPipeline",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testRunPipeline",
+                          "output_tsms.csv"))
+  }
 })
 }
 
