@@ -190,41 +190,42 @@ Bdpar <- R6Class(
 
       if (!bdpar.Options$isSpecificOption("numCores") ||
           is.null(bdpar.Options$get("numCores")) ||
-          bdpar.Options$get("numCores") < 1) {
-        bdpar.log(message = "The number of cores to be used is incorrectly set (min: 1)",
-                  level = "FATAL",
+          bdpar.Options$get("numCores") < 1 ||
+          bdpar.Options$get("numCores") > parallel::detectCores() - 2) {
+
+        numCores <- parallel::detectCores() - 2
+
+        if (numCores < 1) {
+          numCores <- 1
+        }
+
+        if (bdpar.Options$isSpecificOption("numCores")) {
+          bdpar.Options$set("numCores", numCores)
+        } else {
+          bdpar.Options$add("numCores", numCores)
+        }
+      }
+
+      numCores <- bdpar.Options$get("numCores")
+
+      if (numCores == 1) {
+        listInstances <- sapply(InstancesList, pipeline$execute)
+      } else {
+
+        bdpar.log(message = paste0("Executing the pipeline in parallel mode with ",
+                                   numCores, " cores."),
+                  level = "INFO",
                   className = class(self)[1],
                   methodName = "execute")
-      } else {
-        if (bdpar.Options$get("numCores") == 1) {
-          listInstances <- sapply(InstancesList, pipeline$execute)
-        } else {
 
-          numCores <- bdpar.Options$get("numCores")
+        cl <- private$makeCluster(numberOfThreads = numCores)
 
-          if (parallel::detectCores() - 2 <  numCores) {
-            bdpar.log(message = paste0("The number of cores to be used is incorrectly set (max: ", parallel::detectCores() - 2 , ")") ,
-                      level = "FATAL",
-                      className = class(self)[1],
-                      methodName = "execute")
-          } else {
-
-            bdpar.log(message = paste0("Executing the pipeline in parallel mode with ",
-                                       numCores, " cores."),
-                      level = "INFO",
-                      className = class(self)[1],
-                      methodName = "execute")
-
-            cl <- private$makeCluster(numberOfThreads = numCores)
-
-            listInstances <- private$clusterApply(cl,
-                                                  InstancesList,
-                                                  private$executeWrapper,
-                                                  pipeline,
-                                                  bdpar.Options)
-            private$stopCluster(cl)
-          }
-        }
+        listInstances <- private$clusterApply(cl,
+                                              InstancesList,
+                                              private$executeWrapper,
+                                              pipeline,
+                                              bdpar.Options)
+        private$stopCluster(cl)
       }
 
       bdpar.log(message = "The pipeline execution has been finished!",
@@ -336,7 +337,7 @@ Bdpar <- R6Class(
                 className = class(self)[1],
                 methodName = "makeCluster")
 
-      cluster <- parallel::makeCluster(numberOfThreads, type = "SOCK")
+      cluster <- parallel::makeCluster(numberOfThreads)
       logThreadStart <- function(loggers, threadNumber) {
         .clearLoggers()
         for (logger in loggers) {
