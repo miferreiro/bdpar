@@ -190,6 +190,10 @@ testthat::teardown({
   unlink(log.file, recursive = T)
 })
 
+testthat::setup({
+  bdpar.Options$set("verbose", TRUE)
+})
+
 testthat::test_that("configureLog mode file works",{
 
   options <- BdparOptions$new()

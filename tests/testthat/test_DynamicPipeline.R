@@ -214,6 +214,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   testthat::setup({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
+    bdpar.Options$set("cache", FALSE)
   })
 
   testthat::test_that("execute",{
@@ -237,7 +238,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     bdpar.Options$set("resources.stopwords.path", "")
     bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
 
-    Bdpar$new()
     instance <- ExtractorSms$new(path)
     instanceInitial <- ExtractorSms$new(path)
 
@@ -272,6 +272,8 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   testthat::setup({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
+    bdpar.Options$set("cache", FALSE)
+    bdpar.Options$set("verbose", TRUE)
   })
 
   testthat::test_that("execute error",{
@@ -281,8 +283,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
                       "files",
                       "_ham_",
                       "testFileEmpty.tsms")
-
-    Bdpar$new()
 
     instanceInitial <- ExtractorSms$new(path)
     instance <- ExtractorSms$new(path)
@@ -373,6 +373,22 @@ testthat::setup({
 testthat::test_that("print",{
   pipeline <- DynamicPipeline$new(list(TargetAssigningPipe$new()))
   testthat::expect_output(print(pipeline), "[A-Za-z0-9$/.\\(\\)%>]+")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("print",{
+  pipeline <- DynamicPipeline$new(list(TargetAssigningPipe$new()))
+  testthat::expect_equal(pipeline$toString(),
+                         "instance %>|%\n\t TargetAssigningPipe")
 })
 
 testthat::teardown({

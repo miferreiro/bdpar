@@ -31,7 +31,7 @@
 #' @format NULL
 #'
 #' @usage runPipeline(path, extractors = ExtractorFactory$new(),
-#' pipeline = DefaultPipeline$new(), summary = FALSE)
+#' pipeline = DefaultPipeline$new(), cache = TRUE, verbose = FALSE, summary = FALSE)
 #'
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
@@ -40,9 +40,13 @@
 #' is created.
 #' @param pipeline (\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 #' implements the whole pipeling process.
+#' @param cache (\emph{logical}) flag indicating if the status of the instances
+#' will be stored after each pipe. This allows to avoid rejections of previously
+#' executed tasks, if the order and configuration of the pipe and pipeline is
+#' the same as what is stored in the cache.
+#' @param verbose (\emph{logical}) flag indicating for printing messages, warnings and errors.
 #' @param summary (\emph{logical}) flag indicating if a summary of the
 #' pipeline execution is provided or not.
-#'
 #' @section Details:
 #' In the case that some pipe, defined on the workflow, needs some type of configuration,
 #' it can be defined thought \emph{\link{bdpar.Options}} variable
@@ -78,6 +82,8 @@
 #' runPipeline(path = path,
 #'             extractors = extractors,
 #'             pipeline = pipeline,
+#'             cache = FALSE,
+#'             verbose = FALSE,
 #'             summary = TRUE)
 #' }
 #' @keywords NULL
@@ -92,6 +98,8 @@
 runPipeline <- function(path,
                         extractors = ExtractorFactory$new(),
                         pipeline = DefaultPipeline$new(),
+                        cache = TRUE,
+                        verbose = FALSE,
                         summary = FALSE) {
 
   if (!"character" %in% class(path)) {
@@ -118,6 +126,22 @@ runPipeline <- function(path,
               methodName = "runPipeline")
   }
 
+  if (!"logical" %in% class(cache)) {
+    bdpar.log(message = paste0("Checking the type of the 'cache' variable: ",
+                               class(cache)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
+  }
+
+  if (!"logical" %in% class(verbose)) {
+    bdpar.log(message = paste0("Checking the type of the 'verbose' variable: ",
+                               class(verbose)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
+  }
+
   if (!"logical" %in% class(summary)) {
     bdpar.log(message = paste0("Checking the type of the 'summary' variable: ",
                                class(summary)),
@@ -127,5 +151,10 @@ runPipeline <- function(path,
   }
 
   bdpar_object <- Bdpar$new()
-  bdpar_object$execute(path, extractors, pipeline, summary)
+  bdpar_object$execute(path = path,
+                       extractors = extractors,
+                       pipeline = pipeline,
+                       cache = cache,
+                       verbose = verbose,
+                       summary = summary)
 }

@@ -89,6 +89,10 @@
 #'
 #' - \code{bdpar.Options$set("numCores", <<num_cores>>)}
 #'
+#' \strong{[verbose]}
+#'
+#' - \code{bdpar.Options$set("verbose", <<status_verbose>>)}
+#'
 #' @section Cache functionality:
 #'
 #' If the bdpar cache is configured through the "cache" and "cache.folder"

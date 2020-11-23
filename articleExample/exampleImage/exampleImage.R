@@ -16,6 +16,8 @@ pipeline <- DynamicPipeline$new(pipeline = list(Image2Pipe$new(),
 output <- runPipeline(path = "parrots.png",
                       extractors = extractors,
                       pipeline = pipeline,
+                      cache = FALSE,
+                      verbose = TRUE,
                       summary = FALSE)
 
 layout(c(1,2))

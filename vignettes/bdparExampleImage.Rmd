@@ -20,7 +20,7 @@ The goal of this document is to show an example of a processing flow using image
 
 # Example
 
-<div style="text-aling:justify">
+<div style="text-align:justify">
 First of all, it is necessary to include the *bdpar* package and the *imager* package, which will be used to read and transform the images.
 
 ```{R, echo = TRUE, results = "hide", eval = FALSE}
@@ -34,7 +34,7 @@ library(imager)
 
 ### Extractor
 
-<div style="text-aling:justify">
+<div style="text-align:justify">
 First it is necessary to create the extractor that will allow reading the images to be processed.
 
 ```{R, echo = TRUE, results = "hide", eval = FALSE}
@@ -68,7 +68,7 @@ extractors$registerExtractor(extension = "png", extractor = ExtractorImage)
 
 ### Creation of pipes
 
-<div style="text-aling:justify">
+<div style="text-align:justify">
 For this example, four pipes have been developed to treat the images. It should be noted that the first pipe is necessary to read the image with the extractor created previously and the next pipes manage the changes of the image.
 
 ```{R, echo = TRUE, results = "hide", eval = FALSE}
@@ -139,7 +139,7 @@ pipeline <- DynamicPipeline$new(pipeline = list(Image2Pipe$new(),
 
 ## Execution
 
-<div style="text-aling:justify">
+<div style="text-align:justify">
 
 Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
 
@@ -147,6 +147,8 @@ Taking into account all the elements to be used to configure the preprocessing, 
 runPipeline(path = "imageExample/parrots.png",
             extractors = extractors,
             pipeline = pipeline,
+            cache = FALSE,
+            verbose = FALSE,
             summary = FALSE)
 
 ```

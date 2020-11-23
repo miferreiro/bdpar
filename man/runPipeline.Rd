@@ -6,7 +6,7 @@
 \title{Initiates the pipelining process}
 \usage{
 runPipeline(path, extractors = ExtractorFactory$new(),
-pipeline = DefaultPipeline$new(), summary = FALSE)
+pipeline = DefaultPipeline$new(), cache = TRUE, verbose = FALSE, summary = FALSE)
 }
 \arguments{
 \item{path}{(\emph{character}) path where the files to be preprocessed
@@ -18,6 +18,13 @@ is created.}
 
 \item{pipeline}{(\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 implements the whole pipeling process.}
+
+\item{cache}{(\emph{logical}) flag indicating if the status of the instances
+will be stored after each pipe. This allows to avoid rejections of previously
+executed tasks, if the order and configuration of the pipe and pipeline is
+the same as what is stored in the cache.}
+
+\item{verbose}{(\emph{logical}) flag indicating for printing messages, warnings and errors.}
 
 \item{summary}{(\emph{logical}) flag indicating if a summary of the
 pipeline execution is provided or not.}
@@ -64,6 +71,8 @@ pipeline <- DefaultPipeline$new()
 runPipeline(path = path,
             extractors = extractors,
             pipeline = pipeline,
+            cache = FALSE,
+            verbose = FALSE,
             summary = TRUE)
 }
 }

@@ -17,6 +17,7 @@ testthat::test_that("'cache.folder' field error",{
 
   instance <- ExtractorSms$new(path)
   bdpar.Options$set("cache", FALSE)
+  bdpar.Options$set("verbose", TRUE)
   pipeline <- DynamicPipeline$new()
   pipeline$add(list(File2Pipe$new()))
   testthat::expect_message(pipeline$execute(instance),
@@ -32,6 +33,7 @@ testthat::teardown({
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+
 })
 
 testthat::test_that("'cache' field error",{
@@ -47,6 +49,7 @@ testthat::test_that("'cache' field error",{
   instance <- ExtractorSms$new(path)
 
   bdpar.Options$set("cache", NULL)
+  bdpar.Options$set("verbose", TRUE)
   pipeline <- DynamicPipeline$new()
   pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new()))
   testthat::expect_message(pipeline$execute(instance),
@@ -77,6 +80,7 @@ testthat::test_that("'cache.folder' field error",{
   instance <- ExtractorSms$new(path)
   bdpar.Options$set("cache", TRUE)
   bdpar.Options$set("cache.folder", NULL)
+  bdpar.Options$set("verbose", TRUE)
   pipeline <- DynamicPipeline$new()
   pipeline$add(list(TargetAssigningPipe$new(), StoreFileExtPipe$new()))
   testthat::expect_message(pipeline$execute(instance),

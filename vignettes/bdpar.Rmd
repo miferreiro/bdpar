@@ -413,6 +413,9 @@ bdpar.Options$set("cache.folder", <<cache.path>>)
 
 # [parallel]
 bdpar.Options$set("numCores", <<num_cores>>)
+
+# [verbose]
+bdpar.Options$set("verbose", <<status_verbose>>)
 ```
 
 ## Logging on bdpar
@@ -432,7 +435,7 @@ The type of message changes according to the level indicated:
   <li> The **FATAL** level returns a text using the *stop* function.</li>
 </ul>
 
-If the case of wanting to deactivate the bdpar log completely, the *disableLog* method in *bdpar.Options* object does this task.
+If the case of wanting to deactivate the bdpar log completely, the *disableLog* method in *bdpar.Options* object does this task. It is important to note that the messages with **WARN** or **FATAL** level will still be displayed by console.
 
 ```R
 bdpar.options$disableLog()
@@ -452,12 +455,15 @@ In the case of wanting to see the status of the instances at the output of each 
 	Properties: 
 		- target: ham
 ```
+
+If the *"verbose"* option is enabled, for example in the *runPipeline* function, only messages with **WARN** or **FATAL** levels will be displayed by the console.
+
 </div>
 
 ## Cache functionality
 
 <div style = "text-align: justify">
-If the bdpar cache is configured through the *"cache"* and *"cache.folder"* options, the status of the instances will be stored after each pipe. This allows to avoid rejections of previously executed tasks, if the order and configuration of the pipe and pipeline is the same as what is stored in the cache.
+If the bdpar cache is configured through the *"cache"* and *"cache.folder"* options, the status of the instances will be stored after each pipe. This allows to avoid rejections of previously executed tasks, if the order and configuration of the pipe and pipeline is the same as what is stored in the cache. In case of using the *cache* parameter, for example in the *runPipeline* function, it will set the option to the input value.
 
 ```R
 bdpar.Options$set("cache", TRUE)

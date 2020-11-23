@@ -82,6 +82,8 @@
 #' objectBdpar$execute(path = path,
 #'                     extractors = extractors,
 #'                     pipeline = pipeline,
+#'                     cache = FALSE,
+#'                     verbose = FALSE,
 #'                     summary = TRUE)
 #' }
 #' @keywords NULL
@@ -117,8 +119,13 @@ Bdpar <- R6Class(
     #' @param pipeline A \code{\link{GenericPipeline}} value. Subclass of
     #' \code{\link{GenericPipeline}}, which implements the \code{execute} method.
     #' By default, it is the \code{\link{DefaultPipeline}} pipeline.
+    #' @param cache (\emph{logical}) flag indicating if the status of the instances
+    #' will be stored after each pipe. This allows to avoid rejections of previously
+    #' executed tasks, if the order and configuration of the pipe and pipeline is
+    #' the same as what is stored in the cache.
     #' @param summary (\emph{logical}) flag indicating if a summary of the
     #' pipeline execution is provided or not.
+    #' @param verbose (\emph{logical}) flag indicating for printing messages, warnings and errors.
     #'
     #' @return The list of \code{Instances} that have been preprocessed.
     #'
@@ -127,6 +134,8 @@ Bdpar <- R6Class(
     execute = function(path,
                        extractors = ExtractorFactory$new(),
                        pipeline = DefaultPipeline$new(),
+                       cache = TRUE,
+                       verbose = FALSE,
                        summary = FALSE) {
 
       if (!"character" %in% class(path)) {
@@ -148,6 +157,22 @@ Bdpar <- R6Class(
       if (!inherits(pipeline, c("GenericPipeline"))) {
         bdpar.log(message = paste0("Checking the type of the 'pipeline' variable: ",
                                    class(pipeline)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
+      }
+
+      if (!"logical" %in% class(cache)) {
+        bdpar.log(message = paste0("Checking the type of the 'cache' variable: ",
+                                   class(cache)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
+      }
+
+      if (!"logical" %in% class(verbose)) {
+        bdpar.log(message = paste0("Checking the type of the 'verbose' variable: ",
+                                   class(verbose)),
                   level = "FATAL",
                   className = class(self)[1],
                   methodName = "execute")
@@ -176,6 +201,22 @@ Bdpar <- R6Class(
                   level = "FATAL",
                   className = class(self)[1],
                   methodName = "execute")
+      }
+
+      if (!bdpar.Options$isSpecificOption("cache") ||
+          is.null(bdpar.Options$get("cache"))) {
+        bdpar.log(message = "Cache status is not defined in bdpar.Options",
+                  level = "FATAL", className = class(self)[1], methodName = "execute")
+      } else {
+        bdpar.Options$set("cache", cache)
+      }
+
+      if (!bdpar.Options$isSpecificOption("verbose") ||
+          is.null(bdpar.Options$get("verbose"))) {
+        bdpar.log(message = "Verbose is not defined in bdpar.Options",
+                  level = "FATAL", className = class(self)[1], methodName = "execute")
+      } else {
+        bdpar.Options$set("verbose", verbose)
       }
 
       # Create the list of instances, which will contain the date, source, path,
@@ -321,10 +362,15 @@ Bdpar <- R6Class(
         }
       }
 
-      bdpar.log(message = output,
-                level = "INFO",
-                className = class(self)[1],
-                methodName = "summary")
+      settings <- .getLoggerSettings()
+
+      if (is.null(settings) || length(settings$loggers) == 0) {
+        message("[", format(Sys.time()), "][", class(self)[1],"][summary][INFO] ", output)
+      } else {
+        for (logger in settings$loggers) {
+          logger$.logFunction(this = logger, level = "INFO", message = list(class(self)[1], "summary", output))
+        }
+      }
     },
     #'
     #' @importFrom parallel makeCluster

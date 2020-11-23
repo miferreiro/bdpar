@@ -372,7 +372,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
-  bdpar.Options$set("cache", FALSE)
 })
 
 testthat::test_that("Bdpar default flow of pipes with the examples files tsms",{
@@ -535,7 +534,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   testthat::setup({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
-    bdpar.Options$set("cache", FALSE)
   })
 
   testthat::test_that("Bdpar summary works",{
@@ -649,7 +647,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   testthat::setup({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
-    bdpar.Options$set("cache", FALSE)
   })
 
   testthat::test_that("Bdpar summary works",{
@@ -763,7 +760,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   testthat::setup({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
-    bdpar.Options$set("cache", FALSE)
   })
 
   testthat::test_that("Bdpar summary works with invalid instance",{
@@ -876,7 +872,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
-  bdpar.Options$set("cache", FALSE)
 })
 
 testthat::test_that("Bdpar parallel works",{
@@ -1050,7 +1045,6 @@ testthat::teardown({
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
-  bdpar.Options$set("cache", FALSE)
 })
 
 testthat::test_that("Bdpar parallel works with more files than cores",{
@@ -1170,7 +1164,6 @@ testthat::teardown({
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
-  bdpar.Options$set("cache", FALSE)
 })
 
 testthat::test_that("Bdpar parallel works with invalid instances",{

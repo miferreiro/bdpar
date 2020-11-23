@@ -86,6 +86,12 @@
 
 bdpar.log <- function(message, level = "INFO", className = NULL, methodName = NULL) {
 
+  if (!bdpar.Options$isSpecificOption("verbose") ||
+      is.null(bdpar.Options$get("verbose"))) {
+    stop("[", format(Sys.time()), "]","[bdpar.log][FATAL] Verbose is not defined",
+         " in bdpar.Options")
+  }
+
   if (is.null(level) ||
       !is.character(level) ||
       !any(c("FATAL", "ERROR", "WARN", "INFO", "DEBUG") %in% level)) {
@@ -93,16 +99,43 @@ bdpar.log <- function(message, level = "INFO", className = NULL, methodName = NU
          "must be between these values: FATAL, ERROR, WARN, INFO or DEBUG")
   }
 
-  settings <- .getLoggerSettings()
+  if (bdpar.Options$get("verbose") || level %in% c("FATAL", "WARN")) {
 
-  if (is.null(settings$loggers)) {
-    stop("[", format(Sys.time()), "]","[bdpar.log][FATAL] Logger is not ",
-         "configured. Use bdpar.options$configureLog to configure its behavior")
-  }
+    settings <- .getLoggerSettings()
 
-  for (logger in settings$loggers) {
-    if (.levelToInt(level) >= .levelToInt(logger$threshold)) {
-      logger$.logFunction(this = logger, level = level, message = list(className, methodName, message))
+    if (is.null(settings$loggers)) {
+      stop("[", format(Sys.time()), "]","[bdpar.log][FATAL] Logger is not ",
+           "configured. Use bdpar.options$configureLog to configure its behavior")
+    }
+
+    if (length(settings$loggers) == 0) {
+      if (level == "FATAL") {
+        if (!is.null(className)) {
+          className <- paste0("[", className, "]")
+        }
+        if (!is.null(methodName)) {
+          methodName <- paste0("[", methodName, "]")
+        }
+        stop("[", format(Sys.time()), "]", className, methodName,
+             "[", level, "] ", message, call. = FALSE)
+      } else {
+        if (level == "WARN") {
+          if (!is.null(className)) {
+            className <- paste0("[", className, "]")
+          }
+          if (!is.null(methodName)) {
+            methodName <- paste0("[", methodName, "]")
+          }
+          warning("[", format(Sys.time()), "]", className, methodName,
+                  "[", level, "] ", message, call. = FALSE)
+        }
+      }
+    } else {
+      for (logger in settings$loggers) {
+        if (.levelToInt(level) >= .levelToInt(logger$threshold)) {
+          logger$.logFunction(this = logger, level = level, message = list(className, methodName, message))
+        }
+      }
     }
   }
 }

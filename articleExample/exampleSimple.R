@@ -6,7 +6,10 @@ library("SnowballC")
 set.seed(1234)
 
 runPipeline(path = system.file(file.path("example"),
-                               package = "bdpar"))
+                               package = "bdpar"),
+            cache = FALSE,
+            verbose = FALSE,
+            summary = FALSE)
 
 all <- read.csv(file = bdpar.Options$get("teeCSVPipe.output.path"), header = TRUE, sep = ";", dec = ".",
                 fill = FALSE, stringsAsFactors = FALSE)

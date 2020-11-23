@@ -70,6 +70,10 @@ as shown bellow:
 \strong{[parallel]}
 
 - \code{bdpar.Options$set("numCores", <<num_cores>>)}
+
+\strong{[verbose]}
+
+- \code{bdpar.Options$set("verbose", <<status_verbose>>)}
 }
 
 \section{Cache functionality}{

@@ -66,7 +66,6 @@ testthat::test_that("execute",{
                                                         "output_tsms.csv"))
   bdpar.Options$set("cache", FALSE)
 
-  Bdpar$new()
   instance <- ExtractorSms$new(path)
   instanceInitial <- ExtractorSms$new(path)
 
@@ -140,6 +139,7 @@ if (Sys.info()[['sysname']] %in% "Windows") {
   testthat::setup({
     bdpar.Options$reset()
     bdpar.Options$configureLog()
+    bdpar.Options$set("verbose", TRUE)
   })
 
   testthat::test_that("execute error",{
@@ -148,8 +148,6 @@ if (Sys.info()[['sysname']] %in% "Windows") {
                       "files",
                       "_ham_",
                       "testFileEmpty.tsms")
-
-    Bdpar$new()
 
     instanceInitial <- ExtractorSms$new(path)
     instance <- ExtractorSms$new(path)

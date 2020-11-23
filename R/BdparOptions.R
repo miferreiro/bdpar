@@ -62,9 +62,10 @@ BdparOptions <- R6Class(
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
                                     cache.youtube.path = NULL,
-                                    cache = FALSE,
+                                    cache = TRUE,
                                     cache.folder = ".cache",
-                                    numCores = 1)
+                                    numCores = 1,
+                                    verbose = FALSE)
 
       private$bdpar.log.layout.console <- function(level, ...) {
 
@@ -252,9 +253,10 @@ BdparOptions <- R6Class(
                                     youtube.app.id = NULL,
                                     youtube.app.password = NULL,
                                     cache.youtube.path = NULL,
-                                    cache = FALSE,
+                                    cache = TRUE,
                                     cache.folder = ".cache",
-                                    numCores = 1)
+                                    numCores = 1,
+                                    verbose = FALSE)
     },
 
     isSpecificOption = function(key) {
@@ -362,8 +364,7 @@ BdparOptions <- R6Class(
               ifelse(!isFALSE(private$bdpar.log.file),
                      paste0("Actived. File asociated: ", private$bdpar.log.file),
                      "Disabled"))
-    }
-    ,
+    },
 
     print = function(...) {
       print(self$getAll())

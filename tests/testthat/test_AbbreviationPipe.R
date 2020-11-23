@@ -47,6 +47,7 @@ testthat::teardown({
 testthat::setup({
   bdpar.Options$reset()
   bdpar.Options$configureLog()
+  bdpar.Options$set("verbose", TRUE)
 })
 
 testthat::test_that("initialize propertyName type error",{

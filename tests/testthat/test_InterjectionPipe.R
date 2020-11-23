@@ -295,8 +295,6 @@ testthat::test_that("pipe",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -342,8 +340,6 @@ testthat::test_that("pipe data empty",{
 
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
@@ -391,8 +387,6 @@ testthat::test_that("pipe wihtout json file",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -439,8 +433,6 @@ testthat::test_that("pipe wihtout language property",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -486,8 +478,6 @@ testthat::test_that("pipe instance type error",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -528,8 +518,6 @@ testthat::test_that("findInterjection",{
 
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
@@ -572,8 +560,6 @@ testthat::test_that("findInterjection interjection type error",{
 
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
@@ -618,8 +604,6 @@ testthat::test_that("findInterjection data type error",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -663,8 +647,6 @@ testthat::test_that("removeInterjection ",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -706,8 +688,6 @@ testthat::test_that("removeInterjection abbreviation type error",{
 
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
@@ -752,8 +732,6 @@ testthat::test_that("removeInterjection data type error",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -797,8 +775,6 @@ testthat::test_that("getPropertyLanguageName",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -836,8 +812,6 @@ testthat::test_that("getResourcesInterjectionsPath",{
 
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
@@ -883,8 +857,6 @@ testthat::test_that("setResourcesInterjectionsPath",{
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,
                                alwaysBeforeDeps,
@@ -928,8 +900,6 @@ testthat::test_that("setResourcesInterjectionsPath path type error",{
 
   bdpar.Options$set(key = "resources.interjections.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- InterjectionPipe$new(propertyName,
                                propertyLanguageName,

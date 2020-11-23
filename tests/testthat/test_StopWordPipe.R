@@ -295,8 +295,6 @@ testthat::test_that("pipe",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -344,8 +342,6 @@ testthat::test_that("pipe data empty",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -391,8 +387,6 @@ testthat::test_that("pipe wihtout json file",{
 
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
@@ -440,8 +434,6 @@ testthat::test_that("pipe wihtout language property",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -487,8 +479,6 @@ testthat::test_that("pipe instance type error",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -529,8 +519,6 @@ testthat::test_that("findStopWord",{
 
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
@@ -573,8 +561,6 @@ testthat::test_that("findStopWord stopWord type error",{
 
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
@@ -619,8 +605,6 @@ testthat::test_that("findStopWord data type error",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -664,8 +648,6 @@ testthat::test_that("removeStopWord ",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -707,8 +689,6 @@ testthat::test_that("removeStopWord stopWord type error",{
 
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
@@ -753,8 +733,6 @@ testthat::test_that("removeStopWord data type error",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -798,8 +776,6 @@ testthat::test_that("getPropertyLanguageName",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -837,8 +813,6 @@ testthat::test_that("getResourcesStopWordsPath",{
 
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
@@ -884,8 +858,6 @@ testthat::test_that("setResourcesStopWordsPath",{
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,
                            alwaysBeforeDeps,
@@ -929,8 +901,6 @@ testthat::test_that("setResourcesStopWordsPath path type error",{
 
   bdpar.Options$set(key = "resources.stopwords.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- StopWordPipe$new(propertyName,
                            propertyLanguageName,

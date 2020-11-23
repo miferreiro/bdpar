@@ -295,8 +295,6 @@ testthat::test_that("pipe",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -349,8 +347,6 @@ testthat::test_that("pipe data empty",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -405,8 +401,6 @@ testthat::test_that("pipe wihtout json file",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -454,8 +448,6 @@ testthat::test_that("pipe wihtout language property",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -502,8 +494,6 @@ testthat::test_that("pipe instance type error",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -544,8 +534,6 @@ testthat::test_that("findSlang",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -588,8 +576,6 @@ testthat::test_that("findSlang slang type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -634,8 +620,6 @@ testthat::test_that("findSlang data type error",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -678,8 +662,6 @@ testthat::test_that("replaceSlang ",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -724,8 +706,6 @@ testthat::test_that("replaceSlang slang type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -772,8 +752,6 @@ testthat::test_that("replaceSlang extendedSlang type error",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -818,8 +796,6 @@ testthat::test_that("replaceSlang data type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -866,8 +842,6 @@ testthat::test_that("getPropertyLanguageName",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -905,8 +879,6 @@ testthat::test_that("getResourcesSlangsPath",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -952,8 +924,6 @@ testthat::test_that("setResourcesSlangsPath",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -998,8 +968,6 @@ testthat::test_that("setResourcesSlangsPath path type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,

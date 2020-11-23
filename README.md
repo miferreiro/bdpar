@@ -43,9 +43,9 @@ application has two modes of execution of the *Pipes*:
 The simple mode allows the tools to be executed through a single
 function in which the files and/or the folders that contains the files
 to be preprocessed, the flow of selected *Pipes* and the mode in which
-that the types of *Instances* are created. In addition, a summary of the
-execution can be generated. In addition, a summary of the execution can
-be generated.
+that the types of *Instances* are created. In addition, it is possible
+control the cache functionality, the output verbose and the summary of
+the execution.
 
 </div>
 
@@ -53,6 +53,8 @@ be generated.
 output <- runPipeline(path,
                       extractors = ExtractorFactory$new(),
                       pipeline = DefaultPipeline$new(),
+                      cache = TRUE,
+                      verbose = FALSE,
                       summary = FALSE)
 ```
 
@@ -73,6 +75,8 @@ bdpar_object <- Bdpar$new()
 bdpar_object$execute(path,
                      extractors = ExtractorFactory$new(),
                      pipeline = DefaultPipeline$new(),
+                     cache = TRUE,
+                     verbose = FALSE,
                      summary = FALSE)
 ```
 
@@ -126,6 +130,9 @@ bdpar.Options$set("cache.folder", <<cache.path>>)
 
 # [parallel]
 bdpar.Options$set("numCores", <<num_cores>>)
+
+# [verbose]
+bdpar.Options$set("verbose", <<status_verbose>>)
 ```
 
 <div style="text-align: justify">
