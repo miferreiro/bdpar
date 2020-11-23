@@ -33,81 +33,13 @@
 }
 
 .getLoggerSettings <- function() {
-  settings <- getOption("loggerSettings")
-
-  if (is.null(getOption("warning.expression"))) {
-    .registerDefaultHandlers()
-  }
-  settings
+  getOption("loggerSettings")
 }
 
 .setLoggerSettings <- function(settings) {
   options(loggerSettings = settings)
 }
-#'
-#' @importFrom methods is
-#'
-.conditionHandler <- function(condition) {
-  if (is(condition, "error")) {
-    bdpar.log(message = condition$message, level = "FATAL",
-              className = NULL, methodName = ".conditionHandler")
-  } else if (is(condition, "warning")) {
-    bdpar.log(message = condition$message, level = "WARN",
-              className = NULL, methodName = ".conditionHandler")
-  } else if (is(condition, "message")) {
-    bdpar.log(message = condition$message, level = "INFO",
-              className = NULL, methodName = ".conditionHandler")
-  }
-}
 
-.registerDefaultHandlers <- function() {
-  logBaseError <- function() {
-    bdpar.log(message = gsub("\n", " ", geterrmessage()), level = "FATAL",
-              className = NULL, methodName = ".conditionHandler")
-  }
-  options(error = logBaseError)
-
-  options(warning.expression = quote({
-    evaluate <- function(message, frameIndex) {
-      if (frameIndex < -20) {
-        return(as.character(force(message)))
-      } else {
-        text <- tryCatch(as.character(eval(message, envir = sys.frame(frameIndex))), error = function(x) "error")
-        if (text == "error") {
-          return(evaluate(message, frameIndex - 2))
-        } else {
-          return(text)
-        }
-      }
-    }
-
-    for (i in 1:sys.nframe()) {
-      frame <- sys.call(-i)
-      if (!is.null(frame) && length(frame) > 1) {
-        name <- as.character(frame[[1]])
-        if (length(name) == 1) {
-          if (is.language(frame[[1]]) && name == "warning") {
-            bdpar.log(message = evaluate(frame[[2]], -i - 1), level = "WARN",
-                      className = NULL, methodName = ".conditionHandler")
-            break
-          } else if (name == ".signalSimpleWarning") {
-            bdpar.log(message = frame[[2]], level = "WARN",
-                      className = NULL, methodName = ".conditionHandler")
-            break
-          } else if (name == ".Deprecated") {
-            bdpar.log(message = paste0("This function is deprecated. Use '", frame[[2]], "' instead."),
-                      level = "WARN", className = NULL, methodName = ".conditionHandler")
-            break
-          }
-        }
-      }
-    }})
-  )
-}
-
-#'
-#' @importFrom methods is
-#'
 .registerLogger <- function(logger) {
   settings <- .getLoggerSettings()
   settings$loggers[[length(settings$loggers) + 1]] <- logger

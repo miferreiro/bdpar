@@ -33,7 +33,6 @@ Depends:
 Imports:
     digest,
     parallel,
-    methods,
     R6, 
     rlist,
     tools, 

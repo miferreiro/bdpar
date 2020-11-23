@@ -206,10 +206,10 @@ process](additional-material/PipelineExample.png)
 
   - **Imports**:
 
-|        | R Libraries |         |    |
-| :----: | :---------: | :-----: | :-: |
-| digest |  parallel   | methods | R6 |
-| rlist  |    tools    |  utils  |    |
+|        | R Libraries |       |
+| :----: | :---------: | :---: |
+| digest |  parallel   |  R6   |
+| rlist  |    tools    | utils |
 
   - **Suggests**:
 

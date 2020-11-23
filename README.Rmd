@@ -164,10 +164,10 @@ On the other hand, the types of the files which are implemented by default are:
 
   - **Imports**:
   
-|           | R Libraries |          |      |
-|:---------:|:-----------:|:--------:|:----:|
-| digest    | parallel    | methods  |  R6  |
-| rlist     | tools       | utils    |      |
+|           | R Libraries |          |
+|:---------:|:-----------:|:--------:|
+| digest    | parallel    | R6       |
+| rlist     | tools       | utils    |
 
   - **Suggests**:
 
