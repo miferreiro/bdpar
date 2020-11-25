@@ -1,5 +1,10 @@
 testthat::context("File2Pipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   propertyName <- "source"
@@ -11,6 +16,16 @@ testthat::test_that("initialize",{
                                         notAfterDeps))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
@@ -20,8 +35,18 @@ testthat::test_that("initialize propertyName type error",{
   testthat::expect_error(File2Pipe$new(propertyName,
                                        alwaysBeforeDeps,
                                        notAfterDeps),
-                         "[File2Pipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[File2Pipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -33,12 +58,21 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::expect_error(File2Pipe$new(propertyName,
                                        alwaysBeforeDeps,
                                        notAfterDeps),
-                         "[File2Pipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[File2Pipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize notAfterDeps type error",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -46,12 +80,21 @@ testthat::test_that("initialize notAfterDeps type error",{
   testthat::expect_error(File2Pipe$new(propertyName,
                                        alwaysBeforeDeps,
                                        notAfterDeps),
-                         "[File2Pipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[File2Pipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -72,8 +115,17 @@ testthat::test_that("pipe",{
                          instanceExpected$getData())
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe empty source",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "source"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -85,7 +137,17 @@ testthat::test_that("pipe empty source",{
 
   instance <- ExtractorSms$new(path)
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[File2Pipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFile2Pipe\\/example_File2Pipe_empty\\.tsms has source empty")
+                           "\\[File2Pipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFile2Pipe\\/example_File2Pipe_empty\\.tsms has source empty")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe instance type error",{
@@ -98,6 +160,11 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[File2Pipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[File2Pipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

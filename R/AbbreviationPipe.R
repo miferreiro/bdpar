@@ -29,46 +29,6 @@
 #' \code{\link{Instance}} class. Moreover if needed, is able to perform inline
 #' abbreviations replacement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' AbbreviationPipe$new(propertyName = "abbreviation",
-#'                      propertyLanguageName = "language",
-#'                      alwaysBeforeDeps = list("GuessLanguagePipe"),
-#'                      notAfterDeps = list(),
-#'                      replaceAbbreviations = TRUE,
-#'                      resourcesAbbreviationsPath = NULL)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{propertyLanguageName:}}{
-#' (\emph{character}) name of the language property.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{replaceAbbreviations:}}{
-#' (\emph{logical}) indicates if the abbreviations are replaced or not.
-#' }
-#' \item{\strong{resourcesAbbreviationsPath:}}{
-#' (\emph{character}) path of resource files (in json format) containing the
-#' correspondence between abbreviations and meaning.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' \code{\link{AbbreviationPipe}} class requires the resource files (in json format)
 #' containing the correspondence between abbreviations and meaning. To this end,
@@ -86,131 +46,6 @@
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/replace the abbreviations.
-#' The abbreviations found in the Pipe are added to the list of properties of
-#' the \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findAbbreviation:}}{
-#' checks if the abbreviation is in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findAbbreviation(data, abbreviation)}
-#' }
-#' \item{\emph{Value:}}{
-#' boolean, depending on whether the abbreviation is in the data.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where abbreviation will be searched.
-#' }
-#' \item{\strong{abbreviation:}}{
-#' (\emph{character}) indicates the abbreviation to find.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{replaceAbbreviation:}}{
-#' replaces the abbreviation in the data for the extendedAbbreviation.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{replaceAbbreviation(abbreviation, extendedAbbreviation, data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with the abbreviatons replaced.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{abbreviation:}}{
-#' (\emph{character}) indicates the abbreviation to replace.
-#' }
-#' \item{\strong{extendedAbbreviation:}}{
-#' (\emph{character}) indicates the string to replace for the abbreviations found.
-#' }
-#' \item{\strong{data:}}{
-#' (\emph{character}) text where abbreviation will be replaced.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPropertyLanguageName:}}{
-#' gets of name of property language.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getPropertyLanguageName()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of name of property language.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getResourcesAbbreviationsPath:}}{
-#' gets of path of abbreviations resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getResourcesAbbreviationsPath()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of path of abbreviations resources.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setResourcesAbbreviationsPath:}}{
-#' sets the path of abbreviations resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setResourcesAbbreviationsPath(path)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) the new value of the path of abbreviations resources.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{propertyLanguageName:}}{
-#'  (\emph{character}) the name of property about language.
-#' }
-#' \item{\bold{resourcesAbbreviationsPath:}}{
-#'  (\emph{character}) path of resource files (in json format) containing the
-#' correspondence between abbreviations and meaning.
-#' }
-#' \item{\bold{replaceAbbreviations:}}{
-#'  (\emph{logical}) indicates if the abbreviations are replaced or not.
-#' }
-#' }
-#'
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
 #'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
@@ -225,7 +60,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export AbbreviationPipe
 
 AbbreviationPipe <- R6Class(
@@ -235,7 +70,25 @@ AbbreviationPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{AbbreviationPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param replaceAbbreviations A \code{\link{logical}} value. Indicates if
+    #' the abbreviations are replaced or not.
+    #' @param resourcesAbbreviationsPath A \code{\link{character}} value. Path
+    #' of resource files (in json format) containing the correspondence between
+    #' abbreviations and meaning.
+    #'
     initialize = function(propertyName = "abbreviation",
                           propertyLanguageName = "language",
                           alwaysBeforeDeps = list("GuessLanguagePipe"),
@@ -244,33 +97,43 @@ AbbreviationPipe <- R6Class(
                           resourcesAbbreviationsPath = NULL) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[AbbreviationPipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"character" %in% class(propertyLanguageName)) {
-        stop("[AbbreviationPipe][initialize][Error] ",
-             "Checking the type of the 'propertyLanguageName' variable: ",
-             class(propertyLanguageName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyLanguageName' variable: ",
+                                   class(propertyLanguageName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[AbbreviationPipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[AbbreviationPipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(replaceAbbreviations)) {
-        stop("[AbbreviationPipe][initialize][Error] ",
-             "Checking the type of the 'replaceAbbreviations' variable: ",
-             class(replaceAbbreviations))
+        bdpar.log(message = paste0("Checking the type of the 'replaceAbbreviations' variable: ",
+                                   class(replaceAbbreviations)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -278,31 +141,51 @@ AbbreviationPipe <- R6Class(
       private$propertyLanguageName <- propertyLanguageName
 
       if (is.null(resourcesAbbreviationsPath)) {
-        if (any(!bdpar.Options$isSpecificOption("resources.abbreviations.path"),
-                is.null(bdpar.Options$get("resources.abbreviations.path")))) {
-          stop("[AbbreviationPipe][initialize][Error] Path of abbreviations ",
-               "resources is neither defined in initialize or in bdpar.Options")
+        if (!bdpar.Options$isSpecificOption("resources.abbreviations.path") ||
+            is.null(bdpar.Options$get("resources.abbreviations.path"))) {
+          bdpar.log(message = paste0("Path of abbreviations resources is ",
+                                     "neither defined in initialize or in ",
+                                     "bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           resourcesAbbreviationsPath <- bdpar.Options$get("resources.abbreviations.path")
         }
       }
 
       if (!"character" %in% class(resourcesAbbreviationsPath)) {
-        stop("[AbbreviationPipe][initialize][Error] ",
-             "Checking the type of the 'resourcesAbbreviationsPath' variable: ",
-             class(resourcesAbbreviationsPath))
+        bdpar.log(message = paste0("Checking the type of the 'resourcesAbbreviationsPath' variable: ",
+                                   class(resourcesAbbreviationsPath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$resourcesAbbreviationsPath <- resourcesAbbreviationsPath
       private$replaceAbbreviations <- replaceAbbreviations
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/replace
+    #' the abbreviations. The abbreviations found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import rlist
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[AbbreviationPipe][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       languageInstance <- "Unknown"
@@ -316,8 +199,11 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(),super$getPropertyName())
 
-        warning("[AbbreviationPipe][pipe][Warning] ",
-                "The file: " , instance$getPath() ," has not language property")
+        bdpar.log(message = paste0("The file: ", instance$getPath(),
+                                   " has not language property"),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -328,7 +214,7 @@ AbbreviationPipe <- R6Class(
                         ".json",
                         sep = "")
 
-      jsonData <- Bdpar[["private_fields"]][["resourceHandler"]]$isLoadResource(JsonFile)
+      jsonData <- Bdpar[["private_methods"]][["resourceHandler"]]()$isLoadResource(JsonFile)
 
       #It is verified that there is a resource associated to the language of the instance
       if (!is.null(jsonData)) {
@@ -345,13 +231,10 @@ AbbreviationPipe <- R6Class(
 
           if (private$replaceAbbreviations &&
               abbreviation %in% abbreviationsLocated) {
-
-              instance$getData() %>>%
-                {self$replaceAbbreviation(abbreviation,
-                                            as.character(jsonData[abbreviation]),
-                                              .)} %>>%
-                textutils::trim() %>>%
-                    instance$setData()
+            instance$setData(
+              trimws(x = self$replaceAbbreviation(abbreviation,
+                                                  as.character(jsonData[abbreviation]),
+                                                  instance$getData())))
           }
         }
 
@@ -361,9 +244,13 @@ AbbreviationPipe <- R6Class(
 
         instance$addProperties(list(), super$getPropertyName())
 
-        warning("[AbbreviationPipe][pipe][Warning] ",
-                "The file: " , instance$getPath() , " has not an abbreviationsJsonFile ",
-                "to apply to the language ->", languageInstance)
+        bdpar.log(message = paste0("The file: ", instance$getPath(),
+                                   " has not an abbreviationsJsonFile ",
+                                   "to apply to the language ->",
+                                   languageInstance),
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         return(instance)
       }
@@ -372,32 +259,49 @@ AbbreviationPipe <- R6Class(
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c( "The file: " , instance$getPath() ,
-                      " has data empty on pipe Abbreviation")
+        message <- paste0("The file: ", instance$getPath(),
+                          " has data empty on pipe Abbreviation")
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[AbbreviationPipe][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Checks if the abbreviation is in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where abbreviation
+    #' will be searched.
+    #' @param abbreviation A \code{\link{character}} value. Indicates the
+    #' abbreviation to find.
+    #'
+    #' @return A \code{\link{logical}} value depending on whether the
+    #' abbreviation is in the data.
+    #'
     findAbbreviation = function(data, abbreviation) {
 
       if (!"character" %in% class(data)) {
-        stop("[AbbreviationPipe][findAbbreviation][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findAbbreviation")
       }
 
       if (!"character" %in% class(abbreviation)) {
-        stop("[AbbreviationPipe][findAbbreviation][Error] ",
-             "Checking the type of the 'abbreviation' variable: ",
-             class(abbreviation))
+        bdpar.log(message = paste0("Checking the type of the 'abbreviation' variable: ",
+                                   class(abbreviation)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findAbbreviation")
       }
 
       abbreviationEscaped <- rex::escape(abbreviation)
@@ -407,27 +311,47 @@ AbbreviationPipe <- R6Class(
                                  ")[;:?\"!,.'>-]?(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(grepl(pattern = rex::regex(regularExpresion), x = data, perl = TRUE))
+      grepl(pattern = rex::regex(regularExpresion),
+            x = data,
+            perl = TRUE)
     },
-
+    #'
+    #' @description Replaces the \emph{abbreviation} in the data for the
+    #' \emph{extendedAbbreviation}.
+    #'
+    #' @param abbreviation A \code{\link{character}} value. Indicates the
+    #' abbreviation to replace.
+    #' @param extendedAbbreviation A \code{\link{character}} value. Indicates the
+    #' string to replace for the abbreviations found.
+    #' @param data A \code{\link{character}} value. The text where abbreviation
+    #' will be replaced.
+    #'
+    #' @return The data with the abbreviations replaced.
+    #'
     replaceAbbreviation = function(abbreviation, extendedAbbreviation, data) {
 
       if (!"character" %in% class(abbreviation)) {
-        stop("[AbbreviationPipe][replaceAbbreviation][Error] ",
-             "Checking the type of the 'abbreviation' variable: ",
-             class(abbreviation))
+        bdpar.log(message = paste0("Checking the type of the 'abbreviation' variable: ",
+                                   class(abbreviation)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceAbbreviation")
       }
 
       if (!"character" %in% class(extendedAbbreviation)) {
-        stop("[AbbreviationPipe][replaceAbbreviation][Error] ",
-             "Checking the type of the 'extendedAbbreviation' variable: ",
-             class(extendedAbbreviation))
+        bdpar.log(message = paste0("Checking the type of the 'extendedAbbreviation' variable: ",
+                                   class(extendedAbbreviation)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceAbbreviation")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[AbbreviationPipe][replaceAbbreviation][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "replaceAbbreviation")
       }
 
       abbreviationEscaped <- rex::escape(abbreviation)
@@ -437,39 +361,55 @@ AbbreviationPipe <- R6Class(
                                  ")[;:?\"!,.'>-]?(?=(?:[[:space:]]|$|>))",
                                  sep = "")
 
-      return(gsub(rex::regex(regularExpresion),
-                  paste(" ", extendedAbbreviation, " ", sep = ""),
-                  data,
-                  perl = TRUE))
+      gsub(rex::regex(regularExpresion),
+           paste(" ", extendedAbbreviation, " ", sep = ""),
+           data,
+           perl = TRUE)
     },
-
+    #'
+    #' @description Gets the name of property language.
+    #'
+    #' @return Value of name of property language.
+    #'
     getPropertyLanguageName = function() {
-
-      return(private$propertyLanguageName)
+      private$propertyLanguageName
     },
-
+    #'
+    #' @description Gets the path of abbreviations resources.
+    #'
+    #' @return Value of path of abbreviations resources.
+    #'
     getResourcesAbbreviationsPath = function() {
-
-      return(private$resourcesAbbreviationsPath)
+      private$resourcesAbbreviationsPath
     },
-
+    #'
+    #' @description Sets the path of abbreviations resources.
+    #'
+    #' @param path A \code{\link{character}} value. The new value of the path of
+    #' abbreviations resources.
+    #'
     setResourcesAbbreviationsPath = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[AbbreviationPipe][setResourcesAbbreviationsPath][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setResourcesAbbreviationsPath")
       }
 
       private$resourcesAbbreviationsPath <- path
-
-      return()
     }
   ),
 
   private = list(
+    # A (\emph{character}) value. The name of property about language.
     propertyLanguageName = "",
+    # A (\emph{character}) value. Path of resource files (in json format)
+    # containing the correspondence between abbreviations and meaning.
     resourcesAbbreviationsPath = "",
+    # A (\emph{logical}) value. Indicates if the abbreviations are replaced or
+    # not.
     replaceAbbreviations = TRUE
   )
 )

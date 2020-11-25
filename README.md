@@ -43,14 +43,19 @@ application has two modes of execution of the *Pipes*:
 The simple mode allows the tools to be executed through a single
 function in which the files and/or the folders that contains the files
 to be preprocessed, the flow of selected *Pipes* and the mode in which
-that the types of *Instances* are created.
+that the types of *Instances* are created. In addition, it is possible
+control the cache functionality, the output verbose and the summary of
+the execution.
 
 </div>
 
 ``` r
 output <- runPipeline(path,
                       extractors = ExtractorFactory$new(),
-                      pipeline = DefaultPipeline$new())
+                      pipeline = DefaultPipeline$new(),
+                      cache = TRUE,
+                      verbose = FALSE,
+                      summary = FALSE)
 ```
 
 #### *Advanced mode*
@@ -69,8 +74,13 @@ that the user needs to realize their own preprocessing.
 bdpar_object <- Bdpar$new() 
 bdpar_object$execute(path,
                      extractors = ExtractorFactory$new(),
-                     pipeline = DefaultPipeline$new())
+                     pipeline = DefaultPipeline$new(),
+                     cache = TRUE,
+                     verbose = FALSE,
+                     summary = FALSE)
 ```
+
+#### *Configuration*
 
 <div style="text-align: justify">
 
@@ -113,6 +123,16 @@ bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
 bdpar.Options$set("youtube.app.id", <<app_id>>)
 bdpar.Options$set("youtube.app.password", <<app_password>>)
 bdpar.Options$set("cache.youtube.path", <<cache.path>>)
+
+# [cache]
+bdpar.Options$set("cache", <<status_cache>>)
+bdpar.Options$set("cache.folder", <<cache.path>>)
+
+# [parallel]
+bdpar.Options$set("numCores", <<num_cores>>)
+
+# [verbose]
+bdpar.Options$set("verbose", <<status_verbose>>)
 ```
 
 <div style="text-align: justify">
@@ -149,7 +169,7 @@ first need to create a class that inherits from the *Instance* class
 which implements the abstract methods: *obtainSource* and *obtainDate*.
 In addition, you must execute *registerExtractor* function of
 *ExtractorFactory* class where it is necessary indicate the specific
-extension and the correspondant extractor.
+extension (or set of extensions) and the correspondent extractor.
 
 On the other hand, the types of the files which are implemented by
 default are:
@@ -180,32 +200,29 @@ process](additional-material/PipelineExample.png)
 #### Required software
 
   - **R (\>= 3.5.0)**
-  - **Python 2.7**
+  - **Python 2.7+,3.6+**
 
 #### Required libraries
 
   - **Imports**:
 
-|          | R Libraries |       |
-| :------: | :---------: | :---: |
-| magrittr |    pipeR    | purrr |
-|    R6    |    rlist    | tools |
-|  utils   |             |       |
+|        | R Libraries |       |
+| :----: | :---------: | :---: |
+| digest |  parallel   |  R6   |
+| rlist  |    tools    | utils |
 
   - **Suggests**:
 
-|          | R Libraries |           |
-| :------: | :---------: | :-------: |
-|   cld2   |    knitr    |   readr   |
-|   rex    |    rjson    | rmarkdown |
-|  rtweet  |   stringi   |  stringr  |
-| testthat |  textutils  |   tuber   |
+|        |         | R Libraries |          |           |
+| :----: | :-----: | :---------: | :------: | :-------: |
+|  cld2  |  knitr  |     rex     |  rjson   | rmarkdown |
+| rtweet | stringi |   stringr   | testthat |   tuber   |
 
 ##### Suggested configuration for not USA people
 
 <div style="text-align: justify">
 
-In order to succesfully handle files following UTF-8 enconding, it is
+In order to successfully handle files following UTF-8 encoding, it is
 recommended to configure R environment with the parameters locale
 parameters “en\_US.UTF-8” (see Sys.getlocale() to check the default
 locale). Additionally, use Sys.setlocale() function to modify your R
@@ -215,17 +232,30 @@ locale value.
 
 ## Installation 🔧
 
+#### Install the package from the CRAN:
+
+``` r
+install.packages('bdpar')
+```
+
+It should be taken into account that the case of needing all the
+dependencies, the parameter *dependencies = TRUE* should be included in
+the command *install.packages*.
+
 #### Install the development version from GitHub:
 
 ``` r
 devtools::install_github('miferreiro/bdpar')
 ```
 
+It should be taken into account that the case of needing all the
+dependencies, the parameter *dependencies = TRUE* should be included in
+the command *install\_github*.
+
 ## Build with 🛠️
 
   - [RStudio](https://www.rstudio.com/)
-      - The programming environment was
-    used.
+      - The programming environment was used.
   - [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html)
       - Uses to generate the documentation.
 

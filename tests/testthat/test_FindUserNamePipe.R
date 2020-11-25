@@ -1,8 +1,12 @@
 testthat::context("FindUserNamePipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -15,9 +19,18 @@ testthat::test_that("initialize",{
                                                removeUser))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
@@ -28,13 +41,22 @@ testthat::test_that("initialize propertyName type error",{
                                               alwaysBeforeDeps,
                                               notAfterDeps,
                                               removeUser),
-                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[FindUserNamePipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- NULL
@@ -45,13 +67,22 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                               alwaysBeforeDeps,
                                               notAfterDeps,
                                               removeUser),
-                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[FindUserNamePipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -62,13 +93,22 @@ testthat::test_that("initialize notAfterDeps type error",{
                                               alwaysBeforeDeps,
                                               notAfterDeps,
                                               removeUser),
-                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[FindUserNamePipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize removeUser type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -79,13 +119,22 @@ testthat::test_that("initialize removeUser type error",{
                                               alwaysBeforeDeps,
                                               notAfterDeps,
                                               removeUser),
-                         "[FindUserNamePipe][initialize][Error] Checking the type of the 'removeUser' variable: NULL",
+                         "[FindUserNamePipe][initialize][FATAL] Checking the type of the 'removeUser' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe removeUser <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -110,9 +159,18 @@ testthat::test_that("pipe removeUser <- TRUE",{
                          "Hey I am")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe removeUser <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -137,9 +195,18 @@ testthat::test_that("pipe removeUser <- FALSE",{
                          "Hey I am @example")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -153,13 +220,22 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[FindUserNamePipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[FindUserNamePipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe empty data",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -177,16 +253,25 @@ testthat::test_that("pipe empty data",{
   instance <- ExtractorSms$new(path)
   instance$setData("@example")
   expect_warning(pipe$pipe(instance),
-                 "\\[FindUserNamePipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUserNamePipe\\/testFile\\.tsms has data empty on pipe UserName")
+                 "\\[FindUserNamePipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUserNamePipe\\/testFile\\.tsms has data empty on pipe UserName")
   testthat::expect_equal(instance$getSpecificProperty("userName"),
                          "@example")
   testthat::expect_equal(instance$getData(),
                          "")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findUserName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -203,9 +288,18 @@ testthat::test_that("findUserName",{
                          "@example")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findUserName data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -220,13 +314,22 @@ testthat::test_that("findUserName data type error",{
   data <- NULL
 
   testthat::expect_error(pipe$findUserName(data),
-                         "[FindUserNamePipe][findUserName][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindUserNamePipe][findUserName][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("removeUserName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -244,9 +347,18 @@ testthat::test_that("removeUserName",{
                          " ")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("removeUserName data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "userName"
   alwaysBeforeDeps <- list()
@@ -261,6 +373,11 @@ testthat::test_that("removeUserName data type error",{
   data <- NULL
 
   testthat::expect_error(pipe$removeUserName(data),
-                         "[FindUserNamePipe][removeUserName][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindUserNamePipe][removeUserName][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

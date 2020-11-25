@@ -1,8 +1,12 @@
 testthat::context("FindEmojiPipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -15,9 +19,18 @@ testthat::test_that("initialize",{
                                   replaceEmojis))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
@@ -28,13 +41,22 @@ testthat::test_that("initialize propertyName type error",{
                                            alwaysBeforeDeps,
                                            notAfterDeps,
                                            replaceEmojis),
-                         "[FindEmojiPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[FindEmojiPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- NULL
@@ -43,13 +65,22 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                            alwaysBeforeDeps,
                                            notAfterDeps,
                                            replaceEmojis),
-                         "[FindEmojiPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[FindEmojiPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -59,13 +90,22 @@ testthat::test_that("initialize notAfterDeps type error",{
                                            alwaysBeforeDeps,
                                            notAfterDeps,
                                            replaceEmojis),
-                         "[FindEmojiPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[FindEmojiPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize replaceEmojis type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -75,13 +115,22 @@ testthat::test_that("initialize replaceEmojis type error",{
                                            alwaysBeforeDeps,
                                            notAfterDeps,
                                            replaceEmojis),
-                         "[FindEmojiPipe][initialize][Error] Checking the type of the 'replaceEmojis' variable: NULL",
+                         "[FindEmojiPipe][initialize][FATAL] Checking the type of the 'replaceEmojis' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe replaceEmojis <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -107,9 +156,18 @@ testthat::test_that("pipe replaceEmojis <- TRUE",{
                          "Hey I am  grinning face")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe replaceEmojis <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -133,9 +191,18 @@ testthat::test_that("pipe replaceEmojis <- FALSE",{
                          "Hey I am \U0001f600")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -148,14 +215,23 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[FindEmojiPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[FindEmojiPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findEmoji",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -174,9 +250,18 @@ testthat::test_that("findEmoji",{
                          TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findEmoji data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -191,14 +276,23 @@ testthat::test_that("findEmoji data type error",{
   data <- NULL
   emoji <- "\U0001f600"
   testthat::expect_error(pipe$findEmoji(data, emoji),
-                         "[FindEmojiPipe][findEmoji][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindEmojiPipe][findEmoji][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findEmoji emoji type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -214,13 +308,22 @@ testthat::test_that("findEmoji emoji type error",{
   emoji <- NULL
   testthat::expect_error(pipe$findEmoji(data,
                                         emoji),
-                         "[FindEmojiPipe][findEmoji][Error] Checking the type of the 'emoji' variable: NULL",
+                         "[FindEmojiPipe][findEmoji][FATAL] Checking the type of the 'emoji' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("replaceEmoji",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
@@ -242,9 +345,18 @@ testthat::test_that("replaceEmoji",{
                          " grinning face ")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("replaceEmoji emoji type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -263,14 +375,23 @@ testthat::test_that("replaceEmoji emoji type error",{
   testthat::expect_error(pipe$replaceEmoji(emoji,
                                            extendedEmoji,
                                            data),
-                         "[FindEmojiPipe][replaceEmoji][Error] Checking the type of the 'emoji' variable: NULL",
+                         "[FindEmojiPipe][replaceEmoji][FATAL] Checking the type of the 'emoji' variable: NULL",
                          fixed = TRUE)
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("replaceEmoji extendedEmoji type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -288,13 +409,22 @@ testthat::test_that("replaceEmoji extendedEmoji type error",{
   testthat::expect_error(pipe$replaceEmoji(emoji,
                                            extendedEmoji,
                                            data),
-                         "[FindEmojiPipe][replaceEmoji][Error] Checking the type of the 'extendedEmoji' variable: NULL",
+                         "[FindEmojiPipe][replaceEmoji][FATAL] Checking the type of the 'extendedEmoji' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("replaceEmoji data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
@@ -312,6 +442,11 @@ testthat::test_that("replaceEmoji data type error",{
   testthat::expect_error(pipe$replaceEmoji(emoji,
                                            extendedEmoji,
                                            data),
-                         "[FindEmojiPipe][replaceEmoji][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindEmojiPipe][replaceEmoji][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

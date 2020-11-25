@@ -1,5 +1,10 @@
 testthat::context("runPipeline")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("runPipeline path type error",{
 
   path <- NULL
@@ -8,11 +13,30 @@ testthat::test_that("runPipeline path type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  cache <- FALSE
+
+  verbose <- TRUE
+
+  summary <- FALSE
+
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
-                                     extractors = extractorFactory),
-                         "[runPipeline][Error] Checking the type of the 'path' variable: NULL",
+                                     extractors = extractorFactory,
+                                     cache = cache,
+                                     verbose = verbose,
+                                     summary = summary),
+                         "[runPipeline][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("runPipeline pipeline type error",{
@@ -25,11 +49,30 @@ testthat::test_that("runPipeline pipeline type error",{
 
   extractorFactory <- ExtractorFactory$new()
 
+  cache <- FALSE
+
+  verbose <- TRUE
+
+  summary <- FALSE
+
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
-                                     extractors = extractorFactory),
-                         "[runPipeline][Error] Checking the type of the 'pipeline' variable: NULL",
+                                     extractors = extractorFactory,
+                                     cache = cache,
+                                     verbose = verbose,
+                                     summary = summary),
+                         "[runPipeline][FATAL] Checking the type of the 'pipeline' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("runPipeline extractorFactory type error",{
@@ -42,26 +85,33 @@ testthat::test_that("runPipeline extractorFactory type error",{
 
   extractorFactory <- NULL
 
+  cache <- FALSE
+
+  verbose <- TRUE
+
+  summary <- FALSE
+
   testthat::expect_error(runPipeline(path = path,
                                      pipeline = pipeline,
-                                     extractors = extractorFactory),
-                         "[runPipeline][Error] Checking the type of the 'extractors' variable: NULL",
+                                     extractors = extractorFactory,
+                                     cache = cache,
+                                     verbose = verbose,
+                                     summary = summary),
+                         "[runPipeline][FATAL] Checking the type of the 'extractors' variable: NULL",
                          fixed = TRUE)
 })
 
-if (Sys.info()[['sysname']] %in% "Windows") {
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
-testthat::test_that("runPipeline default flow of pipes with the examples files tsms",{
-  testthat::skip_if_not_installed("cld2")
-  testthat::skip_if_not_installed("readr")
-  testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rjson")
-  testthat::skip_if_not_installed("rtweet")
-  testthat::skip_if_not_installed("stringi")
-  testthat::skip_if_not_installed("stringr")
-  testthat::skip_if_not_installed("textutils")
+testthat::test_that("runPipeline cache type error",{
 
   path <- file.path("testFiles",
                     "testRunPipeline",
@@ -71,28 +121,156 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
 
   extractorFactory <- ExtractorFactory$new()
 
+  cache <- NULL
+
+  verbose <- TRUE
+
+  summary <- FALSE
+
+  testthat::expect_error(runPipeline(path = path,
+                                     pipeline = pipeline,
+                                     extractors = extractorFactory,
+                                     cache = cache,
+                                     verbose = verbose,
+                                     summary = summary),
+                         "[runPipeline][FATAL] Checking the type of the 'cache' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("runPipeline verbose type error",{
+
+  path <- file.path("testFiles",
+                    "testRunPipeline",
+                    "tsms")
+
+  pipeline <- DefaultPipeline$new()
+
+  extractorFactory <- ExtractorFactory$new()
+
+  cache <- FALSE
+
+  verbose <- NULL
+
+  summary <- FALSE
+
+  testthat::expect_error(runPipeline(path = path,
+                                     pipeline = pipeline,
+                                     extractors = extractorFactory,
+                                     cache = cache,
+                                     verbose = verbose,
+                                     summary = summary),
+                         "[runPipeline][FATAL] Checking the type of the 'verbose' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("runPipeline summary type error",{
+
+  path <- file.path("testFiles",
+                    "testRunPipeline",
+                    "tsms")
+
+  pipeline <- DefaultPipeline$new()
+
+  extractorFactory <- ExtractorFactory$new()
+
+  cache <- FALSE
+
+  verbose <- TRUE
+
+  summary <- NULL
+
+  testthat::expect_error(runPipeline(path = path,
+                                     pipeline = pipeline,
+                                     extractors = extractorFactory,
+                                     cache = cache,
+                                     verbose = verbose,
+                                     summary = summary),
+                         "[runPipeline][FATAL] Checking the type of the 'summary' variable: NULL",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+if (Sys.info()[['sysname']] %in% "Windows") {
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("runPipeline default flow of pipes with the examples files tsms",{
+  testthat::skip_if_not_installed("cld2")
+  testthat::skip_if_not_installed("rex")
+  testthat::skip_if_not_installed("rjson")
+  testthat::skip_if_not_installed("rtweet")
+  testthat::skip_if_not_installed("stringi")
+  testthat::skip_if_not_installed("stringr")
+
+  path <- file.path("testFiles",
+                    "testRunPipeline",
+                    "tsms")
+
+  pipeline <- DefaultPipeline$new()
+
+  extractorFactory <- ExtractorFactory$new()
+
+  cache <- FALSE
+
+  verbose <- TRUE
+
+  summary <- FALSE
+
   bdpar.Options$set("extractorEML.mpaPartSelected", "text/plain")
   bdpar.Options$set("resources.abbreviations.path", "")
   bdpar.Options$set("resources.contractions.path", "")
   bdpar.Options$set("resources.interjections.path", "")
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
-  bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("teeCSVPipe.output.path", file.path("testFiles",
+                                                        "testRunPipeline",
+                                                        "output_tsms.csv"))
+  bdpar.Options$set("cache", FALSE)
 
   output <- suppressWarnings(runPipeline(path = path,
                                          pipeline = pipeline,
-                                         extractors = extractorFactory))
+                                         extractors = extractorFactory,
+                                         cache = cache,
+                                         verbose = verbose,
+                                         summary = summary))
   file1 <- output[[1]]
 
   testthat::expect_equal(file1$getDate(),"")
 
-  testthat::expect_equal(file1$getSource(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+  testthat::expect_equal(file1$getSource(),"Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
 
   testthat::expect_equal(file1$getData(),"wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   testthat::expect_equal(file1$getSpecificProperty("target"),"ham")
   testthat::expect_equal(file1$getSpecificProperty("extension"),"tsms")
 
-  testthat::expect_equal(file1$getSpecificProperty("length_before_cleaning_text"),132)
+  testthat::expect_equal(file1$getSpecificProperty("length_before_cleaning_text"),130)
 
   testthat::expect_equal(file1$getSpecificProperty("userName"),as.character(c()))
   testthat::expect_equal(file1$getSpecificProperty("hashtag"),as.character(c()))
@@ -134,13 +312,13 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
 
   testthat::expect_equal(file2$getDate(),"")
 
-  testthat::expect_equal(file2$getSource(),"Guess what! Somebody you know secretly fancies you! Wanna find out who it is? Give us a call on 09065394514 From Landline DATEBox1282EssexCM61XN 150p/min 18\r\n")
+  testthat::expect_equal(file2$getSource(),"Guess what! Somebody you know secretly fancies you! Wanna find out who it is? Give us a call on 09065394514 From Landline DATEBox1282EssexCM61XN 150p/min 18")
 
   testthat::expect_equal(file2$getData(),"guess what! somebody you know secretly fancies you! wanna find out who it is? give us a call on 09065394514 from landline datebox1282essexcm61xn 150p/min 18")
   testthat::expect_equal(file2$getSpecificProperty("target"),"spam")
   testthat::expect_equal(file2$getSpecificProperty("extension"),"tsms")
 
-  testthat::expect_equal(file2$getSpecificProperty("length_before_cleaning_text"),158)
+  testthat::expect_equal(file2$getSpecificProperty("length_before_cleaning_text"),156)
 
   testthat::expect_equal(file2$getSpecificProperty("userName"),as.character(c()))
   testthat::expect_equal(file2$getSpecificProperty("hashtag"),as.character(c()))
@@ -176,10 +354,61 @@ testthat::test_that("runPipeline default flow of pipes with the examples files t
                                                    "TeeCSVPipe"))
   testthat::expect_equal(file2$getBanPipes(),
                          c("FindUrlPipe","FindHashtagPipe","AbbreviationPipe"))
-
-  file.remove("output_tsms.csv")
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 
+  if (file.exists(file.path("testFiles",
+                            "testRunPipeline",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testRunPipeline",
+                          "output_tsms.csv"))
+  }
+})
 }
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("runPipeline DEBUG mode works",{
+
+  path <- file.path("testFiles",
+                    "testRunPipeline",
+                    "tsms",
+                    "_ham_",
+                    "30.tsms")
+
+  pipeline <- DefaultPipeline$new()
+
+  extractorFactory <- ExtractorFactory$new()
+
+  cache <- FALSE
+
+  verbose <- TRUE
+
+  summary <- FALSE
+
+  pipeline <- DynamicPipeline$new()
+  pipeline$add(list(TargetAssigningPipe$new()), pos = NULL)
+
+  bdpar.Options$configureLog(console = TRUE, threshold = "DEBUG")
+
+  testthat::expect_message(runPipeline(path = path,
+                                       pipeline = pipeline,
+                                       extractors = extractorFactory,
+                                       cache = cache,
+                                       verbose = verbose,
+                                       summary = summary),
+                           '[-\\[\\]:0-9 ]+\\[DEBUG\\] Instance_ID:1 \\(Last pipe: TargetAssigningPipe\\)\n\tPath: testFiles\\/testRunPipeline\\/tsms\\/_ham_\\/30\\.tsms\n\tDate: \n\tIsValid: TRUE\n\tSource: ""\n\tData: ""\n\tFlowPipes: TargetAssigningPipe\n\tBanPipes: \n\tProperties: \n\t\t- target: ham\n',
+                           perl = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

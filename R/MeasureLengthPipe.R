@@ -26,93 +26,11 @@
 #' @description This class is responsible of obtain the length of the\strong{data}
 #' field of each \code{\link{Instance}}. Creates the \strong{length} property
 #' which indicates the length of the text. The property's name is customize
-#' throught the class constructor.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' MeasureLengthPipe$new(propertyName = "length",
-#'                       alwaysBeforeDeps = list(),
-#'                       notAfterDeps = list(),
-#'                       nchar_conf = TRUE)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{nchar_conf}}{
-#' (\emph{logical}) indicates if the Pipe uses nchar or object.size.
-#' }
-#' }
-#' }
-#' }
+#' thought the class constructor.
 #'
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain the length of data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getLength:}}{
-#' obtains the length of the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getLength(data, nchar_conf = TRUE)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to preproccess.
-#' }
-#' \item{\strong{nchar_conf:}}{
-#' (\emph{logical}) indicates if the Pipe uses nchar or object.size.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{nchar_conf:}}{
-#'  (\emph{logical}) indicates if the Pipe uses nchar or object.size.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -127,8 +45,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
-#' @importFrom utils object.size
+#' @import R6
 #' @export MeasureLengthPipe
 
 MeasureLengthPipe <- R6Class(
@@ -138,74 +55,123 @@ MeasureLengthPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{File2Pipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param nchar_conf A \code{\link{logical}} value. indicates if the pipe
+    #' uses nchar or object.size.
+    #'
     initialize = function(propertyName = "length",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list(),
                           nchar_conf = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(nchar_conf)) {
-        stop("[MeasureLengthPipe][initialize][Error] ",
-             "Checking the type of the 'nchar_conf' variable: ",
-             class(nchar_conf))
+        bdpar.log(message = paste0("Checking the type of the 'nchar_conf' variable: ",
+                                   class(nchar_conf)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
       private$nchar_conf <- nchar_conf
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain the
+    #' length of data.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
     pipe = function(instance) {
 
-        if (!"Instance" %in% class(instance)) {
-            stop("[MeasureLengthPipe][pipe][Error] ",
-                 "Checking the type of the 'instance' variable: ",
-                 class(instance))
-        }
+      if (!"Instance" %in% class(instance)) {
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
+      }
 
-        instance$getData() %>>%
-          {self$getLength(.,private$nchar_conf)} %>>%
-            {instance$addProperties(.,private$propertyName)}
+      instance$addProperties(self$getLength(instance$getData(),
+                                            private$nchar_conf),
+                             private$propertyName)
 
-        return(instance);
+      instance
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain the
+    #' length of data.
+    #'
+    #' @param data A \code{\link{character}} value. The text to preprocess.
+    #' @param nchar_conf A \code{\link{logical}} value. Indicates if the pipe
+    #' uses nchar or object.size.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @importFrom utils object.size
+    #'
     getLength = function(data, nchar_conf = TRUE) {
 
       if (!"character" %in% class(data)) {
-        stop("[MeasureLengthPipe][getLength][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "getLength")
       }
 
       if (!"logical" %in% class(nchar_conf)) {
-        stop("[MeasureLengthPipe][getLength][Error] ",
-             "Checking the type of the 'nchar_conf' variable: ",
-             class(nchar_conf))
+        bdpar.log(message = paste0("Checking the type of the 'nchar_conf' variable: ",
+                                   class(nchar_conf)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "getLength")
       }
 
-      return(ifelse(private$nchar_conf, nchar(data), object.size(data)))
+      ifelse(private$nchar_conf, nchar(data), object.size(data))
     }
   ),
 
   private = list(
+    # A (\emph{logical}) value. Indicates if the Pipe uses nchar or object.size.
     nchar_conf = TRUE
   )
 )

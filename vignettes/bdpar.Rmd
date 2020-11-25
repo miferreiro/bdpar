@@ -78,8 +78,6 @@ This example shows how a new type of *Instance* (named *ExtractorTytb*) is be cr
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
-library(pipeR)
-library(readr)
 ExtractorTytb <- R6Class(
   classname = "ExtractorTytb",
   inherit = Instance,
@@ -90,28 +88,18 @@ ExtractorTytb <- R6Class(
              "Checking the type of the variable: path ",
              class(path))
       }
-      path %>>%
-        super$initialize()
+      super$initialize(path)
     },
     obtainDate = function() {
-      super$getPath() %>>%
-      file.info()[["ctime"]] %>>%
-      super$setDate()
-      return()
+      super$setDate(file.info(super$getPath())[["ctime"]])
     },
     obtainSource = function() {
-      super$getPath() %>>%
-      read_file() %>>%
-      super$setSource()
-        
-      super$getSource() %>>%
-        super$setData()
-    
-      return()
+      super$setSource(readLines(super$getPath(), 
+                                warn = FALSE))
+      super$setData(super$getSource())
     }
   )
 )
-
 ```
 
 ### Enabling a new Instance.
@@ -241,8 +229,6 @@ Additionally, in order to improve the customization capabilities, bdpar allows t
 
 ```{R, echo = TRUE, results = "hide"}
 library(R6)
-library(pipeR)
-library(stringr)
 RemovesWhiteSpaces <- R6Class(
   "RemovesWhiteSpaces",
   inherit = GenericPipe,
@@ -273,10 +259,7 @@ RemovesWhiteSpaces <- R6Class(
              "Checking the type of the 'instance' variable: ",
              class(instance))
       }
-      instance$getData() %>>%
-        stringr::str_trim() %>>%
-        stringr::str_squish() %>>%
-        instance$setData()
+      instance$setData(trimws(x = instance$getData()))
       
       if (length(instance$getData()) == 0) {
         instance$invalidate()
@@ -423,9 +406,85 @@ bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
 bdpar.Options$set("youtube.app.id", <<app_id>>)
 bdpar.Options$set("youtube.app.password", <<app_password>>)
 bdpar.Options$set("cache.youtube.path", <<cache.path>>)
+
+# [cache]
+bdpar.Options$set("cache", <<status_cache>>)
+bdpar.Options$set("cache.folder", <<cache.path>>)
+
+# [parallel]
+bdpar.Options$set("numCores", <<num_cores>>)
+
+# [verbose]
+bdpar.Options$set("verbose", <<status_verbose>>)
 ```
 
+## Logging on bdpar
 
+<div style = "text-align: justify">
+The bdpar log is configured through the *configureLog* function. This system manages both the place to display the messages and the priority level of each message showing only the messages with a higher level than indicated in the threshold variable. The log can be output either by console, by file, or both.
+
+```R
+bdpar.options$configureLog(console = TRUE, threshold = "INFO", file = "fileLog.log")
+```
+
+The type of message changes according to the level indicated:
+
+<ul>
+  <li> The **DEBUG**, **INFO** and **ERROR** levels return a text using the *message* function.</li>
+  <li> The **WARN** level returns a text using the *warning* function.</li>
+  <li> The **FATAL** level returns a text using the *stop* function.</li>
+</ul>
+
+If the case of wanting to deactivate the bdpar log completely, the *disableLog* method in *bdpar.Options* object does this task. It is important to note that the messages with **WARN** or **FATAL** level will still be displayed by console.
+
+```R
+bdpar.options$disableLog()
+```
+
+In the case of wanting to see the status of the instances at the output of each pipe, the **DEBUG** logging mode must be activated. An example of the output could be:
+
+```
+[0000-00-00 00:00:00][pipeOperator][freduce][DEBUG] Instance_ID:1 (Last pipe: TargetAssigningPipe)
+	Path: /_ham_/example.eml
+	Date: 
+	IsValid: TRUE
+	Source: ""
+	Data: ""
+	FlowPipes: TargetAssigningPipe
+	BanPipes: 
+	Properties: 
+		- target: ham
+```
+
+If the *"verbose"* option is enabled, for example in the *runPipeline* function, only messages with **WARN** or **FATAL** levels will be displayed by the console.
+
+</div>
+
+## Cache functionality
+
+<div style = "text-align: justify">
+If the bdpar cache is configured through the *"cache"* and *"cache.folder"* options, the status of the instances will be stored after each pipe. This allows to avoid rejections of previously executed tasks, if the order and configuration of the pipe and pipeline is the same as what is stored in the cache. In case of using the *cache* parameter, for example in the *runPipeline* function, it will set the option to the input value.
+
+```R
+bdpar.Options$set("cache", TRUE)
+bdpar.Options$set("cache.folder", "path/cache/folder")
+```
+
+If you want to remove the cache, the *cleanCache* method does this task.
+</div>
+
+
+## Parallelization
+<div style = "text-align: justify">
+The *bdpar* package allows the parallelization of the processing of Instances in order to save computational time. This functionality is configured through the *"numCores"* option (included in *bdpar.Options*) which will indicate the **number of cores** to be used in the execution.
+
+```R
+bdpar.Options$set("numCores", 2)
+```
+
+It should be mentioned that in the case of parallelization, the output of the cores' log will only be available in *file mode*.
+
+</div>
 # Development
 
 The *bdpar* package is also available in a development version at the Github development page:

@@ -1,14 +1,27 @@
 testthat::context("Instance")
 
-test_that("initialize",{
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("initialize",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
   testthat::expect_equal(instance$.__enclos_env__$private$path,
                         path)
-  testthat::expect_equal(instance$.__enclos_env__$private$properties,
-                        list(Initial_path = path))
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize path type error",{
@@ -16,8 +29,18 @@ testthat::test_that("initialize path type error",{
   path <- NULL
 
   testthat::expect_error(Instance$new(path),
-                         "[Instance][initialize][Error] Checking the type of the 'path' variable: NULL",
+                         "[Instance][initialize][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("obtainDate",{
@@ -25,8 +48,18 @@ testthat::test_that("obtainDate",{
   path <- "example.tsms"
 
   testthat::expect_error(Instance$new(path)$obtainDate(),
-                         "[Instance][obtainDate][Error] I am an abstract interface method",
+                         "[Instance][obtainDate][FATAL] I am an abstract interface method",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("obtainSource",{
@@ -34,8 +67,18 @@ testthat::test_that("obtainSource",{
   path <- "example.tsms"
 
   testthat::expect_error(Instance$new(path)$obtainSource(),
-                         "[Instance][obtainSource][Error] I am an abstract interface method",
+                         "[Instance][obtainSource][FATAL] I am an abstract interface method",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getDate",{
@@ -47,6 +90,16 @@ testthat::test_that("getDate",{
                          "")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getSource",{
 
   path <- "example.tsms"
@@ -54,6 +107,16 @@ testthat::test_that("getSource",{
   instance <- Instance$new(path)
   testthat::expect_equal(instance$getSource(),
                          "")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getPath",{
@@ -65,6 +128,16 @@ testthat::test_that("getPath",{
                          path)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getData",{
 
   path <- "example.tsms"
@@ -74,13 +147,33 @@ testthat::test_that("getData",{
                          "")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getProperties",{
 
   path <- "example.tsms"
 
   instance <- Instance$new(path)
   testthat::expect_equal(instance$getProperties(),
-                        list(Initial_path = path))
+                         list())
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setSource",{
@@ -96,17 +189,14 @@ testthat::test_that("setSource",{
                         sourceExpected)
 })
 
-testthat::test_that("setSource source type error",{
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
-  path <- "example.tsms"
-
-  instance <- Instance$new(path)
-
-  sourceExpected <- NULL
-
-  testthat::expect_error(instance$setSource(sourceExpected),
-                         "[Instance][setSource][Error] Checking the type of the 'source' variable: NULL",
-                         fixed = TRUE)
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setDate",{
@@ -122,6 +212,16 @@ testthat::test_that("setDate",{
                          dateExpected)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setDate source type error",{
 
   path <- "example.tsms"
@@ -131,8 +231,18 @@ testthat::test_that("setDate source type error",{
   dateExpected <- NULL
 
   testthat::expect_error(instance$setDate(dateExpected),
-                         "[Instance][setDate][Error] Checking the type of the 'date' variable: NULL",
+                         "[Instance][setDate][FATAL] Checking the type of the 'date' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setProperties",{
@@ -148,6 +258,16 @@ testthat::test_that("setProperties",{
                          propertiesExpected)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setProperties source type error",{
 
   path <- "example.tsms"
@@ -157,8 +277,18 @@ testthat::test_that("setProperties source type error",{
   propertiesExpected <- NULL
 
   testthat::expect_error(instance$setProperties(propertiesExpected),
-                         "[Instance][setProperties][Error] Checking the type of the 'properties' variable: NULL",
+                         "[Instance][setProperties][FATAL] Checking the type of the 'properties' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("addProperties",{
@@ -172,7 +302,17 @@ testthat::test_that("addProperties",{
 
   instance$addProperties(valueExpected, nameExpected)
   testthat::expect_equal(instance$getProperties(),
-                         list(Initial_path = path, nameExpected = valueExpected))
+                         list(nameExpected = valueExpected))
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("addProperties propertyName type error",{
@@ -185,8 +325,18 @@ testthat::test_that("addProperties propertyName type error",{
   nameExpected <- NULL
 
   testthat::expect_error(instance$addProperties(valueExpected, nameExpected),
-                         "[Instance][addProperties][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[Instance][addProperties][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getSpecificProperty",{
@@ -195,10 +345,23 @@ testthat::test_that("getSpecificProperty",{
 
   instance <- Instance$new(path)
 
-  nameExpected <- "Initial_path"
+  valueExpected <- "valueExpected"
+  nameExpected <- "nameExpected"
+
+  instance$addProperties(valueExpected, nameExpected)
 
   testthat::expect_equal(instance$getSpecificProperty(nameExpected),
-                         path)
+                         valueExpected)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getSpecificProperty propertyName type error",{
@@ -210,8 +373,18 @@ testthat::test_that("getSpecificProperty propertyName type error",{
   nameExpected <- NULL
 
   testthat::expect_error(instance$getSpecificProperty(nameExpected),
-                         "[Instance][getSpecificProperty][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[Instance][getSpecificProperty][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("isSpecificProperty TRUE",{
@@ -220,10 +393,23 @@ testthat::test_that("isSpecificProperty TRUE",{
 
   instance <- Instance$new(path)
 
-  nameExpected <- "Initial_path"
+  valueExpected <- "valueExpected"
+  nameExpected <- "nameExpected"
+
+  instance$addProperties(valueExpected, nameExpected)
 
   testthat::expect_equal(instance$isSpecificProperty(nameExpected),
                          TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("isSpecificProperty FALSE",{
@@ -236,6 +422,16 @@ testthat::test_that("isSpecificProperty FALSE",{
 
   testthat::expect_equal(instance$isSpecificProperty(nameExpected),
                          FALSE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setSpecificProperty",{
@@ -252,6 +448,16 @@ testthat::test_that("setSpecificProperty",{
                          valueExpected)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setSpecificProperty propertyName type error",{
 
   path <- "example.tsms"
@@ -262,8 +468,18 @@ testthat::test_that("setSpecificProperty propertyName type error",{
   valueExpected <- "valueExpected"
 
   testthat::expect_error(instance$setSpecificProperty(nameExpected, valueExpected),
-                         "[Instance][setSpecificProperty][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[Instance][setSpecificProperty][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getNamesOfProperties",{
@@ -271,10 +487,25 @@ testthat::test_that("getNamesOfProperties",{
   path <- "example.tsms"
 
   instance <- Instance$new(path)
+
+  valueExpected <- "valueExpected"
+  nameExpected <- "nameExpected"
+
+  instance$addProperties(valueExpected, nameExpected)
+
   testthat::expect_equal(instance$getNamesOfProperties(),
-                         c("Initial_path"))
+                         c(nameExpected))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setData",{
 
@@ -289,17 +520,14 @@ testthat::test_that("setData",{
                          dataExpected)
 })
 
-testthat::test_that("setData source type error",{
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
-  path <- "example.tsms"
-
-  instance <- Instance$new(path)
-
-  dataExpected <- NULL
-
-  testthat::expect_error(instance$setData(dataExpected),
-                         "[Instance][setData][Error] Checking the type of the 'data' variable: NULL",
-                         fixed = TRUE)
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("isInstanceValid",{
@@ -309,6 +537,16 @@ testthat::test_that("isInstanceValid",{
   instance <- Instance$new(path)
   testthat::expect_equal(instance$isInstanceValid(),
                          TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("invalidate",{
@@ -323,6 +561,16 @@ testthat::test_that("invalidate",{
                          FALSE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getFlowPipes",{
 
   path <- "example.tsms"
@@ -330,6 +578,16 @@ testthat::test_that("getFlowPipes",{
   instance <- Instance$new(path)
   testthat::expect_equal(instance$getFlowPipes(),
                          list())
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("addFlowPipes",{
@@ -345,6 +603,16 @@ testthat::test_that("addFlowPipes",{
                          list(nameExpected))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("addFlowPipes namePipe type error",{
 
   path <- "example.tsms"
@@ -354,8 +622,18 @@ testthat::test_that("addFlowPipes namePipe type error",{
   nameExpected <- NULL
 
   testthat::expect_error(instance$addFlowPipes(nameExpected),
-                         "[Instance][addFlowPipes][Error] Checking the type of the 'namePipe' variable: NULL",
+                         "[Instance][addFlowPipes][FATAL] Checking the type of the 'namePipe' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getBanPipes",{
@@ -367,6 +645,15 @@ testthat::test_that("getBanPipes",{
                          c())
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("addBanPipes",{
 
@@ -381,6 +668,16 @@ testthat::test_that("addBanPipes",{
                          c(nameExpected))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("addBanPipes namePipe type error",{
 
   path <- "example.tsms"
@@ -390,8 +687,18 @@ testthat::test_that("addBanPipes namePipe type error",{
   nameExpected <- 1
 
   testthat::expect_error(instance$addBanPipes(nameExpected),
-                         "[Instance][addBanPipes][Error] Checking the type of the 'namePipe' variable: numeric",
+                         "[Instance][addBanPipes][FATAL] Checking the type of the 'namePipe' variable: numeric",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("checkCompatibility TRUE",{
@@ -407,6 +714,16 @@ testthat::test_that("checkCompatibility TRUE",{
                          TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("checkCompatibility FALSE alwaysBefore",{
 
   path <- "example.tsms"
@@ -418,6 +735,16 @@ testthat::test_that("checkCompatibility FALSE alwaysBefore",{
 
   testthat::expect_equal(instance$checkCompatibility(nameExpected, alwaysBefore),
                          FALSE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("checkCompatibility FALSE banAfter",{
@@ -433,6 +760,16 @@ testthat::test_that("checkCompatibility FALSE banAfter",{
                          FALSE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("checkCompatibility namePipe type error",{
 
   path <- "example.tsms"
@@ -443,8 +780,18 @@ testthat::test_that("checkCompatibility namePipe type error",{
   alwaysBefore <- list()
 
   testthat::expect_error(instance$checkCompatibility(nameExpected, alwaysBefore),
-                         "[Instance][checkCompatibility][Error] Checking the type of the 'namePipe' variable: NULL",
+                         "[Instance][checkCompatibility][FATAL] Checking the type of the 'namePipe' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("checkCompatibility namePipe type error",{
@@ -457,6 +804,32 @@ testthat::test_that("checkCompatibility namePipe type error",{
   alwaysBefore <- NULL
 
   testthat::expect_error(instance$checkCompatibility(nameExpected, alwaysBefore),
-                         "[Instance][checkCompatibility][Error] Checking the type of the 'alwaysBefore' variable: NULL",
+                         "[Instance][checkCompatibility][FATAL] Checking the type of the 'alwaysBefore' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::test_that("toString basic works",{
+
+  path <- "example.tsms"
+
+  instance <- Instance$new(path)
+
+  testthat::expect_equal(instance$toString(),
+                         "",
+                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

@@ -6,7 +6,7 @@
 \title{Initiates the pipelining process}
 \usage{
 runPipeline(path, extractors = ExtractorFactory$new(),
-pipeline = DefaultPipeline$new())
+pipeline = DefaultPipeline$new(), cache = TRUE, verbose = FALSE, summary = FALSE)
 }
 \arguments{
 \item{path}{(\emph{character}) path where the files to be preprocessed
@@ -18,19 +18,29 @@ is created.}
 
 \item{pipeline}{(\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 implements the whole pipeling process.}
+
+\item{cache}{(\emph{logical}) flag indicating if the status of the instances
+will be stored after each pipe. This allows to avoid rejections of previously
+executed tasks, if the order and configuration of the pipe and pipeline is
+the same as what is stored in the cache.}
+
+\item{verbose}{(\emph{logical}) flag indicating for printing messages, warnings and errors.}
+
+\item{summary}{(\emph{logical}) flag indicating if a summary of the
+pipeline execution is provided or not.}
 }
 \value{
 List of \code{\link{Instance}} that have been preprocessed.
 }
 \description{
 \strong{runPipeline} is responsible for easily initialize
-the pipelining preprocessing proccess.
+the pipelining preprocessing process.
 }
 \section{Details}{
 
 In the case that some pipe, defined on the workflow, needs some type of configuration,
-it can be defined throught \emph{\link{bdpar.Options}} variable
-which have differents methods to support the funcionality of different pipes.
+it can be defined thought \emph{\link{bdpar.Options}} variable
+which have different methods to support the functionality of different pipes.
 }
 
 \examples{
@@ -40,6 +50,12 @@ which have differents methods to support the funcionality of different pipes.
 #bdpar.Options$set(key, value)
 #If the key is not initialized, do it through:
 #bdpar.Options$add(key, value)
+
+#If it is neccesary parallelize, do it through:
+#bdpar.Options$set("numCores", numCores)
+
+#If it is necessary to change the behavior of the log, do it through:
+#bdpar.Options$configureLog(console = TRUE, threshold = "INFO", file = NULL)
 
 #Folder with the files to preprocess
 path <- system.file(file.path("example"),
@@ -54,12 +70,15 @@ pipeline <- DefaultPipeline$new()
 #Starting file preprocessing...
 runPipeline(path = path,
             extractors = extractors,
-            pipeline = pipeline)
+            pipeline = pipeline,
+            cache = FALSE,
+            verbose = FALSE,
+            summary = TRUE)
 }
 }
 \seealso{
 \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
-         \code{\link{Connections}},\code{\link{DefaultPipeline}},
+         \code{\link{Connections}}, \code{\link{DefaultPipeline}},
          \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
          \code{\link{Instance}}, \code{\link{ExtractorFactory}},
          \code{\link{ResourceHandler}}

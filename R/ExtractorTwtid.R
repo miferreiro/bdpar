@@ -24,96 +24,23 @@
 #' @title Class to handle tweets files with twtid extension
 #'
 #' @description This class inherits from the \code{\link{Instance}} class and
-#' implements the functions of extracting the text and the date of an twtid type file.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{ExtractorTwtid$new(path,
-#'                          cachePath = NULL)}
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the twtid type file.
-#' }
-#' \item{\strong{cachePath:}}{
-#' (\emph{character}) path of the cache location. If it is NULL, checks if is
-#' defined in the \strong{"cache.twitter.path"} field of
-#' \emph{\link{bdpar.Options}} variable.
-#' }
-#' }
-#' }
-#' }
+#' implements the functions of extracting the text and the date of an twtid type
+#' file.
 #'
 #' @section Details:
 #'
 #' Twitter connection is handled through the \code{\link{Connections}} class
-#' which loads the Twitter API credentials from the \emph{{bdpar.Options}} object.
+#' which loads the Twitter API credentials from the \code{\link{bdpar.Options}} object.
 #' Additionally, to increase the processing speed, each twitter query is stored
 #' in a cache to avoid the execution of duplicated queries. To enable this option,
 #' cache location should be in the \strong{"cache.twitter.path"} field of
-#' \emph{{bdpar.Options}} variable. This variable has to be the
-#' path to store the tweets and it is neccesary that it has two folder named:
+#' \code{\link{bdpar.Options}} variable. This variable has to be the
+#' path to store the tweets and it is necessary that it has two folder named:
 #' "_spam_" and "_ham_"
 #'
 #' @section Inherit:
 #' This class inherits from \code{\link{Instance}} and implements the
 #' \code{obtainSource} and \code{obtainDate} abstracts functions.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{obtainId:}}{
-#' obtains the ID of an specific tweet. Reads the ID of the file indicated in
-#' the variable path.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainId()}
-#' }
-#' }
-#' }
-#' \item{\bold{getId:}}{
-#' gets the ID of an specific tweet.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getId()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of tweet ID.
-#' }
-#' }
-#' }
-#' \item{\bold{obtainDate:}}{
-#' obtains the date from a specific tweet ID. If the tweet has been previously
-#' cached the tweet date is loaded from cache path. Otherwise, the request is
-#' performed using Twitter API and the date is automatically formatted to
-#' "%a %b %d %H:%M:%S %Z %Y" (i.e. "Thu May 02 06:52:36 UTC 2013").
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainDate()}
-#' }
-#' }
-#' }
-#' \item{\bold{obtainSource:}}{
-#' obtains the source from a specific tweet ID. If the tweet has previously been
-#' cached the source is loaded from cache path. Otherwise, the request is
-#' performed using on Twitter API.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainSource()}
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{id:}}{
-#'  (\emph{character}) ID of tweet.
-#' }
-#' }
 #'
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{Connections}},
 #'          \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
@@ -121,7 +48,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import R6
 #' @export ExtractorTwtid
 
 ExtractorTwtid <- R6Class(
@@ -131,56 +58,77 @@ ExtractorTwtid <- R6Class(
   inherit = Instance,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ExtractorTwtid}} object.
+    #'
+    #' @param path A \code{\link{character}} value. Path of the twtid file.
+    #' @param cachePath A \code{\link{character}} value. Path of the cache
+    #' location. If it is NULL, checks if is defined in the
+    #' \strong{"cache.twitter.path"} field of \code{\link{bdpar.Options}}
+    #' variable.
+    #'
     initialize = function(path,
                           cachePath = NULL) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorTwtid][initialize][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
-      path %>>%
-        super$initialize()
+      super$initialize(path)
 
       self$obtainId()
       #Singleton
-      Bdpar[["private_fields"]][["connections"]]$startConnectionWithTwitter()
+      Bdpar[["private_methods"]][["connections"]]()$startConnectionWithTwitter()
 
 
       if (is.null(cachePath)) {
-        if (!all(bdpar.Options$isSpecificOption("cache.twitter.path"),
-                 !is.null(bdpar.Options$get("cache.twitter.path")))) {
-          stop("[ExtractorTwtid][initialize][Error] Path of tweets cache ",
-               "is neither defined in initialize or in bdpar.Options")
+        if (!bdpar.Options$isSpecificOption("cache.twitter.path") ||
+            is.null(bdpar.Options$get("cache.twitter.path"))) {
+          bdpar.log(message = paste0("Path of tweets cache is neither defined ",
+                                     "in initialize or in bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           cachePath <- bdpar.Options$get("cache.twitter.path")
         }
       }
 
       if (!"character" %in% class(cachePath)) {
-        stop("[ExtractorTwtid][initialize][Error] ",
-             "Checking the type of the 'cachePath' variable: ",
-             class(cachePath))
+        bdpar.log(message = paste0("Checking the type of the 'cachePath' variable: ",
+                                   class(cachePath)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       private$cachePath <- cachePath
-      return()
     },
-
+    #'
+    #' @description Obtains the ID of an specific tweet. Reads the ID of the
+    #' file indicated in the variable path.
+    #'
     obtainId = function() {
-
       private$id <- readLines(super$getPath(), warn = FALSE, n = 1)
-
-      return()
     },
-
+    #'
+    #' @description Gets the ID of an specific tweet.
+    #'
+    #' @return Value of tweet ID.
+    #'
     getId = function() {
-
-      return(private$id)
+      private$id
     },
-
+    #'
+    #' @description Obtains the date from a specific tweet ID. If the tweet has
+    #' been previously cached the tweet date is loaded from cache path. Otherwise,
+    #' the request is performed using Twitter API and the date is automatically
+    #' formatted to "%a %b %d %H:%M:%S %Z %Y" (i.e. "Thu May 02 06:52:36 UTC 2013").
+    #'
     obtainDate = function() {
 
       if (file.exists(
@@ -210,8 +158,7 @@ ExtractorTwtid <- R6Class(
               !is.null(dataFromJsonFile[["date"]]) &&
                 dataFromJsonFile[["date"]] != "") {
 
-          dataFromJsonFile[["date"]] %>>%
-            super$setDate()
+          super$setDate(dataFromJsonFile[["date"]])
 
           return()
         }
@@ -223,22 +170,25 @@ ExtractorTwtid <- R6Class(
         sourceTwtid <- ""
         langTwtid <- ""
 
-        Bdpar[["private_fields"]][["connections"]]$checkRequestToTwitter()
+        Bdpar[["private_methods"]][["connections"]]()$checkRequestToTwitter()
 
         lookup <- tryCatch(
 
-          self$getId() %>>%
-            as.character() %>>%
-              rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
+          rtweet::lookup_tweets(as.character(self$getId()),
+                                p = Bdpar[["private_methods"]][["connections"]]()$getTwitterToken()),
 
           warning = function(w) {
-            warning("[ExtractorTwtid][obtainDate][Warning] Date twtid warning: ",
-                      self$getId(), " ", paste(w))
+            bdpar.log(message = paste0("Date twtid warning: ", self$getId(), " ", paste(w)),
+                      level = "WARN",
+                      className = class(self)[1],
+                      methodName = "obtainDate")
           },
 
           error = function(e) {
-            message("[ExtractorTwtid][obtainDate][Error] Date twtid error: ",
-                     self$getId(), " ", paste(e))
+            bdpar.log(message = paste0("Date twtid error: ", self$getId(), " ", paste(w)),
+                      level = "ERROR",
+                      className = class(self)[1],
+                      methodName = "obtainDate")
           }
         )
 
@@ -260,9 +210,7 @@ ExtractorTwtid <- R6Class(
           as.POSIXct(dateTwtid, format = formatDateTwtid)
         formatDateGeneric <- "%a %b %d %H:%M:%S %Z %Y"
 
-        format(StandardizedDate, formatDateGeneric) %>>%
-          as.character() %>>%
-              super$setDate()
+        super$setDate(as.character(format(StandardizedDate, formatDateGeneric)))
 
         lista <- list(
           source = sourceTwtid,
@@ -290,8 +238,10 @@ ExtractorTwtid <- R6Class(
         },
 
         error = function(e) {
-          message("[ExtractorTwtid][obtainDate][Error] exportJSON: ",
-                   self$getId(), " " , paste(e))
+          bdpar.log(message = paste0("exportJSON: ", self$getId(), " " , paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainDate")
 
           lista <- list(source = "",
                         date = super$getDate(),
@@ -314,10 +264,12 @@ ExtractorTwtid <- R6Class(
           )
         })
       }
-
-      return()
     },
-
+    #'
+    #' @description Obtains the source from a specific tweet ID. If the tweet
+    #' has previously been cached the source is loaded from cache path.
+    #' Otherwise, the request is performed using on Twitter API.
+    #'
     obtainSource = function() {
 
       if (file.exists(
@@ -348,11 +300,9 @@ ExtractorTwtid <- R6Class(
               !is.null(dataFromJsonFile[["source"]]) &&
                 dataFromJsonFile[["source"]] != "") {
 
-          dataFromJsonFile[["source"]] %>>%
-              super$setSource()
+          super$setSource(dataFromJsonFile[["source"]])
 
-          super$getSource() %>>%
-            super$setData()
+          super$setData(super$getSource())
 
           return()
         }
@@ -363,21 +313,26 @@ ExtractorTwtid <- R6Class(
         sourceTwtid <- ""
         langTwtid <- ""
 
-        Bdpar[["private_fields"]][["connections"]]$checkRequestToTwitter()
+        Bdpar[["private_methods"]][["connections"]]()$checkRequestToTwitter()
 
         lookup <- tryCatch(
-          self$getId() %>>%
-            as.character() %>>%
-              rtweet::lookup_tweets(.,p = Bdpar[["private_fields"]][["connections"]]$getTwitterToken()),
+          rtweet::lookup_tweets(as.character(self$getId()),
+                                p = Bdpar[["private_methods"]][["connections"]]()$getTwitterToken()),
 
           warning = function(w) {
-            warning("[ExtractorTwtid][obtainSource][Warning] Source twtid warning: ",
-                      self$getId(), " ", paste(w))
+            bdpar.log(message = paste0("Source twtid warning: ", self$getId(),
+                                       " ", paste(w)),
+                      level = "WARN",
+                      className = class(self)[1],
+                      methodName = "obtainSource")
           },
 
           error = function(e) {
-            message(paste("[ExtractorTwtid][obtainSource][Error] Source twtid error: ",
-                      self$getId(), " ", paste(e)))
+            bdpar.log(message = paste0("Source twtid error: ", self$getId(), " ",
+                                       paste(e)),
+                      level = "ERROR",
+                      className = class(self)[1],
+                      methodName = "obtainSource")
           }
         )
 
@@ -394,11 +349,9 @@ ExtractorTwtid <- R6Class(
           langTwtid <- ""
         }
 
-        sourceTwtid %>>%
-          super$setSource()
+        super$setSource(sourceTwtid)
 
-        super$getSource() %>>%
-          super$setData()
+        super$setData(super$getSource())
 
         formatDateTwtid <- "%Y-%m-%d %H:%M:%S %Z"
         StandardizedDate <-
@@ -416,7 +369,7 @@ ExtractorTwtid <- R6Class(
         tryCatch({
 
           exportJSON <- rjson::toJSON(lista)
-          message(
+          cat(
             exportJSON,
             file = paste(
               private$cachePath,
@@ -432,8 +385,12 @@ ExtractorTwtid <- R6Class(
         },
         error = function(e) {
 
-          message("[ExtractorTwtid][obtainSource][Error] exportJSON: ",
-                   self$getId(), " " , paste(e))
+          bdpar.log(message = paste0("exportJSON: ",
+                                     self$getId(), " " ,
+                                     paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainSource")
 
           lista <- list(
             source = "",
@@ -458,13 +415,44 @@ ExtractorTwtid <- R6Class(
           )
         })
       }
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the instance
+    #'
+    #' @return \code{\link{Instance}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      toRet <- paste0("\tPath: ", as.character(private$path),
+                      "\n\tDate: ", as.character(private$date),
+                      "\n\tIsValid: ", as.character(private$isValid),
+                      "\n\tSource: \"", as.character(private$source), "\"",
+                      "\n\tData: \"", as.character(private$data), "\"",
+                      "\n\tFlowPipes: ", paste(as.character(unlist(private$flowPipes)), collapse = " "),
+                      "\n\tBanPipes: ", paste(as.character(unlist(private$banPipes)), collapse = " "),
+                      "\n\tProperties: ")
 
-      return()
+      properties <- ""
+      if (length(private$properties) != 0) {
+        properties <- "\n\t\t"
+        properties <- paste0(properties, paste0(lapply(names(private$properties), function(propertyName) {
+          paste0("- ", propertyName, ": ",
+                 paste(as.character(unlist(private$properties[[propertyName]])), collapse = " "),
+                 collapse = "")
+        }), collapse = "\n\t\t"))
+      } else {
+        properties <- "Not located"
+      }
+      toRet <- paste0(toRet, properties, "\n")
+      toRet
     }
   ),
 
   private = list(
+    # A \code{\link{character}} value. ID of tweet.
     id = "",
+    # A \code{\link{character}} value. Path of the cache location. If it is NULL,
+    # checks if is defined in the \strong{"cache.twitter.path"} field of
+    # \emph{\link{bdpar.Options}} variable.
     cachePath  = ""
   )
 )

@@ -1,5 +1,10 @@
 testthat::context("MeasureLengthPipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   propertyName <- "length"
@@ -13,6 +18,16 @@ testthat::test_that("initialize",{
                                                 nchar_conf))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
@@ -24,8 +39,18 @@ testthat::test_that("initialize propertyName type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                nchar_conf),
-                         "[MeasureLengthPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[MeasureLengthPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -39,8 +64,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                nchar_conf),
-                         "[MeasureLengthPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[MeasureLengthPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
@@ -54,8 +89,18 @@ testthat::test_that("initialize notAfterDeps type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                nchar_conf),
-                         "[MeasureLengthPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[MeasureLengthPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize nchar_conf type error",{
@@ -69,13 +114,18 @@ testthat::test_that("initialize nchar_conf type error",{
                                                alwaysBeforeDeps,
                                                notAfterDeps,
                                                nchar_conf),
-                         "[MeasureLengthPipe][initialize][Error] Checking the type of the 'nchar_conf' variable: NULL",
+                         "[MeasureLengthPipe][initialize][FATAL] Checking the type of the 'nchar_conf' variable: NULL",
                          fixed = TRUE)
 })
 
 if (Sys.info()[['sysname']] %in% "Windows") {
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe",{
-  testthat::skip_if_not_installed("readr")
   propertyName <- "length"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -95,9 +145,19 @@ testthat::test_that("pipe",{
   instance <- pipe$pipe(instance)
 
   testthat::expect_equal(instance$getSpecificProperty("length"),
-                         132)
+                         130)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 }
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
 
@@ -112,11 +172,22 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[MeasureLengthPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[MeasureLengthPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 if (Sys.info()[['sysname']] %in% "Windows") {
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getLength nchar <- TRUE",{
 
   propertyName <- "length"
@@ -134,6 +205,12 @@ testthat::test_that("getLength nchar <- TRUE",{
                                         nchar_conf),
                          7)
 })
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 }
 # if (Sys.info()[['sysname']] %in% "Windows") {
 # testthat::test_that("getLength nchar <- FALSE",{
@@ -151,6 +228,11 @@ testthat::test_that("getLength nchar <- TRUE",{
 # })
 # }
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getLength data type error",{
 
   propertyName <- "length"
@@ -166,8 +248,18 @@ testthat::test_that("getLength data type error",{
   nchar_conf <- TRUE
   testthat::expect_error(pipe$getLength(data,
                                         nchar_conf),
-                         "[MeasureLengthPipe][getLength][Error] Checking the type of the 'data' variable: NULL",
+                         "[MeasureLengthPipe][getLength][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getLength nchar_conf type error",{
@@ -185,6 +277,11 @@ testthat::test_that("getLength nchar_conf type error",{
   nchar_conf <- NULL
   testthat::expect_error(pipe$getLength(data,
                                         nchar_conf),
-                         "[MeasureLengthPipe][getLength][Error] Checking the type of the 'nchar_conf' variable: NULL",
+                         "[MeasureLengthPipe][getLength][FATAL] Checking the type of the 'nchar_conf' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

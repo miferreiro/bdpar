@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2018 Sing Group (University of Vigo)
+# Copyright (C) 2020 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -49,9 +49,9 @@ def parseElement(filename,element,type):
 		
 		
 	if element_val!=None:
-		print( element_val)
+		print(element_val.decode())
 	else:
-		print ("")
+		print ("".decode())
 
 
 parseElement(sys.argv[1],sys.argv[2],sys.argv[3])

@@ -21,14 +21,14 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title bdpar customized fordward-pipe operator
+#' @title bdpar customized forward-pipe operator
 #'
-#' @description Defines a customized fordward pipe operator extending the
+#' @description Defines a customized forward pipe operator extending the
 #' features of classical \%>\%. Concretely \%>|\% is able to stop the pipelining
 #' process whenever an \code{\link{Instance}} has been invalidated. This issue,
-#' avoids executing the whole pipelining proccess for the invalidated
+#' avoids executing the whole pipelining process for the invalidated
 #' \code{\link{Instance}} and therefore reduce the time and resources used to
-#' complete the whole proccess.
+#' complete the whole process.
 #'
 #' @docType methods
 #'
@@ -38,7 +38,8 @@
 #' This is the \%>\% operator of the modified magrittr library to both
 #' (i) to stop the flow when the \code{\link{Instance}} is invalid and (ii)
 #' automatically call the \code{pipe} function of the R6 objects passing
-#' through it and (iii) check the dependencies of the \code{\link{Instance}}.
+#' through it (iii) to check the dependencies of the \code{\link{Instance}} and
+#' (iv) to manage the pipeline cache.
 #'
 #' The usage structure would be as shown below:
 #'
@@ -53,7 +54,7 @@
 #' }
 #'
 #' @section Note:
-#' Pipelining proccess is automatically stopped if the \code{\link{Instance}}
+#' Pipelining process is automatically stopped if the \code{\link{Instance}}
 #' is invalid.
 #'
 #' @param lhs an \code{\link{Instance}} object.
@@ -63,12 +64,11 @@
 #'
 #' @return The \code{\link{Instance}} modified by the methods it has traversed.
 #'
-#' @seealso \code{\link{Instance}}, \code{\link{GenericPipe}}
+#' @seealso \code{\link{bdpar.Options}}, \code{\link{Instance}},
+#' \code{\link{GenericPipe}}
 #'
 #' @keywords NULL
 #'
-#' @import magrittr
-#' @importFrom purrr is_function
 #' @export
 #' @name operator-pipe
 
@@ -94,18 +94,12 @@
 
   env[["freduce"]] <- freduce
 
-  if (is_placeholder(lhs)) {
-    env[["_fseq"]]
-  } else {
 
-    env[["_lhs"]] <- eval(lhs, parent, parent)
+  env[["_lhs"]] <- eval(lhs, parent, parent)
 
-    result <- withVisible(eval(expr = quote(`_fseq`(`_lhs`)),envir = env,
-                               enclos = env))
+  result <- withVisible(eval(expr = quote(`_fseq`(`_lhs`)), envir = env, enclos = env))
 
-
-      result[["value"]]
-  }
+  result[["value"]]
 }
 #
 # @title Apply to the list of functions sequentially and control if the
@@ -124,95 +118,186 @@
 # @return The result after applying each function in turn.
 #
 # @seealso \code{\link{Instance}}
-#' @import magrittr
+#' @importFrom digest digest
 # @export freduce
 #
 
-freduce = function(instance, function_list)
-{
-  k <- length(function_list)
+freduce = function(instance, function_list) {
 
-  if (k > 1) {
-    for (i in 1:(k - 1L)) {
+  cache <- FALSE
+  cache.valid <- FALSE
 
-      pipeName <- parse(text = paste0("class(",
-                                      substr(deparse(function_list[[i]])[2],
-                                             12,
-                                             nchar(deparse(function_list[[i]])[2]) - 16),
-                                      ")[1]"))
-
-      exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[i]])[2],
-                                                   12,
-                                                   nchar(deparse(function_list[[i]])[2]) - 16),
-                                            "$getAlwaysBeforeDeps()"))
-
-      exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[i]])[2],
-                                                   12,
-                                                   nchar(deparse(function_list[[i]])[2]) - 16),
-                                            "$getNotAfterDeps()"))
-
-      instance$addFlowPipes(eval(pipeName, parent.frame()))
-
-      if (!instance$checkCompatibility(eval(pipeName, parent.frame()), eval(exprAlwBefDeps, parent.frame()))) {
-        message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName, parent.frame()))
-        break
-      }
-
-      instance$addBanPipes(unlist(eval(exprNotAftDeps, parent.frame())))
-
-      instance <- eval(function_list[[i]](instance), parent.frame())
-      if (!instance$isInstanceValid()) {
-        message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
-                " is invalid and will not continue through the flow of pipes")
-        break
-      }
-    }
+  if (!bdpar.Options$isSpecificOption("cache") ||
+      is.null(bdpar.Options$get("cache"))) {
+    bdpar.log(message = "Cache status is not defined in bdpar.Options",
+              level = "FATAL", className = NULL, methodName = NULL)
+  } else {
+    cache <- bdpar.Options$get("cache")
+    cache.valid <- cache
   }
 
-  if (instance$isInstanceValid()) {
+  numPipes <- length(function_list)
+  cont <- 1
+  pipes.executed <- ""
+  algo <- "md5"
 
-    pipeName <- parse(text = paste0("class(",
-                                    substr(deparse(function_list[[k]])[2],
+  while (instance$isInstanceValid() && cont <= numPipes) {
+
+    pipe.name <- parse(text = paste0("class(",
+                                    substr(deparse(function_list[[cont]])[2],
                                            12,
-                                           nchar(deparse(function_list[[k]])[2]) - 16),
+                                           nchar(deparse(function_list[[cont]])[2]) - 16),
                                     ")[1]"))
 
-    exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[k]])[2],
-                                                 12,
-                                                 nchar(deparse(function_list[[k]])[2]) - 16),
-                                          "$getAlwaysBeforeDeps()"))
+    pipe.id <- substr(eval(parse(text = paste0(substr(deparse(function_list[[cont]])[2],
+                                                      12,
+                                                      nchar(deparse(function_list[[cont]])[2]) - 16),
+                                               "$hash(algo = \"", algo,"\")")),
+                           parent.frame()),
+                      0,
+                      12)
 
-    exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[k]])[2],
-                                                 12,
-                                                 nchar(deparse(function_list[[k]])[2]) - 16),
-                                          "$getNotAfterDeps()"))
+    pipes.executed <- paste(pipes.executed, pipe.id)
 
-    instance$addFlowPipes(eval(pipeName, parent.frame()))
+    if (cache && cache.valid) {
 
-    if (!instance$checkCompatibility(eval(pipeName, parent.frame()), eval(exprAlwBefDeps, parent.frame()))) {
-      message("[pipeOperator][freduce][Error] Bad compatibility between Pipes on ", eval(pipeName, parent.frame()))
-    } else {
-
-      instance$addBanPipes(unlist(eval(exprNotAftDeps, parent.frame())))
-
-      instance <- eval(function_list[[k]](instance), parent.frame())
-
-      if (!instance$isInstanceValid()) {
-        message("[pipeOperator][freduce][Info] The instance ", instance$getPath(),
-                " is invalid and will not continue through the flow of pipes")
+      if (!bdpar.Options$isSpecificOption("cache.folder") ||
+          is.null(bdpar.Options$get("cache.folder"))) {
+        bdpar.log(message = "Cache folder is not defined in bdpar.Options",
+                  level = "FATAL", className = NULL, methodName = NULL)
+      } else {
+        cache.folder <- bdpar.Options$get("cache.folder")
       }
 
-      instance <- withVisible(instance)
+      cache.path <- file.path(cache.folder,
+                              substr(digest(object = readLines(con = instance$getPath(),
+                                                               warn = FALSE),
+                                            algo = algo),
+                                     0,
+                                     12),
+                              paste0(cont,
+                                     "-",
+                                     substr(digest(object = pipes.executed,
+                                                   algo = algo),
+                                            0,
+                                            12),
+                                     "-",
+                                     pipe.id,
+                                     ".z"))
+
+      if (file.exists(cache.path)) {
+        load(file = cache.path)
+        instance <- unserialize(srlz)
+      } else {
+        cache.valid <- FALSE
+      }
     }
-  } else {
-    instance <- withVisible(instance)
+
+    exprAlwBefDeps <- parse(text = paste0(substr(deparse(function_list[[cont]])[2],
+                                                 12,
+                                                 nchar(deparse(function_list[[cont]])[2]) - 16),
+                                          "$getAlwaysBeforeDeps()"))
+
+    exprNotAftDeps <- parse(text = paste0(substr(deparse(function_list[[cont]])[2],
+                                                 12,
+                                                 nchar(deparse(function_list[[cont]])[2]) - 16),
+                                          "$getNotAfterDeps()"))
+
+    instance$addFlowPipes(eval(pipe.name,
+                               parent.frame()))
+
+    if (!instance$checkCompatibility(eval(pipe.name,
+                                          parent.frame()),
+                                     eval(exprAlwBefDeps,
+                                          parent.frame()))) {
+
+      bdpar.log(message = paste0("Bad compatibility between Pipes on ",
+                                 eval(pipe.name,
+                                      parent.frame())),
+                level = "ERROR", className = "pipeOperator", methodName = NULL)
+
+      break
+    }
+
+    instance$addBanPipes(unlist(eval(exprNotAftDeps,
+                                     parent.frame())))
+
+    instance <- eval(function_list[[cont]](instance),
+                     parent.frame())
+
+    # To avoid building the status message of an instance
+    # when the log level is debug
+    if (bdpar.Options$.__enclos_env__$private$threshold == "DEBUG") {
+
+      bdpar.log(message = paste0("Instance_ID:", cont,
+                                 " (Last pipe: ", eval(pipe.name,
+                                                       parent.frame()), ")\n",
+                                 instance$toString()),
+                level = "DEBUG", className = NULL, methodName = NULL)
+    }
+
+    if (cache) {
+
+      if (!bdpar.Options$isSpecificOption("cache.folder") ||
+          is.null(bdpar.Options$get("cache.folder"))) {
+        bdpar.log(message = "Cache folder is not defined in bdpar.Options",
+                  level = "FATAL", className = NULL, methodName = NULL)
+      } else {
+        cache.folder <- bdpar.Options$get("cache.folder")
+      }
+
+      cache.instance.folder <- file.path(cache.folder,
+                                         substr(digest(object = readLines(con = instance$getPath(),
+                                                                          warn = FALSE),
+                                                        algo = algo),
+                                                0,
+                                                12))
+
+      new.cache.instance.path <- file.path(cache.instance.folder,
+                                           paste0(cont,
+                                                  "-",
+                                                  substr(digest(object = pipes.executed,
+                                                                algo = algo),
+                                                         0,
+                                                         12),
+                                                  "-",
+                                                  pipe.id,
+                                                  ".z"))
+
+      if (cache && !file.exists(new.cache.instance.path)) {
+
+        if (!dir.exists(cache.instance.folder)) {
+          dir.create(cache.instance.folder,
+                     recursive = TRUE)
+          if (!dir.exists(cache.instance.folder)) {
+            bdpar.log(message = paste0("Cannot create directory '",
+                                       cache.instance.folder, "'"),
+                      level = "FATAL", className = NULL, methodName = NULL)
+          }
+        }
+
+        srlz <- serialize(object = instance,
+                          connection = NULL)
+        save(srlz,
+             file = new.cache.instance.path)
+      }
+    }
+
+    if (!instance$isInstanceValid()) {
+      bdpar.log(message = paste0("The instance ", instance$getPath(),
+                                 " is invalid and will not continue through the flow of pipes"),
+                level = "INFO", className = "pipeOperator", methodName = NULL)
+      break
+    }
+
+    cont <- cont + 1
   }
 
+  instance <- withVisible(instance)
   instance[["value"]]
 }
 
-split_chain = function(expr, env)
-{
+split_chain = function(expr, env) {
   rhss <- list()
   pipes <- list()
   i <- 1L
@@ -230,17 +315,10 @@ split_chain = function(expr, env)
   list(rhss = rev(rhss), pipes = rev(pipes), lhs = expr)
 }
 
-is_pipe = function (pipe)
-{
+is_pipe = function (pipe) {
   identical(pipe, quote(`%>|%`))
 }
 
-wrap_function = function (body, pipe, env)
-{
+wrap_function = function (body, pipe, env) {
   eval(call("function", as.pairlist(alist(. = )), body), env, env)
-}
-
-is_placeholder = function (symbol)
-{
-  identical(symbol, quote(.))
 }

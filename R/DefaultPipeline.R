@@ -21,18 +21,11 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title Class implementing a default pipelining proccess.
+#' @title Class implementing a default pipelining process.
 #'
 #' @description This \code{\link{DefaultPipeline}} class inherits from the
 #' \code{\link{GenericPipeline}} class. Includes the \strong{execute} method which
 #' provides a default pipelining implementation.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{DefaultPipeline$new()}
 #'
 #' @section Details:
 #' The default flow is:
@@ -83,43 +76,9 @@
 #' This class inherits from \code{\link{GenericPipeline}} and implements the
 #' \code{execute} abstract function.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{execute:}}{
-#' function where is implemented the flow of the pipes.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{execute(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the preprocessed \code{\link{Instance}}.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) the \code{\link{Instance}} that is going to be processed.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{get:}}{
-#' gets a list with containinig the set of pipes of the pipeline,
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{get()}
-#' }
-#' \item{\emph{Value:}}{
-#' the set of pipes containing the pipeline.
-#' }
-#' }
-#' }
-#' }
-#'
-#' @seealso \code{\link{Instance}}, \code{\link{DynamicPipeline}},
-#'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-#'          \code{\link{\%>|\%}}
+#' @seealso \code{\link{bdpar.log}}, \code{\link{Instance}},
+#'          \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
+#'          \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'
@@ -133,18 +92,33 @@ DefaultPipeline <- R6Class(
   inherit = GenericPipeline,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{DefaultPipeline}} object.
+    #'
     initialize = function() { },
-
+    #'
+    #' @description Function where is implemented the flow of the
+    #' \code{\link{GenericPipe}s}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' that is going to be processed.
+    #'
+    #' @return The preprocessed \code{\link{Instance}}.
+    #'
     execute = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[DefaultPipeline][execute][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
-      message("[DefaultPipeline][execute][Info] ", instance$getPath())
+      bdpar.log(message = instance$getPath(),
+                level = "INFO",
+                className = class(self)[1],
+                methodName = "execute")
 
       tryCatch(
         instance %>|%
@@ -169,13 +143,22 @@ DefaultPipeline <- R6Class(
           TeeCSVPipe$new()
         ,
         error = function(e) {
-          message("[DefaultPipeline][execute][Error]", instance$getPath()," :", paste(e))
+          bdpar.log(message = paste0(instance$getPath()," :", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "execute")
+
           instance$invalidate()
         }
       )
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Gets a list with containing the set of
+    #' \code{link{GenericPipe}s} of the pipeline,
+    #'
+    #' @return The set of \code{\link{GenericPipe}s} containing the pipeline.
+    #'
     get = function() {
       list(TargetAssigningPipe$new(),
            StoreFileExtPipe$new(),
@@ -197,7 +180,11 @@ DefaultPipeline <- R6Class(
            MeasureLengthPipe$new(propertyName = "length_after_cleaning_text"),
            TeeCSVPipe$new())
     },
-
+    #'
+    #' @description Prints pipeline representation. (Override print function)
+    #'
+    #' @param ... Further arguments passed to or from other methods.
+    #'
     print = function(...) {
       cat("instance %>|%
           TargetAssigningPipe$new() %>|%
@@ -218,7 +205,35 @@ DefaultPipeline <- R6Class(
           InterjectionPipe$new() %>|%
           StopWordPipe$new() %>|%
           MeasureLengthPipe$new(propertyName = \"length_after_cleaning_text\") %>|%
-          TeeCSVPipe$new()")
+          TeeCSVPipe$new()\n")
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the pipeline
+    #'
+    #' @return \code{\link{DefaultPipeline}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      toRet <- paste0("instance %>|%",
+          "\n\tTargetAssigningPipe$new() %>|%",
+          "\n\tStoreFileExtPipe$new() %>|%",
+          "\n\tGuessDatePipe$new() %>|%",
+          "\n\tFile2Pipe$new() %>|%",
+          "\n\tMeasureLengthPipe$new(propertyName = \"length_before_cleaning_text\") %>|%",
+          "\n\tFindUserNamePipe$new() %>|%",
+          "\n\tFindHashtagPipe$new() %>|%",
+          "\n\tFindUrlPipe$new() %>|%",
+          "\n\tFindEmoticonPipe$new() %>|%",
+          "\n\tFindEmojiPipe$new() %>|%",
+          "\n\tGuessLanguagePipe$new() %>|%",
+          "\n\tContractionPipe$new() %>|%",
+          "\n\tAbbreviationPipe$new() %>|%",
+          "\n\tSlangPipe$new() %>|%",
+          "\n\tToLowerCasePipe$new() %>|%",
+          "\n\tInterjectionPipe$new() %>|%",
+          "\n\tStopWordPipe$new() %>|%",
+          "\n\tMeasureLengthPipe$new(propertyName = \"length_after_cleaning_text\") %>|%",
+          "\n\tTeeCSVPipe$new()")
+      toRet
     }
   )
 )

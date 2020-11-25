@@ -1,5 +1,10 @@
 testthat::context("GenericPipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   propertyName <- "example"
@@ -17,6 +22,16 @@ testthat::test_that("initialize",{
                          notAfterDeps)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
 
   propertyName <- NULL
@@ -26,9 +41,19 @@ testthat::test_that("initialize propertyName type error",{
   testthat::expect_error(GenericPipe$new(propertyName,
                                          alwaysBeforeDeps,
                                          notAfterDeps),
-                         "[GenericPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[GenericPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -40,8 +65,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::expect_error(GenericPipe$new(propertyName,
                                          alwaysBeforeDeps,
                                          notAfterDeps),
-                         "[GenericPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[GenericPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -53,8 +88,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::expect_error(GenericPipe$new(propertyName,
                                          alwaysBeforeDeps,
                                          notAfterDeps),
-                         "[GenericPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[GenericPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe",{
@@ -68,6 +113,16 @@ testthat::test_that("pipe",{
                                          notAfterDeps)$pipe(NULL),
                          "I am an abstract interface method",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getPropertyName",{
@@ -84,6 +139,16 @@ testthat::test_that("getPropertyName",{
                          propertyName)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getAlwaysBeforeDeps",{
 
   propertyName <- "example"
@@ -97,6 +162,16 @@ testthat::test_that("getAlwaysBeforeDeps",{
                          alwaysBeforeDeps)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getNotAfterDeps",{
 
   propertyName <- "example"
@@ -108,6 +183,16 @@ testthat::test_that("getNotAfterDeps",{
                           notAfterDeps)
   testthat::expect_equal(pipe$getNotAfterDeps(),
                          notAfterDeps)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setPropertyName",{
@@ -127,6 +212,16 @@ testthat::test_that("setPropertyName",{
                          propertyNameExpected)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setPropertyName propertyName type error",{
 
   propertyName <- "example"
@@ -140,8 +235,18 @@ testthat::test_that("setPropertyName propertyName type error",{
   propertyNameExpected <- NULL
 
   testthat::expect_error(pipe$setPropertyName(propertyNameExpected),
-                         "[GenericPipe][setPropertyName][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[GenericPipe][setPropertyName][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setAlwaysBeforeDeps",{
@@ -161,6 +266,16 @@ testthat::test_that("setAlwaysBeforeDeps",{
                          alwaysBeforeDepsExpected)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setAlwaysBeforeDeps alwaysBeforeDeps type error",{
 
   propertyName <- "example"
@@ -174,8 +289,18 @@ testthat::test_that("setAlwaysBeforeDeps alwaysBeforeDeps type error",{
   alwaysBeforeDepsExpected <- NULL
 
   testthat::expect_error(pipe$setAlwaysBeforeDeps(alwaysBeforeDepsExpected),
-                         "[GenericPipe][setAlwaysBeforeDeps][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[GenericPipe][setAlwaysBeforeDeps][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("setNotAfterDeps",{
@@ -195,6 +320,16 @@ testthat::test_that("setNotAfterDeps",{
                          notAfterDeps)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setNotAfterDeps notAfterDeps type error",{
 
   propertyName <- "example"
@@ -208,6 +343,11 @@ testthat::test_that("setNotAfterDeps notAfterDeps type error",{
   notAfterDepsExpected <- NULL
 
   testthat::expect_error(pipe$setNotAfterDeps(notAfterDepsExpected),
-                         "[GenericPipe][setNotAfterDeps][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[GenericPipe][setNotAfterDeps][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

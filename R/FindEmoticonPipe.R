@@ -28,38 +28,6 @@
 #' stored inside the \strong{emoticon} field of \code{\link{Instance}} class.
 #' Moreover if required, is able to perform inline emoticon removement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' FindEmoticonPipe$new(propertyName = "emoticon",
-#'                      alwaysBeforeDeps = list(),
-#'                      notAfterDeps = list("FindHashtagPipe"),
-#'                      removeEmoticons = TRUE)
-#' }
-#'
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{removeEmoticons:}}{
-#' (\emph{logical}) indicates if the emoticons are replaced.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' The regular expression indicated in the \code{emoticonPattern}
 #' variable is used to identify emoticons.
@@ -71,80 +39,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/remove the emoticons.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findEmoticon:}}{
-#' finds the emoticons in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findEmoticon(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' list with emoticons found.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to search the emoticons.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeEmoticon:}}{
-#' removes the emoticons in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeEmoticon(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with emoticons removed.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text in which emoticons will be removed.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Public fields:
-#' \itemize{
-#' \item{\bold{emoticonPattern:}}{
-#'  (\emph{character}) regular expression to detect emoticons.
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{removeEmoticons:}}{
-#'  (\emph{logical}) indicates if the emoticons are replaced.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -159,7 +53,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export FindEmoticonPipe
 
 FindEmoticonPipe <- R6Class(
@@ -169,111 +63,169 @@ FindEmoticonPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{FindEmoticonPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param removeEmoticons A \code{\link{logical}} value. Indicates if the
+    #' emoticons are removed.
+    #'
     initialize = function(propertyName = "emoticon",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list("FindHashtagPipe"),
                           removeEmoticons = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(removeEmoticons)) {
-        stop("[FindEmoticonPipe][initialize][Error] ",
-             "Checking the type of the 'removeEmoticons' variable: ",
-             class(removeEmoticons))
+        bdpar.log(message = paste0("Checking the type of the 'removeEmoticons' variable: ",
+                                   class(removeEmoticons)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
       private$removeEmoticons <- removeEmoticons
     },
-
+    #' @field emoticonPattern  A \code{\link{character}} value. The regular
+    #' expression to detect emoticons.
     emoticonPattern = '(\\:\\w+\\:|\\<[\\/\\\\]?3|[\\(\\)\\\\\\D|\\*\\$][\\-\\^]?[\\:\\;\\=]|[\\:\\;\\=B8][\\-\\^]?[3DOPp\\@\\$\\*\\\\\\)\\(\\/\\|])(?=\\s|[\\!\\.\\?\\:\\w<>]|$)',
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/remove
+    #' the emoticons. The emoticons found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import rlist
+    #'
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindEmoticonPipe][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$findEmoticon() %>>%
-          unique() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(unique(
+        self$findEmoticon(instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeEmoticons) {
-          instance$getData()  %>>%
-            self$removeEmoticon() %>>%
-              textutils::trim() %>>%
-                instance$setData()
+        instance$setData(trimws(x = self$removeEmoticon(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c( "The file: " , instance$getPath() , " has data empty on pipe Emoticon")
+        message <- paste0("The file: ", instance$getPath(),
+                          " has data empty on pipe Emoticon")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindEmoticonPipe][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Finds the \emph{emoticons} in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text to search the
+    #' emoticons.
+    #'
+    #' @return The \code{\link{list}} with emoticons found.
+    #'
     findEmoticon = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmoticonPipe][findEmoticon][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findEmoticon")
       }
 
-      return(stringr::str_match_all(data,
-                           rex::regex(self$emoticonPattern,
-                                 ignore_case = TRUE,
-                                 multiline = TRUE))[[1]][,2])
+      stringr::str_match_all(data,
+                             rex::regex(self$emoticonPattern,
+                                        ignore_case = TRUE,
+                                        multiline = TRUE))[[1]][,2]
     },
-
+    #'
+    #' @description Removes the \emph{emoticons} in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where emoticons
+    #' will be removed.
+    #'
+    #' @return The data with the emoticons removed.
+    #'
     removeEmoticon = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindEmoticonPipe][removeEmoticon][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeEmoticon")
       }
 
-      return(stringr::str_replace_all(data,
-                             rex::regex(self$emoticonPattern,
-                                   ignore_case = TRUE,
-                                   multiline = TRUE), " "))
+      stringr::str_replace_all(data,
+                               rex::regex(self$emoticonPattern,
+                                          ignore_case = TRUE,
+                                          multiline = TRUE),
+                               " ")
     }
   ),
 
   private = list(
+    # A (\emph{logical}) value. Indicates if the emoticons are removed or
+    # not.
     removeEmoticons = TRUE
   )
 )

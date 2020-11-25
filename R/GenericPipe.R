@@ -21,167 +21,22 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title Abstract super classs that handles the management of the Pipes
+#' @title Abstract super class that handles the management of the Pipes
 #'
-#' @description Provides the required methods to succesfully handle each
+#' @description Provides the required methods to successfully handle each
 #' \code{\link{GenericPipe}} class.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' GenericPipe$new(propertyName,
-#'                 alwaysBeforeDeps,
-#'                 notAfterDeps)
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' abstract method to preprocess the \code{\link{Instance}}.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preprocess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPropertyName:}}{
-#' gets of name of property.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getPropertyName()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of name of property.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getAlwaysBeforeDeps:}}{
-#' gets of the dependences always before.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getAlwaysBeforeDeps()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of dependences always before.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getNotAfterDeps:}}{
-#' gets of the dependences not after.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getNotAfterDeps()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of dependences not after.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setPropertyName:}}{
-#' changes the value of property's name.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setPropertyName(propertyName)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) the new value of the property's name.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setAlwaysBeforeDeps:}}{
-#' changes the value of dependencies always before.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setAlwaysBeforeDeps(alwaysBeforeDeps)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the new value of the dependencies always before.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setNotAfterDeps:}}{
-#' changes the value of dependencies not after.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setNotAfterDeps(notAfterDeps)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the new value of the dependencies not after.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{propertyName:}}{
-#' (\emph{character}) the name of property.
-#' }
-#' \item{\bold{alwaysBeforeDeps:}}{
-#' (\emph{list}) dependencies of the type alwaysBefore. These dependences indicate
-#' what Pipes must be executed before the current one.
-#' }
-#' \item{\bold{notAfterDeps:}}{
-#' (\emph{list}) dependencies of the type notAfter. These dependences indicate what
-#' Pipes must not be executed after the current one.
-#' }
-#' }
-#'
-#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
-#'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
-#'          \code{\link{FindEmoticonPipe}}, \code{\link{FindHashtagPipe}},
-#'          \code{\link{FindUrlPipe}}, \code{\link{FindUserNamePipe}},
-#'          \code{\link{GuessDatePipe}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{InterjectionPipe}},
-#'          \code{\link{MeasureLengthPipe}}, \code{\link{ResourceHandler}},
-#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
-#'          \code{\link{StoreFileExtPipe}}, \code{\link{TargetAssigningPipe}},
-#'          \code{\link{TeeCSVPipe}}, \code{\link{ToLowerCasePipe}}
+#' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
+#'          \code{\link{ContractionPipe}}, \code{\link{File2Pipe}},
+#'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
+#'          \code{\link{FindHashtagPipe}}, \code{\link{FindUrlPipe}},
+#'          \code{\link{FindUserNamePipe}}, \code{\link{GuessDatePipe}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{InterjectionPipe}}, \code{\link{MeasureLengthPipe}},
+#'          \code{\link{ResourceHandler}}, \code{\link{SlangPipe}},
+#'          \code{\link{StopWordPipe}}, \code{\link{StoreFileExtPipe}},
+#'          \code{\link{TargetAssigningPipe}}, \code{\link{TeeCSVPipe}},
+#'          \code{\link{ToLowerCasePipe}}
 #'
 #' @keywords NULL
 #'
@@ -193,95 +48,173 @@ GenericPipe <- R6Class(
   "GenericPipe",
 
   public = list(
-
+    #'
+    #' @description Creates a \link{GenericPipe} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the Pipe.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (Pipes that must be executed before this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies notAfter
+    #' (Pipes that cannot be executed after this one).
+    #'
     initialize = function(propertyName, alwaysBeforeDeps, notAfterDeps) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[GenericPipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[GenericPipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[GenericPipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
       private$propertyName <- propertyName
       private$alwaysBeforeDeps <- alwaysBeforeDeps
       private$notAfterDeps <- notAfterDeps
-
     },
-
+    #'
+    #' @description Abstract method to preprocess the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The preprocessed \code{\link{Instance}}.
+    #'
     pipe = function(instance) {
-
-      stop("I am an abstract interface method")
+      bdpar.log(message = "I am an abstract interface method",
+                level = "FATAL",
+                className = class(self)[1],
+                methodName = "pipe")
     },
-
+    #'
+    #' @description Gets of name of property.
+    #'
+    #' @return Value of name of property.
+    #'
     getPropertyName = function() {
-
-      return(private$propertyName)
+      private$propertyName
     },
-
+    #'
+    #' @description Gets of the dependencies always before.
+    #'
+    #' @return Value of dependencies always before.
+    #'
     getAlwaysBeforeDeps = function() {
-
-      return(private$alwaysBeforeDeps)
+      private$alwaysBeforeDeps
     },
-
+    #'
+    #' @description Gets of the dependencies not after.
+    #'
+    #' @return Value of dependencies not after.
+    #'
     getNotAfterDeps = function() {
-
-      return(private$notAfterDeps)
+      private$notAfterDeps
     },
-
+    #'
+    #' @description Changes the value of property's name.
+    #'
+    #' @param propertyName A \code{\link{character}} value. The new value of the
+    #' property's name.
+    #'
     setPropertyName = function(propertyName) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[GenericPipe][setPropertyName][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setPropertyName")
       }
 
       private$propertyName <- propertyName
-
-      return()
     },
-
+    #'
+    #' @description Changes the value of dependencies always before.
+    #'
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The new value of the
+    #' dependencies always before.
+    #'
     setAlwaysBeforeDeps = function(alwaysBeforeDeps) {
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[GenericPipe][setAlwaysBeforeDeps][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setAlwaysBeforeDeps")
       }
 
       private$alwaysBeforeDeps <- alwaysBeforeDeps
-
-      return()
     },
-
+    #'
+    #' @description Changes the value of dependencies not after.
+    #'
+    #' @param notAfterDeps A \code{\link{list}} value. The new value of the
+    #' dependencies not after.
+    #'
     setNotAfterDeps = function(notAfterDeps) {
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[GenericPipe][setNotAfterDeps][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setNotAfterDeps")
       }
 
       private$notAfterDeps <- notAfterDeps
+    },
+    #'
+    #' @description Generates an identification of pipe based on its fields.
+    #'
+    #' @param algo Algorithm to be applied. Options: "md5", "sha1", "crc32",
+    #' "sha256", "sha512", "xxhash32", "xxhash64", "murmur32", "spookyhash
+    #'
+    #' @importFrom digest digest
+    #'
+    hash = function(algo = "md5") {
+      x <- lapply(ls(private), function(x) {
+        if (class(private[[x]]) != "function") {
+          private[[x]]
+        }
+      })
+      y <- lapply(ls(self), function(x) {
+        if (class(self[[x]]) != "function") {
+          self[[x]]
+        }
+      })
+      l <- append(x,y)
+      names(l) <- c(ls(private), ls(self))
 
-      return()
+      digest(toString(l),
+             algo = algo,
+             serialize = FALSE)
     }
   ),
 
   private = list(
+    # A (\emph{character}) value. The name of property.
     propertyName = "",
-    alwaysBeforeDeps = list() ,
+    # A (\emph{list}) dependencies of the type alwaysBefore. These dependencies
+    # indicate what Pipes must be executed before the current one.
+    alwaysBeforeDeps = list(),
+    # A (\emph{list}) dependencies of the type notAfter. These dependencies
+    # indicate what Pipes must not be executed after the current one.
     notAfterDeps = list()
   )
 )

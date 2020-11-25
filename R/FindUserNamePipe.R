@@ -26,39 +26,7 @@
 #' @description This class is responsible of detecting the existing use names in the
 #' \strong{data} field of each \code{\link{Instance}}. Identified user names are
 #' stored inside the \strong{userName} field of \code{\link{Instance}} class.
-#' Moreover if required, is able to perform inline user nanme removement.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' FindUserNamePipe$new(propertyName = "userName",
-#'                      alwaysBeforeDeps = list(),
-#'                      notAfterDeps = list(),
-#'                      removeUser = TRUE)
-#' }
-#'
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{removeUser:}}{
-#' (\emph{logical}) indicates if the users are removed.
-#' }
-#' }
-#' }
-#' }
+#' Moreover if required, is able to perform inline user name removement.
 #
 #' @section Details:
 #' The regular expressions indicated in the \code{userPattern}
@@ -71,80 +39,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/remove the name users.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findUserName:}}{
-#' finds the name users in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findHashtag(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' list with users names found.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to search the user names.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeUserName:}}{
-#' removes the users in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeUserName(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with name users removed.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to remove the user names.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Public fields:
-#' \itemize{
-#' \item{\bold{userPattern:}}{
-#'  (\emph{character}) regular expression to detect users.
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{removeUser:}}{
-#'  (\emph{logical}) indicates if the users are removed.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -159,7 +53,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export FindUserNamePipe
 
 FindUserNamePipe <- R6Class(
@@ -169,110 +63,167 @@ FindUserNamePipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{FindEmoticonPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param removeUser A \code{\link{logical}} value. Indicates if the
+    #' name users are removed.
+    #'
     initialize = function(propertyName = "userName",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list(),
                           removeUser = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(removeUser)) {
-        stop("[FindUserNamePipe][initialize][Error] ",
-             "Checking the type of the 'removeUser' variable: ",
-             class(removeUser))
+        bdpar.log(message = paste0("Checking the type of the 'removeUser' variable: ",
+                                   class(removeUser)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
       private$removeUser <- removeUser
     },
-
+    #' @field userPattern  A \code{\link{character}} value. The regular
+    #' expression to detect name users.
     userPattern = "(?:\\s|^|[\"><\u00A1\u00BF?!;:,.'-])(@[^[:cntrl:][:space:]!\"#$%&'()*+\\\\,\\/:;<=>?@\\[\\]^`{|}~]+)[;:?\"!,.'>-]?(?=(?:\\s|$|>))",
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/remove
+    #' the name users. The emoticons found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import rlist
+    #'
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindUserNamePipe][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$findUserName() %>>%
-          unique() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(unique(
+        self$findUserName(instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeUser) {
-        instance$getData()  %>>%
-          self$removeUserName() %>>%
-            textutils::trim() %>>%
-              instance$setData()
+        instance$setData(trimws(x = self$removeUserName(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c( "The file: " , instance$getPath() , " has data empty on pipe UserName")
+        message <- paste0("The file: ", instance$getPath(), " has data empty on pipe UserName")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindUserNamePipe][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Finds the \emph{name users} in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text to search the
+    #' name users.
+    #'
+    #' @return The \code{\link{list}} with name users found.
+    #'
     findUserName = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindUserNamePipe][findUserName][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findUserName")
       }
 
-      return(stringr::str_match_all(data,
-                           rex::regex(self$userPattern,
-                                 ignore_case = TRUE,
-                                 multiline = TRUE))[[1]][,2])
+      stringr::str_match_all(data,
+                             rex::regex(self$userPattern,
+                                        ignore_case = TRUE,
+                                        multiline = TRUE))[[1]][,2]
     },
-
+    #'
+    #' @description Removes the \emph{name users} in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where name users
+    #' will be removed.
+    #'
+    #' @return The data with the name users removed.
+    #'
     removeUserName = function(data) {
 
       if (!"character" %in% class(data)) {
-        stop("[FindUserNamePipe][removeUserName][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeUserName")
       }
 
-      return(stringr::str_replace_all(data,
-                             rex::regex(self$userPattern,
-                                   ignore_case = TRUE,
-                                   multiline = TRUE), " "))
+      stringr::str_replace_all(data,
+                               rex::regex(self$userPattern,
+                                          ignore_case = TRUE,
+                                          multiline = TRUE),
+                               " ")
     }
   ),
 
   private = list(
+    # A (\emph{logical}) value. Indicates if the name users are removed or
+    # not.
     removeUser = TRUE
   )
 )

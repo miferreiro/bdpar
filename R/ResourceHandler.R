@@ -25,90 +25,14 @@
 #'
 #' @description Class that handles different types of resources.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{ResourceHandler$new()}
-#'
 #' @section Details:
-#' It is a class that allows store the resources that are needed
-#' in the Pipes to avoid having to repeatedly read from the file. File resources
-#' of type json are read and stored in memory.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{isLoadResource:}}{
-#' from the resource path, it is checked if they have already been loaded. In
-#' this case, the list of the requested resource is returned. Otherwise, the
-#' resource variable is added to the list of resources, and the resource list is
-#' returned. In the event that the resource file does not exist, NULL is returned.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{isLoadResource(pathResource)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{pathResource:}}{
-#' (\emph{character}) resource file path.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getResources:}}{
-#' gets of resources variable.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getResources()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of resources variable.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setResources:}}{
-#' sets of resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setResources(resources)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{resources:}}{
-#' (\emph{list}) the new value of resources.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getNamesResources:}}{
-#' gets of names of resources.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getNamesResources()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of names of resources.
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{resources:}}{
-#'  (\emph{list}) variable that stores the lists of the different types of resources.
-#' }
-#' }
+#' It is a class that allows store the resources that are needed in the
+#' \code{\link{GenericPipe}s} to avoid having to repeatedly read from
+#' the file. File resources of type json are read and stored in memory.
 #'
 #' @keywords NULL
 #'
-#' @import R6 rlist
+#' @import R6
 #' @export ResourceHandler
 
 ResourceHandler <- R6Class(
@@ -116,56 +40,77 @@ ResourceHandler <- R6Class(
   "ResourceHandler",
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ResourceHandler}} object.
+    #'
     initialize = function() { },
-
+    #'
+    #' @description From the resource path, it is checked if they have already
+    #' been loaded. In this case, the list of the requested resource is returned.
+    #' Otherwise, the resource variable is added to the list of resources, and
+    #' the resource list is returned. In the event that the resource file does
+    #' not exist, NULL is returned.
+    #'
+    #' @param pathResource A (\emph{character}) value. The resource file path.
+    #'
+    #' @return The resources list is returned, if they exist.
+    #'
+    #' @importFrom rlist list.append
+    #'
     isLoadResource = function(pathResource) {
 
       if (!"character" %in% class(pathResource)) {
-        stop("[ResourceHandler][isLoadResource][Error] ",
-             "Checking the type of the 'pathResource' variable: ",
-             class(pathResource))
+        bdpar.log(message = paste0("Checking the type of the 'pathResource' variable: ",
+                                   class(pathResource)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "isLoadResource")
       }
 
       if (pathResource %in% self$getNamesResources()) {
-
-        return(self$getResources()[[pathResource]])
-
+        self$getResources()[[pathResource]]
       } else {
-
         if (file.exists(pathResource)) {
 
           jsonData <- rjson::fromJSON(file = pathResource)
           self$setResources(list.append(self$getResources(), jsonData))
           names(private$resources)[length(self$getResources())] <- pathResource
 
-          return(self$getResources()[[pathResource]])
+          self$getResources()[[pathResource]]
 
         } else {
-          return(NULL)
+          NULL
         }
       }
     },
-
+    #'
+    #' @description Gets of resources variable.
+    #'
+    #' @return The value of resources variable.
+    #'
     getResources = function() {
-
-      return(private$resources)
+      private$resources
     },
-
+    #'
+    #' @description Sets of resources variable.
+    #'
+    #' @param resources The new value of resources.
+    #'
     setResources = function(resources) {
-
       private$resources <- resources
-
-      return()
     },
-
+    #'
+    #' @description Gets of names of resources
+    #'
+    #' @return Value of names of resources.
+    #'
     getNamesResources = function() {
-
-      return(names(self$getResources()))
+      names(self$getResources())
     }
   ),
 
   private = list(
+    # A (\emph{list}) value. Stores the lists of the different types of resources.
     resources = list()
   )
 )

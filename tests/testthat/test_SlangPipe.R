@@ -1,10 +1,12 @@
 testthat::context("SlangPipe")
 
-testthat::teardown(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -37,12 +39,18 @@ testthat::test_that("initialize",{
                                         resourcesSlangsPath))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- NULL
   propertyLanguageName <- "language"
@@ -64,16 +72,22 @@ testthat::test_that("initialize propertyName type error",{
                                        notAfterDeps,
                                        replaceSlangs,
                                        resourcesSlangsPath),
-                         "[SlangPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[SlangPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyLanguageName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- NULL
@@ -95,16 +109,22 @@ testthat::test_that("initialize propertyLanguageName type error",{
                                        notAfterDeps,
                                        replaceSlangs,
                                        resourcesSlangsPath),
-                         "[SlangPipe][initialize][Error] Checking the type of the 'propertyLanguageName' variable: NULL",
+                         "[SlangPipe][initialize][FATAL] Checking the type of the 'propertyLanguageName' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -126,16 +146,22 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                        notAfterDeps,
                                        replaceSlangs,
                                        resourcesSlangsPath),
-                         "[SlangPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[SlangPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -157,16 +183,22 @@ testthat::test_that("initialize notAfterDeps type error",{
                                        notAfterDeps,
                                        replaceSlangs,
                                        resourcesSlangsPath),
-                         "[SlangPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[SlangPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize replaceSlangs type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -188,16 +220,22 @@ testthat::test_that("initialize replaceSlangs type error",{
                                        notAfterDeps,
                                        replaceSlangs,
                                        resourcesSlangsPath),
-                         "[SlangPipe][initialize][Error] Checking the type of the 'replaceSlangs' variable: NULL",
+                         "[SlangPipe][initialize][FATAL] Checking the type of the 'replaceSlangs' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize resourcesSlangsPath type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -215,7 +253,7 @@ testthat::test_that("initialize resourcesSlangsPath type error",{
                                        notAfterDeps,
                                        replaceSlangs,
                                        resourcesSlangsPath),
-                         "[SlangPipe][initialize][Error] Path of slangs resources is neither defined in initialize or in bdpar.Options",
+                         "[SlangPipe][initialize][FATAL] Path of slangs resources is neither defined in initialize or in bdpar.Options",
                          fixed = TRUE)
 
   resourcesSlangsPath <- 1
@@ -226,16 +264,22 @@ testthat::test_that("initialize resourcesSlangsPath type error",{
                                        notAfterDeps,
                                        replaceSlangs,
                                        resourcesSlangsPath),
-                         "[SlangPipe][initialize][Error] Checking the type of the 'resourcesSlangsPath' variable: numeric",
+                         "[SlangPipe][initialize][FATAL] Checking the type of the 'resourcesSlangsPath' variable: numeric",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -250,8 +294,6 @@ testthat::test_that("pipe",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -279,13 +321,18 @@ testthat::test_that("pipe",{
                          "yur")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe data empty",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -300,8 +347,6 @@ testthat::test_that("pipe data empty",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -325,17 +370,22 @@ testthat::test_that("pipe data empty",{
   pipe$setResourcesSlangsPath(path)
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has data empty on pipe Slang")
+                           "\\[SlangPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has data empty on pipe Slang")
 
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout json file",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -350,8 +400,6 @@ testthat::test_that("pipe wihtout json file",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -369,17 +417,22 @@ testthat::test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not an SlangsJsonFile to apply to the language-> en")
+                           "\\[SlangPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not an SlangsJsonFile to apply to the language-> en")
 
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe wihtout language property",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -394,8 +447,6 @@ testthat::test_that("pipe wihtout language property",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -412,17 +463,22 @@ testthat::test_that("pipe wihtout language property",{
   instance$setData("yur name")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[SlangPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not language property")
+                           "\\[SlangPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testSlangPipe\\/testFile\\.tsms has not language property")
 
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -437,8 +493,6 @@ testthat::test_that("pipe instance type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -450,16 +504,22 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[SlangPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[SlangPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findSlang",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -474,8 +534,6 @@ testthat::test_that("findSlang",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -492,12 +550,18 @@ testthat::test_that("findSlang",{
                          TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findSlang slang type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -512,8 +576,6 @@ testthat::test_that("findSlang slang type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -527,16 +589,22 @@ testthat::test_that("findSlang slang type error",{
 
   testthat::expect_error(pipe$findSlang(data,
                                         slang),
-                         "[SlangPipe][findSlang][Error] Checking the type of the 'slang' variable: NULL",
+                         "[SlangPipe][findSlang][FATAL] Checking the type of the 'slang' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findSlang data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -551,8 +619,6 @@ testthat::test_that("findSlang data type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -566,16 +632,22 @@ testthat::test_that("findSlang data type error",{
 
   testthat::expect_error(pipe$findSlang(data,
                                         slang),
-                         "[SlangPipe][findSlang][Error] Checking the type of the 'data' variable: NULL",
+                         "[SlangPipe][findSlang][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceSlang ",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -590,8 +662,6 @@ testthat::test_that("replaceSlang ",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -610,12 +680,18 @@ testthat::test_that("replaceSlang ",{
                          " your  name")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceSlang slang type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -630,8 +706,6 @@ testthat::test_that("replaceSlang slang type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -647,16 +721,22 @@ testthat::test_that("replaceSlang slang type error",{
   testthat::expect_error(pipe$replaceSlang(slang,
                                            extendedSlang,
                                            data),
-                         "[SlangPipe][replaceSlang][Error] Checking the type of the 'slang' variable: NULL",
+                         "[SlangPipe][replaceSlang][FATAL] Checking the type of the 'slang' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceSlang extendedSlang type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -671,8 +751,6 @@ testthat::test_that("replaceSlang extendedSlang type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -688,16 +766,22 @@ testthat::test_that("replaceSlang extendedSlang type error",{
   testthat::expect_error(pipe$replaceSlang(slang,
                                            extendedSlang,
                                            data),
-                         "[SlangPipe][replaceSlang][Error] Checking the type of the 'extendedSlang' variable: NULL",
+                         "[SlangPipe][replaceSlang][FATAL] Checking the type of the 'extendedSlang' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("replaceSlang data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -712,8 +796,6 @@ testthat::test_that("replaceSlang data type error",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -729,16 +811,22 @@ testthat::test_that("replaceSlang data type error",{
   testthat::expect_error(pipe$replaceSlang(slang,
                                            extendedSlang,
                                            data),
-                         "[SlangPipe][replaceSlang][Error] Checking the type of the 'data' variable: NULL",
+                         "[SlangPipe][replaceSlang][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getPropertyLanguageName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -753,8 +841,6 @@ testthat::test_that("getPropertyLanguageName",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -767,12 +853,18 @@ testthat::test_that("getPropertyLanguageName",{
                          "language")
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("getResourcesSlangsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -787,8 +879,6 @@ testthat::test_that("getResourcesSlangsPath",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -807,12 +897,18 @@ testthat::test_that("getResourcesSlangsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesSlangsPath",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -827,8 +923,6 @@ testthat::test_that("setResourcesSlangsPath",{
 
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
-
-  Bdpar$new()
 
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
@@ -848,12 +942,18 @@ testthat::test_that("setResourcesSlangsPath",{
                          path)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("setResourcesSlangsPath path type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("rjson")
   propertyName <- "langpropname"
   propertyLanguageName <- "language"
@@ -869,8 +969,6 @@ testthat::test_that("setResourcesSlangsPath path type error",{
   bdpar.Options$set(key = "resources.slangs.path",
                     value = path)
 
-  Bdpar$new()
-
   pipe <- SlangPipe$new(propertyName,
                         propertyLanguageName,
                         alwaysBeforeDeps,
@@ -881,8 +979,11 @@ testthat::test_that("setResourcesSlangsPath path type error",{
   path <- NULL
 
   testthat::expect_error(pipe$setResourcesSlangsPath(path),
-                         "[SlangPipe][setResourcesSlangsPath][Error] Checking the type of the 'path' variable: NULL",
+                         "[SlangPipe][setResourcesSlangsPath][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})

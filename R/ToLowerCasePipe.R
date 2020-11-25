@@ -26,77 +26,9 @@
 #' @description Class to convert the data field of an \code{\link{Instance}}
 #' to lower case.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' ToLowerCasePipe$new(propertyName = "",
-#'                     alwaysBeforeDeps = list(),
-#'                     notAfterDeps = list())
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to convert the data to lower case.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{toLowerCase:}}{
-#' converts the data to lower case.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{toLowerCase(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' data in lower case.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -111,7 +43,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import R6 pipeR
+#' @import R6
 #' @export ToLowerCasePipe
 
 ToLowerCasePipe <- R6Class(
@@ -121,56 +53,90 @@ ToLowerCasePipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ToLowerCasePipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #'
     initialize = function(propertyName = "",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[ToLowerCasePipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[ToLowerCasePipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[ToLowerCasePipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to convert the
+    #' data to lower case.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-          stop("[ToLowerCasePipe][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$toLowerCase() %>>%
-          instance$setData()
+      instance$setData(self$toLowerCase(instance$getData()))
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Converts the data to lower case
+    #'
+    #' @param data A \code{\link{character}} value. Text to preprocess.
+    #'
+    #' @return The data in lower case.
+    #'
     toLowerCase = function(data) {
 
       if (!"character" %in% class(data)) {
-          stop("[ToLowerCasePipe][toLowerCase][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "toLowerCase")
       }
 
-      return(data %>>% tolower())
+      tolower(data)
     }
   )
 )

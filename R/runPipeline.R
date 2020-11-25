@@ -24,14 +24,14 @@
 #' @title Initiates the pipelining process
 #'
 #' @description \strong{runPipeline} is responsible for easily initialize
-#' the pipelining preprocessing proccess.
+#' the pipelining preprocessing process.
 #'
 #' @docType methods
 #'
 #' @format NULL
 #'
 #' @usage runPipeline(path, extractors = ExtractorFactory$new(),
-#' pipeline = DefaultPipeline$new())
+#' pipeline = DefaultPipeline$new(), cache = TRUE, verbose = FALSE, summary = FALSE)
 #'
 #' @param path (\emph{character}) path where the files to be preprocessed
 #' are located.
@@ -40,11 +40,17 @@
 #' is created.
 #' @param pipeline (\emph{GenericPipeline}) subclass of \code{\link{GenericPipeline}}, which
 #' implements the whole pipeling process.
-#'
+#' @param cache (\emph{logical}) flag indicating if the status of the instances
+#' will be stored after each pipe. This allows to avoid rejections of previously
+#' executed tasks, if the order and configuration of the pipe and pipeline is
+#' the same as what is stored in the cache.
+#' @param verbose (\emph{logical}) flag indicating for printing messages, warnings and errors.
+#' @param summary (\emph{logical}) flag indicating if a summary of the
+#' pipeline execution is provided or not.
 #' @section Details:
 #' In the case that some pipe, defined on the workflow, needs some type of configuration,
-#' it can be defined throught \emph{\link{bdpar.Options}} variable
-#' which have differents methods to support the funcionality of different pipes.
+#' it can be defined thought \emph{\link{bdpar.Options}} variable
+#' which have different methods to support the functionality of different pipes.
 #'
 #' @return List of \code{\link{Instance}} that have been preprocessed.
 #'
@@ -55,6 +61,12 @@
 #' #bdpar.Options$set(key, value)
 #' #If the key is not initialized, do it through:
 #' #bdpar.Options$add(key, value)
+#'
+#' #If it is neccesary parallelize, do it through:
+#' #bdpar.Options$set("numCores", numCores)
+#'
+#' #If it is necessary to change the behavior of the log, do it through:
+#' #bdpar.Options$configureLog(console = TRUE, threshold = "INFO", file = NULL)
 #'
 #' #Folder with the files to preprocess
 #' path <- system.file(file.path("example"),
@@ -69,39 +81,80 @@
 #' #Starting file preprocessing...
 #' runPipeline(path = path,
 #'             extractors = extractors,
-#'             pipeline = pipeline)
+#'             pipeline = pipeline,
+#'             cache = FALSE,
+#'             verbose = FALSE,
+#'             summary = TRUE)
 #' }
 #' @keywords NULL
 #' @export runPipeline
 #' @seealso \code{\link{Bdpar}}, \code{\link{bdpar.Options}},
-#'          \code{\link{Connections}},\code{\link{DefaultPipeline}},
+#'          \code{\link{Connections}}, \code{\link{DefaultPipeline}},
 #'          \code{\link{DynamicPipeline}}, \code{\link{GenericPipeline}},
 #'          \code{\link{Instance}}, \code{\link{ExtractorFactory}},
 #'          \code{\link{ResourceHandler}}
 #'
 
-runPipeline = function(path,
-                       extractors = ExtractorFactory$new(),
-                       pipeline = DefaultPipeline$new()) {
+runPipeline <- function(path,
+                        extractors = ExtractorFactory$new(),
+                        pipeline = DefaultPipeline$new(),
+                        cache = TRUE,
+                        verbose = FALSE,
+                        summary = FALSE) {
 
   if (!"character" %in% class(path)) {
-    stop("[runPipeline][Error] ",
-         "Checking the type of the 'path' variable: ",
-         class(path))
+    bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                               class(path)),
+             level = "FATAL",
+             className = NULL,
+             methodName = "runPipeline")
   }
 
   if (!"ExtractorFactory" %in% class(extractors)) {
-    stop("[runPipeline][Error] ",
-         "Checking the type of the 'extractors' variable: ",
-         class(extractors))
+    bdpar.log(message = paste0("Checking the type of the 'extractors' variable: ",
+                               class(extractors)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
   }
 
   if (!inherits(pipeline, c("GenericPipeline"))) {
-    stop("[runPipeline][Error] ",
-         "Checking the type of the 'pipeline' variable: ",
-         class(pipeline))
+    bdpar.log(message = paste0("Checking the type of the 'pipeline' variable: ",
+                               class(pipeline)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
+  }
+
+  if (!"logical" %in% class(cache)) {
+    bdpar.log(message = paste0("Checking the type of the 'cache' variable: ",
+                               class(cache)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
+  }
+
+  if (!"logical" %in% class(verbose)) {
+    bdpar.log(message = paste0("Checking the type of the 'verbose' variable: ",
+                               class(verbose)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
+  }
+
+  if (!"logical" %in% class(summary)) {
+    bdpar.log(message = paste0("Checking the type of the 'summary' variable: ",
+                               class(summary)),
+              level = "FATAL",
+              className = NULL,
+              methodName = "runPipeline")
   }
 
   bdpar_object <- Bdpar$new()
-  bdpar_object$execute(path, extractors, pipeline)
+  bdpar_object$execute(path = path,
+                       extractors = extractors,
+                       pipeline = pipeline,
+                       cache = cache,
+                       verbose = verbose,
+                       summary = summary)
 }

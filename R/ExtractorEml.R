@@ -24,33 +24,13 @@
 #' @title Class to handle email files with eml extension
 #'
 #' @description This class inherits from the \code{\link{Instance}} class and
-#' implements the functions of extracting the text and the date from an eml type file.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{ExtractorEml$new(path)}
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the eml type file.
-#' }
-#' \item{\strong{PartSelectedOnMPAlternative:}}{
-#' (\emph{character}) configuration to read the eml files. If it is NULL, checks
-#' if is defined in the \strong{"extractorEML.mpaPartSelected"} field of
-#' \emph{\link{bdpar.Options}} variable.
-#' }
-#' }
-#' }
-#' }
+#' implements the functions of extracting the text and the date from an eml type
+#' file.
 #'
 #' @section Details:
 #' The way to indicate which part to choose in the email, when is a multipart email,
 #' is through the \strong{"extractorEML.mpaPartSelected"}
-#' field of \emph{\link{bdpar.Options}} variable.
+#' field of \code{\link{bdpar.Options}} variable.
 #'
 #' @section Note:
 #' To be able to use this class it is necessary to have Python installed.
@@ -59,75 +39,13 @@
 #' This class inherits from \code{\link{Instance}} and implements the
 #' \code{obtainSource} and \code{obtainDate} abstracts functions.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{obtainDate:}}{
-#' obtains the date of the eml file. Calls the function \emph{read_emails}
-#' and obtains the date of the file indicated in the path and then transforms it
-#' into the generic date format, that is "\%a \%b \%d \%H:\%M:\%S \%Z \%Y"
-#' (Example: "Thu May 02 06:52:36 UTC 2013").
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainDate()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{obtainSource:}}{
-#' obtains the source of the eml file. Calls the function \emph{read_emails}
-#' and obtains the source of the file indicated in the path. In addition, it
-#' initializes the data with the initial source.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainSource()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getPartSelectedOnMPAlternative:}}{
-#' gets of \code{PartSelectedOnMPAlternative} variable.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getPartSelectedOnMPAlternative()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of \code{PartSelectedOnMPAlternative} variable.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setPartSelectedOnMPAlternative:}}{
-#' sets of \code{PartSelectedOnMPAlternative} variable.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setPartSelectedOnMPAlternative(PartSelectedOnMPAlternative)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{PartSelectedOnMPAlternative}}{
-#' (\emph{character}) the new value of \code{PartSelectedOnMPAlternative} variable.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{PartSelectedOnMPAlternative:}}{
-#'  (\emph{character}) configuration to read the eml files. Indicates whether the
-#'  text/plain part or the text/html part is read in multipart emails.
-#' }
-#' }
-#'
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{ExtractorSms}},
 #' \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
 #' \code{\link{Instance}}
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import R6
 #' @export ExtractorEml
 
 ExtractorEml <- R6Class(
@@ -137,40 +55,58 @@ ExtractorEml <- R6Class(
   inherit = Instance,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ExtractorEml}} object.
+    #'
+    #' @param path A \code{\link{character}} value. Path of the eml file.
+    #' @param PartSelectedOnMPAlternative A \code{\link{character}} value. Configuration to read
+    #' the eml files. If it is NULL, checks if is defined in the
+    #' \strong{"extractorEML.mpaPartSelected"} field of \emph{\link{bdpar.Options}}
+    #' variable.
+    #'
     initialize = function(path,
                           PartSelectedOnMPAlternative = NULL) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorEml][initialize][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
-      path %>>%
-        super$initialize()
-
+      super$initialize(path)
 
       if (is.null(PartSelectedOnMPAlternative)) {
-        if (any(!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected"),
-                is.null(bdpar.Options$get("extractorEML.mpaPartSelected")))) {
-          stop("[ExtractorEml][initialize][Error] Part of select on .eml files ",
-               "is neither defined in initialize or in bdpar.Options")
+        if (!bdpar.Options$isSpecificOption("extractorEML.mpaPartSelected") ||
+            is.null(bdpar.Options$get("extractorEML.mpaPartSelected"))) {
+          bdpar.log(message = paste0("Part of select on .eml files is neither ",
+                                     "defined in initialize or in bdpar.Options"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         } else {
           PartSelectedOnMPAlternative <- bdpar.Options$get("extractorEML.mpaPartSelected")
         }
       }
 
       if (!"character" %in% class(PartSelectedOnMPAlternative)) {
-        stop("[ExtractorEml][initialize][Error] ",
-             "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
-             class(PartSelectedOnMPAlternative))
+        bdpar.log(message = paste0("Checking the type of the ",
+                                   "'PartSelectedOnMPAlternative' variable: ",
+                                   class(PartSelectedOnMPAlternative)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
-      PartSelectedOnMPAlternative %>>%
-        self$setPartSelectedOnMPAlternative()
+      self$setPartSelectedOnMPAlternative(PartSelectedOnMPAlternative)
     },
-
+    #'
+    #' @description Obtains the date of the eml file. Calls the function
+    #' \emph{read_emails} and obtains the date of the file indicated in the path
+    #' and then transforms it into the generic date format, that is
+    #' "\%a \%b \%d \%H:\%M:\%S \%Z \%Y" (Example: "Thu May 02 06:52:36 UTC 2013").
+    #'
     obtainDate = function() {
 
       dateEml <- tryCatch(
@@ -178,8 +114,11 @@ ExtractorEml <- R6Class(
         read_emails(super$getPath(),self$getPartSelectedOnMPAlternative())["date"],
 
         error = function(e) {
-          message("[ExtractorEml][obtainDate][Error] Date eml error ",
-                   super$getPath()," ", paste(e))
+          bdpar.log(message = paste0("Date eml error ", super$getPath(),
+                                     " ", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainDate")
         }
       )
 
@@ -187,18 +126,23 @@ ExtractorEml <- R6Class(
         formatDateEml <- "%a, %d %b %Y %H:%M:%S %z"
         StandardizedDate <- as.POSIXct(dateEml[[1]], format = formatDateEml)
         formatDateGeneric <- "%a %b %d %H:%M:%S %Z %Y"
-        format(StandardizedDate, formatDateGeneric) %>>%
-          super$setDate()
+        super$setDate(format(StandardizedDate,
+                             formatDateGeneric))
         },
         error = function(e) {
-          message("[ExtractorEml][obtainDate][Error] Date eml error in
-                   standardized proccess", super$getPath(), " ", paste(e))
+          bdpar.log(message = paste0("Date eml error in standardized proccess ",
+                                     super$getPath(), " ", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainDate")
         }
       )
-
-      return()
     },
-
+    #'
+    #' @description Obtains the source of the eml file. Calls the function
+    #' \emph{read_emails} and obtains the source of the file indicated in the
+    #' path. In addition, it initializes the data with the initial source.
+    #'
     obtainSource = function() {
 
       private$source <- tryCatch(
@@ -208,38 +152,78 @@ ExtractorEml <- R6Class(
               collapse = " "),
 
         error = function(e) {
-          message("[ExtractorEml][obtainSource][Error] Source eml error ",
-                   super$getPath()," ", paste(e))
+          bdpar.log(message = paste0("Source eml error ",
+                                     super$getPath(), " ", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "obtainSource")
         }
       )
 
-      super$getSource() %>>%
-        super$setData()
-
-      return()
+      super$setData(super$getSource())
     },
-
+    #'
+    #' @description Gets of \emph{PartSelectedOnMPAlternative} variable.
+    #'
+    #' @return Value of \emph{PartSelectedOnMPAlternative} variable.
+    #'
     getPartSelectedOnMPAlternative = function() {
-
-      return(private$PartSelectedOnMPAlternative)
+      private$PartSelectedOnMPAlternative
     },
-
+    #'
+    #' @description Gets of \code{PartSelectedOnMPAlternative} variable.
+    #'
+    #' @param PartSelectedOnMPAlternative A \code{\link{character}} value. The
+    #' new value of \emph{PartSelectedOnMPAlternative} variable.
+    #'
     setPartSelectedOnMPAlternative = function(PartSelectedOnMPAlternative) {
 
       if (!"character" %in% class(PartSelectedOnMPAlternative)) {
-        stop("[ExtractorEml][setPartSelectedOnMPAlternative][Error] ",
-             "Checking the type of the 'PartSelectedOnMPAlternative' variable: ",
-             class(PartSelectedOnMPAlternative))
+        bdpar.log(message = paste0("Checking the type of the ",
+                                   "'PartSelectedOnMPAlternative' variable: ",
+                                   class(PartSelectedOnMPAlternative)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setPartSelectedOnMPAlternative")
       }
 
       private$PartSelectedOnMPAlternative <- PartSelectedOnMPAlternative
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the instance
+    #'
+    #' @return \code{\link{Instance}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      toRet <- paste0("\tPath: ", as.character(private$path),
+                      "\n\tDate: ", as.character(private$date),
+                      "\n\tIsValid: ", as.character(private$isValid),
+                      "\n\tSource: \"", as.character(private$source), "\"",
+                      "\n\tData: \"", as.character(private$data), "\"",
+                      "\n\tFlowPipes: ", paste(as.character(unlist(private$flowPipes)), collapse = " "),
+                      "\n\tBanPipes: ", paste(as.character(unlist(private$banPipes)), collapse = " "),
+                      "\n\tProperties: ")
 
-      return()
+      properties <- ""
+      if (length(private$properties) != 0) {
+        properties <- "\n\t\t"
+        properties <- paste0(properties, paste0(lapply(names(private$properties), function(propertyName) {
+          paste0("- ", propertyName, ": ",
+                 paste(as.character(unlist(private$properties[[propertyName]])), collapse = " "),
+                 collapse = "")
+        }), collapse = "\n\t\t"))
+      } else {
+        properties <- "Not located"
+      }
+      toRet <- paste0(toRet, properties, "\n")
+      toRet
     }
-
   ),
 
   private = list(
+    # A \code{\link{character}} value. Configuration to read the eml files.
+    # Indicates whether the text/plain part or the text/html part is read in
+    # multipart emails.
     PartSelectedOnMPAlternative = "text/plain"
   )
 )

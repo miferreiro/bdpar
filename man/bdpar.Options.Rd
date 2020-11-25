@@ -18,7 +18,7 @@ By default, the application initializes the object named \code{bdpar.Options}
 of type \code{BdparOptions} which is in charge of initializing the
 options used in the defined pipes.
 
-The default fields on \emph{\link{bdpar.Options}} are initialized, if needed,
+The default fields on \code{\link{bdpar.Options}} are initialized, if needed,
 as shown bellow:
 
 \strong{[eml]}
@@ -60,6 +60,55 @@ as shown bellow:
 - \code{bdpar.Options$set("youtube.app.password", <<app_password>>)}
 
 - \code{bdpar.Options$set("cache.youtube.path", <<cache.path>>)}
+
+\strong{[cache]}
+
+- \code{bdpar.Options$set("cache", <<status_cache>>)}
+
+- \code{bdpar.Options$set("cache.folder", <<cache.path>>)}
+
+\strong{[parallel]}
+
+- \code{bdpar.Options$set("numCores", <<num_cores>>)}
+
+\strong{[verbose]}
+
+- \code{bdpar.Options$set("verbose", <<status_verbose>>)}
+}
+
+\section{Cache functionality}{
+
+
+If the bdpar cache is configured through the "cache" and "cache.folder"
+options, the status of the instances will be stored after each pipe. This
+allows to avoid rejections of previously executed tasks, if the order and
+configuration of the pipe and pipeline is the same as what is stored in the
+cache.
+
+If you want to remove the cache, the \code{cleanCache} method does
+this task.
+}
+
+\section{Parallel functionality}{
+
+
+The parallelization of instances is configured through the "numCores" option,
+which indicates the number of cores that will be used in the processing.
+
+In the case of parallelisation, only the log by file will work to allow
+collecting all the information produced by the cores.
+}
+
+\section{Log configuration}{
+
+
+The bdpar log is configured through the \code{configureLog} function.
+This system manages both the place to display the messages and the priority
+level of each message showing only the messages with a higher level than
+indicated in the \emph{threshold} variable.
+
+If you want to deactivate the bdpar log, the \code{disableLog}
+method in \code{\link{bdpar.Options}} does this task.
 }
 
 \section{Methods}{
@@ -177,13 +226,68 @@ A boolean results according to the existence of the specific option in the list 
 }
 }
 }
+
+\item{\bold{cleanCache:}}{
+Cleans the cache of executed pipelines. Deletes all files and directories
+that are in the path defined in \strong{"cache.folder"} option.
+\itemize{
+\item{\emph{Usage:}}{
+\code{cleanCache()}
+}
+}
+}
+
+\item{\bold{configureLog:}}{
+Configures the bdpar log. In the case of parallelisation, only the log by
+file will work.
+\itemize{
+\item{\emph{Usage:}}{
+\code{configureLog(console = TRUE, threshold = "INFO", file = NULL)}
+}
+\item{\emph{Arguments:}}{
+\itemize{
+\item{\strong{console:}}{
+(\emph{boolean}) Shows the log on console or not.
+}
+\item{\strong{threshold:}}{
+(\emph{character}) The logging threshold level. Messages with a lower
+priority level will be discarded.
+}
+\item{\strong{file:}}{
+(\emph{character}) The file to write messages to. If it is NULL,
+the log in file will not be enabled.
+}
+}
+}
+}
+}
+
+\item{\bold{disableLog:}}{
+Deactivates the bdpar log.
+\itemize{
+\item{\emph{Usage:}}{
+\code{disableLog()}
+}
+}
+}
+
+\item{\bold{getLogConfiguration:}}{
+Print the bdpar log configuration.
+\itemize{
+\item{\emph{Usage:}}{
+\code{getLogConfiguration()}
+}
+}
+}
 }
 }
 
 \seealso{
-\code{\link{AbbreviationPipe}}, \code{\link{Connections}},
-         \code{\link{ContractionPipe}}, \code{\link{ExtractorEml}},
-         \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
-         \code{\link{GuessLanguagePipe}}, \code{\link{SlangPipe}},
-         \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}}
+\code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
+         \code{\link{Connections}}, \code{\link{ContractionPipe}},
+         \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
+         \code{\link{ExtractorYtbid}}, \code{\link{GuessLanguagePipe}},
+         \code{\link{Instance}}, \code{\link{SlangPipe}},
+         \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}},
+         \code{\link{\%>|\%}}
 }

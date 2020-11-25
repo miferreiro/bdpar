@@ -26,22 +26,6 @@
 #' @description This class that inherits from the \code{\link{Instance}} class and
 #' implements the functions of extracting the text and the date of an tsms type file.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{ExtractorSms$new(path)}
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{path:}}{
-#' (\emph{character}) path of the tsms type file.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' Due to the fact that the creation date of the message can not be
 #' extracted from the text of an SMS, the date will be initialized to empty.
@@ -50,33 +34,12 @@
 #' This class inherits from \code{\link{Instance}} and implements the
 #' \code{obtainSource} and \code{obtainDate} abstracts functions.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{obtainDate:}}{
-#' function that obtains the date of the SMS file.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainDate()}
-#' }
-#' }
-#' }
-#' \item{\bold{obtainSource:}}{
-#' obtains the source of the SMS file. Reads the file indicated in
-#' the path. In addition, it initializes the data with the initial source.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{obtainSource()}
-#' }
-#' }
-#' }
-#' }
-#'
 #' @seealso \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
 #' \code{\link{ExtractorYtbid}}, \code{\link{Instance}}
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6
+#' @import R6
 #' @export ExtractorSms
 
 ExtractorSms <- R6Class(
@@ -86,37 +49,67 @@ ExtractorSms <- R6Class(
   inherit = Instance,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{ExtractorSms}} object.
+    #'
+    #' @param path A \code{\link{character}} value. Path of the tsms file.
+    #'
     initialize = function(path) {
 
       if (!"character" %in% class(path)) {
-        stop("[ExtractorSms][initialize][Error] ",
-             "Checking the type of the 'path' variable: ",
-             class(path))
+        bdpar.log(message = paste0("Checking the type of the 'path' variable: ",
+                                   class(path)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
-      path %>>%
-        super$initialize()
-
+      super$initialize(path)
     },
-
+    #'
+    #' @description Obtains the date of the SMS file.
+    #'
     obtainDate = function() {
-
-      "" %>>%
-        super$setDate()
-
-      return()
+      super$setDate("")
     },
-
+    #'
+    #' @description Obtains the source of the SMS file. Reads the file indicated
+    #' in the path. In addition, it initializes the data field with the initial
+    #' source.
+    #'
     obtainSource = function() {
 
-      super$getPath() %>>%
-        readr::read_file() %>>%
-          super$setSource()
+      super$setSource(readLines(super$getPath(), warn = FALSE))
 
-      super$getSource() %>>%
-        super$setData()
+      super$setData(super$getSource())
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the instance
+    #'
+    #' @return \code{\link{Instance}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      toRet <- paste0("\tPath: ", as.character(private$path),
+                      "\n\tDate: ", as.character(private$date),
+                      "\n\tIsValid: ", as.character(private$isValid),
+                      "\n\tSource: \"", as.character(private$source), "\"",
+                      "\n\tData: \"", as.character(private$data), "\"",
+                      "\n\tFlowPipes: ", paste(as.character(unlist(private$flowPipes)), collapse = " "),
+                      "\n\tBanPipes: ", paste(as.character(unlist(private$banPipes)), collapse = " "),
+                      "\n\tProperties: ")
 
-      return()
+      properties <- ""
+      if (length(private$properties) != 0) {
+        properties <- "\n\t\t"
+        properties <- paste0(properties, paste0(lapply(names(private$properties), function(propertyName) {
+          paste0("- ", propertyName, ": ",
+                 paste(as.character(unlist(private$properties[[propertyName]])), collapse = " "),
+                 collapse = "")
+        }), collapse = "\n\t\t"))
+      } else {
+        properties <- "Not located"
+      }
+      toRet <- paste0(toRet, properties, "\n")
+      toRet
     }
   )
 )

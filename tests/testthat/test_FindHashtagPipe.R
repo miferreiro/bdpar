@@ -1,8 +1,12 @@
 testthat::context("FindHashtagPipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -15,9 +19,18 @@ testthat::test_that("initialize",{
                                               removeHashtags))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
@@ -28,13 +41,22 @@ testthat::test_that("initialize propertyName type error",{
                                              alwaysBeforeDeps,
                                              notAfterDeps,
                                              removeHashtags),
-                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[FindHashtagPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                         fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- NULL
@@ -45,13 +67,22 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                              alwaysBeforeDeps,
                                              notAfterDeps,
                                              removeHashtags),
-                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[FindHashtagPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -62,13 +93,22 @@ testthat::test_that("initialize notAfterDeps type error",{
                                              alwaysBeforeDeps,
                                              notAfterDeps,
                                              removeHashtags),
-                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[FindHashtagPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize removeHashtags type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -79,13 +119,22 @@ testthat::test_that("initialize removeHashtags type error",{
                                              alwaysBeforeDeps,
                                              notAfterDeps,
                                              removeHashtags),
-                         "[FindHashtagPipe][initialize][Error] Checking the type of the 'removeHashtags' variable: NULL",
+                         "[FindHashtagPipe][initialize][FATAL] Checking the type of the 'removeHashtags' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe removeHashtags <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -110,9 +159,18 @@ testthat::test_that("pipe removeHashtags <- TRUE",{
                          "Hey I am")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe removeHashtags <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -138,9 +196,18 @@ testthat::test_that("pipe removeHashtags <- FALSE",{
                          "Hey I am #example")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -154,13 +221,22 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[FindHashtagPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[FindHashtagPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe empty data",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -179,16 +255,25 @@ testthat::test_that("pipe empty data",{
   instance <- ExtractorSms$new(path)
   instance$setData("#example")
   expect_warning(pipe$pipe(instance),
-                 "\\[FindHashtagPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindHashtagPipe\\/testFile\\.tsms has data empty on pipe Hashtag")
+                 "\\[FindHashtagPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindHashtagPipe\\/testFile\\.tsms has data empty on pipe Hashtag")
   testthat::expect_equal(instance$getSpecificProperty("hashtag"),
                          "#example")
   testthat::expect_equal(instance$getData(),
                          "")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findUserName",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -206,9 +291,18 @@ testthat::test_that("findUserName",{
                          "#example")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findHashtag data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -223,13 +317,22 @@ testthat::test_that("findHashtag data type error",{
   data <- NULL
 
   testthat::expect_error(pipe$findHashtag(data),
-                         "[FindHashtagPipe][findHashtag][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindHashtagPipe][findHashtag][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("removeHashtag",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -247,9 +350,18 @@ testthat::test_that("removeHashtag",{
                          " ")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("removeHashtag data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "hashtag"
   alwaysBeforeDeps <- list()
@@ -264,7 +376,12 @@ testthat::test_that("removeHashtag data type error",{
   data <- NULL
 
   testthat::expect_error(pipe$removeHashtag(data),
-                         "[FindHashtagPipe][removeHashtag][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindHashtagPipe][removeHashtag][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
 
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

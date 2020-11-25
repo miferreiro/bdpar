@@ -26,33 +26,6 @@
 #' @description Obtains the \strong{source} using the method which implements the
 #' subclass of \code{\link{Instance}}.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' File2Pipe$new(propertyName = "source",
-#'               alwaysBeforeDeps = list("TargetAssigningPipe"),
-#'               notAfterDeps = list())
-#' }
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Note:
 #' \code{\link{File2Pipe}} will automatically invalidate the
 #' \code{\link{Instance}} whenever the obtained source is empty or not in UTF-8 format.
@@ -60,28 +33,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain the source.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{FindEmojiPipe}}, \code{\link{FindEmoticonPipe}},
@@ -106,48 +57,81 @@ File2Pipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{File2Pipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #'
     initialize = function(propertyName = "source",
                           alwaysBeforeDeps = list("TargetAssigningPipe"),
                           notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[File2Pipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[File2Pipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[File2Pipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
     },
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain the
+    #' source.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[File2Pipe][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
       instance$obtainSource()
 
-      if (is.na(instance$getSource()) || all(instance$getSource() == "") || is.null(instance$getSource())) {
-        message <- c( "The file: " , instance$getPath() , " has source empty")
+      if (is.na(instance$getSource()) ||
+          all(instance$getSource() == "") ||
+          is.null(instance$getSource())) {
+        message <- paste0("The file: ", instance$getPath(), " has source empty")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[File2Pipe][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
@@ -156,14 +140,19 @@ File2Pipe <- R6Class(
 
       if (!validUTF8(instance$getSource())) {
 
-        instance$addProperties(c("The file: " , instance$getPath(), " is not utf8", "reasonToInvalidate"))
+        message <- paste0("The file: ", instance$getPath(), " is not utf8")
 
-        warning("[File2Pipe][pipe][Warning] ", "The file: ", instance$getPath(), " is not utf8")
+        instance$addProperties(message, "reasonToInvalidate")
+
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
       }
 
-      return(instance)
+      instance
     }
   )
 )

@@ -21,124 +21,23 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-#' @title Class implementing a dynamic pipelining proccess.
+#' @title Class implementing a dynamic pipelining process
 #'
 #' @description This \code{\link{DynamicPipeline}} class inherits from the
-#' \code{\link{GenericPipeline}} class. Includes the \strong{execute} method which
-#' provides a dynamic pipelining implementation.
-#'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{DynamicPipeline$new(pipeline = NULL)}
-#'
+#' \code{\link{GenericPipeline}} class. Includes the \strong{execute} method
+#' which provides a dynamic pipelining implementation.
+#''
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipeline}} and implements the
 #' \code{execute} abstract function.
 #'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{add:}}{
-#' adds a pipe or a pipe list to the pipeline
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{add(pipe, pos)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{pipe:}}{
-#' (\emph{GenericPipe}) pipe objects or a list of pipes to add
-#' }
-#' \item{\strong{pos:}}{
-#' (\emph{numeric}) the value of the pos to add. If it is NULL, pipe is appended to the pipeline
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeByPos:}}{
-#' removes pipes by the position on the pipeline
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeByPos(pos)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{pos:}}{
-#' (\emph{numeric}) the pipe positions to remove.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeByPipe:}}{
-#' removes pipes by its name on the pipeline
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeByPipe(pipe.name)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{pipe.name:}}{
-#' (\emph{character}) the pipe name to remove.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeAll:}}{
-#' removes all pipes included on pipeline
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeAll()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{execute:}}{
-#' function where is implemented the flow of the pipes.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{execute(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#' the preprocessed \code{\link{Instance}}.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) the \code{\link{Instance}} that is going to be processed.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{get:}}{
-#' gets a list with containinig the set of pipes of the pipeline,
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{get()}
-#' }
-#' \item{\emph{Value:}}{
-#' the set of pipes containing the pipeline.
-#' }
-#' }
-#' }
-#' }
-#'
-#' @seealso \code{\link{Instance}}, \code{\link{DefaultPipeline}},
-#'          \code{\link{GenericPipeline}}, \code{\link{GenericPipe}},
-#'          \code{\link{\%>|\%}}
+#' @seealso \code{\link{bdpar.log}}, \code{\link{Instance}},
+#'          \code{\link{DefaultPipeline}}, \code{\link{GenericPipeline}},
+#'          \code{\link{GenericPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'
-#' @import R6 rlist
+#' @import R6
 #' @export DynamicPipeline
 
 DynamicPipeline <- R6Class(
@@ -148,20 +47,30 @@ DynamicPipeline <- R6Class(
   inherit = GenericPipeline,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{DynamicPipeline}} object.
+    #'
+    #' @param pipeline A \code{\link{list}} of \code{\link{GenericPipe}}
+    #' objects. Initializes the flow of \code{\link{GenericPipe}}.
+    #'
     initialize = function(pipeline = NULL) {
 
       if (!is.null(pipeline)) {
         if (!"list" %in% class(pipeline)) {
-          stop("[DynamicPipeline][initialize][Error] ",
-               "Checking the type of the 'pipeline' variable: ",
-               class(pipeline))
+          bdpar.log(message = paste0("Checking the type of the 'pipeline' variable: ",
+                                     class(pipeline)),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         }
 
         if (!any(sapply(pipeline, inherits, "GenericPipe"))) {
-          stop("[DynamicPipeline][initialize][Error] ",
-               "Define pipes are not correct. Must be inherit from 'GenericPipe' ",
-               "class. Aborting...")
+          bdpar.log(message = paste0("Define pipes are not correct. Must be ",
+                                     "inherit from 'GenericPipe' class. ",
+                                     "Aborting..."),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "initialize")
         }
 
         private$pipeline <- pipeline
@@ -169,7 +78,17 @@ DynamicPipeline <- R6Class(
         private$pipeline <- list()
       }
     },
-
+    #'
+    #' @description Adds a \code{\link{GenericPipe}} or a
+    #' \code{\link{GenericPipe}} list to the pipeline.
+    #'
+    #' @param pipe A \code{\link{GenericPipe}} object or a \code{\link{list}} of
+    #' \code{\link{GenericPipe}} objects.
+    #' @param pos A (\emph{numeric}) value. The value of the position to add.
+    #' If it is NULL, \code{\link{GenericPipe}} is appended to the pipeline.
+    #'
+    #' @import rlist
+    #'
     add = function(pipe, pos = NULL) {
 
       if (!is.list(pipe) || !is.vector(pipe)) {
@@ -177,31 +96,46 @@ DynamicPipeline <- R6Class(
       }
 
       if (!any(sapply(pipe, inherits, "GenericPipe"))) {
-        stop("[DynamicPipeline][add][Error] Checking the type of the 'pipe' variable: ",
-             class(pipe))
+        bdpar.log(message = paste0("Checking the type of the 'pipe' variable: ",
+                                   class(pipe)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "add")
       }
 
       if (!is.null(pos)) {
 
         if (!"numeric" %in% class(pos)) {
-          stop("[DynamicPipeline][add][Error] Checking the type of the 'pos' variable: ",
-               class(pos))
+          bdpar.log(message = paste0("Checking the type of the 'pos' variable: ",
+                                     class(pos)),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "add")
         }
 
         if (length(private$pipeline) == 0) {
-          warning("[DynamicPipeline][add][Warning] Pipeline empty, adding in ",
-                  "the first position")
+          bdpar.log(message = "Pipeline empty, adding in the first position",
+                    level = "WARN",
+                    className = class(self)[1],
+                    methodName = "add")
           private$pipeline <- list.flatten(list.append(private$pipeline, pipe))
         } else {
           if (length(private$pipeline) < pos) {
-            warning("[DynamicPipeline][add][Warning] The position exceeds the ",
-                    "length of the pipeline, adding at the end of it")
+            bdpar.log(message = paste0("The position exceeds the length of ",
+                                       "the pipeline, adding at the end of it"),
+                      level = "WARN",
+                      className = class(self)[1],
+                      methodName = "add")
             private$pipeline <- list.flatten(list.append(private$pipeline, pipe))
           } else {
 
             if (!all(0 < pos, pos <= length(private$pipeline))) {
-              stop("[DynamicPipeline][add][Error] It can only be added between ",
-                   "positions '0' and '", length(private$pipeline), "'")
+              bdpar.log(message = paste0("It can only be added between positions ",
+                                         "'0' and '", length(private$pipeline),
+                                         "'"),
+                        level = "FATAL",
+                        className = class(self)[1],
+                        methodName = "add")
             }
 
             private$pipeline <- list.flatten(list.insert(private$pipeline, pos, pipe))
@@ -212,25 +146,49 @@ DynamicPipeline <- R6Class(
         private$pipeline <- list.flatten(list.append(private$pipeline, pipe))
       }
     },
-
+    #'
+    #' @description Removes \code{\link{GenericPipe}s} by the position on the
+    #' pipeline.
+    #'
+    #' @param pos A (\emph{numeric}) value. The value of the position to remove.
+    #'
+    #' @import rlist
+    #'
     removeByPos = function(pos) {
 
       if (!"numeric" %in% class(pos)) {
-        stop("[DynamicPipeline][removeByPos][Error] Checking the type of the 'pos' variable: ",
-             class(pos))
+        bdpar.log(message = paste0("Checking the type of the 'pos' variable: ",
+                                   class(pos)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeByPos")
       }
 
       if (length(private$pipeline) == 0) {
-        warning("[DynamicPipeline][removeByPos][Warning] Pipeline empty. Imposible remove")
+        bdpar.log(message = "Pipeline empty. Imposible remove",
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "removeByPos")
       } else {
         if (!any(sapply(pos, function(p) { all(0 < p, p <= length(private$pipeline)) }))) {
-          stop("[DynamicPipeline][removeByPos][Error] It can only be deleted between ",
-               "positions '0' and '", length(private$pipeline), "'")
+          bdpar.log(message = paste0("It can only be deleted between positions ",
+                                     "'0' and '", length(private$pipeline), "'"),
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "removeByPos")
         }
         private$pipeline <- list.remove(private$pipeline, pos)
       }
     },
-
+    #'
+    #' @description Removes \code{\link{GenericPipe}s} by its name on the
+    #' pipeline.
+    #'
+    #' @param pipe.name A (\emph{character}) value. The
+    #' \code{\link{GenericPipe}s} name to remove.
+    #'
+    #' @import rlist
+    #'
     removeByPipe = function(pipe.name) {
 
       if (!is.list(pipe.name) || !is.vector(pipe.name)) {
@@ -238,36 +196,58 @@ DynamicPipeline <- R6Class(
       }
 
       if (!any(sapply(pipe.name, inherits, "character"))) {
-        stop("[DynamicPipeline][removeByPipe][Error] Checking the type of the 'pipe.name' variable (must be a character list)")
+        bdpar.log(message = paste0("Checking the type of the 'pipe.name' ",
+                                   "variable (must be a character list)"),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeByPipe")
       }
 
       if (length(private$pipeline) == 0) {
-        warning("[DynamicPipeline][removeByPipe][Warning] Pipeline empty. Imposible remove")
+        bdpar.log(message = "Pipeline empty. Imposible remove",
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "removeByPipe")
       } else {
         pos <- which(pipe.name %in% lapply(private$pipeline, function(p) class(p)[1]))
         if (length(pos) == 0) {
-          warning("[DynamicPipeline][removeByPipe][Warning] Not found elements to remove")
+          bdpar.log(message = "Not found elements to remove",
+                    level = "WARN",
+                    className = class(self)[1],
+                    methodName = "removeByPipe")
         } else {
           private$pipeline <- list.remove(private$pipeline, pos)
         }
       }
     },
-
+    #'
+    #' @description Removes all \code{\link{GenericPipe}s} included on pipeline.
+    #'
     removeAll = function() {
       private$pipeline <- list()
     },
-
+    #'
+    #' @description Function where is implemented the flow of the
+    #' \code{\link{GenericPipe}s}.
+    #'
+    #' @param instance A (\emph{Instance}) value. The \code{\link{Instance}}
+    #' that is going to be processed.
+    #'
     execute = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[DynamicPipeline][execute][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       if (length(private$pipeline) == 0) {
-        stop("[DynamicPipeline][execute][Error] ",
-             "Pipeline is empty")
+        bdpar.log(message = "Pipeline is empty",
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "execute")
       }
 
       call <- "instance"
@@ -279,26 +259,51 @@ DynamicPipeline <- R6Class(
         instance <- eval(parse(text = call))
         ,
         error = function(e) {
-          message("[DynamicPipeline][pipeAll][Error]", instance$getPath()," :", paste(e))
+          bdpar.log(message = paste0(instance$getPath()," :", paste(e)),
+                    level = "ERROR",
+                    className = class(self)[1],
+                    methodName = "execute")
+
           instance$invalidate()
         }
       )
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Gets a list with containing the set of \code{\link{GenericPipe}s}
+    #' of the pipeline.
+    #'
+    #' @return The set of \code{\link{GenericPipe}s} containing the pipeline.
+    #'
     get = function() {
       private$pipeline
     },
-
+    #'
+    #' @description Prints pipeline representation. (Override print function)
+    #'
+    #' @param ... Further arguments passed to or from other methods.
+    #'
     print = function(...) {
 
       call <- "instance"
       for (pipe in private$pipeline) {
-        call <- paste(call, "%>|%", class(pipe)[1])
+        call <- paste(call, "%>|%\n\t", class(pipe)[1])
       }
-
-      print(call)
+      call <- paste0(call, '\n')
+      cat(call)
+    },
+    #'
+    #' @description Returns a \code{\link{character}} representing the pipeline
+    #'
+    #' @return \code{\link{DynamicPipeline}} \code{\link{character}} representation
+    #'
+    toString = function() {
+      call <- "instance"
+      for (pipe in private$pipeline) {
+        call <- paste(call, "%>|%\n\t", class(pipe)[1])
+      }
+      call
     }
   ),
 

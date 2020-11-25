@@ -28,38 +28,6 @@
 #' stored inside the \strong{hashtag} field of \code{\link{Instance}} class.
 #' Moreover if required, is able to perform inline hashtag removement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' FindHashtagPipe$new(propertyName = "hashtag",
-#'                     alwaysBeforeDeps = list(),
-#'                     notAfterDeps = list(),
-#'                     removeHashtags = TRUE)
-#' }
-#'
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{removeHashtag:}}{
-#' (\emph{logical}) indicates if the hashstags are removed.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' The regular expression indicated in the \code{hashtagPattern}
 #' variable is used to identify hashtags.
@@ -71,80 +39,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/remove the hashtags.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{pipe(instance)}
-#' }
-#' \item{\emph{Value}}{
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findHashtag:}}{
-#' finds the hashtags in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findHashtag(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' list with hashtags found.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to search the hashtags.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeHashtag:}}{
-#' removes the hashtags in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeHashtag(data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with hashtags removed.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to remove the hashtags.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Public fields:
-#' \itemize{
-#' \item{\bold{hashtagPattern:}}{
-#'  (\emph{character}) regular expression to detect hashtags.
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{removeHashtags:}}{
-#'  (\emph{logical}) indicates if the hashstags are removed.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -159,7 +53,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import pipeR R6 rlist
+#' @import R6
 #' @export FindHashtagPipe
 
 FindHashtagPipe <- R6Class(
@@ -169,110 +63,167 @@ FindHashtagPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{FindHashtagPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param removeHashtags A \code{\link{logical}} value. Indicates if the
+    #' hashtags are removed.
+    #'
     initialize = function(propertyName = "hashtag",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list(),
                           removeHashtags = TRUE) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(removeHashtags)) {
-        stop("[FindHashtagPipe][initialize][Error] ",
-             "Checking the type of the 'removeHashtags' variable: ",
-             class(removeHashtags))
+        bdpar.log(message = paste0("Checking the type of the 'removeHashtags' variable: ",
+                                   class(removeHashtags)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
       private$removeHashtags <- removeHashtags
     },
-
+    #' @field hashtagPattern  A \code{\link{character}} value. The regular
+    #' expression to detect hashtags.
     hashtagPattern = "(?:\\s|^|[\"><\u00A1\u00BF?!;:,.'-])(#[^[:cntrl:][:space:]!\"#$%&'()*+\\\\,\\/:;<=>?@\\[\\]^`{|}~.-]+)[;:?\"!,.'>-]?(?=(?:\\s|$|>))",
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/remove
+    #' the hashtags. The hashtags found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
+    #' @import rlist
+    #'
     pipe = function(instance){
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindHashtagPipe][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        self$findHashtag() %>>%
-          unique() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(unique(
+        self$findHashtag(instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeHashtags) {
-          instance$getData()  %>>%
-            self$removeHashtag() %>>%
-              textutils::trim() %>>%
-                {instance$setData(.)}
+        instance$setData(trimws(x = self$removeHashtag(instance$getData())))
       }
 
       if (is.na(instance$getData()) ||
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
-        message <- c( "The file: " , instance$getPath() , " has data empty on pipe Hashtag")
+        message <- paste0("The file: ", instance$getPath(), " has data empty on pipe Hashtag")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindHashtagPipe][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
         return(instance)
       }
 
-      return(instance);
+      instance
     },
-
+    #'
+    #' @description Finds the \emph{hashtags} in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text to search the
+    #' hashtags.
+    #'
+    #' @return The \code{\link{list}} with hashtags found.
+    #'
     findHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][findHashtag][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findHashtag")
       }
 
-      return(stringr::str_match_all(data,
-                           rex::regex(self$hashtagPattern,
-                                 ignore_case = TRUE,
-                                 multiline = TRUE))[[1]][,2])
+      stringr::str_match_all(data,
+                             rex::regex(self$hashtagPattern,
+                                        ignore_case = TRUE,
+                                        multiline = TRUE))[[1]][,2]
     },
-
+    #'
+    #' @description Removes the \emph{hashtags} in the data.
+    #'
+    #' @param data A \code{\link{character}} value. The text where hashtags
+    #' will be removed.
+    #'
+    #' @return The data with the hashtags removed.
+    #'
     removeHashtag = function(data){
 
       if (!"character" %in% class(data)) {
-        stop("[FindHashtagPipe][removeHashtag][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeHashtag")
       }
 
-      return(stringr::str_replace_all(data,
-                             rex::regex(self$hashtagPattern,
-                                   ignore_case = TRUE,
-                                   multiline = TRUE), " "))
+      stringr::str_replace_all(data,
+                               rex::regex(self$hashtagPattern,
+                                          ignore_case = TRUE,
+                                          multiline = TRUE),
+                               " ")
     }
   ),
 
   private = list(
+    # A (\emph{logical}) value. Indicates if the hashtags are removed or
+    # not.
     removeHashtags = TRUE
   )
 )

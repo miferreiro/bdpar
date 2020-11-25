@@ -1,31 +1,54 @@
 testthat::context("DefaultPipeline")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
 
   testthat::expect_silent(DefaultPipeline$new())
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("execute instance type error",{
 
   instance <- NULL
   testthat::expect_error(DefaultPipeline$new()$execute(instance),
-                         "[DefaultPipeline][execute][Error] Checking the type of the 'instance' variable: NULL",
+                         "[DefaultPipeline][execute][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+
+
 if (Sys.info()[['sysname']] %in% "Windows") {
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("execute",{
   testthat::skip_if_not_installed("cld2")
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("rjson")
   testthat::skip_if_not_installed("rtweet")
   testthat::skip_if_not_installed("stringi")
   testthat::skip_if_not_installed("stringr")
-  testthat::skip_if_not_installed("textutils")
   path <- file.path("testFiles",
                     "testDefaultPipeline",
                     "files",
@@ -38,21 +61,23 @@ testthat::test_that("execute",{
   bdpar.Options$set("resources.interjections.path", "")
   bdpar.Options$set("resources.slangs.path", "")
   bdpar.Options$set("resources.stopwords.path", "")
-  bdpar.Options$set("teeCSVPipe.output.path", "output_tsms.csv")
+  bdpar.Options$set("teeCSVPipe.output.path", file.path("testFiles",
+                                                        "testDefaultPipeline",
+                                                        "output_tsms.csv"))
+  bdpar.Options$set("cache", FALSE)
 
-  Bdpar$new()
   instance <- ExtractorSms$new(path)
   instanceInitial <- ExtractorSms$new(path)
 
   instance$setDate("")
 
-  instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us\r\n")
+  instance$setSource("Wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
 
   instance$setData("wait that's still not all that clear, were you not sure about me being sarcastic or that that's why x doesn't want to live with us")
   instance$setSpecificProperty("target", "ham")
   instance$setSpecificProperty("extension", "tsms")
 
-  instance$setSpecificProperty("length_before_cleaning_text", 132)
+  instance$setSpecificProperty("length_before_cleaning_text", 130)
 
   instance$setSpecificProperty("userName", as.character(c()))
   instance$setSpecificProperty("hashtag", as.character(c()))
@@ -91,26 +116,38 @@ testthat::test_that("execute",{
   testthat::expect_equal(instanceInitial,
                          instance)
 
-  file.remove("output_tsms.csv")
+  file.remove(file.path("testFiles",
+                        "testDefaultPipeline",
+                        "output_tsms.csv"))
 })
 
-testthat::teardown(bdpar.Options$reset())
-
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+  if (file.exists(file.path("testFiles",
+                            "testDefaultPipeline",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testDefaultPipeline",
+                          "output_tsms.csv"))
+  }
+})
 }
 
 if (Sys.info()[['sysname']] %in% "Windows") {
 
-  testthat::setup(bdpar.Options$reset())
+  testthat::setup({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+    bdpar.Options$set("verbose", TRUE)
+  })
 
   testthat::test_that("execute error",{
-    testthat::skip_if_not_installed("readr")
     path <- file.path("testFiles",
                       "testDefaultPipeline",
                       "files",
                       "_ham_",
                       "testFileEmpty.tsms")
-
-    Bdpar$new()
 
     instanceInitial <- ExtractorSms$new(path)
     instance <- ExtractorSms$new(path)
@@ -132,15 +169,20 @@ if (Sys.info()[['sysname']] %in% "Windows") {
     instance$addBanPipes(c("FindUrlPipe", "FindHashtagPipe", "AbbreviationPipe"))
 
     testthat::expect_message(suppressWarnings(DefaultPipeline$new()$execute(instanceInitial)),
-                             "[DefaultPipeline][execute][Error]",
+                             "[DefaultPipeline][execute][INFO]",
                              fixed = TRUE)
   })
 
-  testthat::teardown(bdpar.Options$reset())
-
+  testthat::teardown({
+    bdpar.Options$reset()
+    bdpar.Options$configureLog()
+  })
 }
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("get",{
 
@@ -168,9 +210,22 @@ testthat::test_that("get",{
                               TeeCSVPipe$new()))
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("print",{
   pipeline <- DefaultPipeline$new()
   testthat::expect_output(print(pipeline), "[A-Za-z0-9$/.\\(\\)%>]+")
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

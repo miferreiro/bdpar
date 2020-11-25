@@ -4,7 +4,7 @@
 \name{operator-pipe}
 \alias{operator-pipe}
 \alias{\%>|\%}
-\title{bdpar customized fordward-pipe operator}
+\title{bdpar customized forward-pipe operator}
 \usage{
 lhs \%>|\% rhs
 }
@@ -17,19 +17,20 @@ lhs \%>|\% rhs
 The \code{\link{Instance}} modified by the methods it has traversed.
 }
 \description{
-Defines a customized fordward pipe operator extending the
+Defines a customized forward pipe operator extending the
 features of classical \%>\%. Concretely \%>|\% is able to stop the pipelining
 process whenever an \code{\link{Instance}} has been invalidated. This issue,
-avoids executing the whole pipelining proccess for the invalidated
+avoids executing the whole pipelining process for the invalidated
 \code{\link{Instance}} and therefore reduce the time and resources used to
-complete the whole proccess.
+complete the whole process.
 }
 \section{Details}{
 
 This is the \%>\% operator of the modified magrittr library to both
 (i) to stop the flow when the \code{\link{Instance}} is invalid and (ii)
 automatically call the \code{pipe} function of the R6 objects passing
-through it and (iii) check the dependencies of the \code{\link{Instance}}.
+through it (iii) to check the dependencies of the \code{\link{Instance}} and
+(iv) to manage the pipeline cache.
 
 The usage structure would be as shown below:
 
@@ -46,10 +47,11 @@ pipeObject$new()
 
 \section{Note}{
 
-Pipelining proccess is automatically stopped if the \code{\link{Instance}}
+Pipelining process is automatically stopped if the \code{\link{Instance}}
 is invalid.
 }
 
 \seealso{
-\code{\link{Instance}}, \code{\link{GenericPipe}}
+\code{\link{bdpar.Options}}, \code{\link{Instance}},
+\code{\link{GenericPipe}}
 }

@@ -17,7 +17,7 @@ The goal of this document is to show the launch of a small example of data prepr
 
 # Example
 
-<div style="text-aling:justify">
+<div style="text-align:justify">
 First of all, it is necessary to include the package.
 
 ```{R, echo = TRUE, results = "hide"}
@@ -28,7 +28,7 @@ library(bdpar)
 
 ## Visualization
 
-<div style="text-aling:justify">
+<div style="text-align:justify">
 The data that will be used to show this example can be displayed as follows.  
 
 ```{R, echo = TRUE, results = "hide"}
@@ -40,13 +40,16 @@ bdparData
 
 ## Execution
 
-<div style="text-aling:justify">
+<div style="text-align:justify">
 For this preprocessing we will use both the default preprocessing flow (DefaultPipeline) and the default way to create the Instances (ExtractorFactory). 
 
 Taking into account all the elements to be used to configure the preprocessing, the start of the pipe flow is launched as follows.
 
 ```{R, echo = TRUE, results = "hide", eval = FALSE}
-runPipeline(path = system.file(package = "bdpar", "testFiles"))
+runPipeline(path = system.file(package = "bdpar", "example"),
+            cache = FALSE,
+            verbose = FALSE,
+            summary = FALSE)
 ```
 
 This function will generate a csv file in the user's working directory, where you can see the characteristics of the text obtained, such as cleaning the text to be preprocessed.

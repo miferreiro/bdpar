@@ -28,46 +28,6 @@
 #' stored inside the \strong{URLs} field of \code{\link{Instance}} class.
 #' Moreover if required, is able to perform inline URLs removement.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \preformatted{
-#' FindUrlPipe$new(propertyName = "URLs",
-#'                 alwaysBeforeDeps = list(),
-#'                 notAfterDeps = list(),
-#'                 removeUrls = TRUE,
-#'                 URLPatterns = list(self$URLPattern, self$EmailPattern),
-#'                 namesURLPatterns = list("UrlPattern","EmailPattern"))
-#' }
-#'
-#' \itemize{
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{propertyName:}}{
-#' (\emph{character}) name of the property associated with the Pipe.
-#' }
-#' \item{\strong{alwaysBeforeDeps:}}{
-#' (\emph{list}) the dependences alwaysBefore (Pipes that must be executed before this
-#' one).
-#' }
-#' \item{\strong{notAfterDeps:}}{
-#' (\emph{list}) the dependences notAfter (Pipes that cannot be executed after this one).
-#' }
-#' \item{\strong{removeUrls:}}{
-#' (\emph{logical}) indicates if the URLs are removed.
-#' }
-#' \item{\strong{URLPatterns:}}{
-#' (\emph{list}) the regex to find URLs.
-#' }
-#' \item{\strong{namesURLPatterns:}}{
-#' (\emph{list}) the names of regex.
-#' }
-#' }
-#' }
-#' }
-#'
 #' @section Details:
 #' The regular expressions indicated in the \code{URLPatterns}
 #' variable are used to identify URLs.
@@ -79,157 +39,6 @@
 #' @section Inherit:
 #' This class inherits from \code{\link{GenericPipe}} and implements the
 #' \code{pipe} abstract function.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{pipe:}}{
-#' preprocesses the \code{\link{Instance}} to obtain/remove the users.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#'
-#' \preformatted{
-#' pipe(instance)}
-#' }
-#' \item{\emph{Value:}}{
-#'
-#' the \code{\link{Instance}} with the modifications that have occurred in the Pipe.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{instance:}}{
-#' (\emph{Instance}) \code{\link{Instance}} to preproccess.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{findUrl:}}{
-#' finds the URLs in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{findHashtag(pattern, data)}
-#' }
-#' \item{\emph{Value:}}{
-#' list with URLs found.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{pattern:}}{
-#' (\emph{character}) regex to find URLs.
-#' }
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to search the URLs.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{removeUrl:}}{
-#' removes the URLs in the data.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{removeUrl(pattern, data)}
-#' }
-#' \item{\emph{Value:}}{
-#' the data with URLs removed.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{pattern:}}{
-#' (character) regex to find URLs.
-#' }
-#' \item{\strong{data:}}{
-#' (\emph{character}) text to remove the URLs.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{putNamesURLPattern:}}{
-#' sets the names to URL patterns result.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{putNamesURLPattern(resultOfURLPatterns)}
-#' }
-#' \item{\emph{Value:}}{
-#' Value of \code{resultOfURLPatterns} variable with the names of URL pattern.
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{resultOfURLPatterns:}}{
-#' (\emph{list}) list with URLs found.
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getURLPatterns:}}{
-#' gets of URL patterns.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getURLPatterns()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of URL patterns.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getNamesURLPatterns:}}{
-#' gets of name of URLs.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getNamesURLPatterns()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of name of URLs.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{setNamesURLPatterns:}}{
-#' sets the name of URLs.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{setNamesURLPatterns(namesURLPatterns)}
-#' }
-#' \item{\emph{Arguments:}}{
-#' \itemize{
-#' \item{\strong{namesURLPatterns:}}{
-#' (\emph{character}) the new value of the name of URLs.
-#' }
-#' }
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Public fields:
-#' \itemize{
-#' \item{\bold{URLPattern:}}{
-#'  (\emph{character}) regular expression to detect URLs.
-#' }
-#' \item{\bold{EmailPattern:}}{
-#'  (\emph{character}) regular expression to detect emails.
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{URLPatterns:}}{
-#'  (\emph{list}) regular expressions used to detect URLs.
-#' }
-#' \item{\bold{namesURLPatterns:}}{
-#'  (\emph{list}) names of regular expressions that are used to identify URLs.
-#' }
-#' \item{\bold{removeUrls:}}{
-#'  (\emph{logical}) indicates if the URLs are removed.
-#' }
-#' }
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{ContractionPipe}},
 #'          \code{\link{File2Pipe}}, \code{\link{FindEmojiPipe}},
@@ -244,7 +53,7 @@
 #'
 #' @keywords NULL
 #'
-#' @import R6 rlist pipeR
+#' @import R6
 #' @export FindUrlPipe
 
 FindUrlPipe <- R6Class(
@@ -254,7 +63,24 @@ FindUrlPipe <- R6Class(
   inherit = GenericPipe,
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{FindUrlPipe}} object.
+    #'
+    #' @param propertyName A \code{\link{character}} value. Name of the property
+    #' associated with the \code{\link{GenericPipe}}.
+    #' @param propertyLanguageName A \code{\link{character}} value. Name of the
+    #' language property.
+    #' @param alwaysBeforeDeps A \code{\link{list}} value. The dependencies
+    #' alwaysBefore (\code{\link{GenericPipe}s} that must be executed before
+    #' this one).
+    #' @param notAfterDeps A \code{\link{list}} value. The dependencies
+    #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
+    #' this one).
+    #' @param removeUrls A \code{\link{logical}} value. Indicates if the
+    #' URLs are removed.
+    #' @param URLPatterns A \code{\link{list}} value. The regex to find URLs.
+    #' @param namesURLPatterns A \code{\link{list}} value. The names of regex.
+    #'
     initialize = function(propertyName = "URLs",
                           alwaysBeforeDeps = list(),
                           notAfterDeps = list("FindUrlPipe"),
@@ -263,39 +89,51 @@ FindUrlPipe <- R6Class(
                           namesURLPatterns = list("UrlPattern","EmailPattern")) {
 
       if (!"character" %in% class(propertyName)) {
-        stop("[FindUrlPipe][initialize][Error] ",
-             "Checking the type of the 'propertyName' variable: ",
-             class(propertyName))
+        bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
+                                   class(propertyName)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(alwaysBeforeDeps)) {
-        stop("[FindUrlPipe][initialize][Error] ",
-             "Checking the type of the 'alwaysBeforeDeps' variable: ",
-             class(alwaysBeforeDeps))
+        bdpar.log(message = paste0("Checking the type of the 'alwaysBeforeDeps' variable: ",
+                                   class(alwaysBeforeDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(notAfterDeps)) {
-        stop("[FindUrlPipe][initialize][Error] ",
-             "Checking the type of the 'notAfterDeps' variable: ",
-             class(notAfterDeps))
+        bdpar.log(message = paste0("Checking the type of the 'notAfterDeps' variable: ",
+                                   class(notAfterDeps)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"logical" %in% class(removeUrls)) {
-        stop("[FindUrlPipe][initialize][Error] ",
-             "Checking the type of the 'removeUrls' variable: ",
-             class(removeUrls))
+        bdpar.log(message = paste0("Checking the type of the 'removeUrls' variable: ",
+                                   class(removeUrls)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(URLPatterns)) {
-        stop("[FindUrlPipe][initialize][Error] ",
-             "Checking the type of the 'URLPatterns' variable: ",
-             class(URLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'URLPatterns' variable: ",
+                                   class(URLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       if (!"list" %in% class(namesURLPatterns)) {
-        stop("[FindUrlPipe][initialize][Error] ",
-             "Checking the type of the 'namesURLPatterns' variable: ",
-             class(namesURLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'namesURLPatterns' variable: ",
+                                   class(namesURLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "initialize")
       }
 
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
@@ -304,31 +142,42 @@ FindUrlPipe <- R6Class(
       private$URLPatterns <- URLPatterns
       private$namesURLPatterns <- namesURLPatterns
     },
-
+    #' @field URLPattern  A \code{\link{character}} value. The regular
+    #' expression to detect URLs.
     URLPattern = "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:(?:[[:alnum:]]+:(?:\\/{1,2}))|\\/{0,2}www\\.)(?:[\\w-]+(?:(?:\\.[\\w-]+)*))(?:(?:[\\w~?=-][.;,@?^=%&:\\/~+#-]?)*)[\\w@?^=%&\\/~+#,;!:<\\\\\"?-]?(?=(?:[<\\\\,;!\"?\\)]|\\s|$)))",
-
+    #' @field EmailPattern  A \code{\link{character}} value. The regular expression to detect emails.
     EmailPattern = "(?:\\s|[\"><\u00A1\u00BF?!;:,.'\\(]|^)((?:[\\w_.\u00E7\u00F1+-]+)(?:@|\\(at\\)|<at>)(?:(?:\\w[\\\\.:\u00F1-]?)*)[[:alnum:]\u00F1](?:\\.[a-zA-Z]{2,4}))[;:?\"!,.'>\\)]?(?=(?:\\s|$|>|\\.|,))",
-
+    #'
+    #' @description Preprocesses the \code{\link{Instance}} to obtain/remove
+    #' the URLs. The URLs found in the data are added to the
+    #' list of properties of the \code{\link{Instance}}.
+    #'
+    #' @param instance A \code{\link{Instance}} value. The \code{\link{Instance}}
+    #' to preprocess.
+    #'
+    #' @return The \code{\link{Instance}} with the modifications that have
+    #' occurred in the pipe.
+    #'
     pipe = function(instance) {
 
       if (!"Instance" %in% class(instance)) {
-        stop("[FindUrlPipe][pipe][Error] ",
-             "Checking the type of the 'instance' variable: ",
-             class(instance))
+        bdpar.log(message = paste0("Checking the type of the 'instance' variable: ",
+                                   class(instance)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "pipe")
       }
 
-      instance$getData() %>>%
-        {lapply(private$URLPatterns, self$findUrl,.)} %>>%
-          self$putNamesURLPattern() %>>%
-            unlist() %>>%
-              {instance$addProperties(.,super$getPropertyName())}
+      instance$addProperties(unlist(
+        self$putNamesURLPattern(lapply(private$URLPatterns,
+                                       self$findUrl,
+                                       instance$getData()))),
+        super$getPropertyName())
 
       if (private$removeUrls) {
         for (pattern in self$getURLPatterns()) {
-          instance$getData() %>>%
-            {self$removeUrl(pattern,.)} %>>%
-              textutils::trim() %>>%
-                instance$setData()
+          instance$setData(trimws(x = self$removeUrl(pattern,
+                                                     instance$getData())))
         }
       }
 
@@ -336,114 +185,174 @@ FindUrlPipe <- R6Class(
           all(instance$getData() == "") ||
           is.null(instance$getData())) {
 
-        message <- c( "The file: " , instance$getPath() , " has data empty on pipe Url")
+        message <- paste0("The file: ", instance$getPath(), " has data empty on pipe Url")
 
         instance$addProperties(message, "reasonToInvalidate")
 
-        warning("[FindUrlPipe][pipe][Warning] ", message)
+        bdpar.log(message = message,
+                  level = "WARN",
+                  className = class(self)[1],
+                  methodName = "pipe")
 
         instance$invalidate()
 
         return(instance)
       }
 
-      return(instance)
+      instance
     },
-
+    #'
+    #' @description Finds the \emph{URLs} in the data.
+    #'
+    #' @param pattern A \code{\link{character}} value. The regex to find URLs.
+    #' @param data A \code{\link{character}} value. The text to find the URLs.
+    #'
+    #' @return The \code{\link{list}} with URLs found.
+    #'
     findUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[FindUrlPipe][findUrl][Error] ",
-             "Checking the type of the 'pattern' variable: ",
-             class(pattern))
+        bdpar.log(message = paste0("Checking the type of the 'pattern' variable: ",
+                                   class(pattern)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findUrl")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[FindUrlPipe][findUrl][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "findUrl")
       }
 
-      return(stringr::str_match_all(data,
-                           rex::regex(pattern,
-                                 ignore_case = TRUE,
-                                 multiline = TRUE))[[1]][,2] %>>% unique() %>>% unlist() )
-    },
+      unlist(
+        unique(
+          stringr::str_match_all(data,
+                                 rex::regex(pattern,
+                                            ignore_case = TRUE,
+                                            multiline = TRUE))[[1]][,2]))
 
+
+    },
+    #'
+    #' @description Removes \emph{the URL} in the data.
+    #'
+    #' @param pattern A \code{\link{character}} value. The regex to find URLs.
+    #' @param data A \code{\link{character}} value. The text to remove the URLs.
+    #'
+    #' @return The data with URLs removed.
+    #'
     removeUrl = function(pattern, data) {
 
       if (!"character" %in% class(pattern)) {
-        stop("[FindUrlPipe][removeUrl][Error] ",
-             "Checking the type of the 'pattern' variable: ",
-             class(pattern))
+        bdpar.log(message = paste0("Checking the type of the 'pattern' variable: ",
+                                   class(pattern)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeUrl")
       }
 
       if (!"character" %in% class(data)) {
-        stop("[FindUrlPipe][removeUrl][Error] ",
-             "Checking the type of the 'data' variable: ",
-             class(data))
+        bdpar.log(message = paste0("Checking the type of the 'data' variable: ",
+                                   class(data)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "removeUrl")
       }
 
-      return(stringr::str_replace_all(data,
-                              rex::regex(pattern,
-                                    ignore_case = TRUE,
-                                    multiline = TRUE), " "))
+      stringr::str_replace_all(data,
+                               rex::regex(pattern,
+                                          ignore_case = TRUE,
+                                          multiline = TRUE),
+                               " ")
 
     },
-
+    #'
+    #' @description Sets the names to \emph{URL patterns} result.
+    #'
+    #' @param resultOfURLPatterns A \code{\link{list}} value. The list with
+    #' URLs found.
+    #'
+    #' @return The URLs found with the names of URL pattern.
+    #'
     putNamesURLPattern = function(resultOfURLPatterns) {
 
       if (!"list" %in% class(resultOfURLPatterns)) {
-        stop("[FindUrlPipe][putNamesURLPattern][Error] ",
-             "Checking the type of the 'resultOfURLPatterns' variable: ",
-             class(resultOfURLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'resultOfURLPatterns' variable: ",
+                                   class(resultOfURLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "putNamesURLPattern")
       }
 
       names(resultOfURLPatterns) <- self$getNamesURLPatterns()
 
-      return(resultOfURLPatterns)
+      resultOfURLPatterns
     },
-
+    #'
+    #' @description Gets \emph{the URL patterns}.
+    #'
+    #' @return Value of \emph{URL patterns}.
+    #'
     getURLPatterns = function() {
-
-      return(private$URLPatterns)
+      private$URLPatterns
     },
-
+    #'
+    #' @description Sets the \emph{URL patterns}.
+    #'
+    #' @param URLPatterns A \code{\link{list}} value. The new value of
+    #' the URL patterns.
+    #'
     setURLPatterns = function(URLPatterns) {
 
       if (!"list" %in% class(URLPatterns)) {
-        stop("[FindUrlPipe][setURLPatterns][Error] ",
-             "Checking the type of the 'URLPatterns' variable: ",
-             class(URLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'URLPatterns' variable: ",
+                                   class(URLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setURLPatterns")
       }
 
       private$URLPatterns <- URLPatterns
-
-      return()
     },
-
+    #'
+    #' @description Gets the \emph{names of URLs}.
+    #'
+    #' @return Value of names of URLs.
+    #'
     getNamesURLPatterns = function() {
-
-      return(private$namesURLPatterns)
+      private$namesURLPatterns
     },
-
+    #'
+    #' @description Sets the \emph{names of URLs}.
+    #'
+    #' @param namesURLPatterns A \code{\link{list}} value. The new value of
+    #' the names of URLs.
+    #'
     setNamesURLPatterns = function(namesURLPatterns) {
 
       if (!"list" %in% class(namesURLPatterns)) {
-        stop("[FindUrlPipe][setNamesURLPatterns][Error] ",
-             "Checking the type of the 'namesURLPatterns' variable: ",
-             class(namesURLPatterns))
+        bdpar.log(message = paste0("Checking the type of the 'namesURLPatterns' variable: ",
+                                   class(namesURLPatterns)),
+                  level = "FATAL",
+                  className = class(self)[1],
+                  methodName = "setNamesURLPatterns")
       }
 
       private$namesURLPatterns <- namesURLPatterns
-
-      return()
     }
   ),
 
   private = list(
+    # A (\emph{list}) value. Regular expressions used to detect URLs.
     URLPatterns = list(),
+    # A (\emph{list}) value. Names of regular expressions that are used to
+    # identify URLs.
     namesURLPatterns = list(),
+    # A (\emph{logical}) value. Indicates if the URLS are removed or
+    # not.
     removeUrls = TRUE
   )
 )

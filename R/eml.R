@@ -25,7 +25,11 @@
 read_emails <- function(email_file, PartSelectedOnMPAlternative){
 
   if (class(email_file) != "character") {
-    stop("email_files must be a character vector containing file paths to email txt files..." )
+    bdpar.log(message = paste0("email_files must be a character vector ",
+                               "containing file paths to email txt files..."),
+              level = "FATAL",
+              className = NULL,
+              methodName = "read_emails")
   }
 
   emails <- data.frame(message = "",
@@ -41,7 +45,8 @@ getElement = function(filename, PartSelectedOnMPAlternative) {
 
   path <- system.file(file.path("exec", "parse.py"), package = "bdpar")
 
-  command <- paste("python", path, filename, "date", PartSelectedOnMPAlternative, sep = " ")
+  command <- paste("python", shQuote(path), shQuote(filename), "date",
+                   shQuote(PartSelectedOnMPAlternative), sep = " ")
   try(suppressWarnings(response <- system(command,
                                           intern = TRUE,
                                           ignore.stderr = TRUE)), silent = TRUE)
@@ -55,7 +60,8 @@ getElement = function(filename, PartSelectedOnMPAlternative) {
   object["date"] <- response
 
 
-  command <- paste("python", path, filename, "message", PartSelectedOnMPAlternative, sep = " ")
+  command <- paste("python", shQuote(path), shQuote(filename), "message",
+                   shQuote(PartSelectedOnMPAlternative), sep = " ")
 
   try(suppressWarnings(response <- system(command,
                                           intern = TRUE,
@@ -70,5 +76,3 @@ getElement = function(filename, PartSelectedOnMPAlternative) {
 
   return(object)
 }
-
-

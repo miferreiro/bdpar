@@ -1,5 +1,10 @@
 testthat::context("TargetAssigningPipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("stringi")
   targets <- list("ham","spam")
@@ -15,6 +20,16 @@ testthat::test_that("initialize",{
                                                   notAfterDeps))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize targets type error",{
   testthat::skip_if_not_installed("stringi")
   targets <- NULL
@@ -28,8 +43,18 @@ testthat::test_that("initialize targets type error",{
                                                  propertyName,
                                                  alwaysBeforeDeps,
                                                  notAfterDeps),
-                         "[TargetAssigningPipe][initialize][Error] Checking the type of the 'targets' variable: NULL",
+                         "[TargetAssigningPipe][initialize][FATAL] Checking the type of the 'targets' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize targetsName type error",{
@@ -45,8 +70,18 @@ testthat::test_that("initialize targetsName type error",{
                                                  propertyName,
                                                  alwaysBeforeDeps,
                                                  notAfterDeps),
-                         "[TargetAssigningPipe][initialize][Error] Checking the type of the 'targetsName' variable: NULL",
+                         "[TargetAssigningPipe][initialize][FATAL] Checking the type of the 'targetsName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize propertyName type error",{
@@ -62,8 +97,18 @@ testthat::test_that("initialize propertyName type error",{
                                                  propertyName,
                                                  alwaysBeforeDeps,
                                                  notAfterDeps),
-                         "[TargetAssigningPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[TargetAssigningPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -79,8 +124,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                                  propertyName,
                                                  alwaysBeforeDeps,
                                                  notAfterDeps),
-                         "[TargetAssigningPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[TargetAssigningPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
@@ -96,14 +151,22 @@ testthat::test_that("initialize notAfterDeps type error",{
                                                  propertyName,
                                                  alwaysBeforeDeps,
                                                  notAfterDeps),
-                         "[TargetAssigningPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[TargetAssigningPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe",{
   testthat::skip_if_not_installed("stringi")
-  testthat::skip_if_not_installed("readr")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -128,9 +191,18 @@ testthat::test_that("pipe",{
                          "ham")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe unrecognizable target",{
   testthat::skip_if_not_installed("stringi")
-  testthat::skip_if_not_installed("readr")
   targets <- list("ham","spam")
   targetsName <- list("_ham_","_spam_")
   propertyName <- "target"
@@ -148,9 +220,18 @@ testthat::test_that("pipe unrecognizable target",{
   instance <- ExtractorSms$new(path)
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[TargetAssigningPipe\\]\\[pipe\\]\\[Warning\\] The file: testFiles/_pan_/30.tsms has a target unrecognizable")
+                           "\\[TargetAssigningPipe\\]\\[pipe\\]\\[WARN\\] The file: testFiles/_pan_/30.tsms has a target unrecognizable")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("stringi")
@@ -167,8 +248,18 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[TargetAssigningPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[TargetAssigningPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getTarget",{
@@ -190,6 +281,16 @@ testthat::test_that("getTarget",{
                          "ham")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getTarget unrecognizable",{
   testthat::skip_if_not_installed("stringi")
   targets <- list("ham", "spam")
@@ -208,6 +309,16 @@ testthat::test_that("getTarget unrecognizable",{
                          "unrecognizable")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("getTarget path type error",{
   testthat::skip_if_not_installed("stringi")
   targets <- list("ham", "spam")
@@ -223,8 +334,18 @@ testthat::test_that("getTarget path type error",{
 
   path <- NULL
   testthat::expect_error(pipe$getTarget(path),
-                         "[TargetAssigningPipe][getTarget][Error] Checking the type of the 'path' variable: NULL",
+                         "[TargetAssigningPipe][getTarget][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("checkTarget",{
@@ -247,6 +368,16 @@ testthat::test_that("checkTarget",{
                          list("_ham_" = "ham"))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("checkTarget target type error",{
   testthat::skip_if_not_installed("stringi")
   targets <- list("ham", "spam")
@@ -265,8 +396,18 @@ testthat::test_that("checkTarget target type error",{
 
   testthat::expect_error(pipe$checkTarget(target,
                                           path),
-                         "[TargetAssigningPipe][checkTarget][Error] Checking the type of the 'target' variable: NULL",
+                         "[TargetAssigningPipe][checkTarget][FATAL] Checking the type of the 'target' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("checkTarget path type error",{
@@ -287,8 +428,18 @@ testthat::test_that("checkTarget path type error",{
 
   testthat::expect_error(pipe$checkTarget(target,
                                           path),
-                         "[TargetAssigningPipe][checkTarget][Error] Checking the type of the 'path' variable: NULL",
+                         "[TargetAssigningPipe][checkTarget][FATAL] Checking the type of the 'path' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getTargets",{
@@ -306,4 +457,9 @@ testthat::test_that("getTargets",{
 
   testthat::expect_equal(pipe$getTargets(),
                          list("_ham_" = "ham", "_spam_" = "spam"))
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

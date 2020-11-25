@@ -27,13 +27,6 @@
 #' establish the connections and control the number of requests that have been made
 #' with the APIs of Twitter and YouTube.
 #'
-#' @docType class
-#'
-#' @format NULL
-#'
-#' @section Constructor:
-#' \code{Connections$new()}
-#'
 #' @section Details:
 #' The way to indicate the keys of YouTube and Twitter has to be
 #' through fields of \emph{\link{bdpar.Options}} variable:
@@ -55,101 +48,7 @@
 #' - \code{bdpar.Options$set("youtube.app.password", <<app_password>>)}
 #'
 #' @section Note:
-#' Fiels of unused connections will be automatically ignored by the platform.
-#'
-#' @section Methods:
-#' \itemize{
-#' \item{\bold{getTwitterToken:}}{
-#' gets the Twitter token ID.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getTwitterToken()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of \code{twitterToken}.
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{startConnectionWithTwitter:}}{
-#' is responsible of establishing the connection to Twitter.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{startConnectionWithTwitter()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{checkRequestToTwitter}}{
-#' function in charge of handling the connection with Twitter.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{checkRequestToTwitter()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{startConnectionWithYoutube}}{
-#' function able to establish the connection with YouTube.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{startConnectionWithYoutube()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{addNumRequestToYoutube}}{
-#' function that increases in one the number of request to YouTube.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{addNumRequestToYoutube()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{checkRequestToYoutube}}{
-#' handles the connection with YouTube.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{checkRequestToYoutube()}
-#' }
-#' }
-#' }
-#'
-#' \item{\bold{getNumRequestMaxToYoutube}}{
-#' gets the number of maximum requests allowed by YouTube API.
-#' \itemize{
-#' \item{\emph{Usage:}}{
-#' \code{getNumRequestMaxToYoutube()}
-#' }
-#' \item{\emph{Value:}}{
-#' value of number maximun of request to YouTube.
-#' }
-#' }
-#' }
-#' }
-#'
-#' @section Private fields:
-#' \itemize{
-#' \item{\bold{keys:}}{
-#'  (\emph{list}) the keys of Twitter and YouTube.
-#' }
-#' \item{\bold{numRequestToYoutube:}}{
-#'  (\emph{numeric}) indicates the number of requests made to YouTube.
-#' }
-#' \item{\bold{numRequestMaxToYoutube:}}{
-#'  (\emph{numeric}) indicates the maximum number of requests with YouTube.
-#' }
-#' \item{\bold{connectionWithYoutube:}}{
-#'  (\emph{logical}) indicates if the connection has been established with YouTube.
-#' }
-#' \item{\bold{connectionWithTwitter:}}{
-#'  (\emph{logical}) indicates if the connection has been established with Twitter.
-#' }
-#' \item{\bold{twitterToken:}}{
-#'  (\emph{Token}) token to establish the connection to Twitter.
-#' }
-#' }
+#' Fields of unused connections will be automatically ignored by the platform.
 #'
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{ExtractorTwtid}},
 #'          \code{\link{ExtractorYtbid}}
@@ -164,31 +63,42 @@ Connections <- R6Class(
   "Connections",
 
   public = list(
-
+    #'
+    #' @description Creates a \code{\link{Connections}} object.
+    #'
     initialize = function() { },
 
     ######################################################################
     #####                    Twitter connections                    ######
     ######################################################################
+    #'
+    #' @description Gets the Twitter token ID.
+    #'
+    #' @return Value of \code{twitterToken}.
+    #'
     getTwitterToken = function() {
-
-      return(private$twitterToken)
+      private$twitterToken
     },
-
+    #'
+    #' @description Responsible of establishing the connection to Twitter.
+    #'
     startConnectionWithTwitter = function() {
 
       if (!private$connectionWithTwitter) {
         if (!file.exists(file.path(Sys.getenv("HOME"), ".rtweet_token.rds"))) {
-          if (any(!bdpar.Options$isSpecificOption("twitter.consumer.key"),
-                  !bdpar.Options$isSpecificOption("twitter.consumer.secret"),
-                  !bdpar.Options$isSpecificOption("twitter.access.token"),
-                  !bdpar.Options$isSpecificOption("twitter.access.token.secret"),
-                  is.null(bdpar.Options$get("twitter.consumer.key")),
-                  is.null(bdpar.Options$get("twitter.consumer.secret")),
-                  is.null(bdpar.Options$get("twitter.access.token")),
-                  is.null(bdpar.Options$get("twitter.access.token.secret")))) {
-            stop("[Connections][startConnectionWithTwitter][Error] Twitter API keys are ",
-                 "not defined on bdpar.Options")
+          if (!bdpar.Options$isSpecificOption("twitter.consumer.key") ||
+              !bdpar.Options$isSpecificOption("twitter.consumer.secret") ||
+              !bdpar.Options$isSpecificOption("twitter.access.token") ||
+              !bdpar.Options$isSpecificOption("twitter.access.token.secret") ||
+              is.null(bdpar.Options$get("twitter.consumer.key")) ||
+              is.null(bdpar.Options$get("twitter.consumer.secret")) ||
+              is.null(bdpar.Options$get("twitter.access.token")) ||
+              is.null(bdpar.Options$get("twitter.access.token.secret"))) {
+
+            bdpar.log(message = "Twitter API keys are not defined on bdpar.Options",
+                      level = "FATAL",
+                      className = class(self)[1],
+                      methodName = "startConnectionWithTwitter")
           }
           tryCatch(
             {
@@ -203,71 +113,99 @@ Connections <- R6Class(
                       file = file.path(Sys.getenv("HOME"),".rtweet_token.rds"))
               private$connectionWithTwitter <- TRUE
 
-              message("[Connections][startConectionWithTwitter][Info] Twitter: established ",
-                      "connection")
+              bdpar.log(message = "Twitter: established connection",
+                        level = "INFO",
+                        className = class(self)[1],
+                        methodName = "startConnectionWithTwitter")
             }
             ,
             error = function(e) {
-              message("[Connections][startConnectionWithTwitter][Error] Error on create_token: ",
-                      paste(e))
+              bdpar.log(message = paste0("Error on create_token: ", paste(e)),
+                        level = "ERROR",
+                        className = class(self)[1],
+                        methodName = "startConnectionWithTwitter")
             })
         } else {
           private$twitterToken <- readRDS(file.path(Sys.getenv("HOME"),
                                                     ".rtweet_token.rds"))
           private$connectionWithTwitter <- TRUE
 
-          message("[Connections][startConectionWithTwitter][Info] Twitter: established ",
-                  "connection")
+          bdpar.log(message = "Twitter: established connection",
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "startConnectionWithTwitter")
         }
       }
-      return()
     },
-
+    #'
+    #' @description Function in charge of handling the connection with Twitter.
+    #'
     checkRequestToTwitter = function() {
 
       tryCatch(
       {
         if (rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]] == 0) {
-          message("[Connections][checkRequestToTwitter][Info] ", paste(Sys.time()))
 
-          message("[Connections][checkRequestToTwitter][Info] ",
-                  "Waiting 15 min to be able to make new requests from twitter...")
+          bdpar.log(message = paste(Sys.time()),
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
+
+          bdpar.log(message = "Waiting 15 min to be able to make new requests from twitter...",
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
           Sys.sleep(900)
         } else{
-          message("[Connections][checkRequestToTwitter][Info] ",
-                    "There are ", rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]],
-                      " twitter requests to be consumed")
+          bdpar.log(message = paste0("There are ",
+                                     rtweet::rate_limit(token = self$getTwitterToken())[[3]][[54]],
+                                     " twitter requests to be consumed"),
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
         }
       }
       ,
         warning = function(w) {
 
-          warning("[Connections][checkRequestToTwitter][Warning]", paste(w))
+          bdpar.log(message = paste(w),
+                    level = "WARN",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
-          message("[Connections][checkRequestToTwitter][Info] ", paste(Sys.time()))
+          bdpar.log(message = paste(Sys.time()),
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
-          message("[Connections][checkRequestToTwitter][Info] ",
-                  "Waiting 15 min to be able to make new requests from twitter...")
+          bdpar.log(message = "Waiting 15 min to be able to make new requests from twitter...",
+                    level = "INFO",
+                    className = class(self)[1],
+                    methodName = "checkRequestToTwitter")
 
           Sys.sleep(900)
         }
       )
-      return()
     },
     ######################################################################
     #####                   YouTube connections                     ######
     ######################################################################
+    #'
+    #' @description Function able to establish the connection with YouTube.
+    #'
     startConnectionWithYoutube = function() {
 
       if (!private$connectionWithYoutube) {
 
-        if (any(!bdpar.Options$isSpecificOption("youtube.app.id"),
-                !bdpar.Options$isSpecificOption("youtube.app.password"),
-                is.null(bdpar.Options$get("youtube.app.id")),
-                is.null(bdpar.Options$get("youtube.app.password")))) {
-          stop("[Connections][startConnectionWithYoutube][Error] Youtube API keys are ",
-               "not defined on bdpar.Options")
+        if (!bdpar.Options$isSpecificOption("youtube.app.id") ||
+            !bdpar.Options$isSpecificOption("youtube.app.password") ||
+            is.null(bdpar.Options$get("youtube.app.id")) ||
+            is.null(bdpar.Options$get("youtube.app.password"))) {
+          bdpar.log(message = "Youtube API keys are not defined on bdpar.Options",
+                    level = "FATAL",
+                    className = class(self)[1],
+                    methodName = "startConnectionWithYoutube")
         }
 
         tuber::yt_oauth(bdpar.Options$get("youtube.app.id"),
@@ -275,42 +213,57 @@ Connections <- R6Class(
 
         private$connectionWithYoutube <- TRUE
 
-        message("[Connections][startConnectionWithYoutube][Info] Youtube: established",
-                "connection")
+        bdpar.log(message = "Youtube: established connection",
+                  level = "INFO",
+                  className = class(self)[1],
+                  methodName = "startConnectionWithYoutube")
       }
-
-      return()
-
     },
-
+    #'
+    #' @description Function that increases in one the number of request to YouTube.
+    #'
     addNumRequestToYoutube = function() {
 
       private$numRequestToYoutube <- private$numRequestToYoutube + 1
-      return()
     },
-
+    #'
+    #' @description Handles the connection with YouTube.
+    #'
     checkRequestToYoutube = function() {
 
       if (private$numRequestToYoutube >= self$getNumRequestMaxToYoutube()) {
-        message("[Connections][checkRequestToYoutube][Info] ",
-                "Waiting 15 min to be able to make new requests from youtube...")
+
+        bdpar.log(message = "Waiting 15 min to be able to make new requests from youtube...",
+                  level = "INFO",
+                  className = class(self)[1],
+                  methodName = "checkRequestToYoutube")
+
         Sys.sleep(900)
         private$numRequestToYoutube <- 0
       }
     },
-
+    #'
+    #' @description Gets the number of maximum requests allowed by YouTube API.
+    #'
+    #' @return Value of number maximum of request to YouTube.
+    #'
     getNumRequestMaxToYoutube = function() {
-
-      return(private$numRequestMaxToYoutube)
+      private$numRequestMaxToYoutube
     }
-
   ),
-
   private = list(
+    # A (\emph{numeric}) value. Indicates the number of requests made to YouTube.
     numRequestToYoutube = 0,
+    # A (\emph{numeric}) value. Indicates the maximum number of requests with
+    # YouTube.
     numRequestMaxToYoutube = 900,
+    # A (\emph{numeric}) value. Indicates if the connection has been established
+    # with YouTube.
     connectionWithYoutube = FALSE,
+    # A (\emph{numeric}) value. Indicates if the connection has been established
+    # with Twitter.
     connectionWithTwitter = FALSE,
+    # A (\emph{Token}) value. Token to establish the connection to Twitter.
     twitterToken = NULL
   )
 )

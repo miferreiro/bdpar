@@ -1,8 +1,12 @@
 testthat::context("FindUrlPipe")
 
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -20,9 +24,18 @@ testthat::test_that("initialize",{
                                           namesURLPatterns))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
@@ -38,13 +51,22 @@ testthat::test_that("initialize propertyName type error",{
                                          removeUrls,
                                          URLPatterns,
                                          namesURLPatterns),
-                         "[FindUrlPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[FindUrlPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- NULL
@@ -60,13 +82,22 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                          removeUrls,
                                          URLPatterns,
                                          namesURLPatterns),
-                         "[FindUrlPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[FindUrlPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -82,14 +113,23 @@ testthat::test_that("initialize notAfterDeps type error",{
                                          removeUrls,
                                          URLPatterns,
                                          namesURLPatterns),
-                         "[FindUrlPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[FindUrlPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
 
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("initialize removeUrls type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -105,13 +145,22 @@ testthat::test_that("initialize removeUrls type error",{
                                          removeUrls,
                                          URLPatterns,
                                          namesURLPatterns),
-                         "[FindUrlPipe][initialize][Error] Checking the type of the 'removeUrls' variable: NULL",
+                         "[FindUrlPipe][initialize][FATAL] Checking the type of the 'removeUrls' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize URLPatterns type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -126,13 +175,22 @@ testthat::test_that("initialize URLPatterns type error",{
                                          removeUrls,
                                          URLPatterns,
                                          namesURLPatterns),
-                         "[FindUrlPipe][initialize][Error] Checking the type of the 'URLPatterns' variable: NULL",
+                         "[FindUrlPipe][initialize][FATAL] Checking the type of the 'URLPatterns' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize namesURLPatterns type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -148,13 +206,22 @@ testthat::test_that("initialize namesURLPatterns type error",{
                                          removeUrls,
                                          URLPatterns,
                                          namesURLPatterns),
-                         "[FindUrlPipe][initialize][Error] Checking the type of the 'namesURLPatterns' variable: NULL",
+                         "[FindUrlPipe][initialize][FATAL] Checking the type of the 'namesURLPatterns' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe removeUrl <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -183,9 +250,19 @@ testthat::test_that("pipe removeUrl <- TRUE",{
   testthat::expect_equal(instance$getData(),
                          "example")
 })
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe removeUrl <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -215,9 +292,18 @@ testthat::test_that("pipe removeUrl <- FALSE",{
                          "www.google.com")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -241,13 +327,22 @@ testthat::test_that("pipe instance type error",{
   instance <- NULL
 
   testthat::expect_error(pipe$pipe(instance),
-                         "[FindUrlPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[FindUrlPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("pipe empty data",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -271,17 +366,25 @@ testthat::test_that("pipe empty data",{
   instance <- ExtractorSms$new(path)
   instance$setData("www.google.com")
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[FindUrlPipe\\]\\[pipe\\]\\[Warning\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUrlPipe\\/testFile\\.tsms has data empty on pipe Url")
+                           "\\[FindUrlPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testFindUrlPipe\\/testFile\\.tsms has data empty on pipe Url")
   testthat::expect_equal(instance$getSpecificProperty("URLs"),
                          c(UrlPattern = c("www.google.com")))
   testthat::expect_equal(instance$getData(),
                          "")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("findUrl",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -300,9 +403,18 @@ testthat::test_that("findUrl",{
                          "www.google.com")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("findUrl pattern type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -323,13 +435,22 @@ testthat::test_that("findUrl pattern type error",{
   data <- "www.google.com"
 
   testthat::expect_error(pipe$findUrl(pattern, data),
-                         "[FindUrlPipe][findUrl][Error] Checking the type of the 'pattern' variable: NULL",
+                         "[FindUrlPipe][findUrl][FATAL] Checking the type of the 'pattern' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("findUrl data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -351,13 +472,22 @@ testthat::test_that("findUrl data type error",{
 
   testthat::expect_error(pipe$findUrl(pattern,
                                       data),
-                         "[FindUrlPipe][findUrl][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindUrlPipe][findUrl][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("removeUrl",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -382,9 +512,18 @@ testthat::test_that("removeUrl",{
                          " ")
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("removeUrl pattern type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -406,13 +545,22 @@ testthat::test_that("removeUrl pattern type error",{
 
   testthat::expect_error(pipe$removeUrl(pattern,
                                         data),
-                         "[FindUrlPipe][removeUrl][Error] Checking the type of the 'pattern' variable: NULL",
+                         "[FindUrlPipe][removeUrl][FATAL] Checking the type of the 'pattern' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("removeUrl data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -433,13 +581,22 @@ testthat::test_that("removeUrl data type error",{
   data <- NULL
 
   testthat::expect_error(pipe$removeUrl(pattern, data),
-                         "[FindUrlPipe][removeUrl][Error] Checking the type of the 'data' variable: NULL",
+                         "[FindUrlPipe][removeUrl][FATAL] Checking the type of the 'data' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("putNamesURLPattern",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -462,9 +619,18 @@ testthat::test_that("putNamesURLPattern",{
                          list(URL = c("www.google.com"),"EMAIL" = c("mm@gmail.com")))
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("putNamesURLPattern resultOfURLPatterns input error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -484,13 +650,22 @@ testthat::test_that("putNamesURLPattern resultOfURLPatterns input error",{
   resultOfURLPatterns <- NULL
 
   testthat::expect_error(pipe$putNamesURLPattern(resultOfURLPatterns),
-                         "[FindUrlPipe][putNamesURLPattern][Error] Checking the type of the 'resultOfURLPatterns' variable: NULL",
+                         "[FindUrlPipe][putNamesURLPattern][FATAL] Checking the type of the 'resultOfURLPatterns' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -511,9 +686,18 @@ testthat::test_that("getURLPatterns",{
                          URLPatterns)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -538,9 +722,18 @@ testthat::test_that("setURLPatterns",{
                          URLPatternsExpect)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setURLPatterns namesURLPatterns input error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -560,13 +753,22 @@ testthat::test_that("setURLPatterns namesURLPatterns input error",{
   URLPatterns <- NULL
 
   testthat::expect_error(pipe$setURLPatterns(URLPatterns),
-                         "[FindUrlPipe][setURLPatterns][Error] Checking the type of the 'URLPatterns' variable: NULL",
+                         "[FindUrlPipe][setURLPatterns][FATAL] Checking the type of the 'URLPatterns' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("getNamesURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -587,9 +789,18 @@ testthat::test_that("getNamesURLPatterns",{
                          namesURLPatterns)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setNamesURLPatterns",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -614,9 +825,18 @@ testthat::test_that("setNamesURLPatterns",{
                          namesURLPatternsExpect)
 })
 
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
 testthat::test_that("setNamesURLPatterns namesURLPatterns input error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("textutils")
   testthat::skip_if_not_installed("stringr")
   propertyName <- "URLs"
   alwaysBeforeDeps <- list()
@@ -636,6 +856,11 @@ testthat::test_that("setNamesURLPatterns namesURLPatterns input error",{
   namesURLPatterns <- NULL
 
   testthat::expect_error(pipe$setNamesURLPatterns(namesURLPatterns),
-                         "[FindUrlPipe][setNamesURLPatterns][Error] Checking the type of the 'namesURLPatterns' variable: NULL",
+                         "[FindUrlPipe][setNamesURLPatterns][FATAL] Checking the type of the 'namesURLPatterns' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })

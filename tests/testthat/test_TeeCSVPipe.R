@@ -1,6 +1,9 @@
 testthat::context("TeeCSVPipe")
 
-testthat::setup(bdpar.Options$reset())
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize",{
 
@@ -11,7 +14,9 @@ testthat::test_that("initialize",{
   withSource <- TRUE
   outputPath <- NULL
 
-  path <- "output_tsms.csv"
+  path <- file.path("testFiles",
+                    "testTeeCSVPipe",
+                    "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = path)
@@ -24,7 +29,15 @@ testthat::test_that("initialize",{
                                          outputPath))
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize propertyName type error",{
 
@@ -41,8 +54,18 @@ testthat::test_that("initialize propertyName type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'propertyName' variable: NULL",
+                         "[TeeCSVPipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
@@ -60,8 +83,18 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
+                         "[TeeCSVPipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize notAfterDeps type error",{
@@ -79,8 +112,18 @@ testthat::test_that("initialize notAfterDeps type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'notAfterDeps' variable: NULL",
+                         "[TeeCSVPipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize withData type error",{
@@ -98,8 +141,18 @@ testthat::test_that("initialize withData type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'withData' variable: NULL",
+                         "[TeeCSVPipe][initialize][FATAL] Checking the type of the 'withData' variable: NULL",
                          fixed = TRUE)
+})
+
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
 })
 
 testthat::test_that("initialize withSource type error",{
@@ -117,11 +170,19 @@ testthat::test_that("initialize withSource type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'withSource' variable: NULL",
+                         "[TeeCSVPipe][initialize][FATAL] Checking the type of the 'withSource' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("initialize resourcesAbbreviationsPath type error",{
 
@@ -141,7 +202,7 @@ testthat::test_that("initialize resourcesAbbreviationsPath type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Path of TeeCSVPipe output is neither defined in initialize or in bdpar.Options",
+                         "[TeeCSVPipe][initialize][FATAL] Path of TeeCSVPipe output is neither defined in initialize or in bdpar.Options",
                          fixed = TRUE)
 
   outputPath <- 1
@@ -152,7 +213,7 @@ testthat::test_that("initialize resourcesAbbreviationsPath type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Checking the type of the 'outputPath' variable: numeric",
+                         "[TeeCSVPipe][initialize][FATAL] Checking the type of the 'outputPath' variable: numeric",
                          fixed = TRUE)
 
   outputPath <- "example.json"
@@ -163,15 +224,21 @@ testthat::test_that("initialize resourcesAbbreviationsPath type error",{
                                         withData,
                                         withSource,
                                         outputPath),
-                         "[TeeCSVPipe][initialize][Error] Checking the extension of the file: json",
+                         "[TeeCSVPipe][initialize][FATAL] Checking the extension of the file: json",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
@@ -180,7 +247,9 @@ testthat::test_that("pipe",{
   withSource <- TRUE
   outputPath <- NULL
 
-  pathOutput <- "output_tsms.csv"
+  pathOutput <- file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = pathOutput)
@@ -202,23 +271,38 @@ testthat::test_that("pipe",{
 
   testthat::expect_equal(pipe$pipe(instance),
                          instance)
-  testthat::expect_equal(file.exists("output_tsms.csv"),
+  testthat::expect_equal(file.exists(pathOutput),
                          TRUE)
   #Checks pipe if the file is already exists
   testthat::expect_equal(pipe$pipe(instance),
                          instance)
 
-  testthat::expect_equal(file.exists("output_tsms.csv"),
+  testthat::expect_equal(file.exists(pathOutput),
                          TRUE)
 
-  file.remove("output_tsms.csv")
+  file.remove(file.path("testFiles",
+                        "testTeeCSVPipe",
+                        "output_tsms.csv"))
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+  if (file.exists(file.path("testFiles",
+                            "testTeeCSVPipe",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv"))
+  }
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance invalid",{
-  testthat::skip_if_not_installed("readr")
   testthat::skip_if_not_installed("rjson")
   propertyName <- ""
   alwaysBeforeDeps <- list()
@@ -227,7 +311,9 @@ testthat::test_that("pipe instance invalid",{
   withSource <- TRUE
   outputPath <- NULL
 
-  pathOutput <- "output_tsms.csv"
+  pathOutput <- file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = pathOutput)
@@ -250,12 +336,26 @@ testthat::test_that("pipe instance invalid",{
   instance$invalidate()
   testthat::expect_equal(pipe$pipe(instance),
                          instance)
-  testthat::expect_equal(file.exists("output_tsms.csv"),
+  testthat::expect_equal(file.exists(pathOutput),
                          FALSE)
 })
 
-testthat::teardown(bdpar.Options$reset())
-testthat::setup(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+  if (file.exists(file.path("testFiles",
+                            "testTeeCSVPipe",
+                            "output_tsms.csv"))) {
+    file.remove(file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv"))
+  }
+})
+
+testthat::setup({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rjson")
@@ -266,7 +366,9 @@ testthat::test_that("pipe instance type error",{
   withSource <- TRUE
   outputPath <- NULL
 
-  pathOutput <- "output_tsms.csv"
+  pathOutput <- file.path("testFiles",
+                          "testTeeCSVPipe",
+                          "output_tsms.csv")
 
   bdpar.Options$set(key = "teeCSVPipe.output.path",
                     value = pathOutput)
@@ -282,8 +384,11 @@ testthat::test_that("pipe instance type error",{
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
-                         "[TeeCSVPipe][pipe][Error] Checking the type of the 'instance' variable: NULL",
+                         "[TeeCSVPipe][pipe][FATAL] Checking the type of the 'instance' variable: NULL",
                          fixed = TRUE)
 })
 
-testthat::teardown(bdpar.Options$reset())
+testthat::teardown({
+  bdpar.Options$reset()
+  bdpar.Options$configureLog()
+})
