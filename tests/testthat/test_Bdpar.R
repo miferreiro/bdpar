@@ -875,6 +875,7 @@ testthat::setup({
 })
 
 testthat::test_that("Bdpar parallel works",{
+  testthat::skip_on_cran()
   testthat::skip_if(parallel::detectCores() - 2 > 2,  message = "Test if the number of cores is less or equal than two cores to avoid fails in R CMD check")
   testthat::skip_if(parallel::detectCores() < 4,  message = "Test if the number of cores is less than four cores to avoid fails in R CMD check")
   testthat::skip_if_not_installed("cld2")
@@ -1048,6 +1049,8 @@ testthat::setup({
 })
 
 testthat::test_that("Bdpar parallel works with more files than cores",{
+  testthat::skip_on_cran()
+  testthat::skip_if(parallel::detectCores() - 2 > 2,  message = "Test if the number of cores is less or equal than two cores to avoid fails in R CMD check")
   testthat::skip_if_not_installed("cld2")
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("rjson")
@@ -1167,6 +1170,8 @@ testthat::setup({
 })
 
 testthat::test_that("Bdpar parallel works with invalid instances",{
+  testthat::skip_on_cran()
+  testthat::skip_if(parallel::detectCores() - 2 > 2,  message = "Test if the number of cores is less or equal than two cores to avoid fails in R CMD check")
   testthat::skip_if_not_installed("cld2")
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("rjson")
@@ -1287,6 +1292,7 @@ testthat::setup({
 })
 
 testthat::test_that("Bdpar parallel invalid number of cores",{
+  testthat::skip_on_cran()
   testthat::skip_if(parallel::detectCores() - 2 > 2,  message = "Test if the number of cores is less or equal than two cores to avoid fails in R CMD check")
   testthat::skip_if_not_installed("parallel")
   testthat::skip_if_not_installed("cld2")

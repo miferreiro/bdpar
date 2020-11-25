@@ -6,6 +6,7 @@ testthat::setup({
 })
 
 testthat::test_that("startConnectionWithTwitter connectionWithTwitter=FALSE",{
+  testthat::skip_on_cran()
   testthat::skip_if_not_installed("rtweet")
 
   connection <- Connections$new()
