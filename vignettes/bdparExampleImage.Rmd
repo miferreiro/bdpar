@@ -14,7 +14,7 @@ vignette: >
 <div style = "text-align: justify">
 The goal of this document is to show an example of a processing flow using images. The steps to be followed to build new image processing pipes and how the new flow would be defined are described below. The script for this example can be found at the Github repository: 
 
-[github.com/miferreiro/bdpar/articleExample/exampleImage](https://github.com/miferreiro/bdpar/articleExample/exampleImage)
+[https://github.com/miferreiro/bdpar/blob/master/articleExample/exampleImage/exampleImage.R](https://github.com/miferreiro/bdpar/blob/master/articleExample/exampleImage/exampleImage.R)
 
 </div>
 
