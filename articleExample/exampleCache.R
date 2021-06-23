@@ -1,6 +1,6 @@
 library(bdpar)
 
-path <- system.file(file.path("example"),
+path <- system.file("example",
                     package = "bdpar")
 
 system.time(runPipeline(path = path))

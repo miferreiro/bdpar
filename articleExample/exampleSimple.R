@@ -5,7 +5,7 @@ library("RColorBrewer")
 library("SnowballC")
 set.seed(1234)
 
-runPipeline(path = system.file(file.path("example"),
+runPipeline(path = system.file("example",
                                package = "bdpar"),
             cache = FALSE,
             verbose = FALSE,
