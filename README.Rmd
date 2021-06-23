@@ -231,6 +231,7 @@ We use [SemVer](http://semver.org/) for versioning. For all available versions, 
   - **Miguel Ferreiro Díaz** - *Developer* - [miferreiro](https://github.com/miferreiro)
   - **David Ruano Ordás** - *Project Manager* - [drordas](https://github.com/drordas)
   - **Tomás R. Cotos Yañez** - *Project Manager* - [tomas-cotos](https://github.com/tomas-cotos)
+  - **José Ramón Méndez Reboredo** - *Project Manager* - [moncho-mendez](https://github.com/moncho-mendez)
 
 You can see the list of all contributors on <https://github.com/miferreiro/bdpar/contributors>.
 
