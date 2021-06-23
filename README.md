@@ -4,7 +4,7 @@
 downloads](http://cranlogs.r-pkg.org/badges/bdpar)](https://github.com/metacran/cranlogs.app)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/bdpar)](https://cran.r-project.org/package=bdpar)
 [![Build
-Status](https://travis-ci.org/miferreiro/bdpar.svg?branch=develop)](https://travis-ci.org/miferreiro/bdpar)
+Status](https://travis-ci.com/miferreiro/bdpar.svg?branch=develop)](https://travis-ci.com/miferreiro/bdpar)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![codecov](https://codecov.io/gh/miferreiro/bdpar/branch/develop/graph/badge.svg)](https://codecov.io/gh/miferreiro/bdpar)
 
