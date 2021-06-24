@@ -1,3 +1,7 @@
+#  Version 3.0.1
+
+- Added author J. R. Méndez-Reboredo.
+
 #  Version 3.0.0
 
 ## New features
