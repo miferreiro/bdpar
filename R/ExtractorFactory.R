@@ -46,6 +46,14 @@ ExtractorFactory <- R6Class(
     #' @description Creates a \code{\link{ExtractorFactory}} object.
     #'
     initialize = function() {
+      if (Sys.which("python") == "" &&
+          Sys.which("python3 ") == "") {
+        bdpar.log(message = paste0("Remember install and configure Python for ",
+                                   ".eml files processing"),
+                  level = "ERROR",
+                  className = class(self)[1],
+                  methodName = "initialize")
+      }
       private$extractors <- list("eml" = ExtractorEml,
                                  "tsms" = ExtractorSms,
                                  "twtid" = ExtractorTwtid,
