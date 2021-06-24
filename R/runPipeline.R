@@ -69,7 +69,7 @@
 #' #bdpar.Options$configureLog(console = TRUE, threshold = "INFO", file = NULL)
 #'
 #' #Folder with the files to preprocess
-#' path <- system.file(file.path("example"),
+#' path <- system.file("example",
 #'                     package = "bdpar")
 #'
 #' #Object which decides how creates the instances

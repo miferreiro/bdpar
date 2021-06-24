@@ -4,7 +4,7 @@
 downloads](http://cranlogs.r-pkg.org/badges/bdpar)](https://github.com/metacran/cranlogs.app)
 [![](https://cranlogs.r-pkg.org/badges/grand-total/bdpar)](https://cran.r-project.org/package=bdpar)
 [![Build
-Status](https://travis-ci.org/miferreiro/bdpar.svg?branch=develop)](https://travis-ci.org/miferreiro/bdpar)
+Status](https://travis-ci.com/miferreiro/bdpar.svg?branch=develop)](https://travis-ci.com/miferreiro/bdpar)
 [![lifecycle](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 [![codecov](https://codecov.io/gh/miferreiro/bdpar/branch/develop/graph/badge.svg)](https://codecov.io/gh/miferreiro/bdpar)
 
@@ -29,12 +29,12 @@ textual sources (SMS, emails, tweets, YouTube comments).
 In order to get the most out of the customization capabilities, the
 application has two modes of execution of the *Pipes*:
 
-  - Simple mode.
-  - Advanced mode.
+-   Simple mode.
+-   Advanced mode.
 
 </div>
 
------
+------------------------------------------------------------------------
 
 #### *Simple mode*
 
@@ -177,7 +177,7 @@ default are:
 </div>
 
 |       File type       | Extension |
-| :-------------------: | :-------: |
+|:---------------------:|:---------:|
 |          SMS          |   .tsms   |
 |         Email         |   .eml    |
 |       ID Tweet        |  .twtid   |
@@ -199,22 +199,22 @@ process](additional-material/PipelineExample.png)
 
 #### Required software
 
-  - **R (\>= 3.5.0)**
-  - **Python 2.7+,3.6+**
+-   **R (&gt;= 3.5.0)**
+-   **Python 2.7+,3.6+**
 
 #### Required libraries
 
-  - **Imports**:
+-   **Imports**:
 
 |        | R Libraries |       |
-| :----: | :---------: | :---: |
+|:------:|:-----------:|:-----:|
 | digest |  parallel   |  R6   |
 | rlist  |    tools    | utils |
 
-  - **Suggests**:
+-   **Suggests**:
 
 |        |         | R Libraries |          |           |
-| :----: | :-----: | :---------: | :------: | :-------: |
+|:------:|:-------:|:-----------:|:--------:|:---------:|
 |  cld2  |  knitr  |     rex     |  rjson   | rmarkdown |
 | rtweet | stringi |   stringr   | testthat |   tuber   |
 
@@ -254,10 +254,10 @@ the command *install\_github*.
 
 ## Build with 🛠️
 
-  - [RStudio](https://www.rstudio.com/)
-      - The programming environment was used.
-  - [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html)
-      - Uses to generate the documentation.
+-   [RStudio](https://www.rstudio.com/)
+    -   The programming environment was used.
+-   [roxygen2](https://cran.r-project.org/web/packages/roxygen2/index.html)
+    -   Uses to generate the documentation.
 
 ## Contributing 🖇️
 
@@ -283,12 +283,14 @@ repository](https://github.com/miferreiro/bdpar/tags).
 
 ## Authors ✒️
 
-  - **Miguel Ferreiro Díaz** - *Developer* -
+-   **Miguel Ferreiro Díaz** - *Developer* -
     [miferreiro](https://github.com/miferreiro)
-  - **David Ruano Ordás** - *Project Manager* -
+-   **David Ruano Ordás** - *Project Manager* -
     [drordas](https://github.com/drordas)
-  - **Tomás R. Cotos Yañez** - *Project Manager* -
+-   **Tomás R. Cotos Yañez** - *Project Manager* -
     [tomas-cotos](https://github.com/tomas-cotos)
+-   **José Ramón Méndez Reboredo** - *Project Manager* -
+    [moncho-mendez](https://github.com/moncho-mendez)
 
 You can see the list of all contributors on
 <https://github.com/miferreiro/bdpar/contributors>.
