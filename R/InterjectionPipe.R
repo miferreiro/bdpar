@@ -242,7 +242,7 @@ InterjectionPipe <- R6Class(
 
         bdpar.log(message = paste0("The file: ", instance$getPath(),
                                    " has not an interjectionsJsonFile ",
-                                   "to apply to the language ->",
+                                   "to apply to the language -> ",
                                    languageInstance),
                   level = "WARN",
                   className = class(self)[1],

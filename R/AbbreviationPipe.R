@@ -246,7 +246,7 @@ AbbreviationPipe <- R6Class(
 
         bdpar.log(message = paste0("The file: ", instance$getPath(),
                                    " has not an abbreviationsJsonFile ",
-                                   "to apply to the language ->",
+                                   "to apply to the language -> ",
                                    languageInstance),
                   level = "WARN",
                   className = class(self)[1],

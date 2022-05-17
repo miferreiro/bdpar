@@ -241,7 +241,8 @@ SlangPipe <- R6Class(
         instance$addProperties(list(), super$getPropertyName())
 
         message <- paste0("The file: ", instance$getPath(),
-                          " has not an SlangsJsonFile to apply to the language-> ", languageInstance )
+                          " has not a slangsJsonFile to apply to the language -> ",
+                          languageInstance )
 
         bdpar.log(message = message,
                   level = "WARN",

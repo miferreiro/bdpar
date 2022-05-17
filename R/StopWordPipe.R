@@ -241,7 +241,7 @@ StopWordPipe <- R6Class(
         instance$addProperties(list(), super$getPropertyName())
 
         message <- paste0("The file: " , instance$getPath(),
-                          " has not an StopWordsJsonFile to apply to the language-> ",
+                          " has not a stopWordsJsonFile to apply to the language -> ",
                           languageInstance)
 
         bdpar.log(message = message,

@@ -245,8 +245,8 @@ ContractionPipe <- R6Class(
         instance$addProperties(list(),super$getPropertyName())
 
         bdpar.log(message = paste0("The file: ", instance$getPath(),
-                                   " has not an contractionsJsonFile ",
-                                   "to apply to the language ->",
+                                   " has not a contractionsJsonFile ",
+                                   "to apply to the language -> ",
                                    languageInstance),
                   level = "WARN",
                   className = class(self)[1],
