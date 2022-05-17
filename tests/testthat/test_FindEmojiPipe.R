@@ -7,7 +7,6 @@ testthat::setup({
 
 testthat::test_that("initialize",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -31,7 +30,6 @@ testthat::setup({
 
 testthat::test_that("initialize propertyName type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -57,7 +55,6 @@ testthat::setup({
 
 testthat::test_that("initialize alwaysBeforeDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
@@ -81,7 +78,6 @@ testthat::setup({
 
 testthat::test_that("initialize notAfterDeps type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
@@ -106,7 +102,6 @@ testthat::setup({
 
 testthat::test_that("initialize replaceEmojis type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -131,7 +126,6 @@ testthat::setup({
 
 testthat::test_that("pipe replaceEmojis <- TRUE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -168,7 +162,6 @@ testthat::setup({
 
 testthat::test_that("pipe replaceEmojis <- FALSE",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -203,7 +196,6 @@ testthat::setup({
 
 testthat::test_that("pipe instance type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -232,7 +224,6 @@ testthat::setup({
 
 testthat::test_that("findEmoji",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -262,7 +253,6 @@ testthat::setup({
 
 testthat::test_that("findEmoji data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -293,7 +283,6 @@ testthat::setup({
 
 testthat::test_that("findEmoji emoji type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -324,7 +313,6 @@ testthat::setup({
 
 testthat::test_that("replaceEmoji",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "emoticon"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -357,7 +345,6 @@ testthat::setup({
 
 testthat::test_that("replaceEmoji emoji type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -392,7 +379,6 @@ testthat::setup({
 
 testthat::test_that("replaceEmoji extendedEmoji type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
@@ -425,7 +411,6 @@ testthat::setup({
 
 testthat::test_that("replaceEmoji data type error",{
   testthat::skip_if_not_installed("rex")
-  testthat::skip_if_not_installed("rtweet")
   propertyName <- "Emojis"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()

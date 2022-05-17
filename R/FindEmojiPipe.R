@@ -29,7 +29,7 @@
 #' Moreover if required, is able to perform inline emoji replacement.
 #'
 #' @section Details:
-#' \code{\link{FindEmojiPipe}} use the emoji list provided by rtweet package.
+#' \code{\link{FindEmojiPipe}} use the emoji list provided by data(emojisData).
 #'
 #' @section Note:
 #' \code{\link{FindEmojiPipe}} will automatically invalidate the
@@ -142,8 +142,10 @@ FindEmojiPipe <- R6Class(
 
       emojisLocated <- list()
 
-      emojisList <- as.list(rtweet::emojis[2][[1]])
-      names(emojisList) <- as.list(rtweet::emojis[[1]][])
+      data(emojisData, package = "bdpar", envir = environment())
+
+      emojisList <- as.list(emojisData[2][[1]])
+      names(emojisList) <- as.list(emojisData[[1]][])
 
       for (emoji in names(emojisList)) {
 

@@ -11,7 +11,7 @@ Moreover if required, is able to perform inline emoji replacement.
 }
 \section{Details}{
 
-\code{\link{FindEmojiPipe}} use the emoji list provided by rtweet package.
+\code{\link{FindEmojiPipe}} use the emoji list provided by data(emojisData).
 }
 
 \section{Note}{

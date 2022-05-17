@@ -1,3 +1,7 @@
+#  Version 3.0.2
+
+- Removed dependency with rtweet package in FindEmojiPipe class.
+
 #  Version 3.0.1
 
 - Added author J. R. Méndez-Reboredo.
