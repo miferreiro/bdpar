@@ -55,34 +55,34 @@ expression to detect URLs.}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{FindUrlPipe$new()}}
-\item \href{#method-pipe}{\code{FindUrlPipe$pipe()}}
-\item \href{#method-findUrl}{\code{FindUrlPipe$findUrl()}}
-\item \href{#method-removeUrl}{\code{FindUrlPipe$removeUrl()}}
-\item \href{#method-putNamesURLPattern}{\code{FindUrlPipe$putNamesURLPattern()}}
-\item \href{#method-getURLPatterns}{\code{FindUrlPipe$getURLPatterns()}}
-\item \href{#method-setURLPatterns}{\code{FindUrlPipe$setURLPatterns()}}
-\item \href{#method-getNamesURLPatterns}{\code{FindUrlPipe$getNamesURLPatterns()}}
-\item \href{#method-setNamesURLPatterns}{\code{FindUrlPipe$setNamesURLPatterns()}}
-\item \href{#method-clone}{\code{FindUrlPipe$clone()}}
+\item \href{#method-FindUrlPipe-new}{\code{FindUrlPipe$new()}}
+\item \href{#method-FindUrlPipe-pipe}{\code{FindUrlPipe$pipe()}}
+\item \href{#method-FindUrlPipe-findUrl}{\code{FindUrlPipe$findUrl()}}
+\item \href{#method-FindUrlPipe-removeUrl}{\code{FindUrlPipe$removeUrl()}}
+\item \href{#method-FindUrlPipe-putNamesURLPattern}{\code{FindUrlPipe$putNamesURLPattern()}}
+\item \href{#method-FindUrlPipe-getURLPatterns}{\code{FindUrlPipe$getURLPatterns()}}
+\item \href{#method-FindUrlPipe-setURLPatterns}{\code{FindUrlPipe$setURLPatterns()}}
+\item \href{#method-FindUrlPipe-getNamesURLPatterns}{\code{FindUrlPipe$getNamesURLPatterns()}}
+\item \href{#method-FindUrlPipe-setNamesURLPatterns}{\code{FindUrlPipe$setNamesURLPatterns()}}
+\item \href{#method-FindUrlPipe-clone}{\code{FindUrlPipe$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-getAlwaysBeforeDeps}{\code{bdpar::GenericPipe$getAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-getNotAfterDeps}{\code{bdpar::GenericPipe$getNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-getPropertyName}{\code{bdpar::GenericPipe$getPropertyName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash">}\href{../../bdpar/html/GenericPipe.html#method-hash}{\code{bdpar::GenericPipe$hash()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-setAlwaysBeforeDeps}{\code{bdpar::GenericPipe$setAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-setNotAfterDeps}{\code{bdpar::GenericPipe$setNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-setPropertyName}{\code{bdpar::GenericPipe$setPropertyName()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getAlwaysBeforeDeps'><code>bdpar::GenericPipe$getAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getNotAfterDeps'><code>bdpar::GenericPipe$getNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getPropertyName'><code>bdpar::GenericPipe$getPropertyName()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-hash'><code>bdpar::GenericPipe$hash()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setAlwaysBeforeDeps'><code>bdpar::GenericPipe$setAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setNotAfterDeps'><code>bdpar::GenericPipe$setNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setPropertyName'><code>bdpar::GenericPipe$setPropertyName()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-new"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{FindUrlPipe}} object.
 \subsection{Usage}{
@@ -124,8 +124,8 @@ language property.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-pipe"></a>}}
-\if{latex}{\out{\hypertarget{method-pipe}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-pipe"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-pipe}{}}}
 \subsection{Method \code{pipe()}}{
 Preprocesses the \code{\link{Instance}} to obtain/remove
 the URLs. The URLs found in the data are added to the
@@ -148,8 +148,8 @@ occurred in the pipe.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-findUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-findUrl}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-findUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-findUrl}{}}}
 \subsection{Method \code{findUrl()}}{
 Finds the \emph{URLs} in the data.
 \subsection{Usage}{
@@ -170,8 +170,8 @@ The \code{\link{list}} with URLs found.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeUrl"></a>}}
-\if{latex}{\out{\hypertarget{method-removeUrl}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-removeUrl"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-removeUrl}{}}}
 \subsection{Method \code{removeUrl()}}{
 Removes \emph{the URL} in the data.
 \subsection{Usage}{
@@ -192,8 +192,8 @@ The data with URLs removed.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-putNamesURLPattern"></a>}}
-\if{latex}{\out{\hypertarget{method-putNamesURLPattern}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-putNamesURLPattern"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-putNamesURLPattern}{}}}
 \subsection{Method \code{putNamesURLPattern()}}{
 Sets the names to \emph{URL patterns} result.
 \subsection{Usage}{
@@ -213,8 +213,8 @@ The URLs found with the names of URL pattern.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getURLPatterns"></a>}}
-\if{latex}{\out{\hypertarget{method-getURLPatterns}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-getURLPatterns"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-getURLPatterns}{}}}
 \subsection{Method \code{getURLPatterns()}}{
 Gets \emph{the URL patterns}.
 \subsection{Usage}{
@@ -226,8 +226,8 @@ Value of \emph{URL patterns}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setURLPatterns"></a>}}
-\if{latex}{\out{\hypertarget{method-setURLPatterns}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-setURLPatterns"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-setURLPatterns}{}}}
 \subsection{Method \code{setURLPatterns()}}{
 Sets the \emph{URL patterns}.
 \subsection{Usage}{
@@ -244,8 +244,8 @@ the URL patterns.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNamesURLPatterns"></a>}}
-\if{latex}{\out{\hypertarget{method-getNamesURLPatterns}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-getNamesURLPatterns"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-getNamesURLPatterns}{}}}
 \subsection{Method \code{getNamesURLPatterns()}}{
 Gets the \emph{names of URLs}.
 \subsection{Usage}{
@@ -257,8 +257,8 @@ Value of names of URLs.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setNamesURLPatterns"></a>}}
-\if{latex}{\out{\hypertarget{method-setNamesURLPatterns}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-setNamesURLPatterns"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-setNamesURLPatterns}{}}}
 \subsection{Method \code{setNamesURLPatterns()}}{
 Sets the \emph{names of URLs}.
 \subsection{Usage}{
@@ -275,8 +275,8 @@ the names of URLs.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-FindUrlPipe-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-FindUrlPipe-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

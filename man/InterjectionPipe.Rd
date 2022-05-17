@@ -52,32 +52,32 @@ This class inherits from \code{\link{GenericPipe}} and implements the
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{InterjectionPipe$new()}}
-\item \href{#method-pipe}{\code{InterjectionPipe$pipe()}}
-\item \href{#method-findInterjection}{\code{InterjectionPipe$findInterjection()}}
-\item \href{#method-removeInterjection}{\code{InterjectionPipe$removeInterjection()}}
-\item \href{#method-getPropertyLanguageName}{\code{InterjectionPipe$getPropertyLanguageName()}}
-\item \href{#method-getResourcesInterjectionsPath}{\code{InterjectionPipe$getResourcesInterjectionsPath()}}
-\item \href{#method-setResourcesInterjectionsPath}{\code{InterjectionPipe$setResourcesInterjectionsPath()}}
-\item \href{#method-clone}{\code{InterjectionPipe$clone()}}
+\item \href{#method-InterjectionPipe-new}{\code{InterjectionPipe$new()}}
+\item \href{#method-InterjectionPipe-pipe}{\code{InterjectionPipe$pipe()}}
+\item \href{#method-InterjectionPipe-findInterjection}{\code{InterjectionPipe$findInterjection()}}
+\item \href{#method-InterjectionPipe-removeInterjection}{\code{InterjectionPipe$removeInterjection()}}
+\item \href{#method-InterjectionPipe-getPropertyLanguageName}{\code{InterjectionPipe$getPropertyLanguageName()}}
+\item \href{#method-InterjectionPipe-getResourcesInterjectionsPath}{\code{InterjectionPipe$getResourcesInterjectionsPath()}}
+\item \href{#method-InterjectionPipe-setResourcesInterjectionsPath}{\code{InterjectionPipe$setResourcesInterjectionsPath()}}
+\item \href{#method-InterjectionPipe-clone}{\code{InterjectionPipe$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-getAlwaysBeforeDeps}{\code{bdpar::GenericPipe$getAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-getNotAfterDeps}{\code{bdpar::GenericPipe$getNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-getPropertyName}{\code{bdpar::GenericPipe$getPropertyName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash">}\href{../../bdpar/html/GenericPipe.html#method-hash}{\code{bdpar::GenericPipe$hash()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-setAlwaysBeforeDeps}{\code{bdpar::GenericPipe$setAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-setNotAfterDeps}{\code{bdpar::GenericPipe$setNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-setPropertyName}{\code{bdpar::GenericPipe$setPropertyName()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getAlwaysBeforeDeps'><code>bdpar::GenericPipe$getAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getNotAfterDeps'><code>bdpar::GenericPipe$getNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getPropertyName'><code>bdpar::GenericPipe$getPropertyName()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-hash'><code>bdpar::GenericPipe$hash()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setAlwaysBeforeDeps'><code>bdpar::GenericPipe$setAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setNotAfterDeps'><code>bdpar::GenericPipe$setNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setPropertyName'><code>bdpar::GenericPipe$setPropertyName()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-new"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{InterjectionPipe}} object.
 \subsection{Usage}{
@@ -118,8 +118,8 @@ of resource files (in json format) containing the interjections.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-pipe"></a>}}
-\if{latex}{\out{\hypertarget{method-pipe}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-pipe"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-pipe}{}}}
 \subsection{Method \code{pipe()}}{
 Preprocesses the \code{\link{Instance}} to obtain/remove
 the interjections. The interjections found in the data are added to the
@@ -142,8 +142,8 @@ occurred in the pipe.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-findInterjection"></a>}}
-\if{latex}{\out{\hypertarget{method-findInterjection}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-findInterjection"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-findInterjection}{}}}
 \subsection{Method \code{findInterjection()}}{
 Checks if the interjection is in the data.
 \subsection{Usage}{
@@ -167,8 +167,8 @@ interjection is in the data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeInterjection"></a>}}
-\if{latex}{\out{\hypertarget{method-removeInterjection}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-removeInterjection"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-removeInterjection}{}}}
 \subsection{Method \code{removeInterjection()}}{
 Removes the \emph{interjection} in the data.
 \subsection{Usage}{
@@ -191,8 +191,8 @@ The data with the interjections removed.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPropertyLanguageName"></a>}}
-\if{latex}{\out{\hypertarget{method-getPropertyLanguageName}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-getPropertyLanguageName"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-getPropertyLanguageName}{}}}
 \subsection{Method \code{getPropertyLanguageName()}}{
 Gets the name of property language.
 \subsection{Usage}{
@@ -204,8 +204,8 @@ Value of name of property language.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getResourcesInterjectionsPath"></a>}}
-\if{latex}{\out{\hypertarget{method-getResourcesInterjectionsPath}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-getResourcesInterjectionsPath"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-getResourcesInterjectionsPath}{}}}
 \subsection{Method \code{getResourcesInterjectionsPath()}}{
 Gets the path of interjections resources.
 \subsection{Usage}{
@@ -217,8 +217,8 @@ Value of path of interjections resources.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setResourcesInterjectionsPath"></a>}}
-\if{latex}{\out{\hypertarget{method-setResourcesInterjectionsPath}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-setResourcesInterjectionsPath"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-setResourcesInterjectionsPath}{}}}
 \subsection{Method \code{setResourcesInterjectionsPath()}}{
 Sets the path of interjections resources.
 \subsection{Usage}{
@@ -235,8 +235,8 @@ interjections resources.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-InterjectionPipe-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-InterjectionPipe-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

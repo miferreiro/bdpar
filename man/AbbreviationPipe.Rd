@@ -52,32 +52,32 @@ This class inherits from \code{\link{GenericPipe}} and implements the
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{AbbreviationPipe$new()}}
-\item \href{#method-pipe}{\code{AbbreviationPipe$pipe()}}
-\item \href{#method-findAbbreviation}{\code{AbbreviationPipe$findAbbreviation()}}
-\item \href{#method-replaceAbbreviation}{\code{AbbreviationPipe$replaceAbbreviation()}}
-\item \href{#method-getPropertyLanguageName}{\code{AbbreviationPipe$getPropertyLanguageName()}}
-\item \href{#method-getResourcesAbbreviationsPath}{\code{AbbreviationPipe$getResourcesAbbreviationsPath()}}
-\item \href{#method-setResourcesAbbreviationsPath}{\code{AbbreviationPipe$setResourcesAbbreviationsPath()}}
-\item \href{#method-clone}{\code{AbbreviationPipe$clone()}}
+\item \href{#method-AbbreviationPipe-new}{\code{AbbreviationPipe$new()}}
+\item \href{#method-AbbreviationPipe-pipe}{\code{AbbreviationPipe$pipe()}}
+\item \href{#method-AbbreviationPipe-findAbbreviation}{\code{AbbreviationPipe$findAbbreviation()}}
+\item \href{#method-AbbreviationPipe-replaceAbbreviation}{\code{AbbreviationPipe$replaceAbbreviation()}}
+\item \href{#method-AbbreviationPipe-getPropertyLanguageName}{\code{AbbreviationPipe$getPropertyLanguageName()}}
+\item \href{#method-AbbreviationPipe-getResourcesAbbreviationsPath}{\code{AbbreviationPipe$getResourcesAbbreviationsPath()}}
+\item \href{#method-AbbreviationPipe-setResourcesAbbreviationsPath}{\code{AbbreviationPipe$setResourcesAbbreviationsPath()}}
+\item \href{#method-AbbreviationPipe-clone}{\code{AbbreviationPipe$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-getAlwaysBeforeDeps}{\code{bdpar::GenericPipe$getAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-getNotAfterDeps}{\code{bdpar::GenericPipe$getNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-getPropertyName}{\code{bdpar::GenericPipe$getPropertyName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash">}\href{../../bdpar/html/GenericPipe.html#method-hash}{\code{bdpar::GenericPipe$hash()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-setAlwaysBeforeDeps}{\code{bdpar::GenericPipe$setAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-setNotAfterDeps}{\code{bdpar::GenericPipe$setNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-setPropertyName}{\code{bdpar::GenericPipe$setPropertyName()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getAlwaysBeforeDeps'><code>bdpar::GenericPipe$getAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getNotAfterDeps'><code>bdpar::GenericPipe$getNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getPropertyName'><code>bdpar::GenericPipe$getPropertyName()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-hash'><code>bdpar::GenericPipe$hash()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setAlwaysBeforeDeps'><code>bdpar::GenericPipe$setAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setNotAfterDeps'><code>bdpar::GenericPipe$setNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setPropertyName'><code>bdpar::GenericPipe$setPropertyName()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-new"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{AbbreviationPipe}} object.
 \subsection{Usage}{
@@ -119,8 +119,8 @@ abbreviations and meaning.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-pipe"></a>}}
-\if{latex}{\out{\hypertarget{method-pipe}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-pipe"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-pipe}{}}}
 \subsection{Method \code{pipe()}}{
 Preprocesses the \code{\link{Instance}} to obtain/replace
 the abbreviations. The abbreviations found in the data are added to the
@@ -143,8 +143,8 @@ occurred in the pipe.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-findAbbreviation"></a>}}
-\if{latex}{\out{\hypertarget{method-findAbbreviation}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-findAbbreviation"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-findAbbreviation}{}}}
 \subsection{Method \code{findAbbreviation()}}{
 Checks if the abbreviation is in the data.
 \subsection{Usage}{
@@ -168,8 +168,8 @@ abbreviation is in the data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-replaceAbbreviation"></a>}}
-\if{latex}{\out{\hypertarget{method-replaceAbbreviation}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-replaceAbbreviation"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-replaceAbbreviation}{}}}
 \subsection{Method \code{replaceAbbreviation()}}{
 Replaces the \emph{abbreviation} in the data for the
 \emph{extendedAbbreviation}.
@@ -196,8 +196,8 @@ The data with the abbreviations replaced.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPropertyLanguageName"></a>}}
-\if{latex}{\out{\hypertarget{method-getPropertyLanguageName}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-getPropertyLanguageName"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-getPropertyLanguageName}{}}}
 \subsection{Method \code{getPropertyLanguageName()}}{
 Gets the name of property language.
 \subsection{Usage}{
@@ -209,8 +209,8 @@ Value of name of property language.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getResourcesAbbreviationsPath"></a>}}
-\if{latex}{\out{\hypertarget{method-getResourcesAbbreviationsPath}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-getResourcesAbbreviationsPath"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-getResourcesAbbreviationsPath}{}}}
 \subsection{Method \code{getResourcesAbbreviationsPath()}}{
 Gets the path of abbreviations resources.
 \subsection{Usage}{
@@ -222,8 +222,8 @@ Value of path of abbreviations resources.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setResourcesAbbreviationsPath"></a>}}
-\if{latex}{\out{\hypertarget{method-setResourcesAbbreviationsPath}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-setResourcesAbbreviationsPath"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-setResourcesAbbreviationsPath}{}}}
 \subsection{Method \code{setResourcesAbbreviationsPath()}}{
 Sets the path of abbreviations resources.
 \subsection{Usage}{
@@ -240,8 +240,8 @@ abbreviations resources.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-AbbreviationPipe-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-AbbreviationPipe-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -16,17 +16,17 @@ the file. File resources of type json are read and stored in memory.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ResourceHandler$new()}}
-\item \href{#method-isLoadResource}{\code{ResourceHandler$isLoadResource()}}
-\item \href{#method-getResources}{\code{ResourceHandler$getResources()}}
-\item \href{#method-setResources}{\code{ResourceHandler$setResources()}}
-\item \href{#method-getNamesResources}{\code{ResourceHandler$getNamesResources()}}
-\item \href{#method-clone}{\code{ResourceHandler$clone()}}
+\item \href{#method-ResourceHandler-new}{\code{ResourceHandler$new()}}
+\item \href{#method-ResourceHandler-isLoadResource}{\code{ResourceHandler$isLoadResource()}}
+\item \href{#method-ResourceHandler-getResources}{\code{ResourceHandler$getResources()}}
+\item \href{#method-ResourceHandler-setResources}{\code{ResourceHandler$setResources()}}
+\item \href{#method-ResourceHandler-getNamesResources}{\code{ResourceHandler$getNamesResources()}}
+\item \href{#method-ResourceHandler-clone}{\code{ResourceHandler$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ResourceHandler-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ResourceHandler-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{ResourceHandler}} object.
 \subsection{Usage}{
@@ -35,8 +35,8 @@ Creates a \code{\link{ResourceHandler}} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isLoadResource"></a>}}
-\if{latex}{\out{\hypertarget{method-isLoadResource}{}}}
+\if{html}{\out{<a id="method-ResourceHandler-isLoadResource"></a>}}
+\if{latex}{\out{\hypertarget{method-ResourceHandler-isLoadResource}{}}}
 \subsection{Method \code{isLoadResource()}}{
 From the resource path, it is checked if they have already
 been loaded. In this case, the list of the requested resource is returned.
@@ -59,8 +59,8 @@ The resources list is returned, if they exist.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getResources"></a>}}
-\if{latex}{\out{\hypertarget{method-getResources}{}}}
+\if{html}{\out{<a id="method-ResourceHandler-getResources"></a>}}
+\if{latex}{\out{\hypertarget{method-ResourceHandler-getResources}{}}}
 \subsection{Method \code{getResources()}}{
 Gets of resources variable.
 \subsection{Usage}{
@@ -72,8 +72,8 @@ The value of resources variable.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setResources"></a>}}
-\if{latex}{\out{\hypertarget{method-setResources}{}}}
+\if{html}{\out{<a id="method-ResourceHandler-setResources"></a>}}
+\if{latex}{\out{\hypertarget{method-ResourceHandler-setResources}{}}}
 \subsection{Method \code{setResources()}}{
 Sets of resources variable.
 \subsection{Usage}{
@@ -89,8 +89,8 @@ Sets of resources variable.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNamesResources"></a>}}
-\if{latex}{\out{\hypertarget{method-getNamesResources}{}}}
+\if{html}{\out{<a id="method-ResourceHandler-getNamesResources"></a>}}
+\if{latex}{\out{\hypertarget{method-ResourceHandler-getNamesResources}{}}}
 \subsection{Method \code{getNamesResources()}}{
 Gets of names of resources
 \subsection{Usage}{
@@ -102,8 +102,8 @@ Value of names of resources.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ResourceHandler-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ResourceHandler-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

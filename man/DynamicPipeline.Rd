@@ -26,27 +26,27 @@ This class inherits from \code{\link{GenericPipeline}} and implements the
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{DynamicPipeline$new()}}
-\item \href{#method-add}{\code{DynamicPipeline$add()}}
-\item \href{#method-removeByPos}{\code{DynamicPipeline$removeByPos()}}
-\item \href{#method-removeByPipe}{\code{DynamicPipeline$removeByPipe()}}
-\item \href{#method-removeAll}{\code{DynamicPipeline$removeAll()}}
-\item \href{#method-execute}{\code{DynamicPipeline$execute()}}
-\item \href{#method-get}{\code{DynamicPipeline$get()}}
-\item \href{#method-print}{\code{DynamicPipeline$print()}}
-\item \href{#method-toString}{\code{DynamicPipeline$toString()}}
-\item \href{#method-clone}{\code{DynamicPipeline$clone()}}
+\item \href{#method-DynamicPipeline-new}{\code{DynamicPipeline$new()}}
+\item \href{#method-DynamicPipeline-add}{\code{DynamicPipeline$add()}}
+\item \href{#method-DynamicPipeline-removeByPos}{\code{DynamicPipeline$removeByPos()}}
+\item \href{#method-DynamicPipeline-removeByPipe}{\code{DynamicPipeline$removeByPipe()}}
+\item \href{#method-DynamicPipeline-removeAll}{\code{DynamicPipeline$removeAll()}}
+\item \href{#method-DynamicPipeline-execute}{\code{DynamicPipeline$execute()}}
+\item \href{#method-DynamicPipeline-get}{\code{DynamicPipeline$get()}}
+\item \href{#method-DynamicPipeline-print}{\code{DynamicPipeline$print()}}
+\item \href{#method-DynamicPipeline-toString}{\code{DynamicPipeline$toString()}}
+\item \href{#method-DynamicPipeline-clone}{\code{DynamicPipeline$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{DynamicPipeline}} object.
 \subsection{Usage}{
@@ -63,8 +63,8 @@ objects. Initializes the flow of \code{\link{GenericPipe}}.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-add"></a>}}
-\if{latex}{\out{\hypertarget{method-add}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-add"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-add}{}}}
 \subsection{Method \code{add()}}{
 Adds a \code{\link{GenericPipe}} or a
 \code{\link{GenericPipe}} list to the pipeline.
@@ -85,8 +85,8 @@ If it is NULL, \code{\link{GenericPipe}} is appended to the pipeline.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeByPos"></a>}}
-\if{latex}{\out{\hypertarget{method-removeByPos}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-removeByPos"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-removeByPos}{}}}
 \subsection{Method \code{removeByPos()}}{
 Removes \code{\link{GenericPipe}s} by the position on the
 pipeline.
@@ -103,8 +103,8 @@ pipeline.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeByPipe"></a>}}
-\if{latex}{\out{\hypertarget{method-removeByPipe}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-removeByPipe"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-removeByPipe}{}}}
 \subsection{Method \code{removeByPipe()}}{
 Removes \code{\link{GenericPipe}s} by its name on the
 pipeline.
@@ -122,8 +122,8 @@ pipeline.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeAll"></a>}}
-\if{latex}{\out{\hypertarget{method-removeAll}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-removeAll"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-removeAll}{}}}
 \subsection{Method \code{removeAll()}}{
 Removes all \code{\link{GenericPipe}s} included on pipeline.
 \subsection{Usage}{
@@ -132,8 +132,8 @@ Removes all \code{\link{GenericPipe}s} included on pipeline.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-execute"></a>}}
-\if{latex}{\out{\hypertarget{method-execute}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-execute"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-execute}{}}}
 \subsection{Method \code{execute()}}{
 Function where is implemented the flow of the
 \code{\link{GenericPipe}s}.
@@ -151,8 +151,8 @@ that is going to be processed.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-get"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-get}{}}}
 \subsection{Method \code{get()}}{
 Gets a list with containing the set of \code{\link{GenericPipe}s}
 of the pipeline.
@@ -165,8 +165,8 @@ The set of \code{\link{GenericPipe}s} containing the pipeline.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-print}{}}}
 \subsection{Method \code{print()}}{
 Prints pipeline representation. (Override print function)
 \subsection{Usage}{
@@ -182,8 +182,8 @@ Prints pipeline representation. (Override print function)
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-toString}{}}}
 \subsection{Method \code{toString()}}{
 Returns a \code{\link{character}} representing the pipeline
 \subsection{Usage}{
@@ -195,8 +195,8 @@ Returns a \code{\link{character}} representing the pipeline
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DynamicPipeline-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DynamicPipeline-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -42,20 +42,20 @@ Fields of unused connections will be automatically ignored by the platform.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Connections$new()}}
-\item \href{#method-getTwitterToken}{\code{Connections$getTwitterToken()}}
-\item \href{#method-startConnectionWithTwitter}{\code{Connections$startConnectionWithTwitter()}}
-\item \href{#method-checkRequestToTwitter}{\code{Connections$checkRequestToTwitter()}}
-\item \href{#method-startConnectionWithYoutube}{\code{Connections$startConnectionWithYoutube()}}
-\item \href{#method-addNumRequestToYoutube}{\code{Connections$addNumRequestToYoutube()}}
-\item \href{#method-checkRequestToYoutube}{\code{Connections$checkRequestToYoutube()}}
-\item \href{#method-getNumRequestMaxToYoutube}{\code{Connections$getNumRequestMaxToYoutube()}}
-\item \href{#method-clone}{\code{Connections$clone()}}
+\item \href{#method-Connections-new}{\code{Connections$new()}}
+\item \href{#method-Connections-getTwitterToken}{\code{Connections$getTwitterToken()}}
+\item \href{#method-Connections-startConnectionWithTwitter}{\code{Connections$startConnectionWithTwitter()}}
+\item \href{#method-Connections-checkRequestToTwitter}{\code{Connections$checkRequestToTwitter()}}
+\item \href{#method-Connections-startConnectionWithYoutube}{\code{Connections$startConnectionWithYoutube()}}
+\item \href{#method-Connections-addNumRequestToYoutube}{\code{Connections$addNumRequestToYoutube()}}
+\item \href{#method-Connections-checkRequestToYoutube}{\code{Connections$checkRequestToYoutube()}}
+\item \href{#method-Connections-getNumRequestMaxToYoutube}{\code{Connections$getNumRequestMaxToYoutube()}}
+\item \href{#method-Connections-clone}{\code{Connections$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Connections-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{Connections}} object.
 \subsection{Usage}{
@@ -64,8 +64,8 @@ Creates a \code{\link{Connections}} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getTwitterToken"></a>}}
-\if{latex}{\out{\hypertarget{method-getTwitterToken}{}}}
+\if{html}{\out{<a id="method-Connections-getTwitterToken"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-getTwitterToken}{}}}
 \subsection{Method \code{getTwitterToken()}}{
 Gets the Twitter token ID.
 \subsection{Usage}{
@@ -77,8 +77,8 @@ Value of \code{twitterToken}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-startConnectionWithTwitter"></a>}}
-\if{latex}{\out{\hypertarget{method-startConnectionWithTwitter}{}}}
+\if{html}{\out{<a id="method-Connections-startConnectionWithTwitter"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-startConnectionWithTwitter}{}}}
 \subsection{Method \code{startConnectionWithTwitter()}}{
 Responsible of establishing the connection to Twitter.
 \subsection{Usage}{
@@ -87,8 +87,8 @@ Responsible of establishing the connection to Twitter.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-checkRequestToTwitter"></a>}}
-\if{latex}{\out{\hypertarget{method-checkRequestToTwitter}{}}}
+\if{html}{\out{<a id="method-Connections-checkRequestToTwitter"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-checkRequestToTwitter}{}}}
 \subsection{Method \code{checkRequestToTwitter()}}{
 Function in charge of handling the connection with Twitter.
 \subsection{Usage}{
@@ -97,8 +97,8 @@ Function in charge of handling the connection with Twitter.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-startConnectionWithYoutube"></a>}}
-\if{latex}{\out{\hypertarget{method-startConnectionWithYoutube}{}}}
+\if{html}{\out{<a id="method-Connections-startConnectionWithYoutube"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-startConnectionWithYoutube}{}}}
 \subsection{Method \code{startConnectionWithYoutube()}}{
 Function able to establish the connection with YouTube.
 \subsection{Usage}{
@@ -107,8 +107,8 @@ Function able to establish the connection with YouTube.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addNumRequestToYoutube"></a>}}
-\if{latex}{\out{\hypertarget{method-addNumRequestToYoutube}{}}}
+\if{html}{\out{<a id="method-Connections-addNumRequestToYoutube"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-addNumRequestToYoutube}{}}}
 \subsection{Method \code{addNumRequestToYoutube()}}{
 Function that increases in one the number of request to YouTube.
 \subsection{Usage}{
@@ -117,8 +117,8 @@ Function that increases in one the number of request to YouTube.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-checkRequestToYoutube"></a>}}
-\if{latex}{\out{\hypertarget{method-checkRequestToYoutube}{}}}
+\if{html}{\out{<a id="method-Connections-checkRequestToYoutube"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-checkRequestToYoutube}{}}}
 \subsection{Method \code{checkRequestToYoutube()}}{
 Handles the connection with YouTube.
 \subsection{Usage}{
@@ -127,8 +127,8 @@ Handles the connection with YouTube.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNumRequestMaxToYoutube"></a>}}
-\if{latex}{\out{\hypertarget{method-getNumRequestMaxToYoutube}{}}}
+\if{html}{\out{<a id="method-Connections-getNumRequestMaxToYoutube"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-getNumRequestMaxToYoutube}{}}}
 \subsection{Method \code{getNumRequestMaxToYoutube()}}{
 Gets the number of maximum requests allowed by YouTube API.
 \subsection{Usage}{
@@ -140,8 +140,8 @@ Value of number maximum of request to YouTube.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Connections-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Connections-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

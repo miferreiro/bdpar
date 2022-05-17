@@ -23,21 +23,21 @@ Provides the required methods to successfully handle each
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{GenericPipe$new()}}
-\item \href{#method-pipe}{\code{GenericPipe$pipe()}}
-\item \href{#method-getPropertyName}{\code{GenericPipe$getPropertyName()}}
-\item \href{#method-getAlwaysBeforeDeps}{\code{GenericPipe$getAlwaysBeforeDeps()}}
-\item \href{#method-getNotAfterDeps}{\code{GenericPipe$getNotAfterDeps()}}
-\item \href{#method-setPropertyName}{\code{GenericPipe$setPropertyName()}}
-\item \href{#method-setAlwaysBeforeDeps}{\code{GenericPipe$setAlwaysBeforeDeps()}}
-\item \href{#method-setNotAfterDeps}{\code{GenericPipe$setNotAfterDeps()}}
-\item \href{#method-hash}{\code{GenericPipe$hash()}}
-\item \href{#method-clone}{\code{GenericPipe$clone()}}
+\item \href{#method-GenericPipe-new}{\code{GenericPipe$new()}}
+\item \href{#method-GenericPipe-pipe}{\code{GenericPipe$pipe()}}
+\item \href{#method-GenericPipe-getPropertyName}{\code{GenericPipe$getPropertyName()}}
+\item \href{#method-GenericPipe-getAlwaysBeforeDeps}{\code{GenericPipe$getAlwaysBeforeDeps()}}
+\item \href{#method-GenericPipe-getNotAfterDeps}{\code{GenericPipe$getNotAfterDeps()}}
+\item \href{#method-GenericPipe-setPropertyName}{\code{GenericPipe$setPropertyName()}}
+\item \href{#method-GenericPipe-setAlwaysBeforeDeps}{\code{GenericPipe$setAlwaysBeforeDeps()}}
+\item \href{#method-GenericPipe-setNotAfterDeps}{\code{GenericPipe$setNotAfterDeps()}}
+\item \href{#method-GenericPipe-hash}{\code{GenericPipe$hash()}}
+\item \href{#method-GenericPipe-clone}{\code{GenericPipe$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-GenericPipe-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \link{GenericPipe} object.
 \subsection{Usage}{
@@ -60,8 +60,8 @@ alwaysBefore (Pipes that must be executed before this one).}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-pipe"></a>}}
-\if{latex}{\out{\hypertarget{method-pipe}{}}}
+\if{html}{\out{<a id="method-GenericPipe-pipe"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-pipe}{}}}
 \subsection{Method \code{pipe()}}{
 Abstract method to preprocess the \code{\link{Instance}}.
 \subsection{Usage}{
@@ -81,8 +81,8 @@ The preprocessed \code{\link{Instance}}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPropertyName"></a>}}
-\if{latex}{\out{\hypertarget{method-getPropertyName}{}}}
+\if{html}{\out{<a id="method-GenericPipe-getPropertyName"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-getPropertyName}{}}}
 \subsection{Method \code{getPropertyName()}}{
 Gets of name of property.
 \subsection{Usage}{
@@ -94,8 +94,8 @@ Value of name of property.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAlwaysBeforeDeps"></a>}}
-\if{latex}{\out{\hypertarget{method-getAlwaysBeforeDeps}{}}}
+\if{html}{\out{<a id="method-GenericPipe-getAlwaysBeforeDeps"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-getAlwaysBeforeDeps}{}}}
 \subsection{Method \code{getAlwaysBeforeDeps()}}{
 Gets of the dependencies always before.
 \subsection{Usage}{
@@ -107,8 +107,8 @@ Value of dependencies always before.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNotAfterDeps"></a>}}
-\if{latex}{\out{\hypertarget{method-getNotAfterDeps}{}}}
+\if{html}{\out{<a id="method-GenericPipe-getNotAfterDeps"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-getNotAfterDeps}{}}}
 \subsection{Method \code{getNotAfterDeps()}}{
 Gets of the dependencies not after.
 \subsection{Usage}{
@@ -120,8 +120,8 @@ Value of dependencies not after.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setPropertyName"></a>}}
-\if{latex}{\out{\hypertarget{method-setPropertyName}{}}}
+\if{html}{\out{<a id="method-GenericPipe-setPropertyName"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-setPropertyName}{}}}
 \subsection{Method \code{setPropertyName()}}{
 Changes the value of property's name.
 \subsection{Usage}{
@@ -138,8 +138,8 @@ property's name.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setAlwaysBeforeDeps"></a>}}
-\if{latex}{\out{\hypertarget{method-setAlwaysBeforeDeps}{}}}
+\if{html}{\out{<a id="method-GenericPipe-setAlwaysBeforeDeps"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-setAlwaysBeforeDeps}{}}}
 \subsection{Method \code{setAlwaysBeforeDeps()}}{
 Changes the value of dependencies always before.
 \subsection{Usage}{
@@ -156,8 +156,8 @@ dependencies always before.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setNotAfterDeps"></a>}}
-\if{latex}{\out{\hypertarget{method-setNotAfterDeps}{}}}
+\if{html}{\out{<a id="method-GenericPipe-setNotAfterDeps"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-setNotAfterDeps}{}}}
 \subsection{Method \code{setNotAfterDeps()}}{
 Changes the value of dependencies not after.
 \subsection{Usage}{
@@ -174,8 +174,8 @@ dependencies not after.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-hash"></a>}}
-\if{latex}{\out{\hypertarget{method-hash}{}}}
+\if{html}{\out{<a id="method-GenericPipe-hash"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-hash}{}}}
 \subsection{Method \code{hash()}}{
 Generates an identification of pipe based on its fields.
 \subsection{Usage}{
@@ -192,8 +192,8 @@ Generates an identification of pipe based on its fields.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-GenericPipe-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipe-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

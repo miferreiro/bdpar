@@ -29,43 +29,43 @@ This class inherits from \code{\link{Instance}} and implements the
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ExtractorSms$new()}}
-\item \href{#method-obtainDate}{\code{ExtractorSms$obtainDate()}}
-\item \href{#method-obtainSource}{\code{ExtractorSms$obtainSource()}}
-\item \href{#method-toString}{\code{ExtractorSms$toString()}}
-\item \href{#method-clone}{\code{ExtractorSms$clone()}}
+\item \href{#method-ExtractorSms-new}{\code{ExtractorSms$new()}}
+\item \href{#method-ExtractorSms-obtainDate}{\code{ExtractorSms$obtainDate()}}
+\item \href{#method-ExtractorSms-obtainSource}{\code{ExtractorSms$obtainSource()}}
+\item \href{#method-ExtractorSms-toString}{\code{ExtractorSms$toString()}}
+\item \href{#method-ExtractorSms-clone}{\code{ExtractorSms$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addBanPipes">}\href{../../bdpar/html/Instance.html#method-addBanPipes}{\code{bdpar::Instance$addBanPipes()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addFlowPipes">}\href{../../bdpar/html/Instance.html#method-addFlowPipes}{\code{bdpar::Instance$addFlowPipes()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addProperties">}\href{../../bdpar/html/Instance.html#method-addProperties}{\code{bdpar::Instance$addProperties()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="checkCompatibility">}\href{../../bdpar/html/Instance.html#method-checkCompatibility}{\code{bdpar::Instance$checkCompatibility()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getBanPipes">}\href{../../bdpar/html/Instance.html#method-getBanPipes}{\code{bdpar::Instance$getBanPipes()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getData">}\href{../../bdpar/html/Instance.html#method-getData}{\code{bdpar::Instance$getData()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getDate">}\href{../../bdpar/html/Instance.html#method-getDate}{\code{bdpar::Instance$getDate()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getFlowPipes">}\href{../../bdpar/html/Instance.html#method-getFlowPipes}{\code{bdpar::Instance$getFlowPipes()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getNamesOfProperties">}\href{../../bdpar/html/Instance.html#method-getNamesOfProperties}{\code{bdpar::Instance$getNamesOfProperties()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getPath">}\href{../../bdpar/html/Instance.html#method-getPath}{\code{bdpar::Instance$getPath()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getProperties">}\href{../../bdpar/html/Instance.html#method-getProperties}{\code{bdpar::Instance$getProperties()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSource">}\href{../../bdpar/html/Instance.html#method-getSource}{\code{bdpar::Instance$getSource()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSpecificProperty">}\href{../../bdpar/html/Instance.html#method-getSpecificProperty}{\code{bdpar::Instance$getSpecificProperty()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="invalidate">}\href{../../bdpar/html/Instance.html#method-invalidate}{\code{bdpar::Instance$invalidate()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isInstanceValid">}\href{../../bdpar/html/Instance.html#method-isInstanceValid}{\code{bdpar::Instance$isInstanceValid()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isSpecificProperty">}\href{../../bdpar/html/Instance.html#method-isSpecificProperty}{\code{bdpar::Instance$isSpecificProperty()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setData">}\href{../../bdpar/html/Instance.html#method-setData}{\code{bdpar::Instance$setData()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setDate">}\href{../../bdpar/html/Instance.html#method-setDate}{\code{bdpar::Instance$setDate()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setProperties">}\href{../../bdpar/html/Instance.html#method-setProperties}{\code{bdpar::Instance$setProperties()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSource">}\href{../../bdpar/html/Instance.html#method-setSource}{\code{bdpar::Instance$setSource()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSpecificProperty">}\href{../../bdpar/html/Instance.html#method-setSpecificProperty}{\code{bdpar::Instance$setSpecificProperty()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addBanPipes"><a href='../../bdpar/html/Instance.html#method-Instance-addBanPipes'><code>bdpar::Instance$addBanPipes()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addFlowPipes"><a href='../../bdpar/html/Instance.html#method-Instance-addFlowPipes'><code>bdpar::Instance$addFlowPipes()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addProperties"><a href='../../bdpar/html/Instance.html#method-Instance-addProperties'><code>bdpar::Instance$addProperties()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="checkCompatibility"><a href='../../bdpar/html/Instance.html#method-Instance-checkCompatibility'><code>bdpar::Instance$checkCompatibility()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getBanPipes"><a href='../../bdpar/html/Instance.html#method-Instance-getBanPipes'><code>bdpar::Instance$getBanPipes()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getData"><a href='../../bdpar/html/Instance.html#method-Instance-getData'><code>bdpar::Instance$getData()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getDate"><a href='../../bdpar/html/Instance.html#method-Instance-getDate'><code>bdpar::Instance$getDate()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getFlowPipes"><a href='../../bdpar/html/Instance.html#method-Instance-getFlowPipes'><code>bdpar::Instance$getFlowPipes()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getNamesOfProperties"><a href='../../bdpar/html/Instance.html#method-Instance-getNamesOfProperties'><code>bdpar::Instance$getNamesOfProperties()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getPath"><a href='../../bdpar/html/Instance.html#method-Instance-getPath'><code>bdpar::Instance$getPath()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getProperties"><a href='../../bdpar/html/Instance.html#method-Instance-getProperties'><code>bdpar::Instance$getProperties()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSource"><a href='../../bdpar/html/Instance.html#method-Instance-getSource'><code>bdpar::Instance$getSource()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-getSpecificProperty'><code>bdpar::Instance$getSpecificProperty()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="invalidate"><a href='../../bdpar/html/Instance.html#method-Instance-invalidate'><code>bdpar::Instance$invalidate()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isInstanceValid"><a href='../../bdpar/html/Instance.html#method-Instance-isInstanceValid'><code>bdpar::Instance$isInstanceValid()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-isSpecificProperty'><code>bdpar::Instance$isSpecificProperty()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setData"><a href='../../bdpar/html/Instance.html#method-Instance-setData'><code>bdpar::Instance$setData()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setDate"><a href='../../bdpar/html/Instance.html#method-Instance-setDate'><code>bdpar::Instance$setDate()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setProperties"><a href='../../bdpar/html/Instance.html#method-Instance-setProperties'><code>bdpar::Instance$setProperties()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSource"><a href='../../bdpar/html/Instance.html#method-Instance-setSource'><code>bdpar::Instance$setSource()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-setSpecificProperty'><code>bdpar::Instance$setSpecificProperty()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ExtractorSms-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorSms-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{ExtractorSms}} object.
 \subsection{Usage}{
@@ -81,8 +81,8 @@ Creates a \code{\link{ExtractorSms}} object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-obtainDate"></a>}}
-\if{latex}{\out{\hypertarget{method-obtainDate}{}}}
+\if{html}{\out{<a id="method-ExtractorSms-obtainDate"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorSms-obtainDate}{}}}
 \subsection{Method \code{obtainDate()}}{
 Obtains the date of the SMS file.
 \subsection{Usage}{
@@ -91,8 +91,8 @@ Obtains the date of the SMS file.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-obtainSource"></a>}}
-\if{latex}{\out{\hypertarget{method-obtainSource}{}}}
+\if{html}{\out{<a id="method-ExtractorSms-obtainSource"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorSms-obtainSource}{}}}
 \subsection{Method \code{obtainSource()}}{
 Obtains the source of the SMS file. Reads the file indicated
 in the path. In addition, it initializes the data field with the initial
@@ -103,8 +103,8 @@ source.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-ExtractorSms-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorSms-toString}{}}}
 \subsection{Method \code{toString()}}{
 Returns a \code{\link{character}} representing the instance
 \subsection{Usage}{
@@ -116,8 +116,8 @@ Returns a \code{\link{character}} representing the instance
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ExtractorSms-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorSms-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

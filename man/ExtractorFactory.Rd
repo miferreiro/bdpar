@@ -17,23 +17,23 @@ if it has been previously configured.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{ExtractorFactory$new()}}
-\item \href{#method-registerExtractor}{\code{ExtractorFactory$registerExtractor()}}
-\item \href{#method-setExtractor}{\code{ExtractorFactory$setExtractor()}}
-\item \href{#method-setDefaultExtractor}{\code{ExtractorFactory$setDefaultExtractor()}}
-\item \href{#method-removeExtractor}{\code{ExtractorFactory$removeExtractor()}}
-\item \href{#method-getAllExtractors}{\code{ExtractorFactory$getAllExtractors()}}
-\item \href{#method-getDefaultExtractor}{\code{ExtractorFactory$getDefaultExtractor()}}
-\item \href{#method-isSpecificExtractor}{\code{ExtractorFactory$isSpecificExtractor()}}
-\item \href{#method-createInstance}{\code{ExtractorFactory$createInstance()}}
-\item \href{#method-reset}{\code{ExtractorFactory$reset()}}
-\item \href{#method-print}{\code{ExtractorFactory$print()}}
-\item \href{#method-clone}{\code{ExtractorFactory$clone()}}
+\item \href{#method-ExtractorFactory-new}{\code{ExtractorFactory$new()}}
+\item \href{#method-ExtractorFactory-registerExtractor}{\code{ExtractorFactory$registerExtractor()}}
+\item \href{#method-ExtractorFactory-setExtractor}{\code{ExtractorFactory$setExtractor()}}
+\item \href{#method-ExtractorFactory-setDefaultExtractor}{\code{ExtractorFactory$setDefaultExtractor()}}
+\item \href{#method-ExtractorFactory-removeExtractor}{\code{ExtractorFactory$removeExtractor()}}
+\item \href{#method-ExtractorFactory-getAllExtractors}{\code{ExtractorFactory$getAllExtractors()}}
+\item \href{#method-ExtractorFactory-getDefaultExtractor}{\code{ExtractorFactory$getDefaultExtractor()}}
+\item \href{#method-ExtractorFactory-isSpecificExtractor}{\code{ExtractorFactory$isSpecificExtractor()}}
+\item \href{#method-ExtractorFactory-createInstance}{\code{ExtractorFactory$createInstance()}}
+\item \href{#method-ExtractorFactory-reset}{\code{ExtractorFactory$reset()}}
+\item \href{#method-ExtractorFactory-print}{\code{ExtractorFactory$print()}}
+\item \href{#method-ExtractorFactory-clone}{\code{ExtractorFactory$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-new"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{ExtractorFactory}} object.
 \subsection{Usage}{
@@ -42,8 +42,8 @@ Creates a \code{\link{ExtractorFactory}} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-registerExtractor"></a>}}
-\if{latex}{\out{\hypertarget{method-registerExtractor}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-registerExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-registerExtractor}{}}}
 \subsection{Method \code{registerExtractor()}}{
 Adds an extractor to the list of extensions. If the extension
 is an empty string (""), the indicated extractor will be the default
@@ -65,8 +65,8 @@ extension.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setExtractor"></a>}}
-\if{latex}{\out{\hypertarget{method-setExtractor}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-setExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-setExtractor}{}}}
 \subsection{Method \code{setExtractor()}}{
 Modifies the extractor of the one extension.
 \subsection{Usage}{
@@ -86,8 +86,8 @@ extractor.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setDefaultExtractor"></a>}}
-\if{latex}{\out{\hypertarget{method-setDefaultExtractor}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-setDefaultExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-setDefaultExtractor}{}}}
 \subsection{Method \code{setDefaultExtractor()}}{
 Modifies the extractor of the one extension. Assign NULL
 value to disable the default extractor.
@@ -105,8 +105,8 @@ extractor.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeExtractor"></a>}}
-\if{latex}{\out{\hypertarget{method-removeExtractor}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-removeExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-removeExtractor}{}}}
 \subsection{Method \code{removeExtractor()}}{
 Removes a specific extractor thought the extension.
 \subsection{Usage}{
@@ -123,8 +123,8 @@ extension to remove.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getAllExtractors"></a>}}
-\if{latex}{\out{\hypertarget{method-getAllExtractors}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-getAllExtractors"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-getAllExtractors}{}}}
 \subsection{Method \code{getAllExtractors()}}{
 Gets the list of extractors.
 \subsection{Usage}{
@@ -136,8 +136,8 @@ Value of extractors.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDefaultExtractor"></a>}}
-\if{latex}{\out{\hypertarget{method-getDefaultExtractor}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-getDefaultExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-getDefaultExtractor}{}}}
 \subsection{Method \code{getDefaultExtractor()}}{
 Gets the default extractor.
 \subsection{Usage}{
@@ -149,8 +149,8 @@ Value of default extractor.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isSpecificExtractor"></a>}}
-\if{latex}{\out{\hypertarget{method-isSpecificExtractor}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-isSpecificExtractor"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-isSpecificExtractor}{}}}
 \subsection{Method \code{isSpecificExtractor()}}{
 Checks if exists an extractor for a specific extension.
 \subsection{Usage}{
@@ -170,8 +170,8 @@ Value of extractors.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-createInstance"></a>}}
-\if{latex}{\out{\hypertarget{method-createInstance}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-createInstance"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-createInstance}{}}}
 \subsection{Method \code{createInstance()}}{
 Builds the \code{\link{Instance}} object according to the
 file extension. In the case of not finding the registered extension, the
@@ -194,8 +194,8 @@ file extension.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-reset"></a>}}
-\if{latex}{\out{\hypertarget{method-reset}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-reset"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-reset}{}}}
 \subsection{Method \code{reset()}}{
 Resets list of extractor to default state.
 \subsection{Usage}{
@@ -204,8 +204,8 @@ Resets list of extractor to default state.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-print"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-print}{}}}
 \subsection{Method \code{print()}}{
 Prints pipeline representation. (Override print function)
 \subsection{Usage}{
@@ -221,8 +221,8 @@ Prints pipeline representation. (Override print function)
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-ExtractorFactory-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-ExtractorFactory-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

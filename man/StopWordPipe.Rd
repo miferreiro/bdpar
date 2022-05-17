@@ -52,32 +52,32 @@ This class inherits from \code{\link{GenericPipe}} and implements the
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{StopWordPipe$new()}}
-\item \href{#method-pipe}{\code{StopWordPipe$pipe()}}
-\item \href{#method-findStopWord}{\code{StopWordPipe$findStopWord()}}
-\item \href{#method-removeStopWord}{\code{StopWordPipe$removeStopWord()}}
-\item \href{#method-getPropertyLanguageName}{\code{StopWordPipe$getPropertyLanguageName()}}
-\item \href{#method-getResourcesStopWordsPath}{\code{StopWordPipe$getResourcesStopWordsPath()}}
-\item \href{#method-setResourcesStopWordsPath}{\code{StopWordPipe$setResourcesStopWordsPath()}}
-\item \href{#method-clone}{\code{StopWordPipe$clone()}}
+\item \href{#method-StopWordPipe-new}{\code{StopWordPipe$new()}}
+\item \href{#method-StopWordPipe-pipe}{\code{StopWordPipe$pipe()}}
+\item \href{#method-StopWordPipe-findStopWord}{\code{StopWordPipe$findStopWord()}}
+\item \href{#method-StopWordPipe-removeStopWord}{\code{StopWordPipe$removeStopWord()}}
+\item \href{#method-StopWordPipe-getPropertyLanguageName}{\code{StopWordPipe$getPropertyLanguageName()}}
+\item \href{#method-StopWordPipe-getResourcesStopWordsPath}{\code{StopWordPipe$getResourcesStopWordsPath()}}
+\item \href{#method-StopWordPipe-setResourcesStopWordsPath}{\code{StopWordPipe$setResourcesStopWordsPath()}}
+\item \href{#method-StopWordPipe-clone}{\code{StopWordPipe$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-getAlwaysBeforeDeps}{\code{bdpar::GenericPipe$getAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-getNotAfterDeps}{\code{bdpar::GenericPipe$getNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-getPropertyName}{\code{bdpar::GenericPipe$getPropertyName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash">}\href{../../bdpar/html/GenericPipe.html#method-hash}{\code{bdpar::GenericPipe$hash()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-setAlwaysBeforeDeps}{\code{bdpar::GenericPipe$setAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-setNotAfterDeps}{\code{bdpar::GenericPipe$setNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-setPropertyName}{\code{bdpar::GenericPipe$setPropertyName()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getAlwaysBeforeDeps'><code>bdpar::GenericPipe$getAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getNotAfterDeps'><code>bdpar::GenericPipe$getNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getPropertyName'><code>bdpar::GenericPipe$getPropertyName()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-hash'><code>bdpar::GenericPipe$hash()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setAlwaysBeforeDeps'><code>bdpar::GenericPipe$setAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setNotAfterDeps'><code>bdpar::GenericPipe$setNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setPropertyName'><code>bdpar::GenericPipe$setPropertyName()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-new"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{StopWordPipe}} object.
 \subsection{Usage}{
@@ -118,8 +118,8 @@ of resource files (in json format) containing the stop words.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-pipe"></a>}}
-\if{latex}{\out{\hypertarget{method-pipe}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-pipe"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-pipe}{}}}
 \subsection{Method \code{pipe()}}{
 Preprocesses the \code{\link{Instance}} to obtain/remove
 the stop words. The stop words found in the data are added to the
@@ -142,8 +142,8 @@ occurred in the pipe.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-findStopWord"></a>}}
-\if{latex}{\out{\hypertarget{method-findStopWord}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-findStopWord"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-findStopWord}{}}}
 \subsection{Method \code{findStopWord()}}{
 Checks if the stop word is in the data.
 \subsection{Usage}{
@@ -167,8 +167,8 @@ stop word is in the data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-removeStopWord"></a>}}
-\if{latex}{\out{\hypertarget{method-removeStopWord}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-removeStopWord"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-removeStopWord}{}}}
 \subsection{Method \code{removeStopWord()}}{
 Removes the \emph{stop word} in the data.
 \subsection{Usage}{
@@ -191,8 +191,8 @@ The data with the stop words removed.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPropertyLanguageName"></a>}}
-\if{latex}{\out{\hypertarget{method-getPropertyLanguageName}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-getPropertyLanguageName"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-getPropertyLanguageName}{}}}
 \subsection{Method \code{getPropertyLanguageName()}}{
 Gets the name of property language.
 \subsection{Usage}{
@@ -204,8 +204,8 @@ Value of name of property language.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getResourcesStopWordsPath"></a>}}
-\if{latex}{\out{\hypertarget{method-getResourcesStopWordsPath}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-getResourcesStopWordsPath"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-getResourcesStopWordsPath}{}}}
 \subsection{Method \code{getResourcesStopWordsPath()}}{
 Gets the path of stop words resources.
 \subsection{Usage}{
@@ -217,8 +217,8 @@ Value of path of stop words resources.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setResourcesStopWordsPath"></a>}}
-\if{latex}{\out{\hypertarget{method-setResourcesStopWordsPath}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-setResourcesStopWordsPath"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-setResourcesStopWordsPath}{}}}
 \subsection{Method \code{setResourcesStopWordsPath()}}{
 Sets the path of stop words resources.
 \subsection{Usage}{
@@ -235,8 +235,8 @@ stop words resources.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-StopWordPipe-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-StopWordPipe-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -14,16 +14,16 @@ Abstract super class to establish the flow of Pipes.
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{GenericPipeline$new()}}
-\item \href{#method-execute}{\code{GenericPipeline$execute()}}
-\item \href{#method-get}{\code{GenericPipeline$get()}}
-\item \href{#method-toString}{\code{GenericPipeline$toString()}}
-\item \href{#method-clone}{\code{GenericPipeline$clone()}}
+\item \href{#method-GenericPipeline-new}{\code{GenericPipeline$new()}}
+\item \href{#method-GenericPipeline-execute}{\code{GenericPipeline$execute()}}
+\item \href{#method-GenericPipeline-get}{\code{GenericPipeline$get()}}
+\item \href{#method-GenericPipeline-toString}{\code{GenericPipeline$toString()}}
+\item \href{#method-GenericPipeline-clone}{\code{GenericPipeline$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-GenericPipeline-new"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipeline-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{GenericPipeline}} object.
 \subsection{Usage}{
@@ -32,8 +32,8 @@ Creates a \code{\link{GenericPipeline}} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-execute"></a>}}
-\if{latex}{\out{\hypertarget{method-execute}{}}}
+\if{html}{\out{<a id="method-GenericPipeline-execute"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipeline-execute}{}}}
 \subsection{Method \code{execute()}}{
 Function where is implemented the flow of the
 \code{\link{GenericPipe}s}.
@@ -54,8 +54,8 @@ The preprocessed \code{\link{Instance}}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-GenericPipeline-get"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipeline-get}{}}}
 \subsection{Method \code{get()}}{
 Gets a list with containing the set of \code{\link{GenericPipe}s}
  of the pipeline.
@@ -68,8 +68,8 @@ The set of \code{\link{GenericPipe}s} containing the pipeline.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-GenericPipeline-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipeline-toString}{}}}
 \subsection{Method \code{toString()}}{
 Returns a \code{\link{character}} representing the pipeline.
 \subsection{Usage}{
@@ -86,8 +86,8 @@ representation of the structure of a pipeline.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-GenericPipeline-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-GenericPipeline-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{
