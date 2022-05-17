@@ -1,7 +1,7 @@
 Type: Package
 Package: bdpar
 Title: Big Data Preprocessing Architecture
-Version: 3.0.1
+Version: 3.0.2
 Authors@R: 
     c(person(given = "Miguel", 
             family = "Ferreiro-Díaz", 
