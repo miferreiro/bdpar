@@ -72,23 +72,23 @@ This class inherits from \code{\link{GenericPipeline}} and implements the
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{DefaultPipeline$new()}}
-\item \href{#method-execute}{\code{DefaultPipeline$execute()}}
-\item \href{#method-get}{\code{DefaultPipeline$get()}}
-\item \href{#method-print}{\code{DefaultPipeline$print()}}
-\item \href{#method-toString}{\code{DefaultPipeline$toString()}}
-\item \href{#method-clone}{\code{DefaultPipeline$clone()}}
+\item \href{#method-DefaultPipeline-new}{\code{DefaultPipeline$new()}}
+\item \href{#method-DefaultPipeline-execute}{\code{DefaultPipeline$execute()}}
+\item \href{#method-DefaultPipeline-get}{\code{DefaultPipeline$get()}}
+\item \href{#method-DefaultPipeline-print}{\code{DefaultPipeline$print()}}
+\item \href{#method-DefaultPipeline-toString}{\code{DefaultPipeline$toString()}}
+\item \href{#method-DefaultPipeline-clone}{\code{DefaultPipeline$clone()}}
 }
 }
-\if{html}{
-\out{<details open ><summary>Inherited methods</summary>}
-\itemize{
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-DefaultPipeline-new"></a>}}
+\if{latex}{\out{\hypertarget{method-DefaultPipeline-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{DefaultPipeline}} object.
 \subsection{Usage}{
@@ -97,8 +97,8 @@ Creates a \code{\link{DefaultPipeline}} object.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-execute"></a>}}
-\if{latex}{\out{\hypertarget{method-execute}{}}}
+\if{html}{\out{<a id="method-DefaultPipeline-execute"></a>}}
+\if{latex}{\out{\hypertarget{method-DefaultPipeline-execute}{}}}
 \subsection{Method \code{execute()}}{
 Function where is implemented the flow of the
 \code{\link{GenericPipe}s}.
@@ -119,8 +119,8 @@ The preprocessed \code{\link{Instance}}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-get"></a>}}
-\if{latex}{\out{\hypertarget{method-get}{}}}
+\if{html}{\out{<a id="method-DefaultPipeline-get"></a>}}
+\if{latex}{\out{\hypertarget{method-DefaultPipeline-get}{}}}
 \subsection{Method \code{get()}}{
 Gets a list with containing the set of
 \code{link{GenericPipe}s} of the pipeline,
@@ -133,8 +133,8 @@ The set of \code{\link{GenericPipe}s} containing the pipeline.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-print"></a>}}
-\if{latex}{\out{\hypertarget{method-print}{}}}
+\if{html}{\out{<a id="method-DefaultPipeline-print"></a>}}
+\if{latex}{\out{\hypertarget{method-DefaultPipeline-print}{}}}
 \subsection{Method \code{print()}}{
 Prints pipeline representation. (Override print function)
 \subsection{Usage}{
@@ -150,8 +150,8 @@ Prints pipeline representation. (Override print function)
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-DefaultPipeline-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-DefaultPipeline-toString}{}}}
 \subsection{Method \code{toString()}}{
 Returns a \code{\link{character}} representing the pipeline
 \subsection{Usage}{
@@ -163,8 +163,8 @@ Returns a \code{\link{character}} representing the pipeline
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-DefaultPipeline-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-DefaultPipeline-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

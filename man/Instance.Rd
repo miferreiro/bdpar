@@ -14,37 +14,37 @@ Provides the required methods to successfully handle each
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Instance$new()}}
-\item \href{#method-obtainDate}{\code{Instance$obtainDate()}}
-\item \href{#method-obtainSource}{\code{Instance$obtainSource()}}
-\item \href{#method-getDate}{\code{Instance$getDate()}}
-\item \href{#method-getSource}{\code{Instance$getSource()}}
-\item \href{#method-getPath}{\code{Instance$getPath()}}
-\item \href{#method-getData}{\code{Instance$getData()}}
-\item \href{#method-getProperties}{\code{Instance$getProperties()}}
-\item \href{#method-setSource}{\code{Instance$setSource()}}
-\item \href{#method-setData}{\code{Instance$setData()}}
-\item \href{#method-setDate}{\code{Instance$setDate()}}
-\item \href{#method-setProperties}{\code{Instance$setProperties()}}
-\item \href{#method-addProperties}{\code{Instance$addProperties()}}
-\item \href{#method-getSpecificProperty}{\code{Instance$getSpecificProperty()}}
-\item \href{#method-isSpecificProperty}{\code{Instance$isSpecificProperty()}}
-\item \href{#method-setSpecificProperty}{\code{Instance$setSpecificProperty()}}
-\item \href{#method-getNamesOfProperties}{\code{Instance$getNamesOfProperties()}}
-\item \href{#method-isInstanceValid}{\code{Instance$isInstanceValid()}}
-\item \href{#method-invalidate}{\code{Instance$invalidate()}}
-\item \href{#method-getFlowPipes}{\code{Instance$getFlowPipes()}}
-\item \href{#method-addFlowPipes}{\code{Instance$addFlowPipes()}}
-\item \href{#method-getBanPipes}{\code{Instance$getBanPipes()}}
-\item \href{#method-addBanPipes}{\code{Instance$addBanPipes()}}
-\item \href{#method-checkCompatibility}{\code{Instance$checkCompatibility()}}
-\item \href{#method-toString}{\code{Instance$toString()}}
-\item \href{#method-clone}{\code{Instance$clone()}}
+\item \href{#method-Instance-new}{\code{Instance$new()}}
+\item \href{#method-Instance-obtainDate}{\code{Instance$obtainDate()}}
+\item \href{#method-Instance-obtainSource}{\code{Instance$obtainSource()}}
+\item \href{#method-Instance-getDate}{\code{Instance$getDate()}}
+\item \href{#method-Instance-getSource}{\code{Instance$getSource()}}
+\item \href{#method-Instance-getPath}{\code{Instance$getPath()}}
+\item \href{#method-Instance-getData}{\code{Instance$getData()}}
+\item \href{#method-Instance-getProperties}{\code{Instance$getProperties()}}
+\item \href{#method-Instance-setSource}{\code{Instance$setSource()}}
+\item \href{#method-Instance-setData}{\code{Instance$setData()}}
+\item \href{#method-Instance-setDate}{\code{Instance$setDate()}}
+\item \href{#method-Instance-setProperties}{\code{Instance$setProperties()}}
+\item \href{#method-Instance-addProperties}{\code{Instance$addProperties()}}
+\item \href{#method-Instance-getSpecificProperty}{\code{Instance$getSpecificProperty()}}
+\item \href{#method-Instance-isSpecificProperty}{\code{Instance$isSpecificProperty()}}
+\item \href{#method-Instance-setSpecificProperty}{\code{Instance$setSpecificProperty()}}
+\item \href{#method-Instance-getNamesOfProperties}{\code{Instance$getNamesOfProperties()}}
+\item \href{#method-Instance-isInstanceValid}{\code{Instance$isInstanceValid()}}
+\item \href{#method-Instance-invalidate}{\code{Instance$invalidate()}}
+\item \href{#method-Instance-getFlowPipes}{\code{Instance$getFlowPipes()}}
+\item \href{#method-Instance-addFlowPipes}{\code{Instance$addFlowPipes()}}
+\item \href{#method-Instance-getBanPipes}{\code{Instance$getBanPipes()}}
+\item \href{#method-Instance-addBanPipes}{\code{Instance$addBanPipes()}}
+\item \href{#method-Instance-checkCompatibility}{\code{Instance$checkCompatibility()}}
+\item \href{#method-Instance-toString}{\code{Instance$toString()}}
+\item \href{#method-Instance-clone}{\code{Instance$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Instance-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{Instance}} object.
 \subsection{Usage}{
@@ -60,8 +60,8 @@ Creates a \code{\link{Instance}} object.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-obtainDate"></a>}}
-\if{latex}{\out{\hypertarget{method-obtainDate}{}}}
+\if{html}{\out{<a id="method-Instance-obtainDate"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-obtainDate}{}}}
 \subsection{Method \code{obtainDate()}}{
 Abstract function responsible for obtaining the date of the
 \code{\link{Instance}}.
@@ -71,8 +71,8 @@ Abstract function responsible for obtaining the date of the
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-obtainSource"></a>}}
-\if{latex}{\out{\hypertarget{method-obtainSource}{}}}
+\if{html}{\out{<a id="method-Instance-obtainSource"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-obtainSource}{}}}
 \subsection{Method \code{obtainSource()}}{
 Abstract function responsible for determining the source of
 the \code{\link{Instance}}.
@@ -82,8 +82,8 @@ the \code{\link{Instance}}.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getDate"></a>}}
-\if{latex}{\out{\hypertarget{method-getDate}{}}}
+\if{html}{\out{<a id="method-Instance-getDate"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getDate}{}}}
 \subsection{Method \code{getDate()}}{
 Gets the date.
 \subsection{Usage}{
@@ -95,8 +95,8 @@ Value of date.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSource"></a>}}
-\if{latex}{\out{\hypertarget{method-getSource}{}}}
+\if{html}{\out{<a id="method-Instance-getSource"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getSource}{}}}
 \subsection{Method \code{getSource()}}{
 Gets the source.
 \subsection{Usage}{
@@ -108,8 +108,8 @@ Value of source.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getPath"></a>}}
-\if{latex}{\out{\hypertarget{method-getPath}{}}}
+\if{html}{\out{<a id="method-Instance-getPath"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getPath}{}}}
 \subsection{Method \code{getPath()}}{
 Gets the path.
 \subsection{Usage}{
@@ -121,8 +121,8 @@ Value of path.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getData"></a>}}
-\if{latex}{\out{\hypertarget{method-getData}{}}}
+\if{html}{\out{<a id="method-Instance-getData"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getData}{}}}
 \subsection{Method \code{getData()}}{
 Gets the data.
 \subsection{Usage}{
@@ -134,8 +134,8 @@ Value of data.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getProperties"></a>}}
-\if{latex}{\out{\hypertarget{method-getProperties}{}}}
+\if{html}{\out{<a id="method-Instance-getProperties"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getProperties}{}}}
 \subsection{Method \code{getProperties()}}{
 Gets the properties
 \subsection{Usage}{
@@ -147,8 +147,8 @@ Value of properties.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setSource"></a>}}
-\if{latex}{\out{\hypertarget{method-setSource}{}}}
+\if{html}{\out{<a id="method-Instance-setSource"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-setSource}{}}}
 \subsection{Method \code{setSource()}}{
 Modifies the source value.
 \subsection{Usage}{
@@ -164,8 +164,8 @@ Modifies the source value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setData"></a>}}
-\if{latex}{\out{\hypertarget{method-setData}{}}}
+\if{html}{\out{<a id="method-Instance-setData"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-setData}{}}}
 \subsection{Method \code{setData()}}{
 Modifies the data value.
 \subsection{Usage}{
@@ -181,8 +181,8 @@ Modifies the data value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setDate"></a>}}
-\if{latex}{\out{\hypertarget{method-setDate}{}}}
+\if{html}{\out{<a id="method-Instance-setDate"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-setDate}{}}}
 \subsection{Method \code{setDate()}}{
 Modifies the date value.
 \subsection{Usage}{
@@ -198,8 +198,8 @@ Modifies the date value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setProperties"></a>}}
-\if{latex}{\out{\hypertarget{method-setProperties}{}}}
+\if{html}{\out{<a id="method-Instance-setProperties"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-setProperties}{}}}
 \subsection{Method \code{setProperties()}}{
 Modifies the properties value.
 \subsection{Usage}{
@@ -215,8 +215,8 @@ Modifies the properties value.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addProperties"></a>}}
-\if{latex}{\out{\hypertarget{method-addProperties}{}}}
+\if{html}{\out{<a id="method-Instance-addProperties"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-addProperties}{}}}
 \subsection{Method \code{addProperties()}}{
 Adds a property to the list of the properties.
 \subsection{Usage}{
@@ -235,8 +235,8 @@ property.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getSpecificProperty"></a>}}
-\if{latex}{\out{\hypertarget{method-getSpecificProperty}{}}}
+\if{html}{\out{<a id="method-Instance-getSpecificProperty"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getSpecificProperty}{}}}
 \subsection{Method \code{getSpecificProperty()}}{
 Obtains a specific property.
 \subsection{Usage}{
@@ -256,8 +256,8 @@ The value of the specific property.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isSpecificProperty"></a>}}
-\if{latex}{\out{\hypertarget{method-isSpecificProperty}{}}}
+\if{html}{\out{<a id="method-Instance-isSpecificProperty"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-isSpecificProperty}{}}}
 \subsection{Method \code{isSpecificProperty()}}{
 Checks for the existence of an specific property.
 \subsection{Usage}{
@@ -278,8 +278,8 @@ property in the list of properties.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-setSpecificProperty"></a>}}
-\if{latex}{\out{\hypertarget{method-setSpecificProperty}{}}}
+\if{html}{\out{<a id="method-Instance-setSpecificProperty"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-setSpecificProperty}{}}}
 \subsection{Method \code{setSpecificProperty()}}{
 Modifies the value of the one property.
 \subsection{Usage}{
@@ -298,8 +298,8 @@ property.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getNamesOfProperties"></a>}}
-\if{latex}{\out{\hypertarget{method-getNamesOfProperties}{}}}
+\if{html}{\out{<a id="method-Instance-getNamesOfProperties"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getNamesOfProperties}{}}}
 \subsection{Method \code{getNamesOfProperties()}}{
 Gets of the names of all properties.
 \subsection{Usage}{
@@ -311,8 +311,8 @@ The names of properties.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-isInstanceValid"></a>}}
-\if{latex}{\out{\hypertarget{method-isInstanceValid}{}}}
+\if{html}{\out{<a id="method-Instance-isInstanceValid"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-isInstanceValid}{}}}
 \subsection{Method \code{isInstanceValid()}}{
 Checks if the \code{\link{Instance}} is valid.
 \subsection{Usage}{
@@ -324,8 +324,8 @@ Value of isValid flag.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-invalidate"></a>}}
-\if{latex}{\out{\hypertarget{method-invalidate}{}}}
+\if{html}{\out{<a id="method-Instance-invalidate"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-invalidate}{}}}
 \subsection{Method \code{invalidate()}}{
 Forces the invalidation of an specific \code{\link{Instance}}.
 \subsection{Usage}{
@@ -334,8 +334,8 @@ Forces the invalidation of an specific \code{\link{Instance}}.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getFlowPipes"></a>}}
-\if{latex}{\out{\hypertarget{method-getFlowPipes}{}}}
+\if{html}{\out{<a id="method-Instance-getFlowPipes"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getFlowPipes}{}}}
 \subsection{Method \code{getFlowPipes()}}{
 Gets the list of the flow of \code{\link{GenericPipe}}.
 \subsection{Usage}{
@@ -347,8 +347,8 @@ Names of the \code{\link{GenericPipe}} used.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addFlowPipes"></a>}}
-\if{latex}{\out{\hypertarget{method-addFlowPipes}{}}}
+\if{html}{\out{<a id="method-Instance-addFlowPipes"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-addFlowPipes}{}}}
 \subsection{Method \code{addFlowPipes()}}{
 Gets the list of the flow of \code{\link{GenericPipe}}.
 \subsection{Usage}{
@@ -365,8 +365,8 @@ Gets the list of the flow of \code{\link{GenericPipe}}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-getBanPipes"></a>}}
-\if{latex}{\out{\hypertarget{method-getBanPipes}{}}}
+\if{html}{\out{<a id="method-Instance-getBanPipes"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-getBanPipes}{}}}
 \subsection{Method \code{getBanPipes()}}{
 Gets an array with containing all the ban
 \code{\link{GenericPipe}}.
@@ -379,8 +379,8 @@ Value of ban \code{\link{GenericPipe}} array.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-addBanPipes"></a>}}
-\if{latex}{\out{\hypertarget{method-addBanPipes}{}}}
+\if{html}{\out{<a id="method-Instance-addBanPipes"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-addBanPipes}{}}}
 \subsection{Method \code{addBanPipes()}}{
 Added the name of the Pipe to the array that keeps the track
 of \code{\link{GenericPipe}s} having running after restrictions.
@@ -398,8 +398,8 @@ of \code{\link{GenericPipe}s} having running after restrictions.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-checkCompatibility"></a>}}
-\if{latex}{\out{\hypertarget{method-checkCompatibility}{}}}
+\if{html}{\out{<a id="method-Instance-checkCompatibility"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-checkCompatibility}{}}}
 \subsection{Method \code{checkCompatibility()}}{
 Check compatibility between \code{\link{GenericPipe}s}.
 \subsection{Usage}{
@@ -420,8 +420,8 @@ through.}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-toString"></a>}}
-\if{latex}{\out{\hypertarget{method-toString}{}}}
+\if{html}{\out{<a id="method-Instance-toString"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-toString}{}}}
 \subsection{Method \code{toString()}}{
 Returns a \code{\link{character}} representing the instance
 \subsection{Usage}{
@@ -433,8 +433,8 @@ Returns a \code{\link{character}} representing the instance
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Instance-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Instance-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

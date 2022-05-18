@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2020 Sing Group (University of Vigo)
+# Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -24,7 +24,7 @@
 # defining a class Email which can be used to parse emails.
 read_emails <- function(email_file, PartSelectedOnMPAlternative){
 
-  if (class(email_file) != "character") {
+  if (!inherits(email_file, "character")) {
     bdpar.log(message = paste0("email_files must be a character vector ",
                                "containing file paths to email txt files..."),
               level = "FATAL",

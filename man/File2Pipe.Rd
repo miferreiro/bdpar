@@ -37,27 +37,27 @@ This class inherits from \code{\link{GenericPipe}} and implements the
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{File2Pipe$new()}}
-\item \href{#method-pipe}{\code{File2Pipe$pipe()}}
-\item \href{#method-clone}{\code{File2Pipe$clone()}}
+\item \href{#method-File2Pipe-new}{\code{File2Pipe$new()}}
+\item \href{#method-File2Pipe-pipe}{\code{File2Pipe$pipe()}}
+\item \href{#method-File2Pipe-clone}{\code{File2Pipe$clone()}}
 }
 }
-\if{html}{
-\out{<details ><summary>Inherited methods</summary>}
-\itemize{
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-getAlwaysBeforeDeps}{\code{bdpar::GenericPipe$getAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-getNotAfterDeps}{\code{bdpar::GenericPipe$getNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-getPropertyName}{\code{bdpar::GenericPipe$getPropertyName()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash">}\href{../../bdpar/html/GenericPipe.html#method-hash}{\code{bdpar::GenericPipe$hash()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps">}\href{../../bdpar/html/GenericPipe.html#method-setAlwaysBeforeDeps}{\code{bdpar::GenericPipe$setAlwaysBeforeDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps">}\href{../../bdpar/html/GenericPipe.html#method-setNotAfterDeps}{\code{bdpar::GenericPipe$setNotAfterDeps()}}\out{</span>}
-\item \out{<span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName">}\href{../../bdpar/html/GenericPipe.html#method-setPropertyName}{\code{bdpar::GenericPipe$setPropertyName()}}\out{</span>}
-}
-\out{</details>}
-}
+\if{html}{\out{
+<details><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getAlwaysBeforeDeps'><code>bdpar::GenericPipe$getAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getNotAfterDeps'><code>bdpar::GenericPipe$getNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getPropertyName'><code>bdpar::GenericPipe$getPropertyName()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-hash'><code>bdpar::GenericPipe$hash()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setAlwaysBeforeDeps'><code>bdpar::GenericPipe$setAlwaysBeforeDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setNotAfterDeps'><code>bdpar::GenericPipe$setNotAfterDeps()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setPropertyName'><code>bdpar::GenericPipe$setPropertyName()</code></a></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-File2Pipe-new"></a>}}
+\if{latex}{\out{\hypertarget{method-File2Pipe-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \code{\link{File2Pipe}} object.
 \subsection{Usage}{
@@ -86,8 +86,8 @@ this one).}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-pipe"></a>}}
-\if{latex}{\out{\hypertarget{method-pipe}{}}}
+\if{html}{\out{<a id="method-File2Pipe-pipe"></a>}}
+\if{latex}{\out{\hypertarget{method-File2Pipe-pipe}{}}}
 \subsection{Method \code{pipe()}}{
 Preprocesses the \code{\link{Instance}} to obtain the
 source.
@@ -109,8 +109,8 @@ occurred in the pipe.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-File2Pipe-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-File2Pipe-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2020 Sing Group (University of Vigo)
+# Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -241,7 +241,7 @@ StopWordPipe <- R6Class(
         instance$addProperties(list(), super$getPropertyName())
 
         message <- paste0("The file: " , instance$getPath(),
-                          " has not an StopWordsJsonFile to apply to the language-> ",
+                          " has not a stopWordsJsonFile to apply to the language -> ",
                           languageInstance)
 
         bdpar.log(message = message,

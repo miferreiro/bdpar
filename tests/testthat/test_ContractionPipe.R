@@ -411,7 +411,7 @@ testthat::test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[ContractionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not an contractionsJsonFile to apply to the language ->en")
+                           "\\[ContractionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testContractionPipe\\/testFile\\.tsms has not a contractionsJsonFile to apply to the language -> en")
 })
 
 testthat::teardown({

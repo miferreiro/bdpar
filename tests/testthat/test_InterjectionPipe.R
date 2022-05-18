@@ -403,7 +403,7 @@ testthat::test_that("pipe wihtout json file",{
   instance$addProperties("en","language")
 
   testthat::expect_warning(pipe$pipe(instance),
-                           "\\[InterjectionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language ->en")
+                           "\\[InterjectionPipe\\]\\[pipe\\]\\[WARN\\] The file: [\\\\\\:[:alnum:]\\/_.-]*testFiles\\/testInterjectionPipe\\/testFile\\.tsms has not an interjectionsJsonFile to apply to the language -> en")
 })
 
 testthat::teardown({

@@ -46,7 +46,6 @@ testthat::test_that("execute",{
   testthat::skip_if_not_installed("cld2")
   testthat::skip_if_not_installed("rex")
   testthat::skip_if_not_installed("rjson")
-  testthat::skip_if_not_installed("rtweet")
   testthat::skip_if_not_installed("stringi")
   testthat::skip_if_not_installed("stringr")
   path <- file.path("testFiles",

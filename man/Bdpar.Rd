@@ -76,14 +76,14 @@ objectBdpar$execute(path = path,
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-new}{\code{Bdpar$new()}}
-\item \href{#method-execute}{\code{Bdpar$execute()}}
-\item \href{#method-clone}{\code{Bdpar$clone()}}
+\item \href{#method-Bdpar-new}{\code{Bdpar$new()}}
+\item \href{#method-Bdpar-execute}{\code{Bdpar$execute()}}
+\item \href{#method-Bdpar-clone}{\code{Bdpar$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-new"></a>}}
-\if{latex}{\out{\hypertarget{method-new}{}}}
+\if{html}{\out{<a id="method-Bdpar-new"></a>}}
+\if{latex}{\out{\hypertarget{method-Bdpar-new}{}}}
 \subsection{Method \code{new()}}{
 Creates a \link{Bdpar} object. Initializes the static
 variables: \emph{connections} and \emph{resourceHandler}.
@@ -93,8 +93,8 @@ variables: \emph{connections} and \emph{resourceHandler}.
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-execute"></a>}}
-\if{latex}{\out{\hypertarget{method-execute}{}}}
+\if{html}{\out{<a id="method-Bdpar-execute"></a>}}
+\if{latex}{\out{\hypertarget{method-Bdpar-execute}{}}}
 \subsection{Method \code{execute()}}{
 Preprocess files through the indicated flow of pipes.
 \subsection{Usage}{
@@ -144,8 +144,8 @@ The list of \code{Instances} that have been preprocessed.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-clone}{}}}
+\if{html}{\out{<a id="method-Bdpar-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Bdpar-clone}{}}}
 \subsection{Method \code{clone()}}{
 The objects of this class are cloneable with this method.
 \subsection{Usage}{

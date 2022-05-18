@@ -7,7 +7,7 @@
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
 # email, tweets, YouTube comments).
 #
-# Copyright (C) 2020 Sing Group (University of Vigo)
+# Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -245,8 +245,8 @@ ContractionPipe <- R6Class(
         instance$addProperties(list(),super$getPropertyName())
 
         bdpar.log(message = paste0("The file: ", instance$getPath(),
-                                   " has not an contractionsJsonFile ",
-                                   "to apply to the language ->",
+                                   " has not a contractionsJsonFile ",
+                                   "to apply to the language -> ",
                                    languageInstance),
                   level = "WARN",
                   className = class(self)[1],

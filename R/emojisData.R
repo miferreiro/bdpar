@@ -21,41 +21,17 @@
 # You should have received a copy of the GNU General Public License along with
 # this program. If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
 
-# Wrappers to adapt functions of ParallelLogger package to bdpar package.
-
+#' Emojis codes and descriptions data.
 #'
-#'@include bdpar.log.R
+#' This data comes from "Unicode.org",
+#' <http://unicode.org/emoji/charts/full-emoji-list.html>. The data are codes
+#' and descriptions of Emojis.
 #'
-.clearLoggers <- function() {
-  settings <- .getLoggerSettings()
-  settings$loggers <- list()
-  .setLoggerSettings(settings)
-}
-
-.getLoggerSettings <- function() {
-  getOption("loggerSettings")
-}
-
-.setLoggerSettings <- function(settings) {
-  options(loggerSettings = settings)
-}
-
-.registerLogger <- function(logger) {
-  settings <- .getLoggerSettings()
-  settings$loggers[[length(settings$loggers) + 1]] <- logger
-  .setLoggerSettings(settings)
-  invisible(NULL)
-}
-
-.levelToInt <- function(level) {
-  if (level == "DEBUG")
-    return(2)
-  if (level == "INFO")
-    return(3)
-  if (level == "WARN")
-    return(4)
-  if (level == "ERROR")
-    return(5)
-  if (level == "FATAL")
-    return(6)
-}
+#' @usage data(emojisData)
+#'
+#' @format A data frame with 2623 rows and 2 variables:
+#' \describe{
+#'   \item{code}{Emoji code}
+#'   \item{description}{Emoji description.}
+#' }
+"emojisData"
