@@ -24,7 +24,7 @@
 # defining a class Email which can be used to parse emails.
 read_emails <- function(email_file, PartSelectedOnMPAlternative){
 
-  if (class(email_file) != "character") {
+  if (!inherits(email_file, "character")) {
     bdpar.log(message = paste0("email_files must be a character vector ",
                                "containing file paths to email txt files..."),
               level = "FATAL",

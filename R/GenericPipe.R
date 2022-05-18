@@ -189,12 +189,12 @@ GenericPipe <- R6Class(
     #'
     hash = function(algo = "md5") {
       x <- lapply(ls(private), function(x) {
-        if (class(private[[x]]) != "function") {
+        if (!inherits((private[[x]]),"function")) {
           private[[x]]
         }
       })
       y <- lapply(ls(self), function(x) {
-        if (class(self[[x]]) != "function") {
+        if (!inherits(self[[x]], "function")) {
           self[[x]]
         }
       })
