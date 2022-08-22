@@ -39,27 +39,27 @@ This class inherits from \code{\link{Instance}} and implements the
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addBanPipes"><a href='../../bdpar/html/Instance.html#method-Instance-addBanPipes'><code>bdpar::Instance$addBanPipes()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addFlowPipes"><a href='../../bdpar/html/Instance.html#method-Instance-addFlowPipes'><code>bdpar::Instance$addFlowPipes()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addProperties"><a href='../../bdpar/html/Instance.html#method-Instance-addProperties'><code>bdpar::Instance$addProperties()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="checkCompatibility"><a href='../../bdpar/html/Instance.html#method-Instance-checkCompatibility'><code>bdpar::Instance$checkCompatibility()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getBanPipes"><a href='../../bdpar/html/Instance.html#method-Instance-getBanPipes'><code>bdpar::Instance$getBanPipes()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getData"><a href='../../bdpar/html/Instance.html#method-Instance-getData'><code>bdpar::Instance$getData()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getDate"><a href='../../bdpar/html/Instance.html#method-Instance-getDate'><code>bdpar::Instance$getDate()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getFlowPipes"><a href='../../bdpar/html/Instance.html#method-Instance-getFlowPipes'><code>bdpar::Instance$getFlowPipes()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getNamesOfProperties"><a href='../../bdpar/html/Instance.html#method-Instance-getNamesOfProperties'><code>bdpar::Instance$getNamesOfProperties()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getPath"><a href='../../bdpar/html/Instance.html#method-Instance-getPath'><code>bdpar::Instance$getPath()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getProperties"><a href='../../bdpar/html/Instance.html#method-Instance-getProperties'><code>bdpar::Instance$getProperties()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSource"><a href='../../bdpar/html/Instance.html#method-Instance-getSource'><code>bdpar::Instance$getSource()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-getSpecificProperty'><code>bdpar::Instance$getSpecificProperty()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="invalidate"><a href='../../bdpar/html/Instance.html#method-Instance-invalidate'><code>bdpar::Instance$invalidate()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isInstanceValid"><a href='../../bdpar/html/Instance.html#method-Instance-isInstanceValid'><code>bdpar::Instance$isInstanceValid()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-isSpecificProperty'><code>bdpar::Instance$isSpecificProperty()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setData"><a href='../../bdpar/html/Instance.html#method-Instance-setData'><code>bdpar::Instance$setData()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setDate"><a href='../../bdpar/html/Instance.html#method-Instance-setDate'><code>bdpar::Instance$setDate()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setProperties"><a href='../../bdpar/html/Instance.html#method-Instance-setProperties'><code>bdpar::Instance$setProperties()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSource"><a href='../../bdpar/html/Instance.html#method-Instance-setSource'><code>bdpar::Instance$setSource()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-setSpecificProperty'><code>bdpar::Instance$setSpecificProperty()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addBanPipes"><a href='../../bdpar/html/Instance.html#method-Instance-addBanPipes'><code>bdpar::Instance$addBanPipes()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addFlowPipes"><a href='../../bdpar/html/Instance.html#method-Instance-addFlowPipes'><code>bdpar::Instance$addFlowPipes()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="addProperties"><a href='../../bdpar/html/Instance.html#method-Instance-addProperties'><code>bdpar::Instance$addProperties()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="checkCompatibility"><a href='../../bdpar/html/Instance.html#method-Instance-checkCompatibility'><code>bdpar::Instance$checkCompatibility()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getBanPipes"><a href='../../bdpar/html/Instance.html#method-Instance-getBanPipes'><code>bdpar::Instance$getBanPipes()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getData"><a href='../../bdpar/html/Instance.html#method-Instance-getData'><code>bdpar::Instance$getData()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getDate"><a href='../../bdpar/html/Instance.html#method-Instance-getDate'><code>bdpar::Instance$getDate()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getFlowPipes"><a href='../../bdpar/html/Instance.html#method-Instance-getFlowPipes'><code>bdpar::Instance$getFlowPipes()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getNamesOfProperties"><a href='../../bdpar/html/Instance.html#method-Instance-getNamesOfProperties'><code>bdpar::Instance$getNamesOfProperties()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getPath"><a href='../../bdpar/html/Instance.html#method-Instance-getPath'><code>bdpar::Instance$getPath()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getProperties"><a href='../../bdpar/html/Instance.html#method-Instance-getProperties'><code>bdpar::Instance$getProperties()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSource"><a href='../../bdpar/html/Instance.html#method-Instance-getSource'><code>bdpar::Instance$getSource()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="getSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-getSpecificProperty'><code>bdpar::Instance$getSpecificProperty()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="invalidate"><a href='../../bdpar/html/Instance.html#method-Instance-invalidate'><code>bdpar::Instance$invalidate()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isInstanceValid"><a href='../../bdpar/html/Instance.html#method-Instance-isInstanceValid'><code>bdpar::Instance$isInstanceValid()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="isSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-isSpecificProperty'><code>bdpar::Instance$isSpecificProperty()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setData"><a href='../../bdpar/html/Instance.html#method-Instance-setData'><code>bdpar::Instance$setData()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setDate"><a href='../../bdpar/html/Instance.html#method-Instance-setDate'><code>bdpar::Instance$setDate()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setProperties"><a href='../../bdpar/html/Instance.html#method-Instance-setProperties'><code>bdpar::Instance$setProperties()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSource"><a href='../../bdpar/html/Instance.html#method-Instance-setSource'><code>bdpar::Instance$setSource()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="Instance" data-id="setSpecificProperty"><a href='../../bdpar/html/Instance.html#method-Instance-setSpecificProperty'><code>bdpar::Instance$setSpecificProperty()</code></a></span></li>
 </ul>
 </details>
 }}

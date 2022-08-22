@@ -50,13 +50,13 @@ This class inherits from \code{\link{GenericPipe}} and implements the
 \if{html}{\out{
 <details><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getAlwaysBeforeDeps'><code>bdpar::GenericPipe$getAlwaysBeforeDeps()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getNotAfterDeps'><code>bdpar::GenericPipe$getNotAfterDeps()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getPropertyName'><code>bdpar::GenericPipe$getPropertyName()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-hash'><code>bdpar::GenericPipe$hash()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setAlwaysBeforeDeps'><code>bdpar::GenericPipe$setAlwaysBeforeDeps()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setNotAfterDeps'><code>bdpar::GenericPipe$setNotAfterDeps()</code></a></li>
-<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setPropertyName'><code>bdpar::GenericPipe$setPropertyName()</code></a></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getAlwaysBeforeDeps'><code>bdpar::GenericPipe$getAlwaysBeforeDeps()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getNotAfterDeps'><code>bdpar::GenericPipe$getNotAfterDeps()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="getPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-getPropertyName'><code>bdpar::GenericPipe$getPropertyName()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="hash"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-hash'><code>bdpar::GenericPipe$hash()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setAlwaysBeforeDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setAlwaysBeforeDeps'><code>bdpar::GenericPipe$setAlwaysBeforeDeps()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setNotAfterDeps"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setNotAfterDeps'><code>bdpar::GenericPipe$setNotAfterDeps()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="bdpar" data-topic="GenericPipe" data-id="setPropertyName"><a href='../../bdpar/html/GenericPipe.html#method-GenericPipe-setPropertyName'><code>bdpar::GenericPipe$setPropertyName()</code></a></span></li>
 </ul>
 </details>
 }}

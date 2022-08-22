@@ -38,12 +38,6 @@ This class inherits from \code{\link{GenericPipeline}} and implements the
 \item \href{#method-DynamicPipeline-clone}{\code{DynamicPipeline$clone()}}
 }
 }
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-</ul>
-</details>
-}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DynamicPipeline-new"></a>}}
 \if{latex}{\out{\hypertarget{method-DynamicPipeline-new}{}}}
