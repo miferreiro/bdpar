@@ -80,12 +80,6 @@ This class inherits from \code{\link{GenericPipeline}} and implements the
 \item \href{#method-DefaultPipeline-clone}{\code{DefaultPipeline$clone()}}
 }
 }
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-</ul>
-</details>
-}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-DefaultPipeline-new"></a>}}
 \if{latex}{\out{\hypertarget{method-DefaultPipeline-new}{}}}

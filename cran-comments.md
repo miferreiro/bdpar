@@ -1,6 +1,6 @@
 ## Test environments
-* local Windows 10 Pro, R 4.2.0
-* Ubuntu 20.04.2 LTS (on local and travis-ci), R 4.2.0
+* local Windows 10 Pro, R 4.2.1
+* Ubuntu 20.04.2 LTS (on local and travis-ci), R 4.2.1
 * win-builder (devel and release)
 * r-hub:
   * Debian Linux, R-devel, GCC
