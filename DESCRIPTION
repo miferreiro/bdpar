@@ -1,7 +1,7 @@
 Type: Package
 Package: bdpar
 Title: Big Data Preprocessing Architecture
-Version: 3.0.3
+Version: 3.0.4
 Authors@R: 
     c(person(given = "Miguel", 
             family = "Ferreiro-Díaz", 
@@ -28,7 +28,7 @@ Description:
     user needs. Additionally, the package provides by default a predefined data flow 
     to extract and pre-process the most relevant information (tokens, dates, ... ) from some textual 
     sources (SMS, Email, tweets, YouTube comments).
-Date: 2022-08-22
+Date: 2023-12-11
 License: GPL-3
 URL: https://github.com/miferreiro/bdpar
 BugReports: https://github.com/miferreiro/bdpar/issues
@@ -53,7 +53,7 @@ Suggests:
     testthat (>= 2.3.1),
     tuber
 VignetteBuilder: knitr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 SystemRequirements: Python (>= 2.7 or >= 3.6)
 Encoding: UTF-8
 NeedsCompilation: no

@@ -209,7 +209,7 @@ GuessLanguagePipe <- R6Class(
     #'
     #' @description Guesses the language of data.
     #'
-    #' @param data A \code{\link{character}} value. The text to guess the ç
+    #' @param data A \code{\link{character}} value. The text to guess the
     #' language.
     #'
     #' @return The language guesser. Format: see ISO 639-3:2007.

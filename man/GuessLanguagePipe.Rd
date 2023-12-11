@@ -136,7 +136,7 @@ Guesses the language of data.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{data}}{A \code{\link{character}} value. The text to guess the ç
+\item{\code{data}}{A \code{\link{character}} value. The text to guess the
 language.}
 }
 \if{html}{\out{</div>}}
