@@ -37,18 +37,6 @@ as shown bellow:
 
 - \code{bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)}
 
-\strong{[twitter]}
-
-- \code{bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)}
-
-- \code{bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)}
-
-- \code{bdpar.Options$set("twitter.access.token", <<access_token>>)}
-
-- \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
-
-- \code{bdpar.Options$set("cache.twitter.path", <<cache.path>>)}
-
 \strong{[teeCSVPipe]}
 
 - \code{bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)}
@@ -113,10 +101,10 @@ method in \code{\link{bdpar.Options}} does this task.
 
 \section{Methods}{
 
-\itemize{
+\describe{
 \item{\bold{get:}}{
 obtains a specific option.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{get(key)}
 }
@@ -124,7 +112,7 @@ obtains a specific option.
 the value of the specific option.
 }
 \item{\emph{Arguments:}}{
-\itemize{
+\describe{
 \item{\strong{key:}}{
 (\emph{character}) the name of the option to obtain.
 }
@@ -135,12 +123,12 @@ the value of the specific option.
 
 \item{\bold{add:}}{
 adds a option to the list of options
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{add(key, value)}
 }
 \item{\emph{Arguments:}}{
-\itemize{
+\describe{
 \item{\strong{key:}}{
 (\emph{character}) the name of the new option.
 }
@@ -154,12 +142,12 @@ adds a option to the list of options
 
 \item{\bold{set:}}{
 modifies the value of the one option.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{set(key, value)}
 }
 \item{\emph{Arguments:}}{
-\itemize{
+\describe{
 \item{\strong{key:}}{
 (\emph{character}) the name of the new option.
 }
@@ -173,12 +161,12 @@ modifies the value of the one option.
 
 \item{\bold{remove:}}{
 removes a specific option.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{remove(key)}
 }
 \item{\emph{Arguments:}}{
-\itemize{
+\describe{
 \item{\strong{key:}}{
 (\emph{character}) the name of the option to remove.
 }
@@ -189,7 +177,7 @@ removes a specific option.
 
 \item{\bold{getAll:}}{
 gets the list of options.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{getAll()}
 }
@@ -201,7 +189,7 @@ Value of options.
 
 \item{\bold{remove:}}{
 resets the option list to the initial state.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{reset()}
 }
@@ -210,7 +198,7 @@ resets the option list to the initial state.
 
 \item{\bold{isSpecificOption:}}{
 checks for the existence of an specific option.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{isSpecificProperty(key)}
 }
@@ -218,7 +206,7 @@ checks for the existence of an specific option.
 A boolean results according to the existence of the specific option in the list of options
 }
 \item{\emph{Arguments:}}{
-\itemize{
+\describe{
 \item{\strong{key:}}{
 (\emph{character}) the key of the option to check.
 }
@@ -230,7 +218,7 @@ A boolean results according to the existence of the specific option in the list 
 \item{\bold{cleanCache:}}{
 Cleans the cache of executed pipelines. Deletes all files and directories
 that are in the path defined in \strong{"cache.folder"} option.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{cleanCache()}
 }
@@ -240,12 +228,12 @@ that are in the path defined in \strong{"cache.folder"} option.
 \item{\bold{configureLog:}}{
 Configures the bdpar log. In the case of parallelisation, only the log by
 file will work.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{configureLog(console = TRUE, threshold = "INFO", file = NULL)}
 }
 \item{\emph{Arguments:}}{
-\itemize{
+\describe{
 \item{\strong{console:}}{
 (\emph{boolean}) Shows the log on console or not.
 }
@@ -264,7 +252,7 @@ the log in file will not be enabled.
 
 \item{\bold{disableLog:}}{
 Deactivates the bdpar log.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{disableLog()}
 }
@@ -273,7 +261,7 @@ Deactivates the bdpar log.
 
 \item{\bold{getLogConfiguration:}}{
 Print the bdpar log configuration.
-\itemize{
+\describe{
 \item{\emph{Usage:}}{
 \code{getLogConfiguration()}
 }
@@ -285,9 +273,8 @@ Print the bdpar log configuration.
 \seealso{
 \code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
          \code{\link{Connections}}, \code{\link{ContractionPipe}},
-         \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
-         \code{\link{ExtractorYtbid}}, \code{\link{GuessLanguagePipe}},
-         \code{\link{Instance}}, \code{\link{SlangPipe}},
-         \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}},
-         \code{\link{\%>|\%}}
+         \code{\link{ExtractorEml}}, \code{\link{ExtractorYtbid}},
+         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+         \code{\link{TeeCSVPipe}}, \code{\link{\%>|\%}}
 }

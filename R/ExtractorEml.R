@@ -5,7 +5,7 @@
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
-# email, tweets, YouTube comments).
+# email, YouTube comments).
 #
 # Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
@@ -40,8 +40,7 @@
 #' \code{obtainSource} and \code{obtainDate} abstracts functions.
 #'
 #' @seealso \code{\link{bdpar.Options}}, \code{\link{ExtractorSms}},
-#' \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
-#' \code{\link{Instance}}
+#' \code{\link{ExtractorYtbid}}, \code{\link{Instance}}
 #'
 #' @keywords NULL
 #'

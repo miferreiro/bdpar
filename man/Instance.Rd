@@ -9,7 +9,7 @@ Provides the required methods to successfully handle each
 }
 \seealso{
 \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
-\code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}}
+\code{\link{ExtractorYtbid}}
 }
 \section{Methods}{
 \subsection{Public methods}{

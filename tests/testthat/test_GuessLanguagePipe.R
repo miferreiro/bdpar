@@ -10,12 +10,10 @@ testthat::test_that("initialize",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  languageTwitter <- FALSE
 
   testthat::expect_silent(GuessLanguagePipe$new(propertyName,
                                                 alwaysBeforeDeps,
-                                                notAfterDeps,
-                                                languageTwitter))
+                                                notAfterDeps))
 })
 
 testthat::teardown({
@@ -33,12 +31,10 @@ testthat::test_that("initialize propertyName type error",{
   propertyName <- NULL
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  languageTwitter <- FALSE
 
   testthat::expect_error(GuessLanguagePipe$new(propertyName,
                                                alwaysBeforeDeps,
-                                               notAfterDeps,
-                                               languageTwitter),
+                                               notAfterDeps),
                          "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'propertyName' variable: NULL",
                          fixed = TRUE)
 })
@@ -58,12 +54,10 @@ testthat::test_that("initialize alwaysBeforeDeps type error",{
   propertyName <- "language"
   alwaysBeforeDeps <- NULL
   notAfterDeps <- list()
-  languageTwitter <- FALSE
 
   testthat::expect_error(GuessLanguagePipe$new(propertyName,
                                                alwaysBeforeDeps,
-                                               notAfterDeps,
-                                               languageTwitter),
+                                               notAfterDeps),
                          "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'alwaysBeforeDeps' variable: NULL",
                          fixed = TRUE)
 })
@@ -83,38 +77,11 @@ testthat::test_that("initialize notAfterDeps type error",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- NULL
-  languageTwitter <- FALSE
 
   testthat::expect_error(GuessLanguagePipe$new(propertyName,
                                                alwaysBeforeDeps,
-                                               notAfterDeps,
-                                               languageTwitter),
+                                               notAfterDeps),
                          "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'notAfterDeps' variable: NULL",
-                         fixed = TRUE)
-})
-
-testthat::teardown({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::setup({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::test_that("initialize languageTwitter type error",{
-
-  propertyName <- "language"
-  alwaysBeforeDeps <- list()
-  notAfterDeps <- list()
-  languageTwitter <- NULL
-
-  testthat::expect_error(GuessLanguagePipe$new(propertyName,
-                                               alwaysBeforeDeps,
-                                               notAfterDeps,
-                                               languageTwitter),
-                         "[GuessLanguagePipe][initialize][FATAL] Checking the type of the 'languageTwitter' variable: NULL",
                          fixed = TRUE)
 })
 
@@ -133,12 +100,10 @@ testthat::test_that("pipe",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  languageTwitter <- TRUE
 
   pipe <- GuessLanguagePipe$new(propertyName,
                                 alwaysBeforeDeps,
-                                notAfterDeps,
-                                languageTwitter)
+                                notAfterDeps)
 
   path <- system.file(file.path("testFiles",
                                 "_ham_",
@@ -172,12 +137,10 @@ testthat::test_that("pipe no detect language",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  languageTwitter <- TRUE
 
   pipe <- GuessLanguagePipe$new(propertyName,
                                 alwaysBeforeDeps,
-                                notAfterDeps,
-                                languageTwitter)
+                                notAfterDeps)
 
   path <- file.path("testFiles",
                     "testGuessLanguagePipe",
@@ -207,11 +170,10 @@ testthat::test_that("pipe instance type error",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  languageTwitter <- TRUE
+
   pipe <- GuessLanguagePipe$new(propertyName,
                                 alwaysBeforeDeps,
-                                notAfterDeps,
-                                languageTwitter)
+                                notAfterDeps)
 
   instance <- NULL
   testthat::expect_error(pipe$pipe(instance),
@@ -234,12 +196,10 @@ testthat::test_that("getLanguage",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  languageTwitter <- TRUE
 
   pipe <- GuessLanguagePipe$new(propertyName,
                                 alwaysBeforeDeps,
-                                notAfterDeps,
-                                languageTwitter)
+                                notAfterDeps)
 
   data <- "This text is an English example to detecte the language"
 
@@ -262,12 +222,10 @@ testthat::test_that("getLanguage data input error",{
   propertyName <- "language"
   alwaysBeforeDeps <- list()
   notAfterDeps <- list()
-  languageTwitter <- TRUE
 
   pipe <- GuessLanguagePipe$new(propertyName,
                                 alwaysBeforeDeps,
-                                notAfterDeps,
-                                languageTwitter)
+                                notAfterDeps)
 
   data <- NULL
 

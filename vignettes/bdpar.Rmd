@@ -13,7 +13,7 @@ vignette: >
 # Abstract
 
 <div style = "text-align: justify">
-*Bdpar* is a tool to easily build customized data flows to pre-process large volumes of information from different sources. To this end, *bdpar* allows to (i) easily use and create new functionalities and (ii) develop new data source extractors according to the user needs. Additionally, the package provides by default a predefined data flow to extract and preprocess the most relevant information (tokens, dates, ... ) from some textual sources (SMS, email, tweets, YouTube comments).
+*Bdpar* is a tool to easily build customized data flows to pre-process large volumes of information from different sources. To this end, *bdpar* allows to (i) easily use and create new functionalities and (ii) develop new data source extractors according to the user needs. Additionally, the package provides by default a predefined data flow to extract and preprocess the most relevant information (tokens, dates, ... ) from some textual sources (SMS, email, YouTube comments).
 </div>
 
 # Introduction and basics
@@ -52,17 +52,13 @@ The package have four input data implemented, which are:
     - File extension: .tsms
     - Subclass of *Instance*: ExtractorSms
     
-- **ID's Tweets**:
-    - File extension: .twtid
-    - Subclass of *Instance*: ExtractorTwtid
-    
 - **ID's comments of YouTube**:
     - File extension: .ytbid
     - Subclass of *Instance*: ExtractorYtbid 
 
 <div style = "text-align: justify">
 
-**bdpar** is able to load data source from multiple sources. In fact, by default is fully compatible with Email (eml), Twitter (twtid), SMS (tsms) and YouTube (ytbid) data sources. However, new data loaders can be easily implemented by implementing (i) a new class implementing *obtainSource* and *obtainDate* abstract methods from the *Instance* class and (ii) registering this new class on the *ExtractorFactory* class through its method *registerExtractor*.
+**bdpar** is able to load data source from multiple sources. In fact, by default is fully compatible with Email (eml), SMS (tsms) and YouTube (ytbid) data sources. However, new data loaders can be easily implemented by implementing (i) a new class implementing *obtainSource* and *obtainDate* abstract methods from the *Instance* class and (ii) registering this new class on the *ExtractorFactory* class through its method *registerExtractor*.
 
 Is important to take into account that the type of Instance used is deducted by default according to the file extension. However, this behaviour can be easily modelled according to user needs.
 
@@ -145,7 +141,7 @@ The framework provides over 18 different pipes (inherited from *GenericPipe*). E
 
 #### **File2Pipe**
 
-Obtains the **source** using the *obtainSource* method which implements the subclass of the superclass *Instance*. By default, the subclass implemented are *ExtractorEml*, *ExtractorSms*, *ExtractorTwtid* and *ExtractorYtbid*.
+Obtains the **source** using the *obtainSource* method which implements the subclass of the superclass *Instance*. By default, the subclass implemented are *ExtractorEml*, *ExtractorSms* and *ExtractorYtbid*.
 
 #### **FindEmojiPipe**
 
@@ -169,11 +165,11 @@ Creates a new **userName** property where the user names stored that are in the 
 
 #### **GuessDatePipe**
 
-Obtains the *date* using the *obtainDate* method which implements the subclass of the superclass *Instance*. By default, the subclass implemented are *ExtractorEml*, *ExtractorSms*, *ExtractorTwtid* and *ExtractorYtbid*.
+Obtains the *date* using the *obtainDate* method which implements the subclass of the superclass *Instance*. By default, the subclass implemented are *ExtractorEml*, *ExtractorSms* and *ExtractorYtbid*.
 
 #### **GuessLanguagePipe**
 
-Guesses the language by using language detector of library cld2. Creates the **language** property which indicates the idiom text. Optionally, it is possible to choose the language provided by Twitter.
+Guesses the language by using language detector of library cld2. Creates the **language** property which indicates the idiom text.
 
 #### **MeasureLengthPipe**
 
@@ -376,7 +372,7 @@ To manage the flow of pipes, there is a new operator called **%>\|%**. This oper
 
 <div style = "text-align: justify">
 
-The *bdpar.Options* object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
+The *bdpar.Options* object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
 
 The different options that exist initially and how their value is indicated to you are
 shown below.
@@ -391,13 +387,6 @@ bdpar.Options$set("resources.contractions.path", <<contractions.path>>)
 bdpar.Options$set("resources.interjections.path", <<interjections.path>>)
 bdpar.Options$set("resources.slangs.path", <<slangs.path>>)
 bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)
-
-# [twitter]
-bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)
-bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)
-bdpar.Options$set("twitter.access.token", <<access_token>>)
-bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)
-bdpar.Options$set("cache.twitter.path", <<cache.path>>)
 
 # [teeCSVPipe]
 bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)

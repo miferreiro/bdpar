@@ -5,7 +5,7 @@
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
-# email, tweets, YouTube comments).
+# email, YouTube comments).
 #
 # Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
@@ -29,7 +29,6 @@
 #' if it has been previously configured.
 #'
 #' @seealso \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
-#' \code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
 #' \code{\link{Instance}}
 #'
 #' @keywords NULL
@@ -56,7 +55,6 @@ ExtractorFactory <- R6Class(
       }
       private$extractors <- list("eml" = ExtractorEml,
                                  "tsms" = ExtractorSms,
-                                 "twtid" = ExtractorTwtid,
                                  "ytbid" = ExtractorYtbid)
       private$defaultExtractor <- NULL
     },
@@ -260,7 +258,6 @@ ExtractorFactory <- R6Class(
     reset = function() {
       private$extractors <- list("eml" = ExtractorEml,
                                  "tsms" = ExtractorSms,
-                                 "twtid" = ExtractorTwtid,
                                  "ytbid" = ExtractorYtbid)
     },
     #'

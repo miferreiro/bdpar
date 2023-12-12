@@ -5,7 +5,7 @@
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
-# email, tweets, YouTube comments).
+# email, YouTube comments).
 #
 # Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
@@ -54,18 +54,6 @@
 #' - \code{bdpar.Options$set("resources.slangs.path", <<slangs.path>>)}
 #'
 #' - \code{bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)}
-#'
-#' \strong{[twitter]}
-#'
-#' - \code{bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)}
-#'
-#' - \code{bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)}
-#'
-#' - \code{bdpar.Options$set("twitter.access.token", <<access_token>>)}
-#'
-#' - \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
-#'
-#' - \code{bdpar.Options$set("cache.twitter.path", <<cache.path>>)}
 #'
 #' \strong{[teeCSVPipe]}
 #'
@@ -123,10 +111,10 @@
 #' method in \code{\link{bdpar.Options}} does this task.
 #'
 #' @section Methods:
-#' \itemize{
+#' \describe{
 #' \item{\bold{get:}}{
 #' obtains a specific option.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{get(key)}
 #' }
@@ -134,7 +122,7 @@
 #' the value of the specific option.
 #' }
 #' \item{\emph{Arguments:}}{
-#' \itemize{
+#' \describe{
 #' \item{\strong{key:}}{
 #' (\emph{character}) the name of the option to obtain.
 #' }
@@ -145,12 +133,12 @@
 #'
 #' \item{\bold{add:}}{
 #' adds a option to the list of options
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{add(key, value)}
 #' }
 #' \item{\emph{Arguments:}}{
-#' \itemize{
+#' \describe{
 #' \item{\strong{key:}}{
 #' (\emph{character}) the name of the new option.
 #' }
@@ -164,12 +152,12 @@
 #'
 #' \item{\bold{set:}}{
 #' modifies the value of the one option.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{set(key, value)}
 #' }
 #' \item{\emph{Arguments:}}{
-#' \itemize{
+#' \describe{
 #' \item{\strong{key:}}{
 #' (\emph{character}) the name of the new option.
 #' }
@@ -183,12 +171,12 @@
 #'
 #' \item{\bold{remove:}}{
 #' removes a specific option.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{remove(key)}
 #' }
 #' \item{\emph{Arguments:}}{
-#' \itemize{
+#' \describe{
 #' \item{\strong{key:}}{
 #' (\emph{character}) the name of the option to remove.
 #' }
@@ -199,7 +187,7 @@
 #'
 #' \item{\bold{getAll:}}{
 #' gets the list of options.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{getAll()}
 #' }
@@ -211,7 +199,7 @@
 #'
 #' \item{\bold{remove:}}{
 #' resets the option list to the initial state.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{reset()}
 #' }
@@ -220,7 +208,7 @@
 #'
 #' \item{\bold{isSpecificOption:}}{
 #' checks for the existence of an specific option.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{isSpecificProperty(key)}
 #' }
@@ -228,7 +216,7 @@
 #' A boolean results according to the existence of the specific option in the list of options
 #' }
 #' \item{\emph{Arguments:}}{
-#' \itemize{
+#' \describe{
 #' \item{\strong{key:}}{
 #' (\emph{character}) the key of the option to check.
 #' }
@@ -240,7 +228,7 @@
 #' \item{\bold{cleanCache:}}{
 #' Cleans the cache of executed pipelines. Deletes all files and directories
 #' that are in the path defined in \strong{"cache.folder"} option.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{cleanCache()}
 #' }
@@ -250,12 +238,12 @@
 #' \item{\bold{configureLog:}}{
 #' Configures the bdpar log. In the case of parallelisation, only the log by
 #' file will work.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{configureLog(console = TRUE, threshold = "INFO", file = NULL)}
 #' }
 #' \item{\emph{Arguments:}}{
-#' \itemize{
+#' \describe{
 #' \item{\strong{console:}}{
 #' (\emph{boolean}) Shows the log on console or not.
 #' }
@@ -274,7 +262,7 @@
 #'
 #' \item{\bold{disableLog:}}{
 #' Deactivates the bdpar log.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{disableLog()}
 #' }
@@ -283,7 +271,7 @@
 #'
 #' \item{\bold{getLogConfiguration:}}{
 #' Print the bdpar log configuration.
-#' \itemize{
+#' \describe{
 #' \item{\emph{Usage:}}{
 #' \code{getLogConfiguration()}
 #' }
@@ -293,11 +281,10 @@
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
 #'          \code{\link{Connections}}, \code{\link{ContractionPipe}},
-#'          \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
-#'          \code{\link{ExtractorYtbid}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{SlangPipe}},
-#'          \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}},
-#'          \code{\link{\%>|\%}}
+#'          \code{\link{ExtractorEml}}, \code{\link{ExtractorYtbid}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+#'          \code{\link{TeeCSVPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'

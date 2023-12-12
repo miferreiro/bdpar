@@ -2,26 +2,16 @@
 % Please edit documentation in R/Connections.R
 \name{Connections}
 \alias{Connections}
-\title{Class to manage the connections with Twitter and YouTube}
+\title{Class to manage the connections with YouTube}
 \description{
-The tasks of the functions that the \code{\link{Connections}} class has are to
-establish the connections and control the number of requests that have been made
-with the APIs of Twitter and YouTube.
+The tasks of the functions that the \code{\link{Connections}}
+class has are to establish the connections and control the number of requests
+that have been made with the API of YouTube.
 }
 \section{Details}{
 
-The way to indicate the keys of YouTube and Twitter has to be
+The way to indicate the keys of YouTube has to be
 through fields of \emph{\link{bdpar.Options}} variable:
-
-\strong{[twitter]}
-
-- \code{bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)}
-
-- \code{bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)}
-
-- \code{bdpar.Options$set("twitter.access.token", <<access_token>>)}
-
-- \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
 
 \strong{[youtube]}
 
@@ -36,16 +26,12 @@ Fields of unused connections will be automatically ignored by the platform.
 }
 
 \seealso{
-\code{\link{bdpar.Options}}, \code{\link{ExtractorTwtid}},
-         \code{\link{ExtractorYtbid}}
+\code{\link{bdpar.Options}}, \code{\link{ExtractorYtbid}}
 }
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Connections-new}{\code{Connections$new()}}
-\item \href{#method-Connections-getTwitterToken}{\code{Connections$getTwitterToken()}}
-\item \href{#method-Connections-startConnectionWithTwitter}{\code{Connections$startConnectionWithTwitter()}}
-\item \href{#method-Connections-checkRequestToTwitter}{\code{Connections$checkRequestToTwitter()}}
 \item \href{#method-Connections-startConnectionWithYoutube}{\code{Connections$startConnectionWithYoutube()}}
 \item \href{#method-Connections-addNumRequestToYoutube}{\code{Connections$addNumRequestToYoutube()}}
 \item \href{#method-Connections-checkRequestToYoutube}{\code{Connections$checkRequestToYoutube()}}
@@ -60,39 +46,6 @@ Fields of unused connections will be automatically ignored by the platform.
 Creates a \code{\link{Connections}} object.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connections$new()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connections-getTwitterToken"></a>}}
-\if{latex}{\out{\hypertarget{method-Connections-getTwitterToken}{}}}
-\subsection{Method \code{getTwitterToken()}}{
-Gets the Twitter token ID.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connections$getTwitterToken()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-Value of \code{twitterToken}.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connections-startConnectionWithTwitter"></a>}}
-\if{latex}{\out{\hypertarget{method-Connections-startConnectionWithTwitter}{}}}
-\subsection{Method \code{startConnectionWithTwitter()}}{
-Responsible of establishing the connection to Twitter.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connections$startConnectionWithTwitter()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connections-checkRequestToTwitter"></a>}}
-\if{latex}{\out{\hypertarget{method-Connections-checkRequestToTwitter}{}}}
-\subsection{Method \code{checkRequestToTwitter()}}{
-Function in charge of handling the connection with Twitter.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connections$checkRequestToTwitter()}\if{html}{\out{</div>}}
 }
 
 }

@@ -5,7 +5,7 @@
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
-# email, tweets, YouTube comments).
+# email, YouTube comments).
 #
 # Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
@@ -36,7 +36,7 @@
 #' which have different methods to support the functionality of different pipes.
 #'
 #' @section Static variables:
-#' \itemize{
+#' \describe{
 #' \item{\bold{connections}:}{
 #' (\emph{Connections}) object that handles the connections with YouTube and
 #' Twitter.
