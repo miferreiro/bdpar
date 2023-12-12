@@ -5,47 +5,6 @@ testthat::setup({
   bdpar.Options$configureLog()
 })
 
-testthat::test_that("startConnectionWithTwitter connectionWithTwitter=FALSE",{
-  testthat::skip_on_cran()
-  testthat::skip_if_not_installed("rtweet")
-
-  connection <- Connections$new()
-
-  testthat::expect_error(connection$startConnectionWithTwitter(),
-                         "[Connections][startConnectionWithTwitter][FATAL] Twitter API keys are not defined on bdpar.Options",
-                         fixed = TRUE)
-})
-
-testthat::teardown({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::setup({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::test_that("startConnectionWithTwitter connectionWithTwitter=TRUE",{
-  testthat::skip_if_not_installed("rtweet")
-
-  connection <- Connections$new()
-
-  connection$.__enclos_env__$private$connectionWithTwitter <- TRUE
-
-  testthat::expect_null(connection$startConnectionWithTwitter())
-})
-
-testthat::teardown({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
-testthat::setup({
-  bdpar.Options$reset()
-  bdpar.Options$configureLog()
-})
-
 testthat::test_that("startConnectionWithYoutube connectionWithYoutube=FALSE",{
   testthat::skip_if_not_installed("tuber")
 

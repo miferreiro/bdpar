@@ -1,3 +1,7 @@
+# Version 3.1.0
+
+-   Removed rtweet package because it is no longer maintained.
+
 # Version 3.0.3
 
 -   Adapted documentation pages to the use of HTML5 supported by R 4.2.0.

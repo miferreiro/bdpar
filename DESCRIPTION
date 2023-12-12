@@ -1,7 +1,7 @@
 Type: Package
 Package: bdpar
 Title: Big Data Preprocessing Architecture
-Version: 3.0.4
+Version: 3.1.0
 Authors@R: 
     c(person(given = "Miguel", 
             family = "Ferreiro-Díaz", 
@@ -27,7 +27,7 @@ Description:
     create new functionalities and (ii) develop new data source extractors according to the 
     user needs. Additionally, the package provides by default a predefined data flow 
     to extract and pre-process the most relevant information (tokens, dates, ... ) from some textual 
-    sources (SMS, Email, tweets, YouTube comments).
+    sources (SMS, Email, YouTube comments).
 Date: 2023-12-11
 License: GPL-3
 URL: https://github.com/miferreiro/bdpar
@@ -47,7 +47,6 @@ Suggests:
     rex,
     rjson,
     rmarkdown,
-    rtweet,
     stringi,
     stringr,
     testthat (>= 2.3.1),
@@ -70,7 +69,6 @@ Collate:
     'ExtractorEml.R'
     'ExtractorFactory.R'
     'ExtractorSms.R'
-    'ExtractorTwtid.R'
     'ExtractorYtbid.R'
     'File2Pipe.R'
     'FindEmojiPipe.R'

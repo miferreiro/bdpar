@@ -16,7 +16,7 @@ editor_options:
 
 <div style = "text-align: justify">
 
-bdpar is a a tool to easily build customized data flows to pre-process large volumes of information from different sources. To this end, bdpar allows to (i) easily use and create new functionalities and (ii) develop new data source extractors according to the user needs. Additionally, the package provides by default a predefined data flow to extract and preprocess the most relevant information (tokens, dates, ... ) from some textual sources (SMS, emails, tweets, YouTube comments).
+bdpar is a a tool to easily build customized data flows to pre-process large volumes of information from different sources. To this end, bdpar allows to (i) easily use and create new functionalities and (ii) develop new data source extractors according to the user needs. Additionally, the package provides by default a predefined data flow to extract and preprocess the most relevant information (tokens, dates, ... ) from some textual sources (SMS, emails, YouTube comments).
 </div>
 
 ## Description 📄
@@ -71,7 +71,7 @@ bdpar_object$execute(path,
 
 <div style = "text-align: justify">
 
-The bdpar.Options object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTube or Twitter) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
+The bdpar.Options object is used to store the different configuration parameters of the pipes used in the preprocessing. For example, to indicate the keys used to work with the APIs that require it (such as YouTuber) as well as various configuration parameters that allow to customize the behavior of the application such as the choice of text format to use in case there are multipart emails (plain text or text in html format). It is important to keep in mind that if the parameters are not needed, the value can be omitted.
 
 The different options that exist initially and how their value is indicated to you are shown below.
 
@@ -87,13 +87,6 @@ bdpar.Options$set("resources.contractions.path", <<contractions.path>>)
 bdpar.Options$set("resources.interjections.path", <<interjections.path>>)
 bdpar.Options$set("resources.slangs.path", <<slangs.path>>)
 bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)
-
-# [twitter]
-bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)
-bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)
-bdpar.Options$set("twitter.access.token", <<access_token>>)
-bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)
-bdpar.Options$set("cache.twitter.path", <<cache.path>>)
 
 # [teeCSVPipe]
 bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)
@@ -139,7 +132,6 @@ On the other hand, the types of the files which are implemented by default are:
 |:---------------------:|:---------:|
 | SMS                   | .tsms     |
 | Email                 | .eml      |
-| ID Tweet              | .twtid    |
 | ID comment of YouTube | .ytbid    |
 
 
@@ -171,10 +163,11 @@ On the other hand, the types of the files which are implemented by default are:
 
   - **Suggests**:
 
-|           |             | R Libraries |           |           |  
-|:---------:|:-----------:|:-----------:|:---------:|:---------:|
-| cld2      | knitr       | rex         | rjson     | rmarkdown |
-| rtweet    | stringi     | stringr     | testthat  | tuber     |
+|           | R Libraries |             |
+|:---------:|:-----------:|:-----------:|
+| cld2      | knitr       | rex         |
+| rjson     | rmarkdown   | stringi     |
+| stringr   | testthat    | tuber       |
 
 ##### Suggested configuration for not USA people
 

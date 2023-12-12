@@ -5,7 +5,7 @@
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
-# email, tweets, YouTube comments).
+# email, YouTube comments).
 #
 # Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
@@ -54,18 +54,6 @@
 #' - \code{bdpar.Options$set("resources.slangs.path", <<slangs.path>>)}
 #'
 #' - \code{bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)}
-#'
-#' \strong{[twitter]}
-#'
-#' - \code{bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)}
-#'
-#' - \code{bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)}
-#'
-#' - \code{bdpar.Options$set("twitter.access.token", <<access_token>>)}
-#'
-#' - \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
-#'
-#' - \code{bdpar.Options$set("cache.twitter.path", <<cache.path>>)}
 #'
 #' \strong{[teeCSVPipe]}
 #'
@@ -293,11 +281,10 @@
 #'
 #' @seealso \code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
 #'          \code{\link{Connections}}, \code{\link{ContractionPipe}},
-#'          \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
-#'          \code{\link{ExtractorYtbid}}, \code{\link{GuessLanguagePipe}},
-#'          \code{\link{Instance}}, \code{\link{SlangPipe}},
-#'          \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}},
-#'          \code{\link{\%>|\%}}
+#'          \code{\link{ExtractorEml}}, \code{\link{ExtractorYtbid}},
+#'          \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+#'          \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+#'          \code{\link{TeeCSVPipe}}, \code{\link{\%>|\%}}
 #'
 #' @keywords NULL
 #'

@@ -28,8 +28,7 @@ This class inherits from \code{\link{Instance}} and implements the
 
 \seealso{
 \code{\link{bdpar.Options}}, \code{\link{ExtractorSms}},
-\code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
-\code{\link{Instance}}
+\code{\link{ExtractorYtbid}}, \code{\link{Instance}}
 }
 \section{Super class}{
 \code{\link[bdpar:Instance]{bdpar::Instance}} -> \code{ExtractorEml}

@@ -6,17 +6,7 @@
 \description{
 This class allows guess the language by using language detector of library
 cld2. Creates the \strong{language} property which indicates the idiom text.
-Optionally, it is possible to choose the language provided by Twitter.
 }
-\section{Details}{
-
-To obtain the language of the tweets, it will be verified that there is a
-json file with the information stored in memory. On the other hand, it is
-necessary define the \strong{"cache.twitter.path"} field of
-\emph{\link{bdpar.Options}} variable to know where the
-information of tweets are saved.
-}
-
 \section{Note}{
 
 The Pipe will invalidate the \code{\link{Instance}} if the language of the data
@@ -75,8 +65,7 @@ Creates a \code{\link{GuessLanguagePipe}} object.
 \if{html}{\out{<div class="r">}}\preformatted{GuessLanguagePipe$new(
   propertyName = "language",
   alwaysBeforeDeps = list("StoreFileExtPipe", "TargetAssigningPipe"),
-  notAfterDeps = list(),
-  languageTwitter = TRUE
+  notAfterDeps = list()
 )}\if{html}{\out{</div>}}
 }
 
@@ -93,10 +82,6 @@ this one).}
 \item{\code{notAfterDeps}}{A \code{\link{list}} value. The dependencies
 notAfter (\code{\link{GenericPipe}s} that cannot be executed after
 this one).}
-
-\item{\code{languageTwitter}}{A \code{\link{logical}} value. Indicates whether
-for the \code{\link{Instance}s} of type twtid the language that
-returns the API is obtained or the detector is applied.}
 }
 \if{html}{\out{</div>}}
 }

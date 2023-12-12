@@ -11,7 +11,6 @@ if it has been previously configured.
 }
 \seealso{
 \code{\link{ExtractorEml}}, \code{\link{ExtractorSms}},
-\code{\link{ExtractorTwtid}}, \code{\link{ExtractorYtbid}},
 \code{\link{Instance}}
 }
 \section{Methods}{

@@ -37,18 +37,6 @@ as shown bellow:
 
 - \code{bdpar.Options$set("resources.stopwords.path", <<stopwords.path>>)}
 
-\strong{[twitter]}
-
-- \code{bdpar.Options$set("twitter.consumer.key", <<consumer_key>>)}
-
-- \code{bdpar.Options$set("twitter.consumer.secret", <<consumer_secret>>)}
-
-- \code{bdpar.Options$set("twitter.access.token", <<access_token>>)}
-
-- \code{bdpar.Options$set("twitter.access.token.secret", <<access_token_secret>>)}
-
-- \code{bdpar.Options$set("cache.twitter.path", <<cache.path>>)}
-
 \strong{[teeCSVPipe]}
 
 - \code{bdpar.Options$set("teeCSVPipe.output.path", <<outputh.path>>)}
@@ -285,9 +273,8 @@ Print the bdpar log configuration.
 \seealso{
 \code{\link{AbbreviationPipe}}, \code{\link{bdpar.log}},
          \code{\link{Connections}}, \code{\link{ContractionPipe}},
-         \code{\link{ExtractorEml}}, \code{\link{ExtractorTwtid}},
-         \code{\link{ExtractorYtbid}}, \code{\link{GuessLanguagePipe}},
-         \code{\link{Instance}}, \code{\link{SlangPipe}},
-         \code{\link{StopWordPipe}}, \code{\link{TeeCSVPipe}},
-         \code{\link{\%>|\%}}
+         \code{\link{ExtractorEml}}, \code{\link{ExtractorYtbid}},
+         \code{\link{GuessLanguagePipe}}, \code{\link{Instance}},
+         \code{\link{SlangPipe}}, \code{\link{StopWordPipe}},
+         \code{\link{TeeCSVPipe}}, \code{\link{\%>|\%}}
 }

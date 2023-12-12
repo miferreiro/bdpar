@@ -5,7 +5,7 @@
 # source extractors according to the user needs. Additionally, the package
 # provides by default a predefined data flow to extract and preprocess the most
 # relevant information (tokens, dates, ... ) from some textual sources (SMS,
-# email, tweets, YouTube comments).
+# email, YouTube comments).
 #
 # Copyright (C) 2020-2022 Sing Group (University of Vigo)
 #
@@ -25,14 +25,6 @@
 #'
 #' @description This class allows guess the language by using language detector of library
 #' cld2. Creates the \strong{language} property which indicates the idiom text.
-#' Optionally, it is possible to choose the language provided by Twitter.
-#'
-#' @section Details:
-#' To obtain the language of the tweets, it will be verified that there is a
-#' json file with the information stored in memory. On the other hand, it is
-#' necessary define the \strong{"cache.twitter.path"} field of
-#' \emph{\link{bdpar.Options}} variable to know where the
-#' information of tweets are saved.
 #'
 #' @section Note:
 #' The Pipe will invalidate the \code{\link{Instance}} if the language of the data
@@ -76,15 +68,11 @@ GuessLanguagePipe <- R6Class(
     #' @param notAfterDeps A \code{\link{list}} value. The dependencies
     #' notAfter (\code{\link{GenericPipe}s} that cannot be executed after
     #' this one).
-    #' @param languageTwitter A \code{\link{logical}} value. Indicates whether
-    #' for the \code{\link{Instance}s} of type twtid the language that
-    #' returns the API is obtained or the detector is applied.
     #'
     initialize = function(propertyName = "language",
                           alwaysBeforeDeps = list("StoreFileExtPipe",
                                                   "TargetAssigningPipe"),
-                          notAfterDeps = list(),
-                          languageTwitter = TRUE) {
+                          notAfterDeps = list()) {
 
       if (!"character" %in% class(propertyName)) {
         bdpar.log(message = paste0("Checking the type of the 'propertyName' variable: ",
@@ -110,16 +98,7 @@ GuessLanguagePipe <- R6Class(
                   methodName = "initialize")
       }
 
-      if (!"logical" %in% class(languageTwitter)) {
-        bdpar.log(message = paste0("Checking the type of the 'languageTwitter' variable: ",
-                                   class(languageTwitter)),
-                  level = "FATAL",
-                  className = class(self)[1],
-                  methodName = "initialize")
-      }
-
       super$initialize(propertyName, alwaysBeforeDeps, notAfterDeps)
-      private$languageTwitter <- languageTwitter
     },
     #'
     #' @description Preprocesses the \code{\link{Instance}} to obtain the
@@ -139,51 +118,6 @@ GuessLanguagePipe <- R6Class(
                   level = "FATAL",
                   className = class(self)[1],
                   methodName = "pipe")
-      }
-
-      if (private$languageTwitter &&
-          instance$getSpecificProperty("extension") %in% "twtid") {
-
-        cachePath <- bdpar.Options$get("cache.twitter.path")
-        if (!is.null(cachePath) && file.exists(paste0(cachePath, "/_",
-                                                      instance$getSpecificProperty("target"),
-                                                      "_/",
-                                                      instance$getId(),
-                                                      ".json"))) {
-
-          path <- paste0(cachePath,"/_",
-                         instance$getSpecificProperty("target"),
-                         "_/", instance$getId(), ".json")
-
-          dataFromJsonFile <- rjson::fromJSON(file = path)
-
-          if (!is.na(dataFromJsonFile[["lang"]]) &&
-                !is.null(dataFromJsonFile[["lang"]])
-                  && dataFromJsonFile[["lang"]] != "") {
-
-            langTwitter <- dataFromJsonFile[["lang"]]
-
-            instance$addProperties(langTwitter,super$getPropertyName())
-
-            if (is.null(instance$getSpecificProperty("language"))) {
-
-              message <- paste0("The file: ", instance$getPath(), " has a NULL twitter language")
-
-              instance$addProperties(message, "reasonToInvalidate")
-
-              bdpar.log(message = message,
-                        level = "WARN",
-                        className = class(self)[1],
-                        methodName = "pipe")
-
-              instance$invalidate()
-
-              return(instance)
-            }
-
-            return(instance)
-          }
-        }
       }
 
       instance$addProperties(self$getLanguage(instance$getData()),
@@ -226,12 +160,5 @@ GuessLanguagePipe <- R6Class(
 
       cld2::detect_language(data, plain_text = TRUE)
     }
-  ),
-
-  private = list(
-    # A (\emph{logical}) value. Indicates whether for the Instances of type
-    # twtid the language that returns the api is obtained or the detector is
-    # applied.
-    languageTwitter = FALSE
   )
 )
